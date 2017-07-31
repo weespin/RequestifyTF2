@@ -25,15 +25,17 @@ namespace RequestifyTF2.Api
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     using (var web = new WebClient())
                     {
-                        //todo это тоже мертвое.
+                      
                         web.Proxy = null;
                         web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/TTSPlugin.dll", path + "/TTSPlugin.dll");
                         web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/RequestPlugin.dll",
                             path + "/RequestPlugin.dll");
                         web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/MTTSPlugin.dll", path + "/MTTSPlugin.dll");
                     }
-                    MessageBox.Show("Downloaded. Please restart this programm.", "( ͡° ͜ʖ ͡°)", MessageBoxButtons.OK,
+                    MessageBox.Show("Donwloaded Click 'OK' button", "( ͡° ͜ʖ ͡°)", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
+                    System.Diagnostics.Process.Start(Application.ExecutablePath); // to start new instance of application
+                 
                     Environment.Exit(0);
                 }
 

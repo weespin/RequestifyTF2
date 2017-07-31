@@ -14,7 +14,7 @@ namespace RequestifyTF2.Utils
                 if (!File.Exists(path + "/ahk/ahk.exe"))
                     using (var web = new WebClient())
                     {
-                        web.Proxy = null;
+                      
                         web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.1/ahk.exe", path + "/ahk/ahk.exe");
                     }
             }
@@ -23,7 +23,7 @@ namespace RequestifyTF2.Utils
                 Directory.CreateDirectory(path + "/ahk/");
                 using (var web = new WebClient())
                 {
-                    web.Proxy = null;
+                   
                     web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.1/ahk.exe", path + "/ahk/ahk.exe");
                 }
             }

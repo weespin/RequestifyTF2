@@ -5,7 +5,6 @@ using RequestifyTF2.Api;
 namespace TTSPlugin
 {
     public class TtsPlugin : IPlugin
-
     {
         public string Name => "TTS";
 
