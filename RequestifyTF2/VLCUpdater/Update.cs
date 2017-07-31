@@ -10,7 +10,7 @@ namespace RequestifyTF2.VLCUpdater
         public Update()
         {
             Logger.Write(Logger.Status.STATUS, "Updating VLC Lua files");
-            //Its 2:42AM, 13.12.2016. Happy NEW Year Weespin. P.S. Listening https://www.youtube.com/watch?v=v-XPP40KJdI&list=PLBCFD2691CC921DE2&index=32
+            //Its 2:42AM, 13.12.2016. Happy NEW Year Weespin. P.S. Listening https://goreshit.bandcamp.com/
             string vlcPath = null;
 
             var vlcKey = Registry.LocalMachine.OpenSubKey(@"Software\VideoLan\VLC");
