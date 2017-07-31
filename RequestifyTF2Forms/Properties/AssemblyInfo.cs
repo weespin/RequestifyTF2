@@ -1,19 +1,20 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using Exceptionless.Configuration;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
 [assembly: AssemblyTitle("RequestifyTF2")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("What are you doing there?")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RequestifyTF2")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © Weespin 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
+[assembly: Exceptionless("SYIuMnqp95EIk1RREHPOjwyEqbFuKlOjRX3pgYQC")]
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
@@ -22,7 +23,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("6a852064-d79a-457e-adc8-f6a3d34e51e2")]
+[assembly: Guid("131e76e7-d939-4fc0-a6a6-11af2e85e4b2")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -35,5 +36,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.2.0")]
+[assembly: AssemblyFileVersion("1.0.2.0")]

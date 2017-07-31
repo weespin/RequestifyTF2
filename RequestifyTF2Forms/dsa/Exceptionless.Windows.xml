@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Exceptionless.Windows</name>
+    </assembly>
+    <members>
+        <member name="F:Exceptionless.Dialogs.CrashReportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Exceptionless.Dialogs.CrashReportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Exceptionless.Dialogs.CrashReportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Exceptionless.Windows.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Exceptionless.Windows.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Exceptionless.Windows.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="M:Exceptionless.ExceptionlessWindowsExtensions.Register(Exceptionless.ExceptionlessClient,System.Boolean)">
+            <summary>
+            Reads configuration settings, configures various plugins and wires up to platform specific exception handlers. 
+            </summary>
+            <param name="client">The ExceptionlessClient.</param>
+            <param name="showDialog">Controls whether a dialog is shown when an unhandled exception occurs.</param>
+        </member>
+        <member name="M:Exceptionless.ExceptionlessWindowsExtensions.Unregister(Exceptionless.ExceptionlessClient)">
+            <summary>
+            Unregisters platform specific exception handlers.
+            </summary>
+            <param name="client">The ExceptionlessClient.</param>
+        </member>
+    </members>
+</doc>
