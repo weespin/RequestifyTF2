@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using ConsoleRedirection;
-using Exceptionless;
+
 using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.Api;
@@ -29,7 +29,7 @@ namespace RequestifyTF2Forms
 
         public Main()
         {
-            ExceptionlessClient.Default.Register();
+          
 
             InitializeComponent();
             instance = this;
@@ -206,7 +206,7 @@ namespace RequestifyTF2Forms
             _started = true;
 
             var s = _plugins.Aggregate("", (current, a) => current + (a.Value.Name + a.Value.Version));
-            ExceptionlessClient.Default.SubmitLog("Pressed start button with plugins " + s);
+        
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

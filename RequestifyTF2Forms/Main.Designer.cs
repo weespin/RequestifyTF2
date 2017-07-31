@@ -39,8 +39,8 @@
             this.btn_consoleshow = new System.Windows.Forms.Button();
             this.bnt_settingsshow = new System.Windows.Forms.Button();
             this.pnl_ignorelist = new System.Windows.Forms.Panel();
-            this.chkbx_ListReversed = new System.Windows.Forms.CheckBox();
             this.btn_ListAdd = new System.Windows.Forms.Button();
+            this.chkbx_ListReversed = new System.Windows.Forms.CheckBox();
             this.btn_ListRemove = new System.Windows.Forms.Button();
             this.tbx_ListToAdd = new System.Windows.Forms.TextBox();
             this.lbx_IgnoreList = new System.Windows.Forms.ListBox();
@@ -94,7 +94,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Weespin 2016";
+            this.label2.Text = "Weespin 2017";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // pnl_main
@@ -170,6 +170,16 @@
             this.pnl_ignorelist.Size = new System.Drawing.Size(278, 150);
             this.pnl_ignorelist.TabIndex = 16;
             // 
+            // btn_ListAdd
+            // 
+            this.btn_ListAdd.Location = new System.Drawing.Point(146, 62);
+            this.btn_ListAdd.Name = "btn_ListAdd";
+            this.btn_ListAdd.Size = new System.Drawing.Size(114, 23);
+            this.btn_ListAdd.TabIndex = 22;
+            this.btn_ListAdd.Text = "Add";
+            this.btn_ListAdd.UseVisualStyleBackColor = true;
+            this.btn_ListAdd.Click += new System.EventHandler(this.btn_ListAdd_Click);
+            // 
             // chkbx_ListReversed
             // 
             this.chkbx_ListReversed.AutoSize = true;
@@ -180,16 +190,6 @@
             this.chkbx_ListReversed.Text = "Reversed";
             this.chkbx_ListReversed.UseVisualStyleBackColor = true;
             this.chkbx_ListReversed.CheckedChanged += new System.EventHandler(this.chkbx_ListReversed_CheckedChanged);
-            // 
-            // btn_ListAdd
-            // 
-            this.btn_ListAdd.Location = new System.Drawing.Point(146, 62);
-            this.btn_ListAdd.Name = "btn_ListAdd";
-            this.btn_ListAdd.Size = new System.Drawing.Size(114, 23);
-            this.btn_ListAdd.TabIndex = 22;
-            this.btn_ListAdd.Text = "Add";
-            this.btn_ListAdd.UseVisualStyleBackColor = true;
-            this.btn_ListAdd.Click += new System.EventHandler(this.btn_ListAdd_Click);
             // 
             // btn_ListRemove
             // 
