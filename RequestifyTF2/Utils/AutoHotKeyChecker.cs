@@ -8,6 +8,8 @@ namespace RequestifyTF2.Utils
         public void Check(string path)
 
         {
+            //todo this thing is dead
+            //todo вспомнить что было в ahk.exe вроде автоматом на f11 нажималось.
             if (Directory.Exists(path + "/ahk/"))
             {
                 if (!File.Exists(path + "/ahk/ahk.exe"))

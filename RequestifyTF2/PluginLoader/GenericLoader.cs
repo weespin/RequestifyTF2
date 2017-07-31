@@ -25,6 +25,7 @@ namespace RequestifyTF2.Api
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     using (var web = new WebClient())
                     {
+                        //todo это тоже мертвое.
                         web.Proxy = null;
                         web.DownloadFile("http://earrapify.com/requestifyapi/TTSPlugin.dll", path + "/TTSPlugin.dll");
                         web.DownloadFile("http://earrapify.com/requestifyapi/RequestPlugin.dll",

@@ -77,12 +77,10 @@
   <ItemGroup>
     <Compile Include="Api\IPlugin.cs" />
     <Compile Include="Api\Instances.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="PluginLoader\GenericLoader.cs" />
     <Compile Include="PluginLoader\PluginLoader.cs" />
     <Compile Include="Utils\AutoHotKeyChecker.cs" />
-    <Compile Include="Utils\ConsoleSender\AHKSource.cs" />
     <Compile Include="Utils\CodeGenerator.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
