@@ -13,7 +13,7 @@ namespace RequestPlugin
         public bool OnlyCode => false;
 
         public double Version => 1.1;
-        public string Author => "Cancer";
+        public string Author => "Weespin";
 
         public void Execute(string[] command, bool admin)
         {

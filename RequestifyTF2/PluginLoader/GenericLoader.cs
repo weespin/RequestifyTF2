@@ -27,10 +27,10 @@ namespace RequestifyTF2.Api
                     {
                         //todo это тоже мертвое.
                         web.Proxy = null;
-                        web.DownloadFile("http://earrapify.com/requestifyapi/TTSPlugin.dll", path + "/TTSPlugin.dll");
-                        web.DownloadFile("http://earrapify.com/requestifyapi/RequestPlugin.dll",
+                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/TTSPlugin.dll", path + "/TTSPlugin.dll");
+                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/RequestPlugin.dll",
                             path + "/RequestPlugin.dll");
-                        web.DownloadFile("http://earrapify.com/requestifyapi/MTTSPlugin.dll", path + "/MTTSPlugin.dll");
+                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/MTTSPlugin.dll", path + "/MTTSPlugin.dll");
                     }
                     MessageBox.Show("Downloaded. Please restart this programm.", "( ͡° ͜ʖ ͡°)", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);

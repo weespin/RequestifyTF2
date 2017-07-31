@@ -8,15 +8,14 @@ namespace RequestifyTF2.Utils
         public void Check(string path)
 
         {
-            //todo this thing is dead
-            //todo вспомнить что было в ahk.exe вроде автоматом на f11 нажималось.
+            
             if (Directory.Exists(path + "/ahk/"))
             {
                 if (!File.Exists(path + "/ahk/ahk.exe"))
                     using (var web = new WebClient())
                     {
                         web.Proxy = null;
-                        web.DownloadFile("http://earrapify.com/requestifyapi/ahk/ahk.exe", path + "/ahk/ahk.exe");
+                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.1/ahk.exe", path + "/ahk/ahk.exe");
                     }
             }
             else
@@ -25,7 +24,7 @@ namespace RequestifyTF2.Utils
                 using (var web = new WebClient())
                 {
                     web.Proxy = null;
-                    web.DownloadFile("http://earrapify.com/requestifyapi/ahk/ahk.exe", path + "/ahk/ahk.exe");
+                    web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.1/ahk.exe", path + "/ahk/ahk.exe");
                 }
             }
         }
