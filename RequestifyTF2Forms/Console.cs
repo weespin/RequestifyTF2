@@ -17,29 +17,46 @@ namespace RequestifyTF2Forms
             MinimizeBox = false;
         }
 
+        private int _offsetY = 1;
+        private int _offsetX = 59;
         private void Thanks_Load(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
-            var xs = Main.instance.Location.X + 50 + Main.instance.Height;
-            var ys = Main.instance.Location.Y + 1;
+            var xs = Main.instance.Location.X + _offsetX + Main.instance.Height;
+            var ys = Main.instance.Location.Y + _offsetY;
             ThreadHelperClass.Position(this, this, new Point(xs, ys));
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
 
                 while (true)
-                {
-                    if (ActiveForm == this) continue;
+                {//todo CPU жрет тут
+                   
+                    if (!Main.ConsoleShowed)
+                    {
+                        continue;
+                    }
                     try
                     {
-                        var x = Main.instance.Location.X + 50 + Main.instance.Height;
-                        var y = Main.instance.Location.Y + 1;
-                        ThreadHelperClass.Position(this, this, new Point(x, y));
+                        if (Main.instance.Location.Y+_offsetY != this.Location.Y)
+                        {
+                          
+                            var y = Main.instance.Location.Y +_offsetY;
+                            ThreadHelperClass.Position(this, this, new Point(Location.X, y));
+                        }
+                        if (Main.instance.Location.X+Main.instance.Height + _offsetX != this.Location.X)
+                        {
+
+                            var x = Main.instance.Location.X + _offsetX + Main.instance.Height;
+
+                            ThreadHelperClass.Position(this, this, new Point(x, Location.Y));
+                        }
                     }
                     catch (Exception)
                     {
                         //ignored
                     }
+                    Thread.Sleep(16);
                 }
             }).Start();
         }

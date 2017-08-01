@@ -25,7 +25,7 @@ namespace RequestifyTF2
             if (!File.Exists(Instances.Config.GameDir + "/console.log"))
                 File.Create(Instances.Config.GameDir + "/console.log");
             var fs = new FileStream(Instances.Config.GameDir + "/console.log", FileMode.Open, FileAccess.Read,
-                FileShare.ReadWrite);
+                FileShare.Read);
             using (var sr = new StreamReader(fs))
             {
                 var s = "";

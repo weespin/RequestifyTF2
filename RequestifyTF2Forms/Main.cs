@@ -25,7 +25,7 @@ namespace RequestifyTF2Forms
         private readonly Dictionary<string, IPlugin> _plugins;
         private readonly Console cs = new Console();
         private TextWriter _writer;
-        public bool ConsoleShowed;
+        public static bool ConsoleShowed;
 
         public Main()
         {
@@ -73,7 +73,7 @@ namespace RequestifyTF2Forms
 
         private void label2_Click(object sender, EventArgs e)
         {
-            Process.Start("http://earrapify.com");
+            Process.Start("https://github.com/weespin/RequestifyTF2");
         }
 
         #endregion
