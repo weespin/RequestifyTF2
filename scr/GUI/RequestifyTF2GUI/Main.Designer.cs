@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.PluginsList = new System.Windows.Forms.CheckedListBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btn_onlycode = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pnl_main = new System.Windows.Forms.Panel();
@@ -66,16 +66,16 @@
             this.PluginsList.TabIndex = 1;
             this.PluginsList.SelectedIndexChanged += new System.EventHandler(this.PluginsList_SelectedIndexChanged);
             // 
-            // checkBox1
+            // btn_onlycode
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(146, 66);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(96, 17);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Only with code";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.btn_onlycode.AutoSize = true;
+            this.btn_onlycode.Location = new System.Drawing.Point(146, 66);
+            this.btn_onlycode.Name = "btn_onlycode";
+            this.btn_onlycode.Size = new System.Drawing.Size(96, 17);
+            this.btn_onlycode.TabIndex = 5;
+            this.btn_onlycode.Text = "Only with code";
+            this.btn_onlycode.UseVisualStyleBackColor = true;
+            this.btn_onlycode.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label1
             // 
@@ -102,7 +102,7 @@
             this.pnl_main.Controls.Add(this.btn_start);
             this.pnl_main.Controls.Add(this.PluginsList);
             this.pnl_main.Controls.Add(this.label1);
-            this.pnl_main.Controls.Add(this.checkBox1);
+            this.pnl_main.Controls.Add(this.btn_onlycode);
             this.pnl_main.Location = new System.Drawing.Point(12, 50);
             this.pnl_main.Name = "pnl_main";
             this.pnl_main.Size = new System.Drawing.Size(278, 150);
@@ -301,10 +301,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_ignorelistshow);
             this.Controls.Add(this.btn_mainshow);
-            this.Controls.Add(this.pnl_ignorelist);
             this.Controls.Add(this.pnl_main);
             this.Controls.Add(this.pnl_Settings);
             this.Controls.Add(this.pnl_help);
+            this.Controls.Add(this.pnl_ignorelist);
             this.Name = "Main";
             this.Text = "RequestifyTF2";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -323,7 +323,7 @@
 
         #endregion
         private System.Windows.Forms.CheckedListBox PluginsList;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox btn_onlycode;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnl_main;

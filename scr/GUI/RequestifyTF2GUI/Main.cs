@@ -214,7 +214,7 @@ namespace RequestifyTF2Forms
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Instances.Config.OnlyAdmin = checkBox1.Checked;
+            Instances.Config.OnlyAdmin = btn_onlycode.Checked;
         }
 
         #endregion

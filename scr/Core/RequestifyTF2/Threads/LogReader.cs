@@ -62,20 +62,33 @@ namespace RequestifyTF2
                             {
                                 if (!mute)
                                 {
-                                    if (plugin.OnlyCode && s.Contains(Instances.Config.Chiper))
+                                    if (Instances.Config.OnlyAdmin)
                                     {
-                                        plugin.Execute(s.Split(null));
-                                        Instances.Config.Chiper = new CodeGenerator().GenerateWord(4);
-                                        break;
+                                        if (s.Contains(Instances.Config.Chiper))
+                                        {
+                                            plugin.Execute(s.Split(null));
+                                            Instances.Config.Chiper = new CodeGenerator().GenerateWord(4);
+                                            break;
+                                        }
                                     }
-                                    if (!plugin.OnlyCode)
+                                    else
                                     {
-                                        plugin.Execute(s.Split(null));
-                                        break;
+                                        if (plugin.OnlyCode && s.Contains(Instances.Config.Chiper))
+                                        {
+                                            plugin.Execute(s.Split(null));
+                                            Instances.Config.Chiper = new CodeGenerator().GenerateWord(4);
+                                            break;
+                                        }
+                                        if (!plugin.OnlyCode)
+                                        {
+                                            plugin.Execute(s.Split(null));
+                                            break;
+                                        }
                                     }
                                 }
                             }
                         }
+                        
                         foreach (var plugin in Instances.DisabledPlugins)
                         {
                             var gg = s.Split(null);
