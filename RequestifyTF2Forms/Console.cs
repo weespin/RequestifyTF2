@@ -30,7 +30,7 @@ namespace RequestifyTF2Forms
                 Thread.CurrentThread.IsBackground = true;
 
                 while (true)
-                {//todo CPU жрет тут
+                {
                    
                     if (!Main.ConsoleShowed)
                     {
@@ -56,7 +56,8 @@ namespace RequestifyTF2Forms
                     {
                         //ignored
                     }
-                    Thread.Sleep(16);
+                    //16ms = 60fps
+                    Thread.Sleep(16); 
                 }
             }).Start();
         }
