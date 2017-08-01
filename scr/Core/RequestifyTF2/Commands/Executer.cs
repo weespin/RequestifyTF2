@@ -21,14 +21,14 @@ namespace RequestifyTF2.Commands
                 if (!Instances.Config.Ignored.Contains(caller)&&!Instances.Config.IgnoredReversed)
                 {   
                     calledcommand.Execute(caller, arguments);
-                    Logger.Write(Logger.Status.Info, $"{caller} executed command {command} with arguments {String.Join(" ", arguments.ToArray())}");
+                 //   Logger.Write(Logger.Status.Info, $"{caller} executed command {command} with arguments {String.Join(" ", arguments.ToArray())}");
                 }
                 else
                 {
                     if (Instances.Config.Ignored.Contains(caller) && Instances.Config.IgnoredReversed)
                     {
                         calledcommand.Execute(caller, arguments);
-                        Logger.Write(Logger.Status.Info, $"{caller} executed command {command} with arguments {String.Join(" ", arguments.ToArray())}");
+                     //   Logger.Write(Logger.Status.Info, $"{caller} executed command {command} with arguments {String.Join(" ", arguments.ToArray())}");
                     }
                    
                 }
