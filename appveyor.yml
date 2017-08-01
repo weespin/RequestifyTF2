@@ -1,2 +1,7 @@
 before_build:
   - nuget restore
+artifacts:
+
+  # pushing a single file
+  - path: test.zip
+
