@@ -264,7 +264,7 @@ namespace RequestifyTF2.VLC
                 return Convert.ToInt32(result);
             }
 
-            set => SendCommand(VlcCommand.Seek, value.ToString());
+            set { SendCommand(VlcCommand.Seek, value.ToString()); }
         }
 
 

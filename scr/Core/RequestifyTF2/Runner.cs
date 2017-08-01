@@ -46,7 +46,7 @@ namespace RequestifyTF2
                 {
                 }
             Thread.Sleep(4000);
-            Process.Start("steam://rungameid/440");
+         //   Process.Start("steam://rungameid/440");
             var autoexecChecker = new AutoexecChecker();
             ReaderThread.Starter();
             var update = new Update();

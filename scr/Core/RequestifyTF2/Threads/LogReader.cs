@@ -113,7 +113,7 @@ namespace RequestifyTF2
                             if (!mute)
                             {
                                 if (s.Contains(plugin.Command))
-                                    ConsoleSender.SendCommand("Sorry but " + plugin.Command + " command is disabled",
+                                    ConsoleSender.SendCommand("[RequestifyTF2] Sorry but " + plugin.Command + " plugin was disabled.",
                                         ConsoleSender.Command.Chat);
                             }
                         }
