@@ -22,7 +22,7 @@ namespace RequestifyTF2Forms
     {
         private static bool _started;
         public static Main instance;
-        private readonly Dictionary<string, IPlugin> _plugins;
+        private readonly Dictionary<string, IRequestifyPlugin> _plugins;
         private readonly Console cs = new Console();
         private TextWriter _writer;
         public static bool ConsoleShowed;
@@ -34,7 +34,7 @@ namespace RequestifyTF2Forms
             InitializeComponent();
             instance = this;
             Icon = Resources._1481916367_letter_r_red;
-            _plugins = new Dictionary<string, IPlugin>();
+            _plugins = new Dictionary<string, IRequestifyPlugin>();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/")
             )
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
@@ -45,7 +45,7 @@ namespace RequestifyTF2Forms
             MinimizeBox = false;
             tbx_ListToAdd.Enter += lbx_IgnoreList_Enter;
             var plugins =
-                GenericPluginLoader<IPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
+                GenericPluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
                                                          "/plugins/");
             foreach (var item in plugins)
             {

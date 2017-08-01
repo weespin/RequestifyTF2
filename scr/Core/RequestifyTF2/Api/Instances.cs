@@ -5,8 +5,8 @@ namespace RequestifyTF2.Api
 {
     public class Instances
     {
-        public static List<IPlugin> DisabledPlugins = new List<IPlugin>();
-        public static List<IPlugin> ActivePlugins = new List<IPlugin>();
+        public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
+        public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
         public static VlcRemote Vlc;
 
         public static void Load()
