@@ -31,6 +31,7 @@ namespace RequestifyTF2
                 var s = "";
                 while (true)
                 {
+                    var mute = false;
                     s = sr.ReadLine();
 
                     if (s != null && s.Contains("!"))
@@ -38,31 +39,70 @@ namespace RequestifyTF2
                         foreach (var plugin in Instances.ActivePlugins)
                         {
                             var gg = s.Split(null);
-                            if (gg.Any(a => Instances.Config.Ignored.Contains(s)))
+                            foreach (var shit in Instances.Config.Ignored)
                             {
                                 if (Instances.Config.IgnoredReversed)
-                                    continue;
-                                return;
+                                {
+                                    if (!s.Contains(shit))
+                                    {
+                                        mute = true;
+                                    }
+                                 
+                                }
+                                else
+                                {
+                                    if (s.Contains(shit))
+                                    {
+                                        mute = true;
+                                    }
+                                }
                             }
 
                             if (s.Contains(plugin.Command))
-                                if (plugin.OnlyCode && s.Contains(Instances.Config.Chiper))
-                                    plugin.Execute(s.Split(null));
-                                else if (!plugin.OnlyCode)
-                                    plugin.Execute(s.Split(null));
+                            {
+                                if (!mute)
+                                {
+                                    if (plugin.OnlyCode && s.Contains(Instances.Config.Chiper))
+                                    {
+                                        plugin.Execute(s.Split(null));
+                                        Instances.Config.Chiper = new CodeGenerator().GenerateWord(4);
+                                        break;
+                                    }
+                                    if (!plugin.OnlyCode)
+                                    {
+                                        plugin.Execute(s.Split(null));
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         foreach (var plugin in Instances.DisabledPlugins)
                         {
                             var gg = s.Split(null);
-                            if (gg.Any(a => Instances.Config.Ignored.Contains(s)))
+                            foreach (var shit in Instances.Config.Ignored)
                             {
                                 if (Instances.Config.IgnoredReversed)
-                                    continue;
-                                return;
+                                {
+                                    if (!s.Contains(shit))
+                                    {
+                                        mute = true;
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (s.Contains(shit))
+                                    {
+                                        mute = true;
+                                    }
+                                }
                             }
-                            if (s.Contains(plugin.Command))
-                                ConsoleSender.SendCommand("Sorry but " + plugin.Command + " command is disabled",
-                                    ConsoleSender.Command.Chat);
+                            if (!mute)
+                            {
+                                if (s.Contains(plugin.Command))
+                                    ConsoleSender.SendCommand("Sorry but " + plugin.Command + " command is disabled",
+                                        ConsoleSender.Command.Chat);
+                            }
                         }
                     }
                     else

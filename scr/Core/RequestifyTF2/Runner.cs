@@ -20,22 +20,22 @@ namespace RequestifyTF2
         public static void Start()
         {
             Instances.Load();
-            kek:
-            var proc = Process.GetProcessesByName("hl2");
-            try
-            {
-                foreach (var f in proc)
-                    f.Kill();
-            }
-            catch (Exception)
-            {
-                if (MessageBox.Show("Please close Game and then press OK", "Game is running", MessageBoxButtons.OK) ==
-                    DialogResult.OK)
-                {
-                    Thread.Sleep(1000);
-                    goto kek;
-                }
-            }
+            //kek:
+            //var proc = Process.GetProcessesByName("hl2");
+            //try
+            //{
+            //    foreach (var f in proc)
+            //        f.Kill();
+            //}
+            //catch (Exception)
+            //{
+            //    if (MessageBox.Show("Please close Game and then press OK", "Game is running", MessageBoxButtons.OK) ==
+            //        DialogResult.OK)
+            //    {
+            //        Thread.Sleep(1000);
+            //        goto kek;
+            //    }
+            //}
             Thread.Sleep(500);
             if (File.Exists(Instances.Config.GameDir + "/console.log"))
                 try

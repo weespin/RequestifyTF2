@@ -153,7 +153,10 @@ namespace RequestifyTF2Forms
         private void btn_ListRemove_Click(object sender, EventArgs e)
         {
             var selected = lbx_IgnoreList.SelectedItem;
-            Instances.Config.Ignored.Remove(selected.ToString());
+            if (selected != null)
+            {
+                Instances.Config.Ignored.Remove(selected.ToString());
+            }
             lbx_IgnoreList.Items.Remove(selected);
         }
 
@@ -167,7 +170,7 @@ namespace RequestifyTF2Forms
 
         private void chkbx_ListReversed_CheckedChanged(object sender, EventArgs e)
         {
-            Instances.Config.IgnoredReversed = checkBox1.Checked;
+            Instances.Config.IgnoredReversed = chkbx_ListReversed.Checked;
         }
 
         #endregion

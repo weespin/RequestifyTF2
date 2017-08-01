@@ -299,12 +299,12 @@
             this.Controls.Add(this.btn_helppanel);
             this.Controls.Add(this.bnt_settingsshow);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.pnl_main);
             this.Controls.Add(this.btn_ignorelistshow);
             this.Controls.Add(this.btn_mainshow);
+            this.Controls.Add(this.pnl_ignorelist);
+            this.Controls.Add(this.pnl_main);
             this.Controls.Add(this.pnl_Settings);
             this.Controls.Add(this.pnl_help);
-            this.Controls.Add(this.pnl_ignorelist);
             this.Name = "Main";
             this.Text = "RequestifyTF2";
             this.Load += new System.EventHandler(this.Main_Load);

@@ -211,6 +211,7 @@ namespace RequestifyTF2.VLC
                 MessageBox.Show("CANT FIND VLC INSTALLED!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             var info = new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876");
             info.CreateNoWindow = true;
+            
             info.UseShellExecute = true;
             _vlcProcess = Process.Start(info);
 
