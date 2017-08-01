@@ -6,3 +6,10 @@ artifacts:
     name: forms
   - path: scr\Plugins\MTTSPlugin\bin\Debug\MTTSPlugin.dll
     name: mtts
+   
+  - path: scr\Plugins\MTTSPlugin\bin\Debug\RequestPlugin.dll
+    name: reqmusic
+  - path: scr\Plugins\MTTSPlugin\bin\Debug\TTSPlugin.dll
+    name: tts
+  - path: scr\Core\RequestifyTF2\bin\Debug\RequestifyTF2.dll
+    name: core
