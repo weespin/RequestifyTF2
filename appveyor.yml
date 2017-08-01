@@ -2,5 +2,5 @@ before_build:
   - nuget restore
 artifacts:
  # pushing a single file with environment variable in path and "Deployment name" specified
-  - path: C:\projects\requestifytf2\scr\GUI\RequestifyTF2GUI\bin\Debug\RequestifyTF2Forms.exe
+  - path: scr\GUI\RequestifyTF2GUI\bin\Debug\RequestifyTF2Forms.exe
     name: myapp
