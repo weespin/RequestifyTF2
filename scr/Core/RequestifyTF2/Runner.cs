@@ -29,7 +29,7 @@ namespace RequestifyTF2
             }
             catch (Exception)
             {
-                if (MessageBox.Show("Please close TF2 and then press OK", "TF2 is running", MessageBoxButtons.OK) ==
+                if (MessageBox.Show("Please close Game and then press OK", "Game is running", MessageBoxButtons.OK) ==
                     DialogResult.OK)
                 {
                     Thread.Sleep(1000);
