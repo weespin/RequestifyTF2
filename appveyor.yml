@@ -6,7 +6,9 @@ artifacts:
     name: forms
   - path: scr\Plugins\MTTSPlugin\bin\Debug\MTTSPlugin.dll
     name: mtts
-  - path: %(APPVEYOR_BUILD_FOLDER)\Debug\RequestPlugin.dll
+  - path:scr\Plugins\MTTSPlugin\bin\Debug\RequestPlugin.dll
     name: reqmusic
-  - path: bin\Debug\TTSPlugin.dll
+  - path: scr\Plugins\MTTSPlugin\bin\Debug\TTSPlugin.dll
     name: tts
+  - path: scr\Core\RequestifyTF2\bin\Debug\RequestifyTF2.dll
+    name: core
