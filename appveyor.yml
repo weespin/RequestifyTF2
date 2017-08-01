@@ -3,5 +3,5 @@ before_build:
 artifacts:
 
   # pushing a single file
-  - path: RequestifyTF2Forms.exe
+  - path: **\RequestifyTF2Forms.exe
 
