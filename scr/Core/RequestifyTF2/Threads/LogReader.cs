@@ -1,7 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading;
 using RequestifyTF2.Api;
+using RequestifyTF2.Commands;
 
 namespace RequestifyTF2
 {
@@ -31,97 +35,60 @@ namespace RequestifyTF2
                 var s = "";
                 while (true)
                 {
-                    var mute = false;
                     s = sr.ReadLine();
-
-                    if (s != null && s.Contains("!"))
+                    if (!string.IsNullOrEmpty(s))
                     {
-                        foreach (var plugin in Instances.ActivePlugins)
-                        {
-                            var gg = s.Split(null);
-                            foreach (var shit in Instances.Config.Ignored)
-                            {
-                                if (Instances.Config.IgnoredReversed)
-                                {
-                                    if (!s.Contains(shit))
-                                    {
-                                        mute = true;
-                                    }
-                                 
-                                }
-                                else
-                                {
-                                    if (s.Contains(shit))
-                                    {
-                                        mute = true;
-                                    }
-                                }
-                            }
-
-                            if (s.Contains(plugin.Command))
-                            {
-                                if (!mute)
-                                {
-                                    if (Instances.Config.OnlyAdmin)
-                                    {
-                                        if (s.Contains(Instances.Config.Chiper))
-                                        {
-                                            plugin.Execute(s.Split(null));
-                                            Instances.Config.Chiper = new CodeGenerator().GenerateWord(4);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (plugin.OnlyCode && s.Contains(Instances.Config.Chiper))
-                                        {
-                                            plugin.Execute(s.Split(null));
-                                            Instances.Config.Chiper = new CodeGenerator().GenerateWord(4);
-                                            break;
-                                        }
-                                        if (!plugin.OnlyCode)
-                                        {
-                                            plugin.Execute(s.Split(null));
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        foreach (var plugin in Instances.DisabledPlugins)
-                        {
-                            var gg = s.Split(null);
-                            foreach (var shit in Instances.Config.Ignored)
-                            {
-                                if (Instances.Config.IgnoredReversed)
-                                {
-                                    if (!s.Contains(shit))
-                                    {
-                                        mute = true;
-                                    }
-
-                                }
-                                else
-                                {
-                                    if (s.Contains(shit))
-                                    {
-                                        mute = true;
-                                    }
-                                }
-                            }
-                            if (!mute)
-                            {
-                                if (s.Contains(plugin.Command))
-                                    ConsoleSender.SendCommand("[RequestifyTF2] Sorry but " + plugin.Command + " plugin was disabled.",
-                                        ConsoleSender.Command.Chat);
-                            }
-                        }
+                        TextChecker(s);
                     }
                     else
                     {
                         wh.WaitOne(30);
                     }
+                }
+            }
+        }
+
+        public static void TextChecker(string s)
+        {
+            if (s.Contains(":") && s.Split(null).Length > 3)
+            {
+                s = s.Trim();
+                var splitted = s.Split(null);
+                //lets find :?
+                var selector = 0;
+                for (int i = 0; i < splitted.Length; i++)
+                {
+                    if (splitted[i] == ":")
+                    {
+                        selector = i;
+                    }
+                }
+                var name = "";
+                if (selector == 0)
+                {
+                    //No user -> return!
+                    return;
+                }
+                for (int i = 0; i < selector; i++)
+                {
+                    name += splitted[i];
+                }
+                List<string> arguments = new List<string>();
+                if (splitted.Length > selector + 1)
+                {
+                    var command = splitted[selector + 1];
+                    if (splitted.Length > selector + 2)
+                    {
+                        for (int i = selector + 2; i < splitted.Length; i++)
+                        {
+                            arguments.Add(splitted[i]);
+                        }
+                    }
+                    Executer.Execute(name,command,arguments);
+                }
+                else
+                {
+                    return;
                 }
             }
         }

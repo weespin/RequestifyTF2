@@ -8,7 +8,7 @@ namespace RequestifyTF2.PluginLoader
 {
     public static class PluginLoader
     {
-        public static ICollection<IPlugin> LoadPlugins(string path)
+        public static ICollection<IRequestifyPlugin> LoadPlugins(string path)
         {
             if (Directory.Exists(path))
             {
@@ -22,7 +22,7 @@ namespace RequestifyTF2.PluginLoader
                     assemblies.Add(assembly);
                 }
 
-                var pluginType = typeof(IPlugin);
+                var pluginType = typeof(IRequestifyPlugin);
                 ICollection<Type> pluginTypes = new List<Type>();
                 foreach (var assembly in assemblies)
                     if (assembly != null)
@@ -40,10 +40,10 @@ namespace RequestifyTF2.PluginLoader
                             }
                     }
 
-                ICollection<IPlugin> plugins = new List<IPlugin>(pluginTypes.Count);
+                ICollection<IRequestifyPlugin> plugins = new List<IRequestifyPlugin>(pluginTypes.Count);
                 foreach (var type in pluginTypes)
                 {
-                    var plugin = (IPlugin) Activator.CreateInstance(type);
+                    var plugin = (IRequestifyPlugin) Activator.CreateInstance(type);
                     plugins.Add(plugin);
                 }
 

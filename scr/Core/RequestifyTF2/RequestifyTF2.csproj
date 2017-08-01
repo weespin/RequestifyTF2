@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Api\IPlugin.cs" />
     <Compile Include="Api\Instances.cs" />
+    <Compile Include="Commands\Executer.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="PluginLoader\GenericLoader.cs" />
     <Compile Include="PluginLoader\PluginLoader.cs" />
