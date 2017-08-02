@@ -1,15 +1,16 @@
 # RequestifyTF2
-RequesifyTF2 is a simple program for TF2, which supports plugins.
+RequesifyTF2 is a simple program for Source Engine based games, which supports plugins.
 # Installation
-1. Go to Download section and Forms and Core. Place them into one folder.
+1. Go to Download and download lastest [releases](https://github.com/weespin/RequestifyTF2/releases)!
 2. Make sure that u have VLC and Virtual Audio Cable installed on your pc
-3. Place Open
+3. Open programm
 4. Press on Settings button
-5. Select path to the game
-6. Press Start button and Start your game!
-7. When you joined a server open console and type "+voicerecord"
-8. If u want to hear what you saying type "voice_loopback 1"
-9. Done!
+5. Select path to the game (for example steamapps\common\Team Fortress 2\tf or steamapps\common\Counter-Strike Global Offensive\csgo)
+6. Press Start button (u should press start before starting a game!)
+7. Start your game!
+8. When you joined a server open console and type "+voicerecord"
+9. If u want to hear what you saying type "voice_loopback 1"
+10. Done!
 
 # Dowload
 [Releases](https://github.com/weespin/RequestifyTF2/releases)!
@@ -41,7 +42,7 @@ Invokes on Load
 ## Execute (string nickname, List<string> arguments)
 Invokes when someone executed a plugins command
 # Events
-## OnPlayerConnect => Returns a connected user nickname
-## OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
-## OnPlayerKill => Returns Killer's Nickname, Killed Nickname and Weapon
-## OnPlayerSuicide => Returns a user nickname
+### OnPlayerConnect => Returns a connected user nickname
+### OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
+### OnPlayerKill => Returns Killer's Nickname, Killed Nickname and Weapon
+### OnPlayerSuicide => Returns a user nickname
