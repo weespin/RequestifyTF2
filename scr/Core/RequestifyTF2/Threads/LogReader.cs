@@ -50,6 +50,7 @@ namespace RequestifyTF2
 
         public static void TextChecker(string s)
         {
+        
             if (s.Contains(":") && s.Split(null).Length > 3)
             {
                 s = s.Trim();
@@ -77,6 +78,7 @@ namespace RequestifyTF2
                 if (splitted.Length > selector + 2)
                 {
                     var command = splitted[selector + 2];
+                   
                     if (splitted.Length > selector + 3)
                     {
                         for (int i = selector + 3; i < splitted.Length; i++)
@@ -84,13 +86,127 @@ namespace RequestifyTF2
                             arguments.Add(splitted[i]);
                         }
                     }
-                    Executer.Execute(name,command,arguments);
+                   Executer.Execute(name,command,arguments);
                 }
                 else
                 {
                     return;
                 }
             }
+            else if (s.Contains("killed") && s.Contains("with") && s.EndsWith("."))
+            {
+
+                s = s.Trim();
+                var splitted = s.Split(null);
+                //its 100% kill
+                //Lets find killer!
+                var killerselector = 0;
+                for (int i = 0; i < splitted.Length; i++)
+                {
+                    if (splitted[i] == "killed")
+                    {
+                        killerselector = i;
+                    }
+                }
+                var killer = "";
+                if (killerselector == 0)
+                {
+                    //No user -> return!
+                    return;
+                }
+                for (int i = 0; i < killerselector; i++)
+                {
+                    killer += splitted[i] + " ";
+                }
+                killer = killer.Trim();
+                killer = killer.TrimEnd();
+                //Okay we found a killer, lets find which guy was killed?
+                var deathselector = 0;
+                for (int i = 0; i < splitted.Length; i++)
+                {
+                    if (splitted[i] == "with")
+                    {
+                        deathselector = i;
+                    }
+                }
+                var killed = "";
+                if (deathselector == 0)
+                {
+                    //No user -> return!
+                    return;
+                }
+                for (int i = killerselector + 1; i < deathselector; i++)
+                {
+                    killed += splitted[i] + " ";
+                }
+                killed = killed.Trim();
+                killed = killed.TrimEnd();
+                string weapon = "";
+                for (int i = deathselector + 1; i < splitted.Length; i++)
+                {
+                    weapon += splitted[i] + " ";
+                }
+                weapon = weapon.Trim();
+
+                weapon = weapon.TrimEnd();
+                weapon = weapon.Remove(weapon.Length - 1);
+               //Event
+
+            }
+            else if (s.Contains("connected") && !s.Contains(":"))
+            {
+                s = s.Trim();
+                var splitted = s.Split(null);
+                var connectedselector = 0;
+                for (int i = 0; i < splitted.Length; i++)
+                {
+                    if (splitted[i] == "connected")
+                    {
+                        connectedselector = i;
+                    }
+                }
+                var joined = "";
+                if (connectedselector == 0)
+                {
+                    //No user -> return!
+                    return;
+                }
+                for (int i = 0; i < connectedselector; i++)
+                {
+                    joined += splitted[i] + " ";
+                }
+                joined = joined.Trim();
+                joined = joined.TrimEnd();
+                //Event
+            }
+            else if (s.Contains("suicided.") && !s.Contains(":"))
+            {
+                s = s.Trim();
+                var splitted = s.Split(null);
+                var connectedselector = 0;
+                for (int i = 0; i < splitted.Length; i++)
+                {
+                    if (splitted[i] == "suicided.")
+                    {
+                        connectedselector = i;
+                    }
+                }
+                var suicided = "";
+                if (connectedselector == 0)
+                {
+                    //No user -> return!
+                    return;
+                }
+                for (int i = 0; i < connectedselector; i++)
+                {
+                    suicided += splitted[i] + " ";
+                }
+                suicided = suicided.Trim();
+                suicided = suicided.TrimEnd();
+                //Event
+
+            }
+
         }
     }
 }

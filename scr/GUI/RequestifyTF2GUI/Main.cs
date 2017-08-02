@@ -45,10 +45,11 @@ namespace RequestifyTF2Forms
             MinimizeBox = false;
             tbx_ListToAdd.Enter += lbx_IgnoreList_Enter;
             var plugins =
-                GenericPluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
+                PluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
                                                          "/plugins/");
             foreach (var item in plugins)
             {
+                item.OnLoad();
                 Instances.ActivePlugins.Add(item);
                 _plugins.Add(item.Name, item);
                 PluginsList.Items.Add(item.Name, true);

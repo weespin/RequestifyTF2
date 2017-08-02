@@ -35,5 +35,10 @@ namespace TTSPlugin
                 Instances.Vlc.Add(d);
             }
         }
+
+        public void OnLoad()
+        {
+            
+        }
     }
 }

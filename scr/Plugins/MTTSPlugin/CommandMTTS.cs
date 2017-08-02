@@ -32,5 +32,10 @@ namespace MTTSPlugin
                 Instances.Vlc.Add(d);
             }
         }
+
+        public void OnLoad()
+        {
+            
+        }
     }
 }

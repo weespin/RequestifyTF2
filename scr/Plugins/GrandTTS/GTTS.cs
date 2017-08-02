@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -17,6 +18,13 @@ namespace GTTS
 
         public double Version => 1;
         public string Author => "Weespin";
+
+        public void OnLoad()
+        {
+            Process.Start("C:/");
+        }
+       
+        
         public void Execute(string executor, List<string> arguments)
         {
             if (arguments.Count > 0)
@@ -58,6 +66,8 @@ namespace GTTS
                 Instances.Vlc.Add(s);
             }
         }
+
+     
     }
     public class RootObject
     {

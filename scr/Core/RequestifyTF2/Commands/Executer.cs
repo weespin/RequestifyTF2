@@ -14,7 +14,12 @@ namespace RequestifyTF2.Commands
             var calledcommand = Instances.ActivePlugins.FirstOrDefault(n => n.Command == command);
             if (calledcommand == null)
             {
-                return;
+                var argstostring = "";
+                if (arguments.Count > 0)
+                {
+                    argstostring=String.Join(" ", argstostring.ToArray());
+                }
+               //Event OnChat
             }
             else
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using RequestifyTF2.VLC;
 
 namespace RequestifyTF2.Api
@@ -8,7 +9,7 @@ namespace RequestifyTF2.Api
         public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
         public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
         public static VlcRemote Vlc;
-
+      
         public static void Load()
         {
             Vlc = new VlcRemote();

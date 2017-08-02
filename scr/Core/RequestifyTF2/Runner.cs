@@ -15,7 +15,7 @@ namespace RequestifyTF2
         public static List<string> Ignored = new List<string>();
         public static VlcRemote Vlc = Instances.Vlc;
         public static Instances.Config Cfg = new Instances.Config();
-        public static bool IsTf2Running;
+        public static bool IsGameRunning;
 
         public static void Start()
         {
@@ -36,7 +36,7 @@ namespace RequestifyTF2
             //        goto kek;
             //    }
             //}
-            Thread.Sleep(500);
+          //  Thread.Sleep(500);
             if (File.Exists(Instances.Config.GameDir + "/console.log"))
                 try
                 {
@@ -45,7 +45,7 @@ namespace RequestifyTF2
                 catch (Exception)
                 {
                 }
-            Thread.Sleep(4000);
+           // Thread.Sleep(4000);
          //   Process.Start("steam://rungameid/440");
             var autoexecChecker = new AutoexecChecker();
             ReaderThread.Starter();

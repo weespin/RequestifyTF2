@@ -214,7 +214,10 @@ namespace RequestifyTF2.VLC
             
             info.UseShellExecute = true;
             _vlcProcess = Process.Start(info);
-
+            while (Process.GetProcessesByName("vlc").Length==0)
+            {
+                // :^)
+            }
             _client = new TcpClient("localhost", 9876);
         }
 

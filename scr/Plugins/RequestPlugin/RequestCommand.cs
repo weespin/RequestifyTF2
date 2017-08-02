@@ -30,5 +30,9 @@ namespace RequestPlugin
             }
         }
 
+        public void OnLoad()
+        {
+            
+        }
     }
 }

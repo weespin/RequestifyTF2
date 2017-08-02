@@ -9,7 +9,7 @@ using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Api
 {
-    public static class GenericPluginLoader<T>
+    public static class PluginLoader<T>
     {
         public static ICollection<T> LoadPlugins(string path)
         {
@@ -92,8 +92,9 @@ namespace RequestifyTF2.Api
                 {
                     var plugin = (T) Activator.CreateInstance(type);
                     plugins.Add(plugin);
+                    
                 }
-
+               
                 return plugins;
             }
 
