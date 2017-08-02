@@ -12,3 +12,5 @@ artifacts:
     name: tts
   - path: scr\Core\RequestifyTF2\bin\Debug\RequestifyTF2.dll
     name: core
+  - path: scr\Plugins\GrandTTS\bin\Debug\GrandTTS.dll
+    name: gtts
