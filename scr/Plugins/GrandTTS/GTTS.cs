@@ -10,9 +10,9 @@ namespace GTTS
 {
     public class Plugin : IRequestifyPlugin
     {
-        public string Name => "MTTS";
+        public string Name => "GTTS";
 
-        public string Command => "!mtts";
+        public string Command => "!gtts";
         public bool OnlyCode => false;
 
         public double Version => 1;
