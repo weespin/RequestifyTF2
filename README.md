@@ -13,8 +13,7 @@ RequesifyTF2 is a simple program for TF2, which supports plugins.
 # Dowload
 [Releases] (https://github.com/weespin/RequestifyTF2/releases)!
 ## Nightly Files
-[Download](https://ci.appveyor.com/api/projects/weespin26279/RequestifyTF2/artifacts/scr%2FGUI%2FRequestifyTF2GUI%2Fbin%2FDebug%2FRequestifyTF2Forms.exe) Forms
-[Download](https://ci.appveyor.com/api/projects/weespin26279/RequestifyTF2/artifacts/scr%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll) Core
+[Download](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) Nightly files
 # Development
 ## Template
 Just use a plugin from scr/Plugin folder as tempate.
