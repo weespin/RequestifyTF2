@@ -93,6 +93,15 @@ namespace RequestifyTF2Forms
                         return;
                     Instances.Config.GameDir = s.SelectedPath;
                     txtbx_GamePath.Text = "Current game path: " + Instances.Config.GameDir;
+                   var dirs =Directory.GetDirectories(s.SelectedPath);
+                    if (dirs.Any(n=>n.Contains("cfg")))
+                    {
+                        MessageBox.Show("Okay!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cant find cfg folder.. Maybe its not a game folder? If its CSGO pick csgo folder, if TF2 pick tf2 folder.");
+                    }
                     AppConfig.Crntcfg.GameDir = s.SelectedPath;
                     AppConfig.Save();
                 }

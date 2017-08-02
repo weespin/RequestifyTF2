@@ -28,7 +28,7 @@ namespace RequestifyTF2.Api
                       
                         web.Proxy = null;
                         web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll", path + "/TTSPlugin.dll");
-                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FGrandTTSPlugin%2Fbin%2FDebug%2FGrandTTSPlugin.dll", path + "/TTSPlugin.dll");
+                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FGrandTTS%2Fbin%2FDebug%2FGrandTTS.dll", path + "/TTSPlugin.dll");
                         web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
                             path + "/RequestPlugin.dll");
                         web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll", path + "/MTTSPlugin.dll");
