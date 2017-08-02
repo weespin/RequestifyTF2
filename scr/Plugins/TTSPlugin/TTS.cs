@@ -11,8 +11,7 @@ namespace TTSPlugin
 
         public bool OnlyCode => false;
 
-        public double Version => 1;
-        public string Author => "Weespin";
+   
 
 
         public void Execute(string executor, List<string> arguments)

@@ -11,8 +11,7 @@ namespace RequestPlugin
         public string Command => "!request";
         public bool OnlyCode => false;
 
-        public double Version => 1.2;
-        public string Author => "Weespin";
+
 
         public void Execute(string executor, List<string> arguments)
         {

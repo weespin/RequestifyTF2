@@ -213,7 +213,7 @@ namespace RequestifyTF2Forms
             btn_start.Enabled = false;
             _started = true;
 
-            var s = _plugins.Aggregate("", (current, a) => current + (a.Value.Name + a.Value.Version));
+            var s = _plugins.Aggregate("", (current, plugin) => current + (plugin.Value.Name));
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
