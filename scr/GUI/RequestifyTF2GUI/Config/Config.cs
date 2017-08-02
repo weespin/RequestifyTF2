@@ -9,6 +9,7 @@ namespace RequestifyTF2Forms.Config
     internal static class AppConfig
     {
         public static ConfigJsonData Crntcfg = new ConfigJsonData();
+
         //todo:  Write not text, write fucking class into json.
         public static void Load()
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RequestifyTF2.Api;
 
 namespace MTTSPlugin
@@ -14,6 +13,7 @@ namespace MTTSPlugin
 
         public double Version => 1;
         public string Author => "Weespin";
+
         public void Execute(string executor, List<string> arguments)
         {
             if (arguments.Count > 0)
@@ -21,9 +21,7 @@ namespace MTTSPlugin
                 var text = "";
 
                 foreach (var texts in arguments)
-                {
                     text += texts;
-                }
                 var d =
                     "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text=" +
                     text + "&useUTF8=1";
@@ -32,7 +30,5 @@ namespace MTTSPlugin
                 Instances.Vlc.Add(d);
             }
         }
-
-      
     }
 }

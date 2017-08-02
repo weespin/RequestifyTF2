@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using RequestifyTF2.Api;
 
 namespace RequestPlugin
 {
-    public class RequestPlugin :IRequestifyPlugin
+    public class RequestPlugin : IRequestifyPlugin
 
     {
         public string Name => "Request";
@@ -27,13 +25,11 @@ namespace RequestPlugin
                     Instances.Vlc.Add(url);
                 if (url.Contains("bandcamp"))
                 {
-                   // const string rgxIsTrackPath = "^http://[a-z0-9\\-]+?\\.bandcamp\\.com/track/[a-z0-9\\-]+?/?$";
+                    // const string rgxIsTrackPath = "^http://[a-z0-9\\-]+?\\.bandcamp\\.com/track/[a-z0-9\\-]+?/?$";
                 }
                 if (url.StartsWith("https://youtu.be/"))
-                   Instances.Vlc.Add(url);       
+                    Instances.Vlc.Add(url);
             }
         }
-
-     
     }
 }

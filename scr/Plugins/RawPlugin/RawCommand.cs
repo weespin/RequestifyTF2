@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using RequestifyTF2.Api;
 
 namespace RawPlugi
@@ -20,12 +18,9 @@ namespace RawPlugi
         {
             if (arguments.Count > 0)
             {
-               var url = arguments[0];
-               Instances.Vlc.Add(url);
-              
+                var url = arguments[0];
+                Instances.Vlc.Add(url);
             }
         }
-
-    
     }
 }

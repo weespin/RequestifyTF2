@@ -8,6 +8,10 @@ namespace RequestifyTF2Forms
 {
     public partial class Console : Form
     {
+        private readonly int _offsetX = 59;
+
+        private readonly int _offsetY = 1;
+
         public Console()
         {
             InitializeComponent();
@@ -17,8 +21,6 @@ namespace RequestifyTF2Forms
             MinimizeBox = false;
         }
 
-        private int _offsetY = 1;
-        private int _offsetX = 59;
         private void Thanks_Load(object sender, EventArgs e)
         {
             FormBorderStyle = FormBorderStyle.None;
@@ -31,22 +33,17 @@ namespace RequestifyTF2Forms
 
                 while (true)
                 {
-                   
                     if (!Main.ConsoleShowed)
-                    {
                         continue;
-                    }
                     try
                     {
-                        if (Main.instance.Location.Y+_offsetY != this.Location.Y)
+                        if (Main.instance.Location.Y + _offsetY != Location.Y)
                         {
-                          
-                            var y = Main.instance.Location.Y +_offsetY;
+                            var y = Main.instance.Location.Y + _offsetY;
                             ThreadHelperClass.Position(this, this, new Point(Location.X, y));
                         }
-                        if (Main.instance.Location.X+Main.instance.Height + _offsetX != this.Location.X)
+                        if (Main.instance.Location.X + Main.instance.Height + _offsetX != Location.X)
                         {
-
                             var x = Main.instance.Location.X + _offsetX + Main.instance.Height;
 
                             ThreadHelperClass.Position(this, this, new Point(x, Location.Y));
@@ -57,7 +54,7 @@ namespace RequestifyTF2Forms
                         //ignored
                     }
                     //16ms = 60fps
-                    Thread.Sleep(16); 
+                    Thread.Sleep(16);
                 }
             }).Start();
         }

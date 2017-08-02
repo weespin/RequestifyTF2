@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using ConsoleRedirection;
-
 using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.Api;
@@ -22,15 +21,13 @@ namespace RequestifyTF2Forms
     {
         private static bool _started;
         public static Main instance;
+        public static bool ConsoleShowed;
         private readonly Dictionary<string, IRequestifyPlugin> _plugins;
         private readonly Console cs = new Console();
         private TextWriter _writer;
-        public static bool ConsoleShowed;
 
         public Main()
         {
-          
-
             InitializeComponent();
             instance = this;
             Icon = Resources._1481916367_letter_r_red;
@@ -46,10 +43,9 @@ namespace RequestifyTF2Forms
             tbx_ListToAdd.Enter += lbx_IgnoreList_Enter;
             var plugins =
                 PluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
-                                                         "/plugins/");
+                                                            "/plugins/");
             foreach (var item in plugins)
             {
-               
                 Instances.ActivePlugins.Add(item);
                 _plugins.Add(item.Name, item);
                 PluginsList.Items.Add(item.Name, true);
@@ -94,14 +90,15 @@ namespace RequestifyTF2Forms
                         return;
                     Instances.Config.GameDir = s.SelectedPath;
                     txtbx_GamePath.Text = "Current game path: " + Instances.Config.GameDir;
-                   var dirs =Directory.GetDirectories(s.SelectedPath);
-                    if (dirs.Any(n=>n.Contains("cfg")))
+                    var dirs = Directory.GetDirectories(s.SelectedPath);
+                    if (dirs.Any(n => n.Contains("cfg")))
                     {
-                        MessageBox.Show("Okay!");
                     }
                     else
                     {
-                        MessageBox.Show("Cant find cfg folder.. Maybe its not a game folder? If its CSGO pick csgo folder, if TF2 pick tf2 folder.");
+                        MessageBox.Show(
+                            "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder.");
+                        s.SelectedPath = "";
                     }
                     AppConfig.Crntcfg.GameDir = s.SelectedPath;
                     AppConfig.Save();
@@ -164,9 +161,7 @@ namespace RequestifyTF2Forms
         {
             var selected = lbx_IgnoreList.SelectedItem;
             if (selected != null)
-            {
                 Instances.Config.Ignored.Remove(selected.ToString());
-            }
             lbx_IgnoreList.Items.Remove(selected);
         }
 
@@ -219,7 +214,6 @@ namespace RequestifyTF2Forms
             _started = true;
 
             var s = _plugins.Aggregate("", (current, a) => current + (a.Value.Name + a.Value.Version));
-        
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)

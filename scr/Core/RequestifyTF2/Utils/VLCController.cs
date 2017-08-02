@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RequestifyTF2.Api;
+
 //https://gist.github.com/SamSaffron/101357
 /*
 
@@ -196,6 +197,9 @@ namespace RequestifyTF2.VLC
 
         public VlcRemote()
         {
+            while (Process.GetProcessesByName("vlc").Length > 0)
+                foreach (var vlc in Process.GetProcessesByName("vlc"))
+                    vlc.Kill();
             string vlcPath = null;
 
             var vlcKey = Registry.LocalMachine.OpenSubKey(@"Software\VideoLan\VLC");
@@ -209,12 +213,15 @@ namespace RequestifyTF2.VLC
 
             if (vlcPath == null)
                 MessageBox.Show("CANT FIND VLC INSTALLED!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             var info = new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876");
             info.CreateNoWindow = true;
-            
+
             info.UseShellExecute = true;
+
             _vlcProcess = Process.Start(info);
-            while (Process.GetProcessesByName("vlc").Length==0)
+
+            while (Process.GetProcessesByName("vlc").Length == 0)
             {
                 // :^)
             }
@@ -267,7 +274,7 @@ namespace RequestifyTF2.VLC
                 return Convert.ToInt32(result);
             }
 
-            set { SendCommand(VlcCommand.Seek, value.ToString()); }
+            set => SendCommand(VlcCommand.Seek, value.ToString());
         }
 
 

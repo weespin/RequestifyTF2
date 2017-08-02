@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -25,19 +26,27 @@ namespace RequestifyTF2.Api
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     using (var web = new WebClient())
                     {
-                      
                         web.Proxy = null;
-                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll", path + "/TTSPlugin.dll");
-                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FGrandTTS%2Fbin%2FDebug%2FGrandTTS.dll", path + "/GTTSPlugin.dll");
-                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
+                        web.DownloadFile(
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll",
+                            path + "/TTSPlugin.dll");
+                        web.DownloadFile(
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FGrandTTS%2Fbin%2FDebug%2FGrandTTS.dll",
+                            path + "/GTTSPlugin.dll");
+                        web.DownloadFile(
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
                             path + "/RequestPlugin.dll");
-                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll", path + "/MTTSPlugin.dll");
-                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRawPlugin%2Fbin%2FDebug%2FRawPlugin.dll", path + "/RawPlugin.dll"); 
+                        web.DownloadFile(
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll",
+                            path + "/MTTSPlugin.dll");
+                        web.DownloadFile(
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRawPlugin%2Fbin%2FDebug%2FRawPlugin.dll",
+                            path + "/RawPlugin.dll");
                     }
                     MessageBox.Show("Donwloaded Click 'OK' button", "( ͡° ͜ʖ ͡°)", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-                    System.Diagnostics.Process.Start(Application.ExecutablePath); // to start new instance of application
-                 
+                    Process.Start(Application.ExecutablePath); // to start new instance of application
+
                     Environment.Exit(0);
                 }
 
@@ -91,16 +100,13 @@ namespace RequestifyTF2.Api
                 ICollection<T> plugins = new List<T>(pluginTypes.Count);
                 foreach (var type in pluginTypes)
                 {
-                    MethodInfo m = type.GetMethod("OnLoad");    
+                    var m = type.GetMethod("OnLoad");
                     var plugin = (T) Activator.CreateInstance(type);
                     if (m != null)
-                    {
                         m.Invoke(plugin, new object[] { });
-                    }
                     plugins.Add(plugin);
-                    
                 }
-               
+
                 return plugins;
             }
 
