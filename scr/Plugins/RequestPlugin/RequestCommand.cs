@@ -25,6 +25,10 @@ namespace RequestPlugin
                     Instances.Vlc.Add(url);
                 if (url.StartsWith("https://www.youtube.com/watch?v="))
                     Instances.Vlc.Add(url);
+                if (url.Contains("bandcamp"))
+                {
+                   // const string rgxIsTrackPath = "^http://[a-z0-9\\-]+?\\.bandcamp\\.com/track/[a-z0-9\\-]+?/?$";
+                }
                 if (url.StartsWith("https://youtu.be/"))
                    Instances.Vlc.Add(url);       
             }

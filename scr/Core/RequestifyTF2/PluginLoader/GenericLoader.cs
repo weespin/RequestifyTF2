@@ -32,6 +32,7 @@ namespace RequestifyTF2.Api
                         web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
                             path + "/RequestPlugin.dll");
                         web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll", path + "/MTTSPlugin.dll");
+                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRawPlugin%2Fbin%2FDebug%2FRawPlugin.dll", path + "/RawPlugin.dll"); 
                     }
                     MessageBox.Show("Donwloaded Click 'OK' button", "( ͡° ͜ʖ ͡°)", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);

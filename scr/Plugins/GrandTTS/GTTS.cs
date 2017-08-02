@@ -31,6 +31,7 @@ namespace GTTS
                 {
                     text += texts;
                 }
+              
              
                 text =text.Replace(" ", "%20");
                 var request = (HttpWebRequest)WebRequest.Create("https://acapela-box.com/AcaBox/dovaas.php");
