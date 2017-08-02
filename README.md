@@ -11,7 +11,7 @@ RequesifyTF2 is a simple program for TF2, which supports plugins.
 8. If u want to hear what you saying type "voice_loopback 1"
 9. Done!
 # Dowload
-[Releases] (https://github.com/weespin/RequestifyTF2/releases)!
+[Releases](https://github.com/weespin/RequestifyTF2/releases)!
 ## Nightly Files
 [Download](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) Nightly files
 # About Valve Anti-Cheat Bans (VAC)
