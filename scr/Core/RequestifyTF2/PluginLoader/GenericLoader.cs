@@ -90,7 +90,12 @@ namespace RequestifyTF2.Api
                 ICollection<T> plugins = new List<T>(pluginTypes.Count);
                 foreach (var type in pluginTypes)
                 {
+                    MethodInfo m = type.GetMethod("OnLoad");    
                     var plugin = (T) Activator.CreateInstance(type);
+                    if (m != null)
+                    {
+                        m.Invoke(plugin, new object[] { });
+                    }
                     plugins.Add(plugin);
                     
                 }

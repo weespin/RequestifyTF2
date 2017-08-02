@@ -19,10 +19,7 @@ namespace GTTS
         public double Version => 1;
         public string Author => "Weespin";
 
-        public void OnLoad()
-        {
-            Process.Start("C:/");
-        }
+      
        
         
         public void Execute(string executor, List<string> arguments)

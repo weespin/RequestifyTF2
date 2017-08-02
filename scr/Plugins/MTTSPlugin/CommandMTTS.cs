@@ -33,9 +33,6 @@ namespace MTTSPlugin
             }
         }
 
-        public void OnLoad()
-        {
-            
-        }
+      
     }
 }

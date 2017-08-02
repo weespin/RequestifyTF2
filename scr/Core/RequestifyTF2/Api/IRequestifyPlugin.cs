@@ -10,6 +10,6 @@ namespace RequestifyTF2.Api
         double Version { get; }
         string Author { get; }
         void Execute(string executor,List<string> arguments);
-        void OnLoad();
+        
     }
 }

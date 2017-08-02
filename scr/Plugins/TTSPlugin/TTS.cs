@@ -36,9 +36,6 @@ namespace TTSPlugin
             }
         }
 
-        public void OnLoad()
-        {
-            
-        }
+       
     }
 }

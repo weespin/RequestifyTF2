@@ -49,7 +49,7 @@ namespace RequestifyTF2Forms
                                                          "/plugins/");
             foreach (var item in plugins)
             {
-                item.OnLoad();
+               
                 Instances.ActivePlugins.Add(item);
                 _plugins.Add(item.Name, item);
                 PluginsList.Items.Add(item.Name, true);
