@@ -150,7 +150,8 @@ namespace RequestifyTF2
 
                 weapon = weapon.TrimEnd();
                 weapon = weapon.Remove(weapon.Length - 1);
-               //Event
+                Events.PlayerKill.Invoke(killer,killed,weapon);
+                //Event
 
             }
             else if (s.Contains("connected") && !s.Contains(":"))
@@ -177,6 +178,7 @@ namespace RequestifyTF2
                 }
                 joined = joined.Trim();
                 joined = joined.TrimEnd();
+                Events.PlayerConnect.Invoke(joined);
                 //Event
             }
             else if (s.Contains("suicided.") && !s.Contains(":"))
@@ -203,6 +205,7 @@ namespace RequestifyTF2
                 }
                 suicided = suicided.Trim();
                 suicided = suicided.TrimEnd();
+                Events.PlayerSuicide.Invoke(suicided);
                 //Event
 
             }

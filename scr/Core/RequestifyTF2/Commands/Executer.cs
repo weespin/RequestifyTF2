@@ -19,7 +19,7 @@ namespace RequestifyTF2.Commands
                 {
                     argstostring=String.Join(" ", argstostring.ToArray());
                 }
-               //Event OnChat
+            Events.PlayerChat.Invoke(caller,command+" "+argstostring);
             }
             else
             {

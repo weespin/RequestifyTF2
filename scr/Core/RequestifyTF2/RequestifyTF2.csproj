@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Events.cs" />
     <Compile Include="Api\IRequestifyPlugin.cs" />
     <Compile Include="Api\Instances.cs" />
     <Compile Include="Commands\Executer.cs" />
