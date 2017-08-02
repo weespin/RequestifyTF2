@@ -17,6 +17,12 @@ RequesifyTF2 is a simple program for TF2, which supports plugins.
 ## Template
 Just use a plugin from scr/Plugin folder as tempate.
 # Methods
-## OnLoad (non-static!)
+## OnLoad (should be non-static!)
 Invokes on Load
-
+## Execute (string nickname, List<string> arguments)
+Invokes when someone executed a plugins command
+# Events
+## OnPlayerConnect => Returns a connected user nickname
+## OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
+## OnPlayerKill => Returns Killer's Nickname, Killed Nickname and Weapon
+## OnPlayerSuicide => Returns a user nickname
