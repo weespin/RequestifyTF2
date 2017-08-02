@@ -75,7 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\IPlugin.cs" />
+    <Compile Include="Api\IRequestifyPlugin.cs" />
     <Compile Include="Api\Instances.cs" />
     <Compile Include="Commands\Executer.cs" />
     <Compile Include="Logger\Logger.cs" />

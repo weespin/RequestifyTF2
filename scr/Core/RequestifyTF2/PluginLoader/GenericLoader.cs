@@ -27,10 +27,11 @@ namespace RequestifyTF2.Api
                     {
                       
                         web.Proxy = null;
-                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/TTSPlugin.dll", path + "/TTSPlugin.dll");
-                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/RequestPlugin.dll",
+                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll", path + "/TTSPlugin.dll");
+                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FGrandTTSPlugin%2Fbin%2FDebug%2FGrandTTSPlugin.dll", path + "/TTSPlugin.dll");
+                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
                             path + "/RequestPlugin.dll");
-                        web.DownloadFile("https://github.com/weespin/RequestifyTF2/releases/download/0.0.0/MTTSPlugin.dll", path + "/MTTSPlugin.dll");
+                        web.DownloadFile("https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll", path + "/MTTSPlugin.dll");
                     }
                     MessageBox.Show("Donwloaded Click 'OK' button", "( ͡° ͜ʖ ͡°)", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
