@@ -29,9 +29,9 @@ namespace RequestifyTF2.Api
                     text = cmnd;
                     break;
             }
-            File.WriteAllText(Instances.Config.GameDir + "/cfg/requestify.cfg", text);
-            if (Instances.Config.AhkPath != string.Empty)
-                Process.Start(Instances.Config.AhkPath);
+            File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
+            if (Instance.Config.AhkPath != string.Empty)
+                Process.Start(Instance.Config.AhkPath);
             else
                 MessageBox.Show("ERROR, no ahk path?");
         }
@@ -43,16 +43,16 @@ namespace RequestifyTF2.Api
 
         internal AutoexecChecker()
         {
-            if (Instances.Config.GameDir == "" || !Directory.Exists(Instances.Config.GameDir))
+            if (Instance.Config.GameDir == "" || !Directory.Exists(Instance.Config.GameDir))
             {
                 Console.WriteLine("Please set game directory");
                 return;
             }
-            if (File.Exists(Instances.Config.GameDir + "/cfg/autoexec.cfg"))
+            if (File.Exists(Instance.Config.GameDir + "/cfg/autoexec.cfg"))
             {
                 var c = false;
                 var p = false;
-                var lines = File.ReadAllLines(Instances.Config.GameDir + "/cfg/autoexec.cfg");
+                var lines = File.ReadAllLines(Instance.Config.GameDir + "/cfg/autoexec.cfg");
                 foreach (var line in lines)
                     if (line.Contains("con_logfile \"console.log\""))
                     {
@@ -60,7 +60,7 @@ namespace RequestifyTF2.Api
                         break;
                     }
                 if (!c)
-                    File.AppendAllText(Instances.Config.GameDir + "/cfg/autoexec.cfg",
+                    File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "con_logfile \"console.log\"");
                 foreach (var line in lines)
                     if (line.Contains("bind F11 \"exec requestify\""))
@@ -69,12 +69,12 @@ namespace RequestifyTF2.Api
                         break;
                     }
                 if (!p)
-                    File.AppendAllText(Instances.Config.GameDir + "/cfg/autoexec.cfg",
+                    File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "bind F11 \"exec requestify\"");
             }
             else
             {
-                File.AppendAllText(Instances.Config.GameDir + "/cfg/autoexec.cfg",
+                File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
                     "con_logfile \"console.log\"" + Environment.NewLine + "bind F11 \"exec requestify\"");
             }
         }

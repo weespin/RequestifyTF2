@@ -13,7 +13,6 @@ using RequestifyTF2;
 using RequestifyTF2.Api;
 using RequestifyTF2Forms.Config;
 using RequestifyTF2Forms.Properties;
-using RequestifyTF2Forms.Uitls;
 
 namespace RequestifyTF2Forms
 {
@@ -35,7 +34,7 @@ namespace RequestifyTF2Forms
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/")
             )
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
-            Instances.Config.AhkPath = Path.GetDirectoryName(Application.ExecutablePath) +
+            Instance.Config.AhkPath = Path.GetDirectoryName(Application.ExecutablePath) +
                                        "/plugins/ahk/ahk.exe";
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -46,7 +45,7 @@ namespace RequestifyTF2Forms
                                                             "/plugins/");
             foreach (var item in plugins)
             {
-                Instances.ActivePlugins.Add(item);
+                Instance.ActivePlugins.Add(item);
                 _plugins.Add(item.Name, item);
                 PluginsList.Items.Add(item.Name, true);
             }
@@ -61,7 +60,7 @@ namespace RequestifyTF2Forms
                 {
                     Thread.Sleep(2000);
 
-                    ThreadHelperClass.SetText(this, label1, "Code: " + Instances.Config.Chiper);
+                    ThreadHelperClass.SetText(this, label1, "Code: " + Instance.Config.Chiper);
                 }
             }).Start();
         }
@@ -70,7 +69,7 @@ namespace RequestifyTF2Forms
 
         private void label2_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/weespin/RequestifyTF2");
+            Process.Start("https://steamcommunity.com/id/wspin/");
         }
 
         #endregion
@@ -88,8 +87,8 @@ namespace RequestifyTF2Forms
                 {
                     if (s.SelectedPath == "")
                         return;
-                    Instances.Config.GameDir = s.SelectedPath;
-                    txtbx_GamePath.Text = "Current game path: " + Instances.Config.GameDir;
+                    Instance.Config.GameDir = s.SelectedPath;
+                    txtbx_GamePath.Text = "Current game path: " + Instance.Config.GameDir;
                     var dirs = Directory.GetDirectories(s.SelectedPath);
                     if (dirs.Any(n => n.Contains("cfg")))
                     {
@@ -100,7 +99,7 @@ namespace RequestifyTF2Forms
                             "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder.");
                         s.SelectedPath = "";
                     }
-                    AppConfig.Crntcfg.GameDir = s.SelectedPath;
+                    AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
                     AppConfig.Save();
                 }
             }
@@ -109,30 +108,14 @@ namespace RequestifyTF2Forms
         #endregion
 
 
-        #region HelpPanel
-
-        private void btn_howtouse_Click(object sender, EventArgs e)
-        {
-            if (!File.Exists(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Readme.txt"))
-            {
-                File.AppendAllText(
-                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Readme.txt", Readme.ReadmeGet());
-                Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Readme.txt");
-            }
-            else
-            {
-                Process.Start(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Readme.txt");
-            }
-        }
-
-        #endregion
+      
 
 
         #region FormEvents
 
         private void Main_Load(object sender, EventArgs e)
         {
-            txtbx_GamePath.Text = "Current game path: " + AppConfig.Crntcfg.GameDir;
+            txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
             // Instantiate the writer
             _writer = new TextBoxStreamWriter(cs.txt_console);
             // Redirect the out Console stream
@@ -161,7 +144,7 @@ namespace RequestifyTF2Forms
         {
             var selected = lbx_IgnoreList.SelectedItem;
             if (selected != null)
-                Instances.Config.Ignored.Remove(selected.ToString());
+                Instance.Config.Ignored.Remove(selected.ToString());
             lbx_IgnoreList.Items.Remove(selected);
         }
 
@@ -170,12 +153,12 @@ namespace RequestifyTF2Forms
             var toignorenick = tbx_ListToAdd.Text;
 
             lbx_IgnoreList.Items.Add(toignorenick);
-            Instances.Config.Ignored.Add(toignorenick);
+            Instance.Config.Ignored.Add(toignorenick);
         }
 
         private void chkbx_ListReversed_CheckedChanged(object sender, EventArgs e)
         {
-            Instances.Config.IgnoredReversed = chkbx_ListReversed.Checked;
+            Instance.Config.IgnoredReversed = chkbx_ListReversed.Checked;
         }
 
         #endregion
@@ -188,20 +171,20 @@ namespace RequestifyTF2Forms
             if (selected == -1)
                 return;
             if (PluginsList.GetItemCheckState(selected) == CheckState.Checked)
-                foreach (var s in Instances.DisabledPlugins)
+                foreach (var s in Instance.DisabledPlugins)
                     if (s.Name == PluginsList.Items[selected].ToString())
                     {
-                        Instances.ActivePlugins.Add(s);
-                        Instances.DisabledPlugins.Remove(s);
+                        Instance.ActivePlugins.Add(s);
+                        Instance.DisabledPlugins.Remove(s);
                         break;
                     }
 
             if (PluginsList.GetItemCheckState(selected) == CheckState.Unchecked)
-                foreach (var s in Instances.ActivePlugins)
+                foreach (var s in Instance.ActivePlugins)
                     if (s.Name == PluginsList.Items[selected].ToString())
                     {
-                        Instances.ActivePlugins.Remove(s);
-                        Instances.DisabledPlugins.Add(s);
+                        Instance.ActivePlugins.Remove(s);
+                        Instance.DisabledPlugins.Add(s);
                         break;
                     }
         }
@@ -218,7 +201,7 @@ namespace RequestifyTF2Forms
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Instances.Config.OnlyAdmin = btn_onlycode.Checked;
+            Instance.Config.OnlyWithCode = btn_onlycode.Checked;
         }
 
         #endregion
@@ -244,7 +227,7 @@ namespace RequestifyTF2Forms
             pnl_ignorelist.Visible = true;
             pnl_main.Visible = false;
             pnl_Settings.Visible = false;
-            pnl_help.Visible = false;
+           
         }
 
         private void btn_mainshow_Click(object sender, EventArgs e)
@@ -252,7 +235,7 @@ namespace RequestifyTF2Forms
             pnl_ignorelist.Visible = false;
             pnl_main.Visible = true;
             pnl_Settings.Visible = false;
-            pnl_help.Visible = false;
+           
         }
 
         private void bnt_settingsshow_Click(object sender, EventArgs e)
@@ -260,17 +243,9 @@ namespace RequestifyTF2Forms
             pnl_ignorelist.Visible = false;
             pnl_main.Visible = false;
             pnl_Settings.Visible = true;
-            pnl_help.Visible = false;
+
         }
 
-        private void btn_helppanel_Click(object sender, EventArgs e)
-        {
-            pnl_help.Visible = true;
-            pnl_ignorelist.Visible = false;
-            pnl_main.Visible = false;
-            pnl_Settings.Visible = false;
-            pnl_help.Visible = true;
-        }
 
         #endregion
     }

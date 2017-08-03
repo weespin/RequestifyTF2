@@ -8,22 +8,24 @@ namespace RequestifyTF2Forms.Config
 {
     internal static class AppConfig
     {
-        public static ConfigJsonData Crntcfg = new ConfigJsonData();
+        public static ConfigJsonData CurrentConfig = new ConfigJsonData();
 
-        //todo:  Write not text, write fucking class into json.
+        
         public static void Load()
         {
+            var emptyjson = JsonConvert.SerializeObject(new ConfigJsonData() { GameDirectory = "", OnlyWithCode = false });
             if (Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/config/"))
             {
+              
                 if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json"))
                 {
-                    Crntcfg = JsonConvert.DeserializeObject<ConfigJsonData>(File.ReadAllText(
+                    CurrentConfig = JsonConvert.DeserializeObject<ConfigJsonData>(File.ReadAllText(
                         Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json"));
                 }
                 else
                 {
                     File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "config/config.json",
-                        "{\r\n  \"GameDir\": \"\",\r\n  \"OnlyAdmin\": false\r\n}");
+                        emptyjson);
                     MessageBox.Show("Please select game directory in 'Settings' menu", "Warning", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
@@ -32,20 +34,20 @@ namespace RequestifyTF2Forms.Config
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/config/");
                 File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json",
-                    "{\r\n  \"GameDir\": \"\",\r\n  \"OnlyAdmin\": false\r\n}");
+                    emptyjson);
                 MessageBox.Show("Please select game directory in 'Settings' menu", "Warning", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
-            if (Crntcfg.GameDir == "")
+            if (CurrentConfig.GameDirectory == "")
                 MessageBox.Show("Please select game directory in 'Settings' menu", "Warning", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-            Instances.Config.GameDir = Crntcfg.GameDir;
+            Instance.Config.GameDir = CurrentConfig.GameDirectory;
         }
 
         public static void Save()
         {
-            Instances.Config.GameDir = Crntcfg.GameDir;
-            var currentconfig = JsonConvert.SerializeObject(Crntcfg);
+            Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
             File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json", currentconfig);
         }
     }

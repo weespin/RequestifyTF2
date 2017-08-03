@@ -55,7 +55,7 @@ namespace GTTS
 
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 var s = JsonConvert.DeserializeObject<RootObject>(responseString).snd_url;
-                Instances.Vlc.Add(s);
+                Instance.Vlc.Add(s);
             }
         }
     }

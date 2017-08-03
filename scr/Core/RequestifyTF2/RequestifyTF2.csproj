@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="Api\Events.cs" />
     <Compile Include="Api\IRequestifyPlugin.cs" />
-    <Compile Include="Api\Instances.cs" />
+    <Compile Include="Api\Instance.cs" />
     <Compile Include="Commands\Executer.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="PluginLoader\GenericLoader.cs" />

@@ -11,49 +11,32 @@ namespace RequestifyTF2
     public static class Runner
     {
         public static List<string> Ignored = new List<string>();
-        public static VlcRemote Vlc = Instances.Vlc;
-        public static Instances.Config Cfg = new Instances.Config();
+        public static VlcRemote Vlc = Instance.Vlc;
+        public static Instance.Config Cfg = new Instance.Config();
         public static bool IsGameRunning;
 
         public static void Start()
         {
-            if (Instances.Config.GameDir == "")
+            if (Instance.Config.GameDir == "")
             {
                 MessageBox.Show("Please set the game directory");
                 return;
             }
-            Instances.Load();
+            Instance.Load();
 
-            //kek:
-            //var proc = Process.GetProcessesByName("hl2");
-            //try
-            //{
-            //    foreach (var f in proc)
-            //        f.Kill();
-            //}
-            //catch (Exception)
-            //{
-            //    if (MessageBox.Show("Please close Game and then press OK", "Game is running", MessageBoxButtons.OK) ==
-            //        DialogResult.OK)
-            //    {
-            //        Thread.Sleep(1000);
-            //        goto kek;
-            //    }
-            //}
-            //  Thread.Sleep(500);
-            if (File.Exists(Instances.Config.GameDir + "/console.log"))
+            if (File.Exists(Instance.Config.GameDir + "/console.log"))
                 try
                 {
-                    File.WriteAllText(Instances.Config.GameDir + "/console.log", "");
+                    File.WriteAllText(Instance.Config.GameDir + "/console.log", "");
                 }
-                catch (Exception)
+                catch 
                 {
+                    // ignored
                 }
-            // Thread.Sleep(4000);
-            //   Process.Start("steam://rungameid/440");
-            var autoexecChecker = new AutoexecChecker();
+
+            new AutoexecChecker();
             ReaderThread.Starter();
-            var update = new Update();
+            new Update();
 
 
             //Init

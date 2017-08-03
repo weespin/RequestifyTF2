@@ -13,11 +13,9 @@ namespace RawPlugi
 
         public void Execute(string executor, List<string> arguments)
         {
-            if (arguments.Count > 0)
-            {
-                var url = arguments[0];
-                Instances.Vlc.Add(url);
-            }
+            if (arguments.Count <= 0) return;
+            var url = arguments[0];
+            Instance.Vlc.Add(url);
         }
     }
 }

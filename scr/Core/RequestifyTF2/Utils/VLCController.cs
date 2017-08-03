@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Net.Sockets;
 using System.Text;
@@ -140,18 +141,18 @@ namespace RequestifyTF2.VLC
         public static void Fix()
         {
             var c = false;
-            var guids = Instances.Vlc.Adev();
+            var guids = Instance.Vlc.Adev();
             var guidsprl = guids.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var a in guidsprl)
                 if (a.Contains("Virtual Audio Cable"))
                 {
                     var output = "{" + a.Split('{', '}')[1] + "}";
                     output = output.Replace(" ", "");
-                    Instances.Vlc.SendRaw("adev", output);
+                    Instance.Vlc.SendRaw("adev", output);
                     c = true;
                 }
-            Instances.Vlc.SendRaw("loop", "off");
-            Instances.Vlc.SendRaw("repeat", "off");
+            Instance.Vlc.SendRaw("loop", "off");
+            Instance.Vlc.SendRaw("repeat", "off");
             if (!c)
                 MessageBox.Show("VIRTUAL AUDIO CABLE IS NOT FOUND!", "ERROR", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -230,10 +231,13 @@ namespace RequestifyTF2.VLC
             if (vlcPath == null)
                 MessageBox.Show("CANT FIND VLC INSTALLED!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            var info = new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876 --no-video");
-            info.CreateNoWindow = true;
-           info.WindowStyle = ProcessWindowStyle.Hidden;
-            info.UseShellExecute = true;
+            var info =
+                new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876 --no-video")
+                {
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    UseShellExecute = true
+                };
 
             _vlcProcess = Process.Start(info);
 
@@ -251,17 +255,7 @@ namespace RequestifyTF2.VLC
             {
                 var currentProcessId = Process.GetCurrentProcess().Id;
 
-                Process vlcProcess = null;
-
-                foreach (var process in Process.GetProcessesByName("vlc"))
-                    if (GetParentProcessId(process.Id) == currentProcessId)
-                    {
-                        vlcProcess = process;
-
-                        break;
-                    }
-
-                return vlcProcess;
+                return Process.GetProcessesByName("vlc").FirstOrDefault(process => GetParentProcessId(process.Id) == currentProcessId);
             }
         }
 
@@ -283,26 +277,28 @@ namespace RequestifyTF2.VLC
 
             try
             {
-                using (Process p = new Process())
+                using (var p = new Process())
                 {
 
-                    ProcessStartInfo ps = new ProcessStartInfo();
-                    ps.Arguments = "-a -n -o";
-                    ps.FileName = "netstat.exe";
-                    ps.UseShellExecute = false;
-                    ps.WindowStyle = ProcessWindowStyle.Hidden;
-                    ps.RedirectStandardInput = true;
-                    ps.RedirectStandardOutput = true;
-                    ps.RedirectStandardError = true;
+                    var ps = new ProcessStartInfo
+                    {
+                        Arguments = "-a -n -o",
+                        FileName = "netstat.exe",
+                        UseShellExecute = false,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
 
                     p.StartInfo = ps;
                     p.Start();
 
-                    StreamReader stdOutput = p.StandardOutput;
-                    StreamReader stdError = p.StandardError;
+                    var stdOutput = p.StandardOutput;
+                    var stdError = p.StandardError;
 
-                    string content = stdOutput.ReadToEnd() + stdError.ReadToEnd();
-                    string exitStatus = p.ExitCode.ToString();
+                    var content = stdOutput.ReadToEnd() + stdError.ReadToEnd();
+                    var exitStatus = p.ExitCode.ToString();
 
                     if (exitStatus != "0")
                     {
@@ -310,22 +306,18 @@ namespace RequestifyTF2.VLC
                     }
 
                     //Get The Rows
-                    string[] rows = Regex.Split(content, "\r\n");
-                    foreach (string row in rows)
-                    {
-                        //Split it baby
-                        string[] tokens = Regex.Split(row, "\\s+");
-                        if (tokens.Length > 4 && (tokens[1].Equals("UDP") || tokens[1].Equals("TCP")))
+                    var rows = Regex.Split(content, "\r\n");
+                    Ports.AddRange(from row in rows
+                        select Regex.Split(row, "\\s+")
+                        into tokens
+                        where tokens.Length > 4 && (tokens[1].Equals("UDP") || tokens[1].Equals("TCP"))
+                        let localAddress = Regex.Replace(tokens[2], @"\[(.*?)\]", "1.1.1.1")
+                        select new Port
                         {
-                            string localAddress = Regex.Replace(tokens[2], @"\[(.*?)\]", "1.1.1.1");
-                            Ports.Add(new Port
-                            {
-                                protocol = localAddress.Contains("1.1.1.1") ? String.Format("{0}v6", tokens[1]) : String.Format("{0}v4", tokens[1]),
-                                port_number = localAddress.Split(':')[1],
-                                pid = tokens[1] == "UDP" ? Convert.ToInt16(tokens[4]) : Convert.ToInt16(tokens[5])
-                            });
-                        }
-                    }
+                            protocol = localAddress.Contains("1.1.1.1") ? $"{tokens[1]}v6" : $"{tokens[1]}v4",
+                            port_number = localAddress.Split(':')[1],
+                            pid = tokens[1] == "UDP" ? Convert.ToInt16(tokens[4]) : Convert.ToInt16(tokens[5])
+                        });
                 }
             }
             catch (Exception ex)
@@ -334,20 +326,13 @@ namespace RequestifyTF2.VLC
             }
             return Ports;
         }
-
-
-
-        // ===============================================
-        // The Port Class We're Going To Create A List Of
-        // ===============================================
         public class Port
         {
 
             public string port_number { get; set; }
-            public Int16 pid { get; set; }
+            public short pid { get; set; }
             public string protocol { get; set; }
         }
-
         public int Position
         {
             get
@@ -359,6 +344,7 @@ namespace RequestifyTF2.VLC
                 return Convert.ToInt32(result);
             }
 
+            // ReSharper disable once ArrangeAccessorOwnerBody
             set { SendCommand(VlcCommand.Seek, value.ToString()); }
         }
 
