@@ -3,7 +3,7 @@ using RequestifyTF2.VLC;
 
 namespace RequestifyTF2.Api
 {
-    public class Instances
+    public class Instance
     {
         public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
         public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
@@ -20,7 +20,7 @@ namespace RequestifyTF2.Api
             public static string Chiper = new CodeGenerator().GenerateWord(4);
             public static List<string> Ignored = new List<string>();
             public static bool IgnoredReversed;
-            public static bool OnlyAdmin = false;
+            public static bool OnlyWithCode = false;
             public static string GameDir;
             public static string AhkPath;
         }

@@ -15,20 +15,14 @@ namespace RequestPlugin
 
         public void Execute(string executor, List<string> arguments)
         {
-            if (arguments.Count > 0)
-            {
-                var url = arguments[0];
-                if (url.StartsWith("https://soundcloud.com/"))
-                    Instances.Vlc.Add(url);
-                if (url.StartsWith("https://www.youtube.com/watch?v="))
-                    Instances.Vlc.Add(url);
-                if (url.Contains("bandcamp"))
-                {
-                    // const string rgxIsTrackPath = "^http://[a-z0-9\\-]+?\\.bandcamp\\.com/track/[a-z0-9\\-]+?/?$";
-                }
-                if (url.StartsWith("https://youtu.be/"))
-                    Instances.Vlc.Add(url);
-            }
+            if (arguments.Count <= 0) return;
+            var url = arguments[0];
+            if (url.StartsWith("https://soundcloud.com/"))
+                Instance.Vlc.Add(url);
+            if (url.StartsWith("https://www.youtube.com/watch?v="))
+                Instance.Vlc.Add(url);
+            if (url.StartsWith("https://youtu.be/"))
+                Instance.Vlc.Add(url);
         }
     }
 }

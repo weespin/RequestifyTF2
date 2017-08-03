@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RequestifyTF2.Api;
 
 namespace TTSPlugin
@@ -18,16 +19,14 @@ namespace TTSPlugin
         {
             if (arguments.Count > 0)
             {
-                var text = "";
+                var text = arguments.Aggregate("", (current, texts) => current + texts);
 
-                foreach (var texts in arguments)
-                    text += texts;
                 var d = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=" +
                         text +
                         "&tl=En-gb";
                 d = d.Replace(" ", "%20");
 
-                Instances.Vlc.Add(d);
+                Instance.Vlc.Add(d);
             }
         }
     }

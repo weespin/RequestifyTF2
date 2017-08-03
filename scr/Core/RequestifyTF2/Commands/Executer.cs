@@ -8,7 +8,7 @@ namespace RequestifyTF2.Commands
     {
         public static void Execute(string caller, string command, List<string> arguments)
         {
-            var calledcommand = Instances.ActivePlugins.FirstOrDefault(n => n.Command == command);
+            var calledcommand = Instance.ActivePlugins.FirstOrDefault(n => n.Command == command);
             if (calledcommand == null)
             {
                 var argstostring = "";
@@ -18,14 +18,14 @@ namespace RequestifyTF2.Commands
             }
             else
             {
-                if (!Instances.Config.Ignored.Contains(caller))
+                if (!Instance.Config.Ignored.Contains(caller))
                 {
-                    if (!Instances.Config.IgnoredReversed)
+                    if (!Instance.Config.IgnoredReversed)
                         calledcommand.Execute(caller, arguments);
                 }
                 else
                 {
-                    if (Instances.Config.IgnoredReversed)
+                    if (Instance.Config.IgnoredReversed)
                         calledcommand.Execute(caller, arguments);
                 }
             }

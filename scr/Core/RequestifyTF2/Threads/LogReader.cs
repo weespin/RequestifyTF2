@@ -15,19 +15,19 @@ namespace RequestifyTF2
             thread.IsBackground = true;
             thread.Start();
         }
-
+      
         public static void Read()
         {
             var wh = new AutoResetEvent(false);
             var fsw = new FileSystemWatcher(".")
             {
-                Filter = Instances.Config.GameDir + "/console.log",
+                Filter = Instance.Config.GameDir + "/console.log",
                 EnableRaisingEvents = true
             };
             fsw.Changed += (s, e) => wh.Set();
-            if (!File.Exists(Instances.Config.GameDir + "/console.log"))
-                File.Create(Instances.Config.GameDir + "/console.log");
-            var fs = new FileStream(Instances.Config.GameDir + "/console.log", FileMode.Open, FileAccess.Read,
+            if (!File.Exists(Instance.Config.GameDir + "/console.log"))
+                File.Create(Instance.Config.GameDir + "/console.log");
+            var fs = new FileStream(Instance.Config.GameDir + "/console.log", FileMode.Open, FileAccess.Read,
                 FileShare.ReadWrite);
             using (var sr = new StreamReader(fs))
             {
@@ -42,7 +42,7 @@ namespace RequestifyTF2
                 }
             }
         }
-
+        //todo: use regex?
         public static void TextChecker(string s)
         {
             if (s.Contains(":") && s.Split(null).Length > 3)

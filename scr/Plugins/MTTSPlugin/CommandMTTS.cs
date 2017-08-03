@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RequestifyTF2.Api;
 
 namespace MTTSPlugin
@@ -17,16 +18,14 @@ namespace MTTSPlugin
         {
             if (arguments.Count > 0)
             {
-                var text = "";
+                var text = arguments.Aggregate("", (current, texts) => current + texts);
 
-                foreach (var texts in arguments)
-                    text += texts;
                 var d =
                     "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text=" +
                     text + "&useUTF8=1";
                 d = d.Replace(" ", "%20");
 
-                Instances.Vlc.Add(d);
+                Instance.Vlc.Add(d);
             }
         }
     }

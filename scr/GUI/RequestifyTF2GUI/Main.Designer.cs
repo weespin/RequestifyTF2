@@ -47,14 +47,9 @@
             this.pnl_Settings = new System.Windows.Forms.Panel();
             this.btn_SelectGamePath = new System.Windows.Forms.Button();
             this.txtbx_GamePath = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btn_howtouse = new System.Windows.Forms.Button();
-            this.btn_helppanel = new System.Windows.Forms.Button();
-            this.pnl_help = new System.Windows.Forms.Panel();
             this.pnl_main.SuspendLayout();
             this.pnl_ignorelist.SuspendLayout();
             this.pnl_Settings.SuspendLayout();
-            this.pnl_help.SuspendLayout();
             this.SuspendLayout();
             // 
             // PluginsList
@@ -120,9 +115,9 @@
             // 
             // btn_mainshow
             // 
-            this.btn_mainshow.Location = new System.Drawing.Point(12, 3);
+            this.btn_mainshow.Location = new System.Drawing.Point(12, 0);
             this.btn_mainshow.Name = "btn_mainshow";
-            this.btn_mainshow.Size = new System.Drawing.Size(65, 44);
+            this.btn_mainshow.Size = new System.Drawing.Size(89, 44);
             this.btn_mainshow.TabIndex = 12;
             this.btn_mainshow.Text = "Main";
             this.btn_mainshow.UseVisualStyleBackColor = true;
@@ -130,9 +125,9 @@
             // 
             // btn_ignorelistshow
             // 
-            this.btn_ignorelistshow.Location = new System.Drawing.Point(83, 3);
+            this.btn_ignorelistshow.Location = new System.Drawing.Point(107, 0);
             this.btn_ignorelistshow.Name = "btn_ignorelistshow";
-            this.btn_ignorelistshow.Size = new System.Drawing.Size(65, 44);
+            this.btn_ignorelistshow.Size = new System.Drawing.Size(89, 44);
             this.btn_ignorelistshow.TabIndex = 13;
             this.btn_ignorelistshow.Text = "Ignore List";
             this.btn_ignorelistshow.UseVisualStyleBackColor = true;
@@ -150,9 +145,9 @@
             // 
             // bnt_settingsshow
             // 
-            this.bnt_settingsshow.Location = new System.Drawing.Point(154, 3);
+            this.bnt_settingsshow.Location = new System.Drawing.Point(202, 0);
             this.bnt_settingsshow.Name = "bnt_settingsshow";
-            this.bnt_settingsshow.Size = new System.Drawing.Size(65, 44);
+            this.bnt_settingsshow.Size = new System.Drawing.Size(89, 44);
             this.bnt_settingsshow.TabIndex = 15;
             this.bnt_settingsshow.Text = "Settings";
             this.bnt_settingsshow.UseVisualStyleBackColor = true;
@@ -249,61 +244,17 @@
             this.txtbx_GamePath.Size = new System.Drawing.Size(240, 39);
             this.txtbx_GamePath.TabIndex = 2;
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Location = new System.Drawing.Point(146, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(129, 98);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "RequestifyTF2 by Weespin\r\nThanks to:\r\nini - critical bug report\r\nd4rkc4t - autoho" +
-    "tkey trick \r\n\r\n";
-            // 
-            // btn_howtouse
-            // 
-            this.btn_howtouse.Location = new System.Drawing.Point(10, 14);
-            this.btn_howtouse.Name = "btn_howtouse";
-            this.btn_howtouse.Size = new System.Drawing.Size(114, 23);
-            this.btn_howtouse.TabIndex = 0;
-            this.btn_howtouse.Text = "How to use";
-            this.btn_howtouse.UseVisualStyleBackColor = true;
-            this.btn_howtouse.Click += new System.EventHandler(this.btn_howtouse_Click);
-            // 
-            // btn_helppanel
-            // 
-            this.btn_helppanel.Location = new System.Drawing.Point(225, 3);
-            this.btn_helppanel.Name = "btn_helppanel";
-            this.btn_helppanel.Size = new System.Drawing.Size(65, 44);
-            this.btn_helppanel.TabIndex = 18;
-            this.btn_helppanel.Text = "Help";
-            this.btn_helppanel.UseVisualStyleBackColor = true;
-            this.btn_helppanel.Click += new System.EventHandler(this.btn_helppanel_Click);
-            // 
-            // pnl_help
-            // 
-            this.pnl_help.Controls.Add(this.textBox1);
-            this.pnl_help.Controls.Add(this.btn_howtouse);
-            this.pnl_help.Location = new System.Drawing.Point(12, 50);
-            this.pnl_help.Name = "pnl_help";
-            this.pnl_help.Size = new System.Drawing.Size(278, 150);
-            this.pnl_help.TabIndex = 18;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 216);
-            this.Controls.Add(this.btn_helppanel);
+            this.ClientSize = new System.Drawing.Size(301, 217);
             this.Controls.Add(this.bnt_settingsshow);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_ignorelistshow);
             this.Controls.Add(this.btn_mainshow);
             this.Controls.Add(this.pnl_main);
             this.Controls.Add(this.pnl_Settings);
-            this.Controls.Add(this.pnl_help);
             this.Controls.Add(this.pnl_ignorelist);
             this.Name = "Main";
             this.Text = "RequestifyTF2";
@@ -314,8 +265,6 @@
             this.pnl_ignorelist.PerformLayout();
             this.pnl_Settings.ResumeLayout(false);
             this.pnl_Settings.PerformLayout();
-            this.pnl_help.ResumeLayout(false);
-            this.pnl_help.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -341,10 +290,6 @@
         private System.Windows.Forms.Button btn_SelectGamePath;
         private System.Windows.Forms.TextBox txtbx_GamePath;
         private System.Windows.Forms.Button btn_start;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btn_howtouse;
-        private System.Windows.Forms.Button btn_helppanel;
-        private System.Windows.Forms.Panel pnl_help;
     }
 }
 
