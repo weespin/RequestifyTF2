@@ -70,9 +70,9 @@ namespace RequestifyTF2.Api
 
         public class PlayerKill
         {
-            public static void Invoke(string killer, string killed, string weapon)
+            public static void Invoke(string killer, string killed, string weapon, bool crit = false)
             {
-                var e = new PlayerKillArgs(killer, killed, weapon);
+                var e = new PlayerKillArgs(killer, killed, weapon,crit);
                 OnKill(e);
             }
 
@@ -86,16 +86,21 @@ namespace RequestifyTF2.Api
 
         public class PlayerKillArgs : EventArgs
         {
+          
+
             // Constructor. 
-            public PlayerKillArgs(string killer, string killed, string weapon)
+            public PlayerKillArgs(string killer, string killed, string weapon,bool crit = false)
             {
                 Killer = killer;
+                Crit = crit;
                 Weapon = weapon;
                 Killed = killed;
             }
 
             // Properties. 
             public string Killer { get; set; } = "";
+
+            public bool Crit { get; set; } = false;
 
             public string Killed { get; set; } = "";
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using RequestifyTF2.Api;
@@ -69,7 +70,7 @@ namespace RequestifyTF2
                     Executer.Execute(name, command, arguments);
                 }
             }
-            else if (s.Contains("killed") && s.Contains("with") && s.EndsWith("."))
+            else if (s.Contains("killed") && s.Contains("with") && s.EndsWith(".")|| s.Contains("killed") && s.Contains("with") && s.EndsWith("(crit)"))
             {
                 s = s.Trim();
                 var splitted = s.Split(null);
@@ -104,7 +105,22 @@ namespace RequestifyTF2
                 weapon = weapon.Trim();
 
                 weapon = weapon.TrimEnd();
-                weapon = weapon.Remove(weapon.Length - 1);
+                if (weapon.EndsWith(".")) //THIS IS NOT A CRIT
+                {
+                    weapon = weapon.Remove(weapon.Length - 1);
+                }
+                else if (weapon.EndsWith("(crit)"))
+                {
+                    weapon = weapon.Replace(" (crit)", "");
+                    weapon.Trim();
+                    weapon.TrimEnd();
+                    if (weapon.EndsWith("."))
+                    {
+                        weapon = weapon.Remove(weapon.Length - 1);
+                    }
+                }
+             
+                //Event
                 Events.PlayerKill.Invoke(killer, killed, weapon);
                 //Event
             }
