@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Management;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RequestifyTF2.Api;
@@ -197,9 +200,22 @@ namespace RequestifyTF2.VLC
 
         public VlcRemote()
         {
-            while (Process.GetProcessesByName("vlc").Length > 0)
-                foreach (var vlc in Process.GetProcessesByName("vlc"))
-                    vlc.Kill();
+            var ports = GetNetStatPorts();
+            foreach (var port in ports)
+            {
+                if (port.port_number == "9876")
+                {
+                    try
+                    {
+
+                        Process.GetProcessById(port.pid).Kill();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+            }
             string vlcPath = null;
 
             var vlcKey = Registry.LocalMachine.OpenSubKey(@"Software\VideoLan\VLC");
@@ -214,9 +230,9 @@ namespace RequestifyTF2.VLC
             if (vlcPath == null)
                 MessageBox.Show("CANT FIND VLC INSTALLED!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            var info = new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876");
+            var info = new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876 --no-video");
             info.CreateNoWindow = true;
-
+           info.WindowStyle = ProcessWindowStyle.Hidden;
             info.UseShellExecute = true;
 
             _vlcProcess = Process.Start(info);
@@ -261,7 +277,76 @@ namespace RequestifyTF2.VLC
                 return result == "1";
             }
         }
+        public static List<Port> GetNetStatPorts()
+        {
+            var Ports = new List<Port>();
 
+            try
+            {
+                using (Process p = new Process())
+                {
+
+                    ProcessStartInfo ps = new ProcessStartInfo();
+                    ps.Arguments = "-a -n -o";
+                    ps.FileName = "netstat.exe";
+                    ps.UseShellExecute = false;
+                    ps.WindowStyle = ProcessWindowStyle.Hidden;
+                    ps.RedirectStandardInput = true;
+                    ps.RedirectStandardOutput = true;
+                    ps.RedirectStandardError = true;
+
+                    p.StartInfo = ps;
+                    p.Start();
+
+                    StreamReader stdOutput = p.StandardOutput;
+                    StreamReader stdError = p.StandardError;
+
+                    string content = stdOutput.ReadToEnd() + stdError.ReadToEnd();
+                    string exitStatus = p.ExitCode.ToString();
+
+                    if (exitStatus != "0")
+                    {
+                        // Command Errored. Handle Here If Need Be
+                    }
+
+                    //Get The Rows
+                    string[] rows = Regex.Split(content, "\r\n");
+                    foreach (string row in rows)
+                    {
+                        //Split it baby
+                        string[] tokens = Regex.Split(row, "\\s+");
+                        if (tokens.Length > 4 && (tokens[1].Equals("UDP") || tokens[1].Equals("TCP")))
+                        {
+                            string localAddress = Regex.Replace(tokens[2], @"\[(.*?)\]", "1.1.1.1");
+                            Ports.Add(new Port
+                            {
+                                protocol = localAddress.Contains("1.1.1.1") ? String.Format("{0}v6", tokens[1]) : String.Format("{0}v4", tokens[1]),
+                                port_number = localAddress.Split(':')[1],
+                                pid = tokens[1] == "UDP" ? Convert.ToInt16(tokens[4]) : Convert.ToInt16(tokens[5])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return Ports;
+        }
+
+
+
+        // ===============================================
+        // The Port Class We're Going To Create A List Of
+        // ===============================================
+        public class Port
+        {
+
+            public string port_number { get; set; }
+            public Int16 pid { get; set; }
+            public string protocol { get; set; }
+        }
 
         public int Position
         {
