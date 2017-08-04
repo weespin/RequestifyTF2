@@ -41,6 +41,9 @@ namespace RequestifyTF2.Api
                         web.DownloadFile(
                             "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRawPlugin%2Fbin%2FDebug%2FRawPlugin.dll",
                             path + "/RawPlugin.dll");
+                        web.DownloadFile(
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRussianTTS%2Fbin%2FDebug%2FRussianTTS.dll",
+                            path + "/RussianTTS.dll");
                     }
                     Process.Start(Application.ExecutablePath); // to start new instance of application
                     Environment.Exit(0);
