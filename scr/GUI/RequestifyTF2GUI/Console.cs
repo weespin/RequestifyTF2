@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
-using RequestifyTF2Forms.Properties;
+using RequestifyTF2GUI.Properties;
 
 namespace RequestifyTF2Forms
 {
@@ -16,7 +16,7 @@ namespace RequestifyTF2Forms
         public Console()
         {
             InitializeComponent();
-            Icon = Resources._1481916367_letter_r_red;
+            Icon = Resources.Icon;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;

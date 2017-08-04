@@ -15,7 +15,7 @@ using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.Api;
 using RequestifyTF2Forms.Config;
-using RequestifyTF2Forms.Properties;
+using RequestifyTF2GUI.Properties;
 using Application = System.Windows.Forms.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Point = System.Drawing.Point;
@@ -56,7 +56,7 @@ namespace RequestifyTF2Forms
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             instance = this;
-            Icon = Resources._1481916367_letter_r_red;
+            Icon = Resources.Icon;
             _plugins = new Dictionary<string, IRequestifyPlugin>();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/")
             )
@@ -297,7 +297,9 @@ namespace RequestifyTF2Forms
         private void btn_add_Click(object sender, EventArgs e)
         {
             var toignorenick = field_ignored.Text;
-           if(toignorenick=="") return;
+            
+           if(toignorenick==""|| Instance.Config.Ignored.Contains(toignorenick)) return;
+        
             var namencommand = new string[] {toignorenick };
             var items = new ListViewItem(namencommand);
           list_ignored.Items.Add(items);
@@ -349,6 +351,11 @@ namespace RequestifyTF2Forms
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialLabel3_Click(object sender, EventArgs e)
         {
 
         }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
+using RequestifyTF2GUI.Properties;
 
 namespace RequestifyTF2Forms
 {
@@ -17,14 +18,15 @@ namespace RequestifyTF2Forms
         public MessageBox()
         {
             InitializeComponent();
-            this.materialLabel1.Font = SkinManager.ROBOTO_REGULAR_11;
-        
+            this.lbl_text.Font = SkinManager.ROBOTO_REGULAR_11;
+            this.lbl_text.ForeColor = Color.White; Icon = Resources.Icon;
+
         }
 
         public string MessageText
         {
             
-            set { materialLabel1.Text = value; }
+            set { lbl_text.Text = value; }
         }
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
@@ -32,9 +34,6 @@ namespace RequestifyTF2Forms
             this.Close();
         }
 
-   
-
       
-       
     }
 }

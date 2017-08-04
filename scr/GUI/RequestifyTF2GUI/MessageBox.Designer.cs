@@ -29,44 +29,21 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.lbl_text = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.materialLabel1);
+            this.panel1.Controls.Add(this.lbl_text);
             this.panel1.Controls.Add(this.materialTabSelector1);
             this.panel1.Controls.Add(this.materialRaisedButton1);
-            this.panel1.Location = new System.Drawing.Point(-5, 64);
+            this.panel1.Location = new System.Drawing.Point(-5, 59);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(311, 247);
+            this.panel1.Size = new System.Drawing.Size(311, 252);
             this.panel1.TabIndex = 1;
-            // 
-            // materialLabel1
-            // 
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel1.ForeColor = System.Drawing.Color.White;
-            this.materialLabel1.Location = new System.Drawing.Point(17, 35);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(276, 154);
-            this.materialLabel1.TabIndex = 3;
-            this.materialLabel1.Text = "materialLabel1";
-            // 
-            // materialTabSelector1
-            // 
-            this.materialTabSelector1.BaseTabControl = null;
-            this.materialTabSelector1.Depth = 0;
-            this.materialTabSelector1.Location = new System.Drawing.Point(3, -5);
-            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialTabSelector1.Name = "materialTabSelector1";
-            this.materialTabSelector1.Size = new System.Drawing.Size(308, 23);
-            this.materialTabSelector1.TabIndex = 2;
-            this.materialTabSelector1.Text = "materialTabSelector1";
             // 
             // materialRaisedButton1
             // 
@@ -83,6 +60,26 @@
             this.materialRaisedButton1.Text = "Ok";
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
             this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
+            // 
+            // materialTabSelector1
+            // 
+            this.materialTabSelector1.BaseTabControl = null;
+            this.materialTabSelector1.Depth = 0;
+            this.materialTabSelector1.Location = new System.Drawing.Point(3, -5);
+            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabSelector1.Name = "materialTabSelector1";
+            this.materialTabSelector1.Size = new System.Drawing.Size(308, 10);
+            this.materialTabSelector1.TabIndex = 2;
+            this.materialTabSelector1.Text = "materialTabSelector1";
+            // 
+            // lbl_text
+            // 
+            this.lbl_text.Location = new System.Drawing.Point(17, 22);
+            this.lbl_text.Name = "lbl_text";
+            this.lbl_text.Size = new System.Drawing.Size(276, 167);
+            this.lbl_text.TabIndex = 3;
+            this.lbl_text.Text = "label1";
+        
             // 
             // MessageBox
             // 
@@ -101,8 +98,8 @@
 
         #endregion
         private System.Windows.Forms.Panel panel1;
-        private MaterialSkin.Controls.MaterialTabSelector materialTabSelector1;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private System.Windows.Forms.Label lbl_text;
+        private MaterialSkin.Controls.MaterialTabSelector materialTabSelector1;
     }
 }

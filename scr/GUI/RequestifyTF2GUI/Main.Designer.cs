@@ -53,6 +53,9 @@
             this.list_ignored = new MaterialSkin.Controls.MaterialListView();
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -77,6 +80,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.materialLabel4);
+            this.tabPage1.Controls.Add(this.materialLabel3);
+            this.tabPage1.Controls.Add(this.materialLabel2);
             this.tabPage1.Controls.Add(this.materialLabel1);
             this.tabPage1.Controls.Add(this.materialDivider1);
             this.tabPage1.Controls.Add(this.btn_start);
@@ -96,7 +102,7 @@
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(296, 225);
+            this.materialLabel1.Location = new System.Drawing.Point(296, 227);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(115, 22);
@@ -120,14 +126,15 @@
             // 
             // btn_start
             // 
+            this.btn_start.AutoSize = true;
             this.btn_start.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btn_start.Depth = 0;
             this.btn_start.Icon = null;
-            this.btn_start.Location = new System.Drawing.Point(8, 6);
+            this.btn_start.Location = new System.Drawing.Point(27, 6);
             this.btn_start.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_start.Name = "btn_start";
             this.btn_start.Primary = true;
-            this.btn_start.Size = new System.Drawing.Size(126, 36);
+            this.btn_start.Size = new System.Drawing.Size(64, 36);
             this.btn_start.TabIndex = 16;
             this.btn_start.Text = "Start";
             this.btn_start.UseVisualStyleBackColor = true;
@@ -138,7 +145,7 @@
             this.chkbox_onlywithcode.AutoSize = true;
             this.chkbox_onlywithcode.Depth = 0;
             this.chkbox_onlywithcode.Font = new System.Drawing.Font("Roboto", 10F);
-            this.chkbox_onlywithcode.Location = new System.Drawing.Point(137, 6);
+            this.chkbox_onlywithcode.Location = new System.Drawing.Point(27, 56);
             this.chkbox_onlywithcode.Margin = new System.Windows.Forms.Padding(0);
             this.chkbox_onlywithcode.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkbox_onlywithcode.MouseState = MaterialSkin.MouseState.HOVER;
@@ -156,7 +163,7 @@
             this.lbl_code.Depth = 0;
             this.lbl_code.Font = new System.Drawing.Font("Roboto", 11F);
             this.lbl_code.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbl_code.Location = new System.Drawing.Point(267, 10);
+            this.lbl_code.Location = new System.Drawing.Point(256, 14);
             this.lbl_code.MouseState = MaterialSkin.MouseState.HOVER;
             this.lbl_code.Name = "lbl_code";
             this.lbl_code.Size = new System.Drawing.Size(122, 19);
@@ -391,6 +398,46 @@
             this.materialTabSelector1.TabIndex = 20;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel2.Location = new System.Drawing.Point(8, 3);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(0, 19);
+            this.materialLabel2.TabIndex = 19;
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel3.Location = new System.Drawing.Point(23, 101);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Size = new System.Drawing.Size(366, 76);
+            this.materialLabel3.TabIndex = 20;
+            this.materialLabel3.Text = "Welcome to RequestifyTF2, press Start to launch bot.\r\nYou should press Start befo" +
+    "re launching a game!\r\nDo not forget to specify the path in the settings!\r\n\r\n";
+            this.materialLabel3.Click += new System.EventHandler(this.materialLabel3_Click);
+            // 
+            // materialLabel4
+            // 
+            this.materialLabel4.AutoSize = true;
+            this.materialLabel4.Depth = 0;
+            this.materialLabel4.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel4.Location = new System.Drawing.Point(6, 227);
+            this.materialLabel4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel4.Name = "materialLabel4";
+            this.materialLabel4.Size = new System.Drawing.Size(185, 19);
+            this.materialLabel4.TabIndex = 21;
+            this.materialLabel4.Text = "Thanks to: ini, nullifiedcat ";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,6 +491,9 @@
         private MaterialSkin.Controls.MaterialCheckBox chkbox_reverse;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
+        private MaterialSkin.Controls.MaterialLabel materialLabel3;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private MaterialSkin.Controls.MaterialLabel materialLabel4;
     }
 }
 
