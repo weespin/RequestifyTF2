@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using RequestifyTF2.Api;
 using RequestifyTF2.VLC;
@@ -19,8 +20,10 @@ namespace RequestifyTF2
         {
             if (Instance.Config.GameDir == "")
             {
-                MessageBox.Show("Please set the game directory");
+             Console.WriteLine("Please set the game directory");
+
                 return;
+
             }
             Instance.Load();
 

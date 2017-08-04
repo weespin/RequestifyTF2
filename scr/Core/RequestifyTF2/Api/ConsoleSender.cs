@@ -33,7 +33,7 @@ namespace RequestifyTF2.Api
             if (Instance.Config.AhkPath != string.Empty)
                 Process.Start(Instance.Config.AhkPath);
             else
-                MessageBox.Show("ERROR, no ahk path?");
+              Console.WriteLine("ERROR, AutoHotKey Path is not found!");
         }
     }
 

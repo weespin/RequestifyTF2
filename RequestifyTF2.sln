@@ -14,6 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gui", "Gui", "{E4407950-C97B-4FE7-A76C-FE45911C45DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2AABA088-6C61-435B-8E66-AB155563F078}"
+	ProjectSection(SolutionItems) = preProject
+		scr\GUI\RequestifyTF2GUI\Program.cs = scr\GUI\RequestifyTF2GUI\Program.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2", "scr\Core\RequestifyTF2\RequestifyTF2.csproj", "{6A852064-D79A-457E-ADC8-F6A3D34E51E2}"
 EndProject

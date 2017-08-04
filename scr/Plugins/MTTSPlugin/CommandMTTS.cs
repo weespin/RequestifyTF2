@@ -8,7 +8,8 @@ namespace MTTSPlugin
 
     {
         public string Name => "MTTS";
-
+        public string Author => "Weespin";
+        public string Help => "Playing a David UK (MLG) voice";
         public string Command => "!mtts";
         public bool OnlyCode => false;
 
