@@ -26,8 +26,9 @@ namespace RequestifyTF2Forms.Config
                 {
                     File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "config/config.json",
                         emptyjson);
-                    System.Windows.Forms.MessageBox.Show("Please select game directory in 'Settings' menu", "Warning", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                 
+                        new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory", "Error", RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
+                  
                 }
             }
             else
@@ -35,12 +36,10 @@ namespace RequestifyTF2Forms.Config
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/config/");
                 File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json",
                     emptyjson);
-                System.Windows.Forms.MessageBox.Show("Please select game directory in 'Settings' menu", "Warning", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory", "Error", RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
             }
             if (CurrentConfig.GameDirectory == "")
-                System.Windows.Forms.MessageBox.Show("Please select game directory in 'Settings' menu", "Warning", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory", "Error", RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
         }
 

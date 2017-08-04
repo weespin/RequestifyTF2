@@ -77,6 +77,7 @@ namespace RequestifyTF2Forms
             seedListView(plugins);
             FormClosing += Main_Closing;
             AppConfig.Load();
+           
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -187,18 +188,19 @@ namespace RequestifyTF2Forms
                 {
                     if (s.SelectedPath == "")
                         return;
-                    Instance.Config.GameDir = s.SelectedPath;
-                    txtbx_GamePath.Text = "Current game path: " + Instance.Config.GameDir;
+                  
+                   
                     var dirs = Directory.GetDirectories(s.SelectedPath);
                     if (dirs.Any(n => n.Contains("cfg")))
                     {
                     }
                     else
                     {
-                        System.Windows.Forms.MessageBox.Show(
-                            "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder.");
-                        s.SelectedPath = "";
+                        new RequestifyTF2GUI.MessageBox.MessageBox().Show(
+                             "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.","Error",RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
+                       return;
                     }
+                    txtbx_GamePath.Text = "Current game path: " + Instance.Config.GameDir;
                     AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
                     AppConfig.Save();
                 }
@@ -324,7 +326,8 @@ namespace RequestifyTF2Forms
         {
             if (Instance.Config.GameDir == "")
             {
-                System.Windows.Forms.MessageBox.Show("Please set the game directory");
+                new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory","Error",RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
+ 
 
                 return;
 
@@ -350,15 +353,7 @@ namespace RequestifyTF2Forms
             Process.Start("https://steamcommunity.com/id/wspin/");
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void materialLabel3_Click(object sender, EventArgs e)
-        {
-
-        }
+     
     }
 
     public static class ThreadHelperClass

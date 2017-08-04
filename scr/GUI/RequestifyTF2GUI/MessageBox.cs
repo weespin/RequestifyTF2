@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -19,10 +18,15 @@ namespace RequestifyTF2Forms
         {
             InitializeComponent();
             this.lbl_text.Font = SkinManager.ROBOTO_REGULAR_11;
-            this.lbl_text.ForeColor = Color.White; Icon = Resources.Icon;
+             Icon = Resources.Icon;
+            
 
         }
 
+        public string Color
+        {
+            set { lbl_text.ForeColor = System.Drawing.ColorTranslator.FromHtml(value); }
+        }
         public string MessageText
         {
             
