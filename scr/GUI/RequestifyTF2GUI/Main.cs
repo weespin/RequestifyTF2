@@ -56,7 +56,7 @@ namespace RequestifyTF2Forms
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             instance = this;
-          
+            Icon = Resources._1481916367_letter_r_red;
             _plugins = new Dictionary<string, IRequestifyPlugin>();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/")
             )
@@ -92,10 +92,7 @@ namespace RequestifyTF2Forms
 
         #region Ect
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://steamcommunity.com/id/wspin/");
-        }
+   
 
         #endregion
 
@@ -344,6 +341,16 @@ namespace RequestifyTF2Forms
         private void chkbox_onlywithcode_CheckedChanged(object sender, EventArgs e)
         {
             Instance.Config.OnlyWithCode = chkbox_onlywithcode.Checked;
+        }
+
+        private void materialLabel1_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://steamcommunity.com/id/wspin/");
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

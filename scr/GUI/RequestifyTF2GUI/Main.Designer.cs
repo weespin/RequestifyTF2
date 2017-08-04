@@ -30,6 +30,8 @@
         {
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.btn_start = new MaterialSkin.Controls.MaterialRaisedButton();
             this.chkbox_onlywithcode = new MaterialSkin.Controls.MaterialCheckBox();
             this.lbl_code = new MaterialSkin.Controls.MaterialLabel();
@@ -75,6 +77,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.materialLabel1);
+            this.tabPage1.Controls.Add(this.materialDivider1);
             this.tabPage1.Controls.Add(this.btn_start);
             this.tabPage1.Controls.Add(this.chkbox_onlywithcode);
             this.tabPage1.Controls.Add(this.lbl_code);
@@ -85,18 +89,45 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel1.Location = new System.Drawing.Point(296, 225);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(115, 22);
+            this.materialLabel1.TabIndex = 18;
+            this.materialLabel1.Text = "Weespin 2017";
+            this.materialLabel1.Click += new System.EventHandler(this.materialLabel1_Click);
+            // 
+            // materialDivider1
+            // 
+            this.materialDivider1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialDivider1.Depth = 0;
+            this.materialDivider1.Location = new System.Drawing.Point(0, 192);
+            this.materialDivider1.Margin = new System.Windows.Forms.Padding(0);
+            this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialDivider1.Name = "materialDivider1";
+            this.materialDivider1.Size = new System.Drawing.Size(408, 1);
+            this.materialDivider1.TabIndex = 17;
+            this.materialDivider1.Text = "materialDivider1";
             // 
             // btn_start
             // 
-            this.btn_start.AutoSize = true;
             this.btn_start.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btn_start.Depth = 0;
             this.btn_start.Icon = null;
-            this.btn_start.Location = new System.Drawing.Point(7, 6);
+            this.btn_start.Location = new System.Drawing.Point(8, 6);
             this.btn_start.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_start.Name = "btn_start";
             this.btn_start.Primary = true;
-            this.btn_start.Size = new System.Drawing.Size(64, 36);
+            this.btn_start.Size = new System.Drawing.Size(126, 36);
             this.btn_start.TabIndex = 16;
             this.btn_start.Text = "Start";
             this.btn_start.UseVisualStyleBackColor = true;
@@ -107,7 +138,7 @@
             this.chkbox_onlywithcode.AutoSize = true;
             this.chkbox_onlywithcode.Depth = 0;
             this.chkbox_onlywithcode.Font = new System.Drawing.Font("Roboto", 10F);
-            this.chkbox_onlywithcode.Location = new System.Drawing.Point(88, 10);
+            this.chkbox_onlywithcode.Location = new System.Drawing.Point(137, 6);
             this.chkbox_onlywithcode.Margin = new System.Windows.Forms.Padding(0);
             this.chkbox_onlywithcode.MouseLocation = new System.Drawing.Point(-1, -1);
             this.chkbox_onlywithcode.MouseState = MaterialSkin.MouseState.HOVER;
@@ -125,7 +156,7 @@
             this.lbl_code.Depth = 0;
             this.lbl_code.Font = new System.Drawing.Font("Roboto", 11F);
             this.lbl_code.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lbl_code.Location = new System.Drawing.Point(267, 14);
+            this.lbl_code.Location = new System.Drawing.Point(267, 10);
             this.lbl_code.MouseState = MaterialSkin.MouseState.HOVER;
             this.lbl_code.Name = "lbl_code";
             this.lbl_code.Size = new System.Drawing.Size(122, 19);
@@ -411,6 +442,8 @@
         private MaterialSkin.Controls.MaterialRaisedButton btn_remove;
         private MaterialSkin.Controls.MaterialSingleLineTextField field_ignored;
         private MaterialSkin.Controls.MaterialCheckBox chkbox_reverse;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
+        private MaterialSkin.Controls.MaterialDivider materialDivider1;
     }
 }
 
