@@ -1,5 +1,6 @@
 # RequestifyTF2
 RequesifyTF2 is a simple program for Source Engine based games, which supports plugins.
+![Build](https://ci.appveyor.com/api/projects/status/github/weespin/Requestifytf2)
 # Installation
 1. Go to Download and download lastest [releases](https://github.com/weespin/RequestifyTF2/releases)!
 2. Make sure that u have VLC and Virtual Audio Cable installed on your pc
