@@ -22,8 +22,7 @@ namespace RequestifyTF2.Api
                 dllFileNames = Directory.GetFiles(path, "*.dll");
                 if (dllFileNames.Length == 0)
                 {
-                    MessageBox.Show("No plugins found, auto downloading plugins from web.", "WARINING",
-                        MessageBoxButtons.OK,MessageBoxIcon.Information);
+       
                     using (var web = new WebClient())
                     {
                         web.Proxy = null;
@@ -43,10 +42,7 @@ namespace RequestifyTF2.Api
                             "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRawPlugin%2Fbin%2FDebug%2FRawPlugin.dll",
                             path + "/RawPlugin.dll");
                     }
-                    MessageBox.Show("Donwloaded Click 'OK' button", "Downloaded!", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
                     Process.Start(Application.ExecutablePath); // to start new instance of application
-
                     Environment.Exit(0);
                 }
 

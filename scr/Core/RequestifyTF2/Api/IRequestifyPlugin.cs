@@ -8,7 +8,7 @@ namespace RequestifyTF2.Api
         string Command { get; }
         bool OnlyCode { get; }
         string Author { get; }
-        string Help { get;  }
+        string Help { get; }
         void Execute(string executor, List<string> arguments);
     }
 }
