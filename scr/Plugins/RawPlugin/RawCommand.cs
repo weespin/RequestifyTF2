@@ -7,7 +7,8 @@ namespace RawPlugi
 
     {
         public string Name => "Raw";
-
+        public string Author => "Weespin";
+        public string Help => "Playing a raw file. Translating mp3, streams, links, radio directly to VLC player.";
         public string Command => "!raw";
         public bool OnlyCode => false;
 

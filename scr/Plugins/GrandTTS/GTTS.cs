@@ -10,7 +10,8 @@ namespace GTTS
     public class Plugin : IRequestifyPlugin
     {
         public string Name => "GTTS";
-
+        public string Author => "Weespin";
+        public string Help => "Playing a WillFromAfar (purple sheep) voice";
         public string Command => "!gtts";
         public bool OnlyCode => false;
 

@@ -7,9 +7,9 @@ namespace TTSPlugin
     public class TtsPlugin : IRequestifyPlugin
     {
         public string Name => "TTS";
-
+        public string Author => "Weespin";
         public string Command => "!tts";
-
+        public string Help => "Playing a Google voice";
         public bool OnlyCode => false;
 
    

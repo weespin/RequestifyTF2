@@ -2,15 +2,16 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 using RequestifyTF2Forms.Properties;
 
 namespace RequestifyTF2Forms
 {
-    public partial class Console : Form
+    public partial class Console : MaterialForm
     {
-        private readonly int _offsetX = 59;
+        private readonly int _offsetX =51;
 
-        private readonly int _offsetY = 1;
+        private readonly int _offsetY = 0;
 
         public Console()
         {
@@ -33,8 +34,12 @@ namespace RequestifyTF2Forms
 
                 while (true)
                 {
+                    Thread.Sleep(1);
                     if (!Main.ConsoleShowed)
+                    {
+                        Thread.Sleep(100);
                         continue;
+                    }
                     try
                     {
                         if (Main.instance.Location.Y + _offsetY != Location.Y)
@@ -54,7 +59,7 @@ namespace RequestifyTF2Forms
                         //ignored
                     }
                     //16ms = 60fps
-                    Thread.Sleep(16);
+                 
                 }
             }).Start();
         }
@@ -92,5 +97,7 @@ namespace RequestifyTF2Forms
 
             private delegate void SetPosCallback(Form f, Control ctrl, Point p);
         }
+
+        
     }
 }

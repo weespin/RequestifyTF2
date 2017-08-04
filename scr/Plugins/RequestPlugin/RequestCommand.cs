@@ -7,8 +7,9 @@ namespace RequestPlugin
 
     {
         public string Name => "Request";
-
+        public string Author => "Weespin";
         public string Command => "!request";
+        public string Help => "Play music. Supports soundcloud and youtube!";
         public bool OnlyCode => false;
 
 

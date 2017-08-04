@@ -28,268 +28,389 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PluginsList = new System.Windows.Forms.CheckedListBox();
-            this.btn_onlycode = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pnl_main = new System.Windows.Forms.Panel();
-            this.btn_start = new System.Windows.Forms.Button();
-            this.btn_mainshow = new System.Windows.Forms.Button();
-            this.btn_ignorelistshow = new System.Windows.Forms.Button();
-            this.btn_consoleshow = new System.Windows.Forms.Button();
-            this.bnt_settingsshow = new System.Windows.Forms.Button();
-            this.pnl_ignorelist = new System.Windows.Forms.Panel();
-            this.btn_ListAdd = new System.Windows.Forms.Button();
-            this.chkbx_ListReversed = new System.Windows.Forms.CheckBox();
-            this.btn_ListRemove = new System.Windows.Forms.Button();
-            this.tbx_ListToAdd = new System.Windows.Forms.TextBox();
-            this.lbx_IgnoreList = new System.Windows.Forms.ListBox();
-            this.pnl_Settings = new System.Windows.Forms.Panel();
-            this.btn_SelectGamePath = new System.Windows.Forms.Button();
-            this.txtbx_GamePath = new System.Windows.Forms.TextBox();
-            this.pnl_main.SuspendLayout();
-            this.pnl_ignorelist.SuspendLayout();
-            this.pnl_Settings.SuspendLayout();
+            this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_start = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.chkbox_onlywithcode = new MaterialSkin.Controls.MaterialCheckBox();
+            this.lbl_code = new MaterialSkin.Controls.MaterialLabel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btn_SelectGamePath = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btn_consoleshow = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.txtbx_GamePath = new MaterialSkin.Controls.MaterialLabel();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.list_plugins = new MaterialSkin.Controls.MaterialListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.chkbox_reverse = new MaterialSkin.Controls.MaterialCheckBox();
+            this.field_ignored = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.btn_add = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btn_remove = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.list_ignored = new MaterialSkin.Controls.MaterialListView();
+            this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.materialTabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // PluginsList
+            // materialTabControl1
             // 
-            this.PluginsList.FormattingEnabled = true;
-            this.PluginsList.Location = new System.Drawing.Point(10, 3);
-            this.PluginsList.Name = "PluginsList";
-            this.PluginsList.Size = new System.Drawing.Size(120, 139);
-            this.PluginsList.TabIndex = 1;
-            this.PluginsList.SelectedIndexChanged += new System.EventHandler(this.PluginsList_SelectedIndexChanged);
+            this.materialTabControl1.Controls.Add(this.tabPage1);
+            this.materialTabControl1.Controls.Add(this.tabPage2);
+            this.materialTabControl1.Controls.Add(this.tabPage3);
+            this.materialTabControl1.Controls.Add(this.tabPage4);
+            this.materialTabControl1.Depth = 0;
+            this.materialTabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.materialTabControl1.Location = new System.Drawing.Point(0, 114);
+            this.materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabControl1.Name = "materialTabControl1";
+            this.materialTabControl1.SelectedIndex = 0;
+            this.materialTabControl1.Size = new System.Drawing.Size(419, 254);
+            this.materialTabControl1.TabIndex = 19;
             // 
-            // btn_onlycode
+            // tabPage1
             // 
-            this.btn_onlycode.AutoSize = true;
-            this.btn_onlycode.Location = new System.Drawing.Point(146, 66);
-            this.btn_onlycode.Name = "btn_onlycode";
-            this.btn_onlycode.Size = new System.Drawing.Size(96, 17);
-            this.btn_onlycode.TabIndex = 5;
-            this.btn_onlycode.Text = "Only with code";
-            this.btn_onlycode.UseVisualStyleBackColor = true;
-            this.btn_onlycode.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(143, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 18);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Code:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(222, 203);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Weespin 2017";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // pnl_main
-            // 
-            this.pnl_main.Controls.Add(this.btn_start);
-            this.pnl_main.Controls.Add(this.PluginsList);
-            this.pnl_main.Controls.Add(this.label1);
-            this.pnl_main.Controls.Add(this.btn_onlycode);
-            this.pnl_main.Location = new System.Drawing.Point(12, 50);
-            this.pnl_main.Name = "pnl_main";
-            this.pnl_main.Size = new System.Drawing.Size(278, 150);
-            this.pnl_main.TabIndex = 11;
+            this.tabPage1.Controls.Add(this.btn_start);
+            this.tabPage1.Controls.Add(this.chkbox_onlywithcode);
+            this.tabPage1.Controls.Add(this.lbl_code);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(411, 228);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Main";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btn_start
             // 
-            this.btn_start.Location = new System.Drawing.Point(146, 17);
+            this.btn_start.AutoSize = true;
+            this.btn_start.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_start.Depth = 0;
+            this.btn_start.Icon = null;
+            this.btn_start.Location = new System.Drawing.Point(7, 6);
+            this.btn_start.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(114, 23);
-            this.btn_start.TabIndex = 7;
+            this.btn_start.Primary = true;
+            this.btn_start.Size = new System.Drawing.Size(64, 36);
+            this.btn_start.TabIndex = 16;
             this.btn_start.Text = "Start";
             this.btn_start.UseVisualStyleBackColor = true;
-            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
+            this.btn_start.Click += new System.EventHandler(this.btn_start_Click_1);
             // 
-            // btn_mainshow
+            // chkbox_onlywithcode
             // 
-            this.btn_mainshow.Location = new System.Drawing.Point(12, 0);
-            this.btn_mainshow.Name = "btn_mainshow";
-            this.btn_mainshow.Size = new System.Drawing.Size(89, 44);
-            this.btn_mainshow.TabIndex = 12;
-            this.btn_mainshow.Text = "Main";
-            this.btn_mainshow.UseVisualStyleBackColor = true;
-            this.btn_mainshow.Click += new System.EventHandler(this.btn_mainshow_Click);
+            this.chkbox_onlywithcode.AutoSize = true;
+            this.chkbox_onlywithcode.Depth = 0;
+            this.chkbox_onlywithcode.Font = new System.Drawing.Font("Roboto", 10F);
+            this.chkbox_onlywithcode.Location = new System.Drawing.Point(88, 10);
+            this.chkbox_onlywithcode.Margin = new System.Windows.Forms.Padding(0);
+            this.chkbox_onlywithcode.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkbox_onlywithcode.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkbox_onlywithcode.Name = "chkbox_onlywithcode";
+            this.chkbox_onlywithcode.Ripple = true;
+            this.chkbox_onlywithcode.Size = new System.Drawing.Size(122, 30);
+            this.chkbox_onlywithcode.TabIndex = 15;
+            this.chkbox_onlywithcode.Text = "Only with Code";
+            this.chkbox_onlywithcode.UseVisualStyleBackColor = true;
+            this.chkbox_onlywithcode.CheckedChanged += new System.EventHandler(this.chkbox_onlywithcode_CheckedChanged);
             // 
-            // btn_ignorelistshow
+            // lbl_code
             // 
-            this.btn_ignorelistshow.Location = new System.Drawing.Point(107, 0);
-            this.btn_ignorelistshow.Name = "btn_ignorelistshow";
-            this.btn_ignorelistshow.Size = new System.Drawing.Size(89, 44);
-            this.btn_ignorelistshow.TabIndex = 13;
-            this.btn_ignorelistshow.Text = "Ignore List";
-            this.btn_ignorelistshow.UseVisualStyleBackColor = true;
-            this.btn_ignorelistshow.Click += new System.EventHandler(this.btn_ignorelistshow_Click);
+            this.lbl_code.AutoSize = true;
+            this.lbl_code.Depth = 0;
+            this.lbl_code.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lbl_code.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lbl_code.Location = new System.Drawing.Point(267, 14);
+            this.lbl_code.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lbl_code.Name = "lbl_code";
+            this.lbl_code.Size = new System.Drawing.Size(122, 19);
+            this.lbl_code.TabIndex = 13;
+            this.lbl_code.Text = "Code: generating";
             // 
-            // btn_consoleshow
+            // tabPage2
             // 
-            this.btn_consoleshow.Location = new System.Drawing.Point(10, 127);
-            this.btn_consoleshow.Name = "btn_consoleshow";
-            this.btn_consoleshow.Size = new System.Drawing.Size(114, 23);
-            this.btn_consoleshow.TabIndex = 14;
-            this.btn_consoleshow.Text = "Console";
-            this.btn_consoleshow.UseVisualStyleBackColor = true;
-            this.btn_consoleshow.Click += new System.EventHandler(this.btn_consoleshow_Click);
-            // 
-            // bnt_settingsshow
-            // 
-            this.bnt_settingsshow.Location = new System.Drawing.Point(202, 0);
-            this.bnt_settingsshow.Name = "bnt_settingsshow";
-            this.bnt_settingsshow.Size = new System.Drawing.Size(89, 44);
-            this.bnt_settingsshow.TabIndex = 15;
-            this.bnt_settingsshow.Text = "Settings";
-            this.bnt_settingsshow.UseVisualStyleBackColor = true;
-            this.bnt_settingsshow.Click += new System.EventHandler(this.bnt_settingsshow_Click);
-            // 
-            // pnl_ignorelist
-            // 
-            this.pnl_ignorelist.Controls.Add(this.btn_ListAdd);
-            this.pnl_ignorelist.Controls.Add(this.chkbx_ListReversed);
-            this.pnl_ignorelist.Controls.Add(this.btn_ListRemove);
-            this.pnl_ignorelist.Controls.Add(this.tbx_ListToAdd);
-            this.pnl_ignorelist.Controls.Add(this.lbx_IgnoreList);
-            this.pnl_ignorelist.Location = new System.Drawing.Point(12, 50);
-            this.pnl_ignorelist.Name = "pnl_ignorelist";
-            this.pnl_ignorelist.Size = new System.Drawing.Size(278, 150);
-            this.pnl_ignorelist.TabIndex = 16;
-            // 
-            // btn_ListAdd
-            // 
-            this.btn_ListAdd.Location = new System.Drawing.Point(146, 62);
-            this.btn_ListAdd.Name = "btn_ListAdd";
-            this.btn_ListAdd.Size = new System.Drawing.Size(114, 23);
-            this.btn_ListAdd.TabIndex = 22;
-            this.btn_ListAdd.Text = "Add";
-            this.btn_ListAdd.UseVisualStyleBackColor = true;
-            this.btn_ListAdd.Click += new System.EventHandler(this.btn_ListAdd_Click);
-            // 
-            // chkbx_ListReversed
-            // 
-            this.chkbx_ListReversed.AutoSize = true;
-            this.chkbx_ListReversed.Location = new System.Drawing.Point(146, 91);
-            this.chkbx_ListReversed.Name = "chkbx_ListReversed";
-            this.chkbx_ListReversed.Size = new System.Drawing.Size(72, 17);
-            this.chkbx_ListReversed.TabIndex = 23;
-            this.chkbx_ListReversed.Text = "Reversed";
-            this.chkbx_ListReversed.UseVisualStyleBackColor = true;
-            this.chkbx_ListReversed.CheckedChanged += new System.EventHandler(this.chkbx_ListReversed_CheckedChanged);
-            // 
-            // btn_ListRemove
-            // 
-            this.btn_ListRemove.Location = new System.Drawing.Point(146, 6);
-            this.btn_ListRemove.Name = "btn_ListRemove";
-            this.btn_ListRemove.Size = new System.Drawing.Size(114, 23);
-            this.btn_ListRemove.TabIndex = 21;
-            this.btn_ListRemove.Text = "Remove";
-            this.btn_ListRemove.UseVisualStyleBackColor = true;
-            this.btn_ListRemove.Click += new System.EventHandler(this.btn_ListRemove_Click);
-            // 
-            // tbx_ListToAdd
-            // 
-            this.tbx_ListToAdd.Location = new System.Drawing.Point(146, 35);
-            this.tbx_ListToAdd.Multiline = true;
-            this.tbx_ListToAdd.Name = "tbx_ListToAdd";
-            this.tbx_ListToAdd.Size = new System.Drawing.Size(114, 21);
-            this.tbx_ListToAdd.TabIndex = 20;
-            this.tbx_ListToAdd.Text = "Enter string";
-            // 
-            // lbx_IgnoreList
-            // 
-            this.lbx_IgnoreList.FormattingEnabled = true;
-            this.lbx_IgnoreList.Location = new System.Drawing.Point(10, 3);
-            this.lbx_IgnoreList.Name = "lbx_IgnoreList";
-            this.lbx_IgnoreList.Size = new System.Drawing.Size(120, 134);
-            this.lbx_IgnoreList.TabIndex = 17;
-            // 
-            // pnl_Settings
-            // 
-            this.pnl_Settings.Controls.Add(this.btn_SelectGamePath);
-            this.pnl_Settings.Controls.Add(this.txtbx_GamePath);
-            this.pnl_Settings.Controls.Add(this.btn_consoleshow);
-            this.pnl_Settings.Location = new System.Drawing.Point(12, 50);
-            this.pnl_Settings.Name = "pnl_Settings";
-            this.pnl_Settings.Size = new System.Drawing.Size(278, 150);
-            this.pnl_Settings.TabIndex = 17;
+            this.tabPage2.Controls.Add(this.btn_SelectGamePath);
+            this.tabPage2.Controls.Add(this.btn_consoleshow);
+            this.tabPage2.Controls.Add(this.txtbx_GamePath);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(411, 228);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Settings";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btn_SelectGamePath
             // 
-            this.btn_SelectGamePath.Location = new System.Drawing.Point(146, 127);
+            this.btn_SelectGamePath.AutoSize = true;
+            this.btn_SelectGamePath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_SelectGamePath.Depth = 0;
+            this.btn_SelectGamePath.Icon = null;
+            this.btn_SelectGamePath.Location = new System.Drawing.Point(218, 16);
+            this.btn_SelectGamePath.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_SelectGamePath.Name = "btn_SelectGamePath";
-            this.btn_SelectGamePath.Size = new System.Drawing.Size(118, 23);
-            this.btn_SelectGamePath.TabIndex = 1;
+            this.btn_SelectGamePath.Primary = true;
+            this.btn_SelectGamePath.Size = new System.Drawing.Size(151, 36);
+            this.btn_SelectGamePath.TabIndex = 19;
             this.btn_SelectGamePath.Text = "Select Game Path";
             this.btn_SelectGamePath.UseVisualStyleBackColor = true;
-            this.btn_SelectGamePath.Click += new System.EventHandler(this.btn_SelectGamePath_Click);
+            this.btn_SelectGamePath.Click += new System.EventHandler(this.btn_SelectGamePath_Click_1);
+            // 
+            // btn_consoleshow
+            // 
+            this.btn_consoleshow.AutoSize = true;
+            this.btn_consoleshow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_consoleshow.Depth = 0;
+            this.btn_consoleshow.Icon = null;
+            this.btn_consoleshow.Location = new System.Drawing.Point(59, 16);
+            this.btn_consoleshow.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_consoleshow.Name = "btn_consoleshow";
+            this.btn_consoleshow.Primary = true;
+            this.btn_consoleshow.Size = new System.Drawing.Size(82, 36);
+            this.btn_consoleshow.TabIndex = 18;
+            this.btn_consoleshow.Text = "Console";
+            this.btn_consoleshow.UseVisualStyleBackColor = true;
+            this.btn_consoleshow.Click += new System.EventHandler(this.btn_consoleshow_Click_1);
             // 
             // txtbx_GamePath
             // 
-            this.txtbx_GamePath.BackColor = System.Drawing.SystemColors.Control;
-            this.txtbx_GamePath.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtbx_GamePath.Location = new System.Drawing.Point(20, 24);
-            this.txtbx_GamePath.Multiline = true;
+            this.txtbx_GamePath.Depth = 0;
+            this.txtbx_GamePath.Font = new System.Drawing.Font("Roboto", 11F);
+            this.txtbx_GamePath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.txtbx_GamePath.Location = new System.Drawing.Point(8, 71);
+            this.txtbx_GamePath.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtbx_GamePath.Name = "txtbx_GamePath";
-            this.txtbx_GamePath.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.txtbx_GamePath.Size = new System.Drawing.Size(240, 39);
-            this.txtbx_GamePath.TabIndex = 2;
+            this.txtbx_GamePath.Size = new System.Drawing.Size(395, 86);
+            this.txtbx_GamePath.TabIndex = 15;
+            this.txtbx_GamePath.Text = "materialLabel1";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.list_plugins);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(411, 228);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Plugins";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // list_plugins
+            // 
+            this.list_plugins.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.list_plugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.list_plugins.Depth = 0;
+            this.list_plugins.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.list_plugins.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.list_plugins.FullRowSelect = true;
+            this.list_plugins.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.list_plugins.Location = new System.Drawing.Point(0, 0);
+            this.list_plugins.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.list_plugins.MouseState = MaterialSkin.MouseState.OUT;
+            this.list_plugins.Name = "list_plugins";
+            this.list_plugins.OwnerDraw = true;
+            this.list_plugins.Size = new System.Drawing.Size(411, 228);
+            this.list_plugins.TabIndex = 2;
+            this.list_plugins.UseCompatibleStateImageBehavior = false;
+            this.list_plugins.View = System.Windows.Forms.View.Details;
+            this.list_plugins.DoubleClick += new System.EventHandler(this.list_plugins_DoubleClick);
+            this.list_plugins.MouseClick += new System.Windows.Forms.MouseEventHandler(this.list_plugins_MouseClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Plugin";
+            this.columnHeader1.Width = 105;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Command";
+            this.columnHeader2.Width = 110;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Author";
+            this.columnHeader3.Width = 110;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Enabled";
+            this.columnHeader4.Width = 89;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.Color.White;
+            this.tabPage4.Controls.Add(this.chkbox_reverse);
+            this.tabPage4.Controls.Add(this.field_ignored);
+            this.tabPage4.Controls.Add(this.btn_add);
+            this.tabPage4.Controls.Add(this.btn_remove);
+            this.tabPage4.Controls.Add(this.list_ignored);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(411, 228);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Ignore List";
+            // 
+            // chkbox_reverse
+            // 
+            this.chkbox_reverse.AutoSize = true;
+            this.chkbox_reverse.Depth = 0;
+            this.chkbox_reverse.Font = new System.Drawing.Font("Roboto", 10F);
+            this.chkbox_reverse.Location = new System.Drawing.Point(253, 102);
+            this.chkbox_reverse.Margin = new System.Windows.Forms.Padding(0);
+            this.chkbox_reverse.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.chkbox_reverse.MouseState = MaterialSkin.MouseState.HOVER;
+            this.chkbox_reverse.Name = "chkbox_reverse";
+            this.chkbox_reverse.Ripple = true;
+            this.chkbox_reverse.Size = new System.Drawing.Size(87, 30);
+            this.chkbox_reverse.TabIndex = 29;
+            this.chkbox_reverse.Text = "Reversed";
+            this.chkbox_reverse.UseVisualStyleBackColor = true;
+            this.chkbox_reverse.CheckedChanged += new System.EventHandler(this.materialCheckBox1_CheckedChanged);
+            // 
+            // field_ignored
+            // 
+            this.field_ignored.Depth = 0;
+            this.field_ignored.Hint = "";
+            this.field_ignored.Location = new System.Drawing.Point(253, 13);
+            this.field_ignored.MaxLength = 32767;
+            this.field_ignored.MouseState = MaterialSkin.MouseState.HOVER;
+            this.field_ignored.Name = "field_ignored";
+            this.field_ignored.PasswordChar = '\0';
+            this.field_ignored.SelectedText = "";
+            this.field_ignored.SelectionLength = 0;
+            this.field_ignored.SelectionStart = 0;
+            this.field_ignored.Size = new System.Drawing.Size(129, 23);
+            this.field_ignored.TabIndex = 27;
+            this.field_ignored.TabStop = false;
+            this.field_ignored.Text = "Enter Name";
+            this.field_ignored.UseSystemPasswordChar = false;
+            // 
+            // btn_add
+            // 
+            this.btn_add.AutoSize = true;
+            this.btn_add.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_add.Depth = 0;
+            this.btn_add.Icon = null;
+            this.btn_add.Location = new System.Drawing.Point(253, 51);
+            this.btn_add.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_add.Name = "btn_add";
+            this.btn_add.Primary = true;
+            this.btn_add.Size = new System.Drawing.Size(48, 36);
+            this.btn_add.TabIndex = 26;
+            this.btn_add.Text = "Add";
+            this.btn_add.UseVisualStyleBackColor = true;
+            this.btn_add.Click += new System.EventHandler(this.btn_add_Click);
+            // 
+            // btn_remove
+            // 
+            this.btn_remove.AutoSize = true;
+            this.btn_remove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_remove.Depth = 0;
+            this.btn_remove.Icon = null;
+            this.btn_remove.Location = new System.Drawing.Point(307, 51);
+            this.btn_remove.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_remove.Name = "btn_remove";
+            this.btn_remove.Primary = true;
+            this.btn_remove.Size = new System.Drawing.Size(75, 36);
+            this.btn_remove.TabIndex = 25;
+            this.btn_remove.Text = "Remove";
+            this.btn_remove.UseVisualStyleBackColor = true;
+            this.btn_remove.Click += new System.EventHandler(this.btn_remove_Click);
+            // 
+            // list_ignored
+            // 
+            this.list_ignored.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.list_ignored.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Player});
+            this.list_ignored.Depth = 0;
+            this.list_ignored.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.list_ignored.FullRowSelect = true;
+            this.list_ignored.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.list_ignored.Location = new System.Drawing.Point(0, 0);
+            this.list_ignored.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.list_ignored.MouseState = MaterialSkin.MouseState.OUT;
+            this.list_ignored.Name = "list_ignored";
+            this.list_ignored.OwnerDraw = true;
+            this.list_ignored.Size = new System.Drawing.Size(221, 232);
+            this.list_ignored.TabIndex = 24;
+            this.list_ignored.UseCompatibleStateImageBehavior = false;
+            this.list_ignored.View = System.Windows.Forms.View.Details;
+            // 
+            // Player
+            // 
+            this.Player.Text = "Player";
+            this.Player.Width = 209;
+            // 
+            // materialTabSelector1
+            // 
+            this.materialTabSelector1.BaseTabControl = this.materialTabControl1;
+            this.materialTabSelector1.Depth = 0;
+            this.materialTabSelector1.Location = new System.Drawing.Point(0, 64);
+            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabSelector1.Name = "materialTabSelector1";
+            this.materialTabSelector1.Size = new System.Drawing.Size(419, 44);
+            this.materialTabSelector1.TabIndex = 20;
+            this.materialTabSelector1.Text = "materialTabSelector1";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(301, 217);
-            this.Controls.Add(this.bnt_settingsshow);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btn_ignorelistshow);
-            this.Controls.Add(this.btn_mainshow);
-            this.Controls.Add(this.pnl_main);
-            this.Controls.Add(this.pnl_Settings);
-            this.Controls.Add(this.pnl_ignorelist);
+            this.ClientSize = new System.Drawing.Size(419, 368);
+            this.Controls.Add(this.materialTabSelector1);
+            this.Controls.Add(this.materialTabControl1);
             this.Name = "Main";
             this.Text = "RequestifyTF2";
             this.Load += new System.EventHandler(this.Main_Load);
-            this.pnl_main.ResumeLayout(false);
-            this.pnl_main.PerformLayout();
-            this.pnl_ignorelist.ResumeLayout(false);
-            this.pnl_ignorelist.PerformLayout();
-            this.pnl_Settings.ResumeLayout(false);
-            this.pnl_Settings.PerformLayout();
+            this.materialTabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
+        private void List_plugins_DoubleClick(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
-        private System.Windows.Forms.CheckedListBox PluginsList;
-        private System.Windows.Forms.CheckBox btn_onlycode;
-        public System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel pnl_main;
-        private System.Windows.Forms.Button btn_mainshow;
-        private System.Windows.Forms.Button btn_ignorelistshow;
-        private System.Windows.Forms.Button btn_consoleshow;
-        private System.Windows.Forms.Button bnt_settingsshow;
-        private System.Windows.Forms.Panel pnl_ignorelist;
-        private System.Windows.Forms.ListBox lbx_IgnoreList;
-        private System.Windows.Forms.Panel pnl_Settings;
-        private System.Windows.Forms.TextBox tbx_ListToAdd;
-        private System.Windows.Forms.Button btn_ListRemove;
-        private System.Windows.Forms.Button btn_ListAdd;
-        private System.Windows.Forms.CheckBox chkbx_ListReversed;
-        private System.Windows.Forms.Button btn_SelectGamePath;
-        private System.Windows.Forms.TextBox txtbx_GamePath;
-        private System.Windows.Forms.Button btn_start;
+        private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private MaterialSkin.Controls.MaterialTabSelector materialTabSelector1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private MaterialSkin.Controls.MaterialCheckBox chkbox_onlywithcode;
+        private MaterialSkin.Controls.MaterialLabel lbl_code;
+        private MaterialSkin.Controls.MaterialLabel txtbx_GamePath;
+        private MaterialSkin.Controls.MaterialRaisedButton btn_start;
+        private MaterialSkin.Controls.MaterialRaisedButton btn_SelectGamePath;
+        private MaterialSkin.Controls.MaterialRaisedButton btn_consoleshow;
+        private MaterialSkin.Controls.MaterialListView list_plugins;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private MaterialSkin.Controls.MaterialListView list_ignored;
+        private System.Windows.Forms.ColumnHeader Player;
+        private MaterialSkin.Controls.MaterialRaisedButton btn_add;
+        private MaterialSkin.Controls.MaterialRaisedButton btn_remove;
+        private MaterialSkin.Controls.MaterialSingleLineTextField field_ignored;
+        private MaterialSkin.Controls.MaterialCheckBox chkbox_reverse;
     }
 }
 
