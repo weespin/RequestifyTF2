@@ -67,7 +67,10 @@ namespace RequestifyTF2
                     if (splitted.Length > selector + 3)
                         for (var i = selector + 3; i < splitted.Length; i++)
                             arguments.Add(splitted[i]);
-                    Executer.Execute(name, command, arguments);
+                    if (command != "")
+                    {
+                        Executer.Execute(name, command, arguments);
+                    }
                 }
             }
             else if (s.Contains("killed") && s.Contains("with") && s.EndsWith(".")|| s.Contains("killed") && s.Contains("with") && s.EndsWith("(crit)"))
