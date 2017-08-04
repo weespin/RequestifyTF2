@@ -44,5 +44,5 @@ Invokes when someone executed a plugins command
 # Events
 ### OnPlayerConnect => Returns a connected user nickname
 ### OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
-### OnPlayerKill => Returns Killer's Nickname, Killed Nickname and Weapon
+### OnPlayerKill => Returns Killer's Nickname, Killed Nickname and Weapon (crit if TF2)
 ### OnPlayerSuicide => Returns a user nickname
