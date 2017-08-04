@@ -11,7 +11,10 @@ RequesifyTF2 is a simple program for Source Engine based games, which supports p
 8. When you joined a server open console and type "+voicerecord"
 9. If u want to hear what you saying type "voice_loopback 1"
 10. Done!
-
+# Screenshots
+![Plugins](http://i.imgur.com/ccoM7Dy.png)
+![Ignore List](http://i.imgur.com/T2cVaVE.png)
+![Settings + Console](http://i.imgur.com/zv2sd03.png)
 # Dowload
 [Releases](https://github.com/weespin/RequestifyTF2/releases)!
 ## Nightly Files
