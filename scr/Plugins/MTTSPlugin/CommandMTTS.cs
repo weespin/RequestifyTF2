@@ -19,7 +19,7 @@ namespace MTTSPlugin
         {
             if (arguments.Count > 0)
             {
-                var text = arguments.Aggregate("", (current, texts) => current + texts);
+                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 
                 var d =
                     "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text=" +

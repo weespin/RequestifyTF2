@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
@@ -21,11 +22,7 @@ namespace GTTS
         {
             if (arguments.Count > 0)
             {
-                var text = "";
-
-                foreach (var texts in arguments)
-                    text += texts;
-
+                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 
                 text = text.Replace(" ", "%20");
                 var request = (HttpWebRequest) WebRequest.Create("https://acapela-box.com/AcaBox/dovaas.php");

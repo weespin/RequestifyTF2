@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
 using RequestifyTF2.Api;
 
 namespace TTSPlugin
@@ -19,8 +21,21 @@ namespace TTSPlugin
         {
             if (arguments.Count > 0)
             {
-                var text = arguments.Aggregate("", (current, texts) => current + texts);
+                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+               
+                if (Regex.IsMatch(text, @"\p{IsCyrillic}"))
+                {
+                    text = HttpUtility.UrlEncode(text);
+                    var f = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=" +
+                            text +
+                            "&tl=Ru-ru";
+                    f = f.Replace(" ", "%20");
+                 
+                    Instance.Vlc.Add(f);
+                    return;
+                }
 
+                text = HttpUtility.UrlEncode(text);
                 var d = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=" +
                         text +
                         "&tl=En-gb";

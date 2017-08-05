@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using RequestifyTF2.Api;
 using RequestifyTF2.Commands;
@@ -29,14 +30,23 @@ namespace RequestifyTF2
                 File.Create(Instance.Config.GameDir + "/console.log");
             var fs = new FileStream(Instance.Config.GameDir + "/console.log", FileMode.Open, FileAccess.Read,
                 FileShare.ReadWrite);
-            using (var sr = new StreamReader(fs))
+            using (var sr = new StreamReader(fs, Encoding.GetEncoding("Windows-1251")))
             {
                 var s = "";
                 while (true)
                 {
                     s = sr.ReadLine();
                     if (!string.IsNullOrEmpty(s))
+                    {
+                        Encoding utf8 = Encoding.GetEncoding("UTF-8");
+                        Encoding win1251 = Encoding.GetEncoding("Windows-1251");
+
+                        byte[] utf8Bytes = win1251.GetBytes(s);
+                        byte[] win1251Bytes = Encoding.Convert(utf8, win1251, utf8Bytes);
+                        s=  win1251.GetString(win1251Bytes);
                         TextChecker(s);
+
+                    }
                     else
                         wh.WaitOne(30);
                 }
