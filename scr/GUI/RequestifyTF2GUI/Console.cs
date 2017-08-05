@@ -37,7 +37,7 @@ namespace RequestifyTF2Forms
                     Thread.Sleep(1);
                     if (!Main.ConsoleShowed)
                     {
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                         continue;
                     }
                     try
@@ -96,6 +96,30 @@ namespace RequestifyTF2Forms
             }
 
             private delegate void SetPosCallback(Form f, Control ctrl, Point p);
+            public static void MiniMaxi(Form form,  FormWindowState state)
+            {
+                // InvokeRequired required compares the thread ID of the 
+                // calling thread to the thread ID of the creating thread. 
+                // If these threads are different, it returns true. 
+                if (form.InvokeRequired)
+                {
+                    SetFormstateCallback d = MiniMaxi;
+                    try
+                    {
+                        form.Invoke(d, form,  state);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+                }
+                else
+                {
+                    form.WindowState= state;
+                }
+            }
+
+            private delegate void SetFormstateCallback(Form f,  FormWindowState state);
         }
 
         

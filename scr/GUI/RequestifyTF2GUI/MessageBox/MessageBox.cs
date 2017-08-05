@@ -5,6 +5,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RequestifyTF2Forms;
 
 namespace RequestifyTF2GUI.MessageBox
 {
@@ -21,7 +22,7 @@ namespace RequestifyTF2GUI.MessageBox
 
 
           //  msgbox.WindowState = FormWindowState.Minimized;
-            msgbox.Show();
+            msgbox.ShowDialog(Main.instance);
             msgbox.BringToFront();
             msgbox.Activate();
             msgbox.Focus();

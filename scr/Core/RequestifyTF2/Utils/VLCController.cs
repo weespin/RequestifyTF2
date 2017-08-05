@@ -202,7 +202,7 @@ namespace RequestifyTF2.VLC
         public VlcRemote()
         {
             var ports = GetNetStatPorts();
-            Logger.Write(Logger.Status.Info, $"{ports.Where(n=>n.port_number=="9876").Count()} processes using our port!");
+            Logger.Write(Logger.Status.Info, $"{ports.Count(n => n.port_number=="9876")} processes using our port!");
             foreach (var port in ports)
             {
                 if (port.port_number == "9876")

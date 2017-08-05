@@ -193,18 +193,53 @@ namespace RequestifyTF2Forms
                   
                    
                     var dirs = Directory.GetDirectories(s.SelectedPath);
+                   
                     if (dirs.Any(n => n.Contains("cfg")))
                     {
+                        AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
+                        txtbx_GamePath.Text = "Current game path: " + s.SelectedPath;
+                        AppConfig.Save();
                     }
                     else
                     {
+
+                        foreach (var dir in dirs)
+                        {
+                            var cdir = Directory.GetDirectories(dir);
+                            var bin = false;
+                            var cfg = false;
+                            foreach (var dirz in cdir)
+                            {
+
+                                var pal = dirz;
+                                var z = pal.Remove(0, dir.Length);
+
+                                if (z.Contains("cfg"))
+                                {
+                                    cfg = true;
+                                }
+                                if (z.Contains("bin"))
+                                {
+                                    bin = true;
+                                }
+                                if (bin && cfg)
+                                {
+                                  
+                                    AppConfig.CurrentConfig.GameDirectory = dir;
+                                    new RequestifyTF2GUI.MessageBox.MessageBox().Show(
+                                        $"Game path was automatically corrected from \n{s.SelectedPath}\nto\n{dir}", "Done", RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
+                                    txtbx_GamePath.Text = "Current game path: " + dir;
+                                    AppConfig.Save();
+                                    return;
+
+                                }
+                            }
+                        }
                         new RequestifyTF2GUI.MessageBox.MessageBox().Show(
                              "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.","Error",RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
                        return;
                     }
-                    txtbx_GamePath.Text = "Current game path: " + Instance.Config.GameDir;
-                    AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
-                    AppConfig.Save();
+                 
                 }
             }
         }
