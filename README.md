@@ -7,7 +7,7 @@ RequesifyTF2 is a simple program for Source Engine based games, which supports p
 2. Make sure that u have VLC and Virtual Audio Cable installed on your pc
 3. Open programm
 4. Press on Settings button
-5. Select path to the game (for example steamapps\common\Team Fortress 2\tf or steamapps\common\Counter-Strike Global Offensive\csgo)
+5. Select path to the game (for example C:\(something)\steamapps\common\Team Fortress 2\tf or C:\(something)\steamapps\common\Counter-Strike Global Offensive\csgo)
 6. Press Start button (u should press start before starting a game!)
 7. Start your game!
 8. When you joined a server open console and type "+voicerecord"
