@@ -15,8 +15,15 @@ RequesifyTF2 is a simple program for Source Engine based games, which supports p
 10. Done!
 # Screenshots
 ![Plugins](http://i.imgur.com/ccoM7Dy.png)
+
 ![Ignore List](http://i.imgur.com/T2cVaVE.png)
+
 ![Settings + Console](http://i.imgur.com/zv2sd03.png)
+# Old Screenshots
+![Old](http://i.imgur.com/J2XXlDS.png)
+
+![Old1](http://i.imgur.com/Xx9lJph.png)
+
 # Dowload
 [Releases](https://github.com/weespin/RequestifyTF2/releases)!
 (Download RequestifyTF2GUI.exe)
