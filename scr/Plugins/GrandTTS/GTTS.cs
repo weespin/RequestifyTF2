@@ -39,7 +39,7 @@ namespace GTTS
                 request.UserAgent =
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36";
                 request.Referer = "https://acapela-box.com/AcaBox/index.php";
-                request.Headers.Add("Cookie", "acabox=90hmddj8mahttpigipr33lsf73");
+                request.Headers.Add("Cookie", "acabox=6g92mnaona0mf2sv3glkh5m4n2");
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
