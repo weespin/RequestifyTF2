@@ -23,7 +23,7 @@ namespace RequestifyTF2.Api
                 dllFileNames = Directory.GetFiles(path, "*.dll");
                 if (dllFileNames.Length == 0)
                 {
-       
+                    Logger.Write(Logger.Status.Info, "Downloading Plugins...");
                     using (var web = new WebClient())
                     {
                         web.Proxy = null;
@@ -45,6 +45,7 @@ namespace RequestifyTF2.Api
                        
                     }
                     Process.Start(Application.ExecutablePath); // to start new instance of application
+                    Logger.Write(Logger.Status.Info, "Restarting!");
                     Environment.Exit(0);
                 }
 
@@ -102,8 +103,20 @@ namespace RequestifyTF2.Api
                     var plugin = (T) Activator.CreateInstance(type);
                     if (m != null)
                     {
-                     Task.Run(() => { m.Invoke(plugin, new object[] { }); });
+                     Task.Run(() =>
+                     {
+                         try
+                         {
 
+
+                             m.Invoke(plugin, new object[] { });
+                         }
+                         catch (Exception e)
+                         {
+                             Logger.Write(Logger.Status.Error, e.ToString());
+                         }
+                     });
+                        Logger.Write(Logger.Status.Info, $"Invoked {type.Assembly.FullName}'s OnLoad! ");
                     }
                     plugins.Add(plugin);
                 }

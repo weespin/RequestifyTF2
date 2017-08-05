@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -341,6 +343,7 @@ namespace RequestifyTF2Forms
                 var s = _plugins.Aggregate("", (current, plugin) => current + (plugin.Value.Name));
             }
             btn_start.Enabled = false;
+            materialLabel5.Text = "Status: Working";
         }
 
         private void chkbox_onlywithcode_CheckedChanged(object sender, EventArgs e)
@@ -352,8 +355,14 @@ namespace RequestifyTF2Forms
         {
             Process.Start("https://steamcommunity.com/id/wspin/");
         }
-
-     
+        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Logger.Write(Logger.Status.Error, "Text");
+            });
+        }
     }
 
     public static class ThreadHelperClass

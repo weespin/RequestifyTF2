@@ -18,6 +18,7 @@ namespace RequestifyTF2
 
         public static void Start()
         {
+           
             if (Instance.Config.GameDir == "")
             {
              Console.WriteLine("Please set the game directory");
@@ -37,9 +38,9 @@ namespace RequestifyTF2
                     // ignored
                 }
 
-            new AutoexecChecker();
+            
             ReaderThread.Starter();
-            new Update();
+            
 
 
             //Init

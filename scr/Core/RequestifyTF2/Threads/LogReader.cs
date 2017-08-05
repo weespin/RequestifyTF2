@@ -15,6 +15,7 @@ namespace RequestifyTF2
             var thread = new Thread(Read);
             thread.IsBackground = true;
             thread.Start();
+            Logger.Write(Logger.Status.Info, "Started LogReader Thread!");
         }
       
         public static void Read()

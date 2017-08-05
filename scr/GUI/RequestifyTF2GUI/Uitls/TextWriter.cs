@@ -18,7 +18,12 @@ namespace ConsoleRedirection
         public override void Write(char value)
         {
             base.Write(value);
-            _output.AppendText(value.ToString()); // When character data is written, append it to the text box.
+           
+                _output.Invoke(new MethodInvoker(delegate { _output.AppendText(value.ToString()); }));
+
+             
+            
+      
         }
     }
 }

@@ -202,13 +202,14 @@ namespace RequestifyTF2.VLC
         public VlcRemote()
         {
             var ports = GetNetStatPorts();
+            Logger.Write(Logger.Status.Info, $"{ports.Where(n=>n.port_number=="9876").Count()} processes using our port!");
             foreach (var port in ports)
             {
                 if (port.port_number == "9876")
                 {
                     try
                     {
-
+                        Logger.Write(Logger.Status.Info, "Killing VLC!");
                         Process.GetProcessById(port.pid).Kill();
                     }
                     catch
@@ -238,14 +239,15 @@ namespace RequestifyTF2.VLC
                     WindowStyle = ProcessWindowStyle.Hidden,
                     UseShellExecute = true
                 };
-
+            Logger.Write(Logger.Status.Info, "Starting VLC");
             _vlcProcess = Process.Start(info);
-
+            Logger.Write(Logger.Status.Info, "Started!");
             while (Process.GetProcessesByName("vlc").Length == 0)
             {
                 // :^)
             }
             _client = new TcpClient("localhost", 9876);
+            Logger.Write(Logger.Status.Info, "Connected to VLC!");
         }
 
 

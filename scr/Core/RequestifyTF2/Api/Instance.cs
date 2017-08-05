@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using RequestifyTF2.VLC;
+using RequestifyTF2.VLCUpdater;
 
 namespace RequestifyTF2.Api
 {
@@ -9,11 +10,15 @@ namespace RequestifyTF2.Api
         public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
         public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
         public static VlcRemote Vlc;
-
+        public static LogDeph LogDeph;
         public static void Load()
         {
+            Logger.Write(Logger.Status.Info, "Loading Instance!");
+            new AutoexecChecker();
+            new Update();
             Vlc = new VlcRemote();
             Fixer.Fix();
+            
         }
 
         public class Config
@@ -26,10 +31,15 @@ namespace RequestifyTF2.Api
             public static string AhkPath;
         }
 
-        public static void WriteSomething(string s)
-        {
-            Logger.Write(Logger.Status.Error, s);
-        }
+      
        
+    }
+
+    public enum LogDeph
+    {
+        None,
+        Errors,
+        Invoke,
+        All
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using RequestifyTF2.Api;
 
 public class Logger
 {
+    private static string _mExePath = string.Empty;
     public enum Status
     {
         Code,
@@ -14,45 +17,63 @@ public class Logger
     public static void Write(Status status, string text, ConsoleColor color = ConsoleColor.White)
     {
         Console.ForegroundColor = color;
-        Console.WriteLine("[" + status + "][" + DateTime.Now + "] " + text);
+        LogWrite("[" + status + "][" + DateTime.Now + "] " + text);
         Console.ForegroundColor = ConsoleColor.White;
-        Log("[" + status + "][" + DateTime.Now + "] " + text);
+
+
     }
 
     public static void Write(Status status, string text)
     {
-        Console.WriteLine("[" + status + "][" + DateTime.Now + "] " + text);
-
-        Log("[" + status + "][" + DateTime.Now + "] " + text);
+        LogWrite("[" + status + "][" + DateTime.Now + "] " + text);
+  
     }
 
     public void Write(string text)
     {
-        Console.WriteLine("[" + DateTime.Now + "] " + text);
+        LogWrite("[" + DateTime.Now + "] " + text);
 
-        Log("[" + DateTime.Now + "] " + text);
+
     }
-
-
-    public static void Log(string message)
+  private static void LogWrite(string logMessage)
     {
-    }
-
-    public class LogWriter
-    {
-        private string _mExePath = string.Empty;
-
-
-        public void Log(string logMessage, TextWriter txtWriter)
+        
+        if (_mExePath == "")
         {
-            try
+            _mExePath = AppDomain.CurrentDomain.BaseDirectory;
+        }
+
+        try
+        {
+            using (StreamWriter w = File.AppendText(_mExePath + "\\" + "log.txt"))
             {
-                txtWriter.WriteLine($"{DateTime.Now.ToLongTimeString()} {DateTime.Now.ToLongDateString()}");
-                txtWriter.WriteLine($"{logMessage}");
-            }
-            catch (Exception)
-            {
+                Log(logMessage, w);
             }
         }
+        catch (Exception ex)
+        {
+        }
+    }
+
+    private static void Log(string logMessage, TextWriter txtWriter)
+    {
+        try
+        {
+            txtWriter.WriteLine($"{logMessage}");
+            Console.WriteLine(logMessage);
+        }
+        catch (Exception)
+        {
+        }
+    }
+    public static void Log(IRequestifyPlugin plugin, string message)
+    {
+        Write(Status.Info, $"{plugin.Name} => {message}");
+    }
+
+    public static void LogError(IRequestifyPlugin plugin, string message)
+    {
+        Write(Status.Error, $"{plugin.Name} => {message}");
     }
 }
+
