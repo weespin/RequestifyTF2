@@ -16,5 +16,4 @@ artifacts:
     name: gtts
   - path: scr\Plugins\RawPlugin\bin\Debug\RawPlugin.dll
     name: raw
-  - path: scr\Plugins\RussianTTS\bin\Debug\RussianTTS.dll
-    name: rtts
+
