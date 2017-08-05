@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RequestifyTF2.VLC;
 
 namespace RequestifyTF2.Api
@@ -24,5 +25,11 @@ namespace RequestifyTF2.Api
             public static string GameDir;
             public static string AhkPath;
         }
+
+        public static void WriteSomething(string s)
+        {
+            Logger.Write(Logger.Status.Error, s);
+        }
+       
     }
 }

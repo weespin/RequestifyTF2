@@ -60,12 +60,12 @@ namespace RequestifyTF2
                 for (var i = 0; i < selector; i++)
                     name += splitted[i];
                 var arguments = new List<string>();
-                if (splitted.Length > selector + 2)
+                if (splitted.Length > selector + 1)
                 {
-                    var command = splitted[selector + 2];
+                    var command = splitted[selector + 1];
 
-                    if (splitted.Length > selector + 3)
-                        for (var i = selector + 3; i < splitted.Length; i++)
+                    if (splitted.Length > selector + 2)
+                        for (var i = selector + 2; i < splitted.Length; i++)
                             arguments.Add(splitted[i]);
                     if (command != "")
                     {

@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using RequestifyTF2.Utils;
 
@@ -102,7 +103,10 @@ namespace RequestifyTF2.Api
                     var m = type.GetMethod("OnLoad");
                     var plugin = (T) Activator.CreateInstance(type);
                     if (m != null)
-                        m.Invoke(plugin, new object[] { });
+                    {
+                     Task.Run(() => { m.Invoke(plugin, new object[] { }); });
+
+                    }
                     plugins.Add(plugin);
                 }
 

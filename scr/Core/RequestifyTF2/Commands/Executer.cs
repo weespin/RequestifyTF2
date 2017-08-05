@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using RequestifyTF2.Api;
 
 namespace RequestifyTF2.Commands
@@ -21,12 +22,12 @@ namespace RequestifyTF2.Commands
                 if (!Instance.Config.Ignored.Contains(caller))
                 {
                     if (!Instance.Config.IgnoredReversed)
-                        calledcommand.Execute(caller, arguments);
+                       Task.Run(() =>  calledcommand.Execute(caller, arguments));
                 }
                 else
                 {
                     if (Instance.Config.IgnoredReversed)
-                        calledcommand.Execute(caller, arguments);
+                        Task.Run(() => calledcommand.Execute(caller, arguments));
                 }
             }
         }
