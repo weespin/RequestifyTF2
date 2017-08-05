@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
-
 using ConsoleRedirection;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -19,9 +14,6 @@ using RequestifyTF2.Api;
 using RequestifyTF2Forms.Config;
 using RequestifyTF2GUI.Properties;
 using Application = System.Windows.Forms.Application;
-using MessageBox = System.Windows.Forms.MessageBox;
-using Point = System.Drawing.Point;
-
 namespace RequestifyTF2Forms
 {
     public partial class Main : MaterialForm
@@ -93,20 +85,6 @@ namespace RequestifyTF2Forms
             }).Start();
         }
 
-        #region Ect
-
-   
-
-        #endregion
-
-        #region SettingsPanel
-
-        #endregion
-
-
-      
-
-
         #region FormEvents
 
         private void Main_Load(object sender, EventArgs e)
@@ -121,63 +99,31 @@ namespace RequestifyTF2Forms
 
         private void Main_Closing(object sender, EventArgs e)
         {
-            var vlcProcesses = Process.GetProcessesByName("vlc");
-            foreach (var k in vlcProcesses)
-                k.Kill();
+            var ports = RequestifyTF2.VLC.VlcRemote.GetNetStatPorts();
+            foreach (var port in ports)
+            {
+                if (port.port_number == "9876")
+                {
+                    try
+                    {
+                        Logger.Write(Logger.Status.Info, "Closing! Killing VLC!");
+                        Process.GetProcessById(port.pid).Kill();
+                    }
+                    catch
+                    {
+                        // ignored
+                    }
+                }
+            }
         }
 
         #endregion
-
-        #region IgnoreListPanel
 
         private void lbx_IgnoreList_Enter(object sender, EventArgs e)
         {
             if (field_ignored.Text == "Enter Name")
                 field_ignored.Text = "";
         }
-
-
-       
-
-        #endregion
-
-        #region MainPanel
-
-      /*  private void PluginsList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var selected = PluginsList.SelectedIndex;
-            if (selected == -1)
-                return;
-            if (PluginsList.GetItemCheckState(selected) == CheckState.Checked)
-                foreach (var s in Instance.DisabledPlugins)
-                    if (s.Name == PluginsList.Items[selected].ToString())
-                    {
-                        Instance.ActivePlugins.Add(s);
-                        Instance.DisabledPlugins.Remove(s);
-                        break;
-                    }
-
-            if (PluginsList.GetItemCheckState(selected) == CheckState.Unchecked)
-                foreach (var s in Instance.ActivePlugins)
-                    if (s.Name == PluginsList.Items[selected].ToString())
-                    {
-                        Instance.ActivePlugins.Remove(s);
-                        Instance.DisabledPlugins.Add(s);
-                        break;
-                    }
-        }*/
-
-     
-
-
-        #endregion
-
-        #region  controlbuttons       
-
-
-
-
-        #endregion
 
         private void btn_SelectGamePath_Click_1(object sender, EventArgs e)
         {
@@ -237,34 +183,14 @@ namespace RequestifyTF2Forms
                         }
                         new RequestifyTF2GUI.MessageBox.MessageBox().Show(
                              "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.","Error",RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
-                       return;
+                     
                     }
                  
                 }
             }
         }
         private void list_plugins_DoubleClick(object sender, EventArgs e)
-        {
-           /* var selected = PluginsList.SelectedIndex;
-            if (selected == -1)
-                return;
-            if (PluginsList.GetItemCheckState(selected) == CheckState.Checked)
-                foreach (var s in Instance.DisabledPlugins)
-                    if (s.Name == PluginsList.Items[selected].ToString())
-                    {
-                        Instance.ActivePlugins.Add(s);
-                        Instance.DisabledPlugins.Remove(s);
-                        break;
-                    }
-
-            if (PluginsList.GetItemCheckState(selected) == CheckState.Unchecked)
-                foreach (var s in Instance.ActivePlugins)
-                    if (s.Name == PluginsList.Items[selected].ToString())
-                    {
-                        Instance.ActivePlugins.Remove(s);
-                        Instance.DisabledPlugins.Add(s);
-                        break;
-                    }*/
+        { 
             if (list_plugins.SelectedItems[0].SubItems[3].Text == "True")
             {
                 list_plugins.SelectedItems[0].SubItems[3].Text = "False";
@@ -391,13 +317,7 @@ namespace RequestifyTF2Forms
             Process.Start("https://steamcommunity.com/id/wspin/");
         }
         
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Task.Run(() =>
-            {
-                Logger.Write(Logger.Status.Error, "Text");
-            });
-        }
+        
     }
 
     public static class ThreadHelperClass
