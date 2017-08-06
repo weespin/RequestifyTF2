@@ -144,6 +144,7 @@ namespace RequestifyTF2.VLC
             var guids = Instance.Vlc.Adev();
             var guidsprl = guids.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var a in guidsprl)
+            {
                 if (a.Contains("Virtual Audio Cable"))
                 {
                     var output = "{" + a.Split('{', '}')[1] + "}";
@@ -151,6 +152,17 @@ namespace RequestifyTF2.VLC
                     Instance.Vlc.SendRaw("adev", output);
                     c = true;
                 }
+                else
+                {
+                    if (a.Contains("VB-Audio Virtual Cable"))
+                    {
+                        var output = "{" + a.Split('{', '}')[1] + "}";
+                        output = output.Replace(" ", "");
+                        Instance.Vlc.SendRaw("adev", output);
+                        c = true;
+                    }
+                }
+            }
             Instance.Vlc.SendRaw("loop", "off");
             Instance.Vlc.SendRaw("repeat", "off");
             if (!c)
