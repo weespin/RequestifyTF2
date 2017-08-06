@@ -13,6 +13,9 @@ RequesifyTF2 is a simple program for Source Engine based games, which supports p
 8. When you joined a server open console and type "+voicerecord"
 9. If u want to hear what you saying type "voice_loopback 1"
 10. Done!
+
+# Updating
+If new version was released, just replace RequestifyTF2GUI.exe with new file, and remove plugins!
 # Screenshots
 ![Plugins](http://i.imgur.com/ccoM7Dy.png)
 
@@ -27,8 +30,8 @@ RequesifyTF2 is a simple program for Source Engine based games, which supports p
 # Dowload
 [Releases](https://github.com/weespin/RequestifyTF2/releases)!
 (Download RequestifyTF2GUI.exe)
-## Nightly Files
-[Download](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) Nightly files
+## Bleeding Edge files
+[Download](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts)
 # About Valve Anti-Cheat (VAC)
 ## This programm is not a hack, not a cheat, not modifying game files, not injecting into game processes, not reading and writing into games memory.
 My programm is 100% VAC secure, its not even reading game memory!
