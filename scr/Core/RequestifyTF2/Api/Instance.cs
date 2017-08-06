@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using RequestifyTF2.VLC;
-using RequestifyTF2.VLCUpdater;
 
 namespace RequestifyTF2.Api
 {
@@ -14,10 +13,9 @@ namespace RequestifyTF2.Api
         public static void Load()
         {
             Logger.Write(Logger.Status.Info, "Loading Instance!");
-            new AutoexecChecker();
-            new Update();
+            AutoexecChecker.Check();
             Vlc = new VlcRemote();
-            Fixer.Fix();
+            
             
         }
 

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+
 using RequestifyTF2.Api;
 using RequestifyTF2.VLC;
-using RequestifyTF2.VLCUpdater;
+
 
 namespace RequestifyTF2
 {

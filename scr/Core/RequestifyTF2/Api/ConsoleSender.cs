@@ -37,11 +37,11 @@ namespace RequestifyTF2.Api
         }
     }
 
-    internal class AutoexecChecker
+   static class AutoexecChecker
     {
-        #region Autoexecchecker
+     
 
-        internal AutoexecChecker()
+        public static void Check()
         {
             if (Instance.Config.GameDir == "" || !Directory.Exists(Instance.Config.GameDir))
             {
@@ -79,6 +79,6 @@ namespace RequestifyTF2.Api
             }
         }
 
-        #endregion
+     
     }
 }

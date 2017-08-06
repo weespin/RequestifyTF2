@@ -89,7 +89,6 @@
     <Compile Include="Threads\LogReader.cs" />
     <Compile Include="Api\ConsoleSender.cs" />
     <Compile Include="Utils\VLCController.cs" />
-    <Compile Include="VLCUpdater\Update.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

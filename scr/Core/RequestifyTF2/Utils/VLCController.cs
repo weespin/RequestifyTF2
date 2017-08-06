@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -136,40 +137,7 @@ using RequestifyTF2.Api;
 
 namespace RequestifyTF2.VLC
 {
-    public static class Fixer
-    {
-        public static void Fix()
-        {
-            var c = false;
-            var guids = Instance.Vlc.Adev();
-            var guidsprl = guids.Split(new[] {Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var a in guidsprl)
-            {
-                if (a.Contains("Virtual Audio Cable"))
-                {
-                    var output = "{" + a.Split('{', '}')[1] + "}";
-                    output = output.Replace(" ", "");
-                    Instance.Vlc.SendRaw("adev", output);
-                    c = true;
-                    break;
-                }
-                if (a.Contains("VB-Audio Virtual Cable"))
-                   {
-                        var output = "{" + a.Split('{', '}')[1] + "}";
-                        output = output.Replace(" ", "");
-                        Instance.Vlc.SendRaw("adev", output);
-                        c = true;
-                        break;
-                    }
-                
-            }
-            Instance.Vlc.SendRaw("loop", "off");
-            Instance.Vlc.SendRaw("repeat", "off");
-            if (!c)
-                MessageBox.Show("VIRTUAL AUDIO CABLE IS NOT FOUND!", "ERROR", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-        }
-    }
+  
 
     internal enum VlcCommand
     {
@@ -210,9 +178,83 @@ namespace RequestifyTF2.VLC
 
         private Process _vlcProcess;
 
-
-        public VlcRemote()
+        public void LuaUpdate(string path)
         {
+            Logger.Write(Logger.Status.STATUS, "Updating VLC Lua files");
+            //Its 2:42AM, 13.12.2016. Happy NEW Year Weespin. P.S. Listening https://goreshit.bandcamp.com/
+
+
+            var plugindir = path + @"\lua\playlist\";
+            if (File.Exists(plugindir + "youtube.luac"))
+                try
+                {
+                    using (var web = new WebClient())
+                    {
+                        File.WriteAllText(plugindir + "youtube.luac",
+                            web.DownloadString(
+                                "https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/youtube.lua"));
+                    }
+                }
+                catch (Exception)
+                {
+                    Logger.Write(Logger.Status.Error,
+                        "Cant update youtube.luac \n Run this programm as Administrator",
+                        ConsoleColor.Red);
+                }
+            if (File.Exists(plugindir + "soundcloud.luac"))
+            {
+                try
+                {
+                    using (var web = new WebClient())
+                    {
+                        File.WriteAllText(plugindir + "soundcloud.luac",
+                            web.DownloadString(
+                                "https://raw.githubusercontent.com/videolan/vlc/master/share/lua/playlist/soundcloud.lua"));
+                    }
+                }
+                catch (Exception)
+                {
+                    Logger.Write(Logger.Status.Error,
+                        "Cant update soundcloud.luac \n Run this programm as Administrator",
+                        ConsoleColor.Red);
+                }
+            }
+        }
+
+        public static void SetAudioCable()
+        {
+            var c = false;
+            var guids = Instance.Vlc.Adev();
+            var guidsprl = guids.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var a in guidsprl)
+            {
+                if (a.Contains("Virtual Audio Cable"))
+                {
+                    var output = "{" + a.Split('{', '}')[1] + "}";
+                    output = output.Replace(" ", "");
+                    Instance.Vlc.SendRaw("adev", output);
+                    c = true;
+                    break;
+                }
+                if (a.Contains("VB-Audio Virtual Cable"))
+                {
+                    var output = "{" + a.Split('{', '}')[1] + "}";
+                    output = output.Replace(" ", "");
+                    Instance.Vlc.SendRaw("adev", output);
+                    c = true;
+                    break;
+                }
+
+            }
+            Instance.Vlc.SendRaw("loop", "off");
+            Instance.Vlc.SendRaw("repeat", "off");
+            if (!c)
+                MessageBox.Show("VIRTUAL AUDIO CABLE IS NOT FOUND!", "ERROR", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+        }
+    public VlcRemote()
+        {
+
             var ports = GetNetStatPorts();
             Logger.Write(Logger.Status.Info, $"{ports.Count(n => n.port_number=="9876")} processes using our port!");
             foreach (var port in ports)
@@ -230,6 +272,7 @@ namespace RequestifyTF2.VLC
                     }
                 }
             }
+            
             string vlcPath = null;
 
             var vlcKey = Registry.LocalMachine.OpenSubKey(@"Software\VideoLan\VLC");
@@ -242,8 +285,10 @@ namespace RequestifyTF2.VLC
 
 
             if (vlcPath == null)
+            {
                 MessageBox.Show("CANT FIND VLC INSTALLED!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+            }
+            LuaUpdate(vlcPath);
             var info =
                 new ProcessStartInfo(vlcPath, "-I rc  --rc-host=localhost:9876 --no-video")
                 {
@@ -260,6 +305,7 @@ namespace RequestifyTF2.VLC
             }
             _client = new TcpClient("localhost", 9876);
             Logger.Write(Logger.Status.Info, "Connected to VLC!");
+            SetAudioCable();
         }
 
 
