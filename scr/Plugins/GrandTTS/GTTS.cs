@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using RequestifyTF2.Api;
 
@@ -22,6 +23,24 @@ namespace GTTS
         {
             if (arguments.Count > 0)
             {
+                string query = "https://acapela-box.com/AcaBox/index0.php?cookietest=2";
+
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(query);
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                var resps = resp.Headers["Set-Cookie"];
+                //     Console.WriteLine( "Cookie username = " + resps);
+                var regex = @"(acabox=)\w+";
+                var result = "";
+                var match = Regex.Match(resps, regex);
+                if (match.Success)
+                {
+                    result = match.Value;
+
+                }
+                else
+                {
+                    return;
+                }
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 
                 text = text.Replace(" ", "%20");
@@ -39,7 +58,7 @@ namespace GTTS
                 request.UserAgent =
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36";
                 request.Referer = "https://acapela-box.com/AcaBox/index.php";
-                request.Headers.Add("Cookie", "acabox=6g92mnaona0mf2sv3glkh5m4n2");
+                request.Headers.Add("Cookie", result);
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
