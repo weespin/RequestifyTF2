@@ -81,6 +81,7 @@
     <Compile Include="Commands\Executer.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="PluginLoader\GenericLoader.cs" />
+    <Compile Include="PluginLoader\Libraries.cs" />
     <Compile Include="Utils\AutoHotKeyChecker.cs" />
     <Compile Include="Utils\CodeGenerator.cs" />
     <Compile Include="Runner.cs" />

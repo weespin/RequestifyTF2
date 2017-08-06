@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RequestifyTF2.PluginLoader;
 using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Api
@@ -15,12 +16,11 @@ namespace RequestifyTF2.Api
     {
         public static ICollection<T> LoadPlugins(string path)
         {
-            string[] dllFileNames = null;
-
+            Libraries.Load(path+"/libs");
             if (Directory.Exists(path))
             {
                 new AutoHotKeyChecker().Check(path);
-                dllFileNames = Directory.GetFiles(path, "*.dll");
+                var dllFileNames = Directory.GetFiles(path, "*.dll");
                 if (dllFileNames.Length == 0)
                 {
                     Logger.Write(Logger.Status.Info, "Downloading Plugins...");

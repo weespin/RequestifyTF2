@@ -11,6 +11,7 @@ using MaterialSkin.Controls;
 using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.Api;
+using RequestifyTF2.PluginLoader;
 using RequestifyTF2Forms.Config;
 using RequestifyTF2GUI.Properties;
 using Application = System.Windows.Forms.Application;
@@ -62,6 +63,7 @@ namespace RequestifyTF2Forms
             var plugins =
                 PluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
                                                             "/plugins/");
+            
             foreach (var item in plugins)
             {
                 Instance.ActivePlugins.Add(item);
@@ -319,6 +321,8 @@ namespace RequestifyTF2Forms
         
         
     }
+
+   
 
     public static class ThreadHelperClass
     {
