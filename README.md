@@ -4,15 +4,16 @@
 RequesifyTF2 is a simple program for Source Engine based games, which supports plugins.
 # Installation
 1. Go to Download and download lastest [releases](https://github.com/weespin/RequestifyTF2/releases)!
-2. Make sure that u have VLC and Virtual Audio Cable installed on your pc
-3. Open programm
+2. Make sure that u have VLC and [Virtual Audio Cable (paid)](http://software.muzychenko.net/eng/vac.htm) or [VB-Audio (free)](http://vbaudio.jcedeveloppement.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) installed on your pc
+3. Open RequestifyTF2
 4. Press on Settings button
 5. Select path to the game (for example C:\(something)\steamapps\common\Team Fortress 2\tf or C:\(something)\steamapps\common\Counter-Strike Global Offensive\csgo)
 6. Press Start button (u should press start before starting a game!)
-7. Start your game!
-8. When you joined a server open console and type "+voicerecord"
-9. If u want to hear what you saying type "voice_loopback 1"
-10. Done!
+7. Make sure you have a Virtual Audio Cable or VB-Audio recording device for default.
+8. Start your game!
+9. When you joined a server open console and type "+voicerecord"
+10. If u want to hear what you saying type "voice_loopback 1"
+11. Done!
 
 # Updating
 If new version was released, just replace RequestifyTF2GUI.exe with new file, and remove plugins!
@@ -53,14 +54,20 @@ Requestify can do something:
 ## Core
 Download RequestifyTF2.dll from [AppVeyor](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) (RequestifyTF2.dll)
 ## Template
-Just use a plugin from scr/Plugin folder as tempate.
+Just use a plugins from scr/Plugin folder as tempate.
 # Methods
 ## OnLoad (should be non-static!)
 Invokes on Load
 ## Execute (string nickname, List<string> arguments)
 Invokes when someone executed a plugins command
 # Events
-### OnPlayerConnect => Returns a connected user nickname
-### OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
-### OnPlayerKill => Returns Killer's Nickname, Killed Nickname and Weapon (TF2 only)
-### OnPlayerSuicide => Returns a user nickname (TF2 only)
+OnPlayerConnect => Returns a connected user nickname
+
+OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
+
+OnPlayerKill => Returns Killer's Nickname, Killed Nickname, Weapon and crit (TF2 only)
+
+OnPlayerSuicide => Returns a user nickname (TF2 only)
+# Legal Disclaimer
+
+This Project is in no way affiliated with, authorized, maintained, sponsored or endorsed by ANYONE. This is an independent and unofficial project for educational use ONLY. Do not use for any other purpose than education, testing and research.
