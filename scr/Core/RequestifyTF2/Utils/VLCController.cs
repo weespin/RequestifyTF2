@@ -151,17 +151,17 @@ namespace RequestifyTF2.VLC
                     output = output.Replace(" ", "");
                     Instance.Vlc.SendRaw("adev", output);
                     c = true;
+                    break;
                 }
-                else
-                {
-                    if (a.Contains("VB-Audio Virtual Cable"))
-                    {
+                if (a.Contains("VB-Audio Virtual Cable"))
+                   {
                         var output = "{" + a.Split('{', '}')[1] + "}";
                         output = output.Replace(" ", "");
                         Instance.Vlc.SendRaw("adev", output);
                         c = true;
+                        break;
                     }
-                }
+                
             }
             Instance.Vlc.SendRaw("loop", "off");
             Instance.Vlc.SendRaw("repeat", "off");
