@@ -4,19 +4,19 @@ using RequestifyTF2.VLC;
 
 namespace RequestifyTF2.Api
 {
-    public class Instance
+    public static class  Instance
     {
         public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
         public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
-        public static VlcRemote Vlc;
+        public static VlcRemote Vlc = new VlcRemote();
    
         public static void Load()
         {
             Logger.Write(Logger.Status.Info, "Loading Instance!");
             AutoexecChecker.Check();
-            Vlc = new VlcRemote();
-            
-            
+            Vlc.StartVLC();
+
+
         }
 
         public class Config

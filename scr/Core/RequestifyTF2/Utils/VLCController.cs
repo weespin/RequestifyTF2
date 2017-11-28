@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RequestifyTF2.Api;
@@ -173,7 +174,7 @@ namespace RequestifyTF2.VLC
 
         private static readonly ASCIIEncoding AsciiEncoding = new ASCIIEncoding();
 
-        private readonly TcpClient _client;
+        private TcpClient _client;
 
 
         private Process _vlcProcess;
@@ -223,7 +224,9 @@ namespace RequestifyTF2.VLC
 
         public static void SetAudioCable()
         {
+            Instance.Vlc = new VlcRemote();
             var c = false;
+            var temp = Instance.Vlc;
             var guids = Instance.Vlc.Adev();
             var guidsprl = guids.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var a in guidsprl)
@@ -252,7 +255,7 @@ namespace RequestifyTF2.VLC
                 MessageBox.Show("VIRTUAL AUDIO CABLE IS NOT FOUND!", "ERROR", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
         }
-    public VlcRemote()
+    public void StartVLC()
         {
 
             var ports = GetNetStatPorts();
@@ -294,18 +297,54 @@ namespace RequestifyTF2.VLC
                 {
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
-                    UseShellExecute = true
+                    UseShellExecute = false,
                 };
             Logger.Write(Logger.Status.Info, "Starting VLC");
             _vlcProcess = Process.Start(info);
             Logger.Write(Logger.Status.Info, "Started!");
-            while (Process.GetProcessesByName("vlc").Length == 0)
+            var wowicantcode = false;
+            while (!wowicantcode)
             {
-                // :^)
+                Thread.Sleep(500);
+                 ports = GetNetStatPorts();
+                if (ports.Count(n => n.port_number == "9876")>0)
+                {
+                    wowicantcode = true;
+                }
+               
             }
+
             _client = new TcpClient("localhost", 9876);
             Logger.Write(Logger.Status.Info, "Connected to VLC!");
-            SetAudioCable();
+            var c = false;
+            var temp = Instance.Vlc;
+            var guids = Instance.Vlc.Adev();
+            var guidsprl = guids.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var a in guidsprl)
+            {
+                if (a.Contains("Virtual Audio Cable"))
+                {
+                    var output = "{" + a.Split('{', '}')[1] + "}";
+                    output = output.Replace(" ", "");
+                    Instance.Vlc.SendRaw("adev", output);
+                    c = true;
+                    break;
+                }
+                if (a.Contains("VB-Audio Virtual Cable"))
+                {
+                    var output = "{" + a.Split('{', '}')[1] + "}";
+                    output = output.Replace(" ", "");
+                    Instance.Vlc.SendRaw("adev", output);
+                    c = true;
+                    break;
+                }
+
+            }
+            Instance.Vlc.SendRaw("loop", "off");
+            Instance.Vlc.SendRaw("repeat", "off");
+            if (!c)
+                MessageBox.Show("VIRTUAL AUDIO CABLE IS NOT FOUND!", "ERROR", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
         }
 
 

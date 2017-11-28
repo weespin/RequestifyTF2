@@ -50,8 +50,9 @@ public class Logger
                 Log(logMessage, w);
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
+            //Never used
         }
     }
 

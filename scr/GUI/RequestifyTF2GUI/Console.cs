@@ -14,7 +14,7 @@ namespace RequestifyTF2Forms
         private readonly int _offsetY = 0;
 
         public Console()
-        {
+        {          
             InitializeComponent();
             Icon = Resources.Icon;
             FormBorderStyle = FormBorderStyle.FixedSingle;
