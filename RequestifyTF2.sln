@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrandTTS", "scr\Plugins\Gra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawPlugin", "scr\Plugins\RawPlugin\RawPlugin.csproj", "{A8AB1CE4-2071-4E61-8934-8A9A5EEF1137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequesifyCLI", "RequesifyCLI\RequesifyCLI.csproj", "{43CBC27B-FDFF-429A-97A6-E248F2C924DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequesifyCLI", "scr\CLI\RequesifyCLI\RequesifyCLI.csproj", "{43CBC27B-FDFF-429A-97A6-E248F2C924DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
