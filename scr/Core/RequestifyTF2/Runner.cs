@@ -20,7 +20,7 @@ namespace RequestifyTF2
            
             if (Instance.Config.GameDir == "")
             {
-             Console.WriteLine("Please set the game directory");
+             Logger.Write(Logger.Status.Error,"Please set the game directory");
 
                 return;
 

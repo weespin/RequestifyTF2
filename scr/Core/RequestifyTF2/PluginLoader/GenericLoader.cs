@@ -19,7 +19,7 @@ namespace RequestifyTF2.Api
             Libraries.Load(path+"/libs");
             if (Directory.Exists(path))
             {
-                new AutoHotKeyChecker().Check(path);
+                 AutoHotKeyChecker.Check(path);
                 var dllFileNames = Directory.GetFiles(path, "*.dll");
                 if (dllFileNames.Length == 0)
                 {

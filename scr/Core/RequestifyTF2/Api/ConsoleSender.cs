@@ -31,9 +31,13 @@ namespace RequestifyTF2.Api
             }
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
             if (Instance.Config.AhkPath != string.Empty)
+            {
                 Process.Start(Instance.Config.AhkPath);
+            }
             else
-              Console.WriteLine("ERROR, AutoHotKey Path is not found!");
+            {
+                Console.WriteLine("ERROR, AutoHotKey Path is not found!");
+            }
         }
     }
 
@@ -48,29 +52,39 @@ namespace RequestifyTF2.Api
                 Console.WriteLine("Please set game directory");
                 return;
             }
+
             if (File.Exists(Instance.Config.GameDir + "/cfg/autoexec.cfg"))
             {
                 var c = false;
                 var p = false;
                 var lines = File.ReadAllLines(Instance.Config.GameDir + "/cfg/autoexec.cfg");
                 foreach (var line in lines)
+                {
                     if (line.Contains("con_logfile \"console.log\""))
                     {
                         c = true;
                         break;
                     }
+                }
+
                 if (!c)
+                {
                     File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "con_logfile \"console.log\"");
+                }
+
                 foreach (var line in lines)
                     if (line.Contains("bind F11 \"exec requestify\""))
                     {
                         p = true;
                         break;
                     }
+
                 if (!p)
+                {
                     File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "bind F11 \"exec requestify\"");
+                }
             }
             else
             {

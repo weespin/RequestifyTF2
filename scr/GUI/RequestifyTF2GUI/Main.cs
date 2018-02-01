@@ -20,7 +20,7 @@ namespace RequestifyTF2Forms
     {
         private bool _started;
         public static Main instance;
-        public bool ConsoleShowed;
+        public static bool ConsoleShowed;
         private readonly Dictionary<string, IRequestifyPlugin> _plugins;
         private readonly Console cs = new Console();
         private TextWriter _writer;
@@ -299,7 +299,6 @@ namespace RequestifyTF2Forms
             if (!_started)
             {
                 Runner.Start();
-                //     btn_start.Enabled = false;
                 _started = true;
 
                 var s = _plugins.Aggregate("", (current, plugin) => current + (plugin.Value.Name));

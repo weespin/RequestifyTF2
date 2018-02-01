@@ -5,7 +5,7 @@ namespace RequestifyTF2.Utils
 {
     public class AutoHotKeyChecker
     {
-        public void Check(string path)
+        public static void Check(string path)
 
         {
             if (Directory.Exists(path + "/ahk/"))

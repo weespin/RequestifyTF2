@@ -16,7 +16,11 @@ namespace RequestPlugin
 
         public void Execute(string executor, List<string> arguments)
         {
-            if (arguments.Count <= 0) return;
+            if (arguments.Count <= 0)
+            {
+                return;
+
+            }
             var url = arguments[0];
             if (url.StartsWith("https://soundcloud.com/"))
                 Instance.Vlc.Add(url);

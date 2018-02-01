@@ -201,9 +201,6 @@ namespace RequesifyCLI
                 Console.WriteLine($"{{{i}}} {pl.Name} {pl.Command} - {pl.Help} by {pl.Author}");
                 i++;
             }
-
-            ;
-
             Console.ForegroundColor = ConsoleColor.Gray;
             Logger.Write(Logger.Status.Info,"===================PLUGINS END===================");
         }
