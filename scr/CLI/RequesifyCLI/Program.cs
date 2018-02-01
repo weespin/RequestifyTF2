@@ -109,15 +109,19 @@ namespace RequesifyCLI
                                 {
                                     Instance.ActivePlugins.Add(plz);
                                     Instance.DisabledPlugins.Remove(plz);
+                                    PrintPlugins();
+                                    continue;
                                 }
 
                                 if (Instance.ActivePlugins.Contains(plz))
                                 {
                                     Instance.DisabledPlugins.Add(plz);
                                     Instance.ActivePlugins.Remove(plz);
+                                    PrintPlugins();
+                                    continue;
                                 }
 
-                                PrintPlugins();
+                               
                             }
                             else
                             {
