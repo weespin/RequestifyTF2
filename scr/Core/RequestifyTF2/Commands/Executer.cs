@@ -39,7 +39,7 @@ namespace RequestifyTF2.Commands
                                 Logger.Write(Logger.Status.Error,e.ToString());
                             }
                         });
-                        Logger.Write(Logger.Status.Info, $"{caller} execute {command}");
+                        Logger.Write(Logger.Status.Info, $"{caller} executed {command}");
                     }
                     else
                     {

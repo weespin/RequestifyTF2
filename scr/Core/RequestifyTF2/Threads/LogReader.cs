@@ -12,8 +12,7 @@ namespace RequestifyTF2
     {
         public static void Starter()
         {
-            var thread = new Thread(Read);
-            thread.IsBackground = true;
+            var thread = new Thread(Read) {IsBackground = true};
             thread.Start();
             Logger.Write(Logger.Status.Info, "Started LogReader Thread!");
         }
@@ -29,6 +28,7 @@ namespace RequestifyTF2
             fsw.Changed += (s, e) => wh.Set();
             if (!File.Exists(Instance.Config.GameDir + "/console.log"))
                 File.Create(Instance.Config.GameDir + "/console.log");
+            Thread.Sleep(30);
             var fs = new FileStream(Instance.Config.GameDir + "/console.log", FileMode.Open, FileAccess.Read,
                 FileShare.ReadWrite);
             using (var sr = new StreamReader(fs, Encoding.GetEncoding("Windows-1251")))

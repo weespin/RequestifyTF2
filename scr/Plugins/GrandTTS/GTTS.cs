@@ -28,7 +28,6 @@ namespace GTTS
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(query);
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                 var resps = resp.Headers["Set-Cookie"];
-                //     Console.WriteLine( "Cookie username = " + resps);
                 var regex = @"(acabox=)\w+";
                 var result = "";
                 var match = Regex.Match(resps, regex);

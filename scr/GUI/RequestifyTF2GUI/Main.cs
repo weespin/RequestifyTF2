@@ -11,7 +11,6 @@ using MaterialSkin.Controls;
 using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.Api;
-using RequestifyTF2.PluginLoader;
 using RequestifyTF2Forms.Config;
 using RequestifyTF2GUI.Properties;
 using Application = System.Windows.Forms.Application;
@@ -318,11 +317,14 @@ namespace RequestifyTF2Forms
         {
             Process.Start("https://steamcommunity.com/id/wspin/");
         }
-        
-        
+
+        private void list_plugins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
-   
+
 
     public static class ThreadHelperClass
     {

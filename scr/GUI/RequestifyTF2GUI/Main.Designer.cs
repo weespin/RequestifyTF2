@@ -312,6 +312,7 @@
             this.list_plugins.TabIndex = 2;
             this.list_plugins.UseCompatibleStateImageBehavior = false;
             this.list_plugins.View = System.Windows.Forms.View.Details;
+            this.list_plugins.SelectedIndexChanged += new System.EventHandler(this.list_plugins_SelectedIndexChanged);
             this.list_plugins.DoubleClick += new System.EventHandler(this.list_plugins_DoubleClick);
             this.list_plugins.MouseClick += new System.Windows.Forms.MouseEventHandler(this.list_plugins_MouseClick);
             // 
