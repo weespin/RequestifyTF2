@@ -20,7 +20,7 @@ namespace RequestifyTF2Forms
     {
         private bool _started;
         public static Main instance;
-        public static bool ConsoleShowed;
+        public bool ConsoleShowed;
         private readonly Dictionary<string, IRequestifyPlugin> _plugins;
         private readonly Console cs = new Console();
         private TextWriter _writer;
