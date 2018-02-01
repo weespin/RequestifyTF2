@@ -75,12 +75,12 @@ namespace RequesifyCLI
                             }
                             else
                             {
-                                Console.WriteLine($"Error. You dont have {i} blacklisted words");
+                                Logger.Write(Logger.Status.Error,$"Error. You dont have {i} blacklisted words");
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"Error. Cant find any number");
+                            Logger.Write(Logger.Status.Error,$"Cant find any number");
                         }
                     }
                 if (key.StartsWith("add"))
@@ -121,12 +121,12 @@ namespace RequesifyCLI
                             }
                             else
                             {
-                                Console.WriteLine($"Error. You have only {GetAllPlugins().Count} plugins. Not {i}");
+                                Logger.Write(Logger.Status.Error,$"Error. You have only {GetAllPlugins().Count} plugins. Not {i}");
                             }
                         }
                         else
                         {
-                            Console.WriteLine($"Error. Cant find any number");
+                            Logger.Write(Logger.Status.Error,$"Cant find any number");
                         }
                     }
 
@@ -134,7 +134,7 @@ namespace RequesifyCLI
                 {
                     if (Instance.Config.GameDir == "")
                     {
-                        Console.WriteLine("Please set the game directory");
+                        Logger.Write(Logger.Status.Info,"Please set the game directory");
                         return;
                     }
 
@@ -146,8 +146,6 @@ namespace RequesifyCLI
 
                         var s = _plugins.Aggregate("", (current, plugin) => current + plugin.Value.Name);
                     }
-
-                    Console.WriteLine("Started");
                 }
             }
         }
@@ -179,21 +177,21 @@ namespace RequesifyCLI
         {
             var i = 0;
             var blacklisted = Instance.Config.Ignored.OrderBy(n => n).ToList();
-            Console.WriteLine("===================BLACKLIST===================");
+            Logger.Write(Logger.Status.Info,"===================BLACKLIST===================");
             foreach (var blocked in blacklisted)
             {
                 Console.WriteLine($"{{{i}}} {blocked}");
                 i++;
             }
 
-            Console.WriteLine("===================BLACKLIST END===================");
+            Logger.Write(Logger.Status.Info,"===================BLACKLIST END===================");
         }
 
         private static void PrintPlugins()
         {
             var i = 0;
             var Plugins = GetAllPlugins();
-            Console.WriteLine("===================PLUGINS===================");
+            Logger.Write(Logger.Status.Info,"===================PLUGINS===================");
             foreach (var pl in Plugins)
             {
                 if (Instance.DisabledPlugins.Contains(pl)) Console.ForegroundColor = ConsoleColor.Red;
@@ -207,7 +205,7 @@ namespace RequesifyCLI
             ;
 
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("===================PLUGINS END===================");
+            Logger.Write(Logger.Status.Info,"===================PLUGINS END===================");
         }
 
         private static void SetDirectory(string v)
