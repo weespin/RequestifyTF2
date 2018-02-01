@@ -18,7 +18,7 @@ namespace RequestifyTF2Forms
 {
     public partial class Main : MaterialForm
     {
-        private static bool _started;
+        private bool _started;
         public static Main instance;
         public static bool ConsoleShowed;
         private readonly Dictionary<string, IRequestifyPlugin> _plugins;

@@ -56,6 +56,7 @@ namespace RequestifyTF2
         //todo: use regex?
         public static void TextChecker(string s)
         {
+            
             if (s.Contains(":") && s.Split(null).Length > 3)
             {
                 s = s.Trim();
@@ -65,11 +66,13 @@ namespace RequestifyTF2
                 for (var i = 0; i < splitted.Length; i++)
                     if (splitted[i] == ":")
                         selector = i;
-                var name = "";
+                StringBuilder name = new StringBuilder();
                 if (selector == 0)
                     return;
                 for (var i = 0; i < selector; i++)
-                    name += splitted[i];
+                {
+                    name.Append(splitted[i]);
+                }
                 var arguments = new List<string>();
                 if (splitted.Length > selector + 1)
                 {
@@ -91,7 +94,7 @@ namespace RequestifyTF2
                             arguments.Add(splitted[i]);
                     if (command != "")
                     {
-                        Executer.Execute(name, command, arguments);
+                        Executer.Execute(name.ToString(), command, arguments);
                     }
                 }
             }
@@ -105,46 +108,49 @@ namespace RequestifyTF2
                 for (var i = 0; i < splitted.Length; i++)
                     if (splitted[i] == "killed")
                         killerselector = i;
-                var killer = "";
+                StringBuilder killer = new StringBuilder();
                 if (killerselector == 0)
                     return;
                 for (var i = 0; i < killerselector; i++)
-                    killer += splitted[i] + " ";
-                killer = killer.Trim();
-                killer = killer.TrimEnd();
+                {
+                    killer.Append(splitted[i] + " ");
+                }
+
+                killer.Length--;
+              
                 //Okay we found a killer, lets find which guy was killed?
                 var deathselector = 0;
                 for (var i = 0; i < splitted.Length; i++)
                     if (splitted[i] == "with")
                         deathselector = i;
-                var killed = "";
+               StringBuilder killed = new StringBuilder();
                 if (deathselector == 0)
                     return;
                 for (var i = killerselector + 1; i < deathselector; i++)
-                    killed += splitted[i] + " ";
-                killed = killed.Trim();
-                killed = killed.TrimEnd();
-                var weapon = "";
+                    killed.Append(splitted[i] + " ");
+                killed.Length--;
+                
+                var weapon = new StringBuilder();
                 for (var i = deathselector + 1; i < splitted.Length; i++)
-                    weapon += splitted[i] + " ";
-                weapon = weapon.Trim();
+                    weapon.Append(splitted[i] + " ");
+                weapon.Length--;
 
-                weapon = weapon.TrimEnd();
-                if (weapon.EndsWith(".")) //THIS IS NOT A CRIT
+               
+                if (weapon.ToString().EndsWith(".")) //THIS IS NOT A CRIT
                 {
-                    weapon = weapon.Remove(weapon.Length - 1);
-                    Events.PlayerKill.Invoke(killer, killed, weapon);
+                    weapon.Length--;
+                    Events.PlayerKill.Invoke(killer.ToString(), killed.ToString(), weapon.ToString());
                 }
-                else if (weapon.EndsWith("(crit)"))
+                else if (weapon.ToString().EndsWith("(crit)"))
                 {
                     weapon = weapon.Replace(" (crit)", "");
-                    weapon.Trim();
-                    weapon.TrimEnd();
-                    if (weapon.EndsWith("."))
+                    weapon.Length--;
+                  
+                    if (weapon.ToString().EndsWith("."))
                     {
-                        weapon = weapon.Remove(weapon.Length - 1);
+                        weapon.Length--;
                     }
-                    Events.PlayerKill.Invoke(killer, killed, weapon,true);
+                    Events.PlayerKill.Invoke(killer.ToString(), killed.ToString(), weapon.ToString(),true);
                 }
              
                
@@ -157,14 +163,13 @@ namespace RequestifyTF2
                 for (var i = 0; i < splitted.Length; i++)
                     if (splitted[i] == "connected")
                         connectedselector = i;
-                var joined = "";
+                var joined = new StringBuilder();
                 if (connectedselector == 0)
                     return;
                 for (var i = 0; i < connectedselector; i++)
-                    joined += splitted[i] + " ";
-                joined = joined.Trim();
-                joined = joined.TrimEnd();
-                Events.PlayerConnect.Invoke(joined);
+                    joined.Append(splitted[i] + " ");
+                joined.Length--;
+                Events.PlayerConnect.Invoke(joined.ToString());
             }
             else if (s.Contains("suicided.") && !s.Contains(":"))
             {
@@ -174,14 +179,14 @@ namespace RequestifyTF2
                 for (var i = 0; i < splitted.Length; i++)
                     if (splitted[i] == "suicided.")
                         connectedselector = i;
-                var suicided = "";
+                var suicided = new StringBuilder();
                 if (connectedselector == 0)
                     return;
                 for (var i = 0; i < connectedselector; i++)
-                    suicided += splitted[i] + " ";
-                suicided = suicided.Trim();
-                suicided = suicided.TrimEnd();
-                Events.PlayerSuicide.Invoke(suicided);
+                    suicided.Append(splitted[i] + " ");
+                suicided.Length--;
+                suicided.Length--;
+                Events.PlayerSuicide.Invoke(suicided.ToString());
             }
         }
     }
