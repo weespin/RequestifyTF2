@@ -8,7 +8,7 @@ using RequestifyTF2.Commands;
 
 namespace RequestifyTF2
 {
-    internal class ReaderThread
+    public class ReaderThread
     {
         public static void Starter()
         {
@@ -54,7 +54,20 @@ namespace RequestifyTF2
             }
         }
         //todo: use regex?
-        public static void TextChecker(string s)
+        //Added Enums for Unit Testing!
+        public enum Result
+        {
+            CommandExecute,
+            Kill,
+            Suicide,
+            Chatted,
+            Connected,
+            Undefined,
+            KillCrit
+        }
+
+       
+        public static Result TextChecker(string s)
         {
             
             if (s.Contains(":") && s.Split(null).Length > 3)
@@ -68,7 +81,7 @@ namespace RequestifyTF2
                         selector = i;
                 StringBuilder name = new StringBuilder();
                 if (selector == 0)
-                    return;
+                    return Result.Undefined;
                 for (var i = 0; i < selector; i++)
                 {
                     name.Append(splitted[i]);
@@ -95,6 +108,7 @@ namespace RequestifyTF2
                     if (command != "")
                     {
                         Executer.Execute(name.ToString(), command, arguments);
+                        return Result.CommandExecute;
                     }
                 }
             }
@@ -110,7 +124,7 @@ namespace RequestifyTF2
                         killerselector = i;
                 StringBuilder killer = new StringBuilder();
                 if (killerselector == 0)
-                    return;
+                    return Result.Undefined;
                 for (var i = 0; i < killerselector; i++)
                 {
                     killer.Append(splitted[i] + " ");
@@ -125,7 +139,7 @@ namespace RequestifyTF2
                         deathselector = i;
                StringBuilder killed = new StringBuilder();
                 if (deathselector == 0)
-                    return;
+                    return Result.Undefined;
                 for (var i = killerselector + 1; i < deathselector; i++)
                     killed.Append(splitted[i] + " ");
                 killed.Length--;
@@ -140,6 +154,7 @@ namespace RequestifyTF2
                 {
                     weapon.Length--;
                     Events.PlayerKill.Invoke(killer.ToString(), killed.ToString(), weapon.ToString());
+                    return Result.Kill;
                 }
                 else if (weapon.ToString().EndsWith("(crit)"))
                 {
@@ -151,9 +166,10 @@ namespace RequestifyTF2
                         weapon.Length--;
                     }
                     Events.PlayerKill.Invoke(killer.ToString(), killed.ToString(), weapon.ToString(),true);
+                    return Result.KillCrit;
                 }
              
-               
+                
             }
             else if (s.Contains("connected") && !s.Contains(":"))
             {
@@ -165,11 +181,12 @@ namespace RequestifyTF2
                         connectedselector = i;
                 var joined = new StringBuilder();
                 if (connectedselector == 0)
-                    return;
+                    return Result.Undefined;
                 for (var i = 0; i < connectedselector; i++)
                     joined.Append(splitted[i] + " ");
                 joined.Length--;
                 Events.PlayerConnect.Invoke(joined.ToString());
+                return Result.Connected;
             }
             else if (s.Contains("suicided.") && !s.Contains(":"))
             {
@@ -181,13 +198,16 @@ namespace RequestifyTF2
                         connectedselector = i;
                 var suicided = new StringBuilder();
                 if (connectedselector == 0)
-                    return;
+                    return Result.Undefined;
                 for (var i = 0; i < connectedselector; i++)
                     suicided.Append(splitted[i] + " ");
                 suicided.Length--;
                 suicided.Length--;
                 Events.PlayerSuicide.Invoke(suicided.ToString());
+                return Result.Suicide;
             }
+
+            return Result.Undefined;
         }
     }
 }

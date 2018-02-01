@@ -122,6 +122,9 @@ namespace RequestifyTF2Forms
             private delegate void SetFormstateCallback(Form f,  FormWindowState state);
         }
 
-        
+        private void txt_console_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
