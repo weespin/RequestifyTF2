@@ -69,4 +69,4 @@ OnPlayerKill => Returns Killer's Nickname, Killed Nickname, Weapon and crit (TF2
 
 OnPlayerSuicide => Returns a user nickname (TF2 only)
 # Questions?
-Make a issue or add me on [Steam](steamcommunity.com/id/wspin/)
+Make a issue or add me on [Steam](http://steamcommunity.com/id/wspin/)
