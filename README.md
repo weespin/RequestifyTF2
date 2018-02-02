@@ -68,6 +68,5 @@ OnPlayerChat => Returns a user nickname and text (invoked if text is not a comma
 OnPlayerKill => Returns Killer's Nickname, Killed Nickname, Weapon and crit (TF2 only)
 
 OnPlayerSuicide => Returns a user nickname (TF2 only)
-# Legal Disclaimer
-
-This Project is in no way affiliated with, authorized, maintained, sponsored or endorsed by ANYONE. This is an independent and unofficial project for educational use ONLY. Do not use for any other purpose than education, testing and research.
+# Questions?
+Make a issue or add me on steam steamcommunity.com/id/wspin/
