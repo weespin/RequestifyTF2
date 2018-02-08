@@ -54,6 +54,7 @@ namespace RequesifyCLI
                 if (key.StartsWith("help"))
                 {
                    GetHelp();
+
                 }
                 if (key.StartsWith("dir") && key.Split(null).Length > 1) SetDirectory(key.Replace("dir", null));
                 if (key.StartsWith("code")) Console.WriteLine(Instance.Config.Chiper);
