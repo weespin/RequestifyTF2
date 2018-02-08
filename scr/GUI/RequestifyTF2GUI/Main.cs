@@ -100,22 +100,7 @@ namespace RequestifyTF2Forms
 
         private void Main_Closing(object sender, EventArgs e)
         {
-            var ports = RequestifyTF2.VLC.VlcRemote.GetNetStatPorts();
-            foreach (var port in ports)
-            {
-                if (port.port_number == "9876")
-                {
-                    try
-                    {
-                        Logger.Write(Logger.Status.Info, "Closing! Killing VLC!");
-                        Process.GetProcessById(port.pid).Kill();
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-            }
+           
         }
 
         #endregion

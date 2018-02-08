@@ -1,21 +1,41 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using RequestifyTF2.VLC;
+using System.Linq;
+using CSCore;
+using CSCore.CoreAudioAPI;
+using CSCore.SoundOut;
 
 namespace RequestifyTF2.Api
 {
     public static class  Instance
     {
+        public static List<MMDevice> _devices = new List<MMDevice>();
         public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
         public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
-        public static VlcRemote Vlc = new VlcRemote();
-   
+        public static ConcurrentQueue<IWaveSource> QueueBackGround = new ConcurrentQueue<IWaveSource>();
+        public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
+        public static WasapiOut SoundOutForeground = new WasapiOut();
+        public static WasapiOut SoundOutBackground = new WasapiOut();
+        public static WasapiOut SoundOutExtra = new WasapiOut();
+
         public static void Load()
         {
+            using (var mmdeviceEnumerator = new MMDeviceEnumerator())
+            {
+                using (
+                    var mmdeviceCollection = mmdeviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
+                {
+                    foreach (var device in mmdeviceCollection)
+                    {
+                        _devices.Add(device);
+                    }
+                }
+            }
             Logger.Write(Logger.Status.Info, "Loading Instance!");
             AutoexecChecker.Check();
-            Vlc.StartVLC();
-
+            SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device =
+                _devices.Where(n => n.FriendlyName.Contains("Virtual")).FirstOrDefault();
 
         }
 

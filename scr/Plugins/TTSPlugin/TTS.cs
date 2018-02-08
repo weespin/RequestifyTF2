@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using CSCore.Codecs.MP3;
 using RequestifyTF2.Api;
 
 namespace TTSPlugin
@@ -31,7 +32,7 @@ namespace TTSPlugin
                             "&tl=Ru-ru";
                     f = f.Replace(" ", "%20");
                  
-                    Instance.Vlc.Add(f);
+                    Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(f));
                     return;
                 }
                 text = HttpUtility.UrlEncode(text);
@@ -39,8 +40,8 @@ namespace TTSPlugin
                         text +
                         "&tl=En-gb";
                 d = d.Replace(" ", "%20");
+                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
 
-                Instance.Vlc.Add(d);
             }
         }
     }

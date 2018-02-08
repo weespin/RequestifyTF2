@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CSCore.Codecs.MP3;
 using RequestifyTF2.Api;
 
 namespace MTTSPlugin
@@ -26,7 +27,7 @@ namespace MTTSPlugin
                     text + "&useUTF8=1";
                 d = d.Replace(" ", "%20");
 
-                Instance.Vlc.Add(d);
+                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
             }
         }
     }

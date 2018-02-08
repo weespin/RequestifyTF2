@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using RequestifyTF2.Api;
-using RequestifyTF2.VLC;
+using RequestifyTF2.Threads;
 
 
 namespace RequestifyTF2
@@ -11,7 +11,7 @@ namespace RequestifyTF2
     public static class Runner
     {
         public static List<string> Ignored = new List<string>();
-        public static VlcRemote Vlc = Instance.Vlc;
+       
         public static Instance.Config Cfg = new Instance.Config();
         public static bool IsGameRunning;
 
@@ -39,7 +39,7 @@ namespace RequestifyTF2
 
             
             ReaderThread.Starter();
-            
+            PlayerThread.Starter();
 
 
             //Init

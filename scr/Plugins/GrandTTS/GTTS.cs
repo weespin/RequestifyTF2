@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using CSCore.Codecs.MP3;
 using Newtonsoft.Json;
 using RequestifyTF2.Api;
 
@@ -71,7 +72,7 @@ namespace GTTS
 
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 var s = JsonConvert.DeserializeObject<RootObject>(responseString).snd_url;
-                Instance.Vlc.Add(s);
+                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(s));
             }
         }
     }

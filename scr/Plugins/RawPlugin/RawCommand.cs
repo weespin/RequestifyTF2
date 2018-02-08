@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CSCore.Codecs.MP3;
 using RequestifyTF2.Api;
 
 namespace RawPlugi
@@ -16,7 +17,7 @@ namespace RawPlugi
         {
             if (arguments.Count <= 0) return;
             var url = arguments[0];
-            Instance.Vlc.Add(url);
+        //    Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
         }
     }
 }

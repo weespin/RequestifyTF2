@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CSCore;
-using CSCore.Ffmpeg;
 using CSCore.SoundOut;
 using RequestifyTF2.Api;
 
@@ -14,7 +13,7 @@ namespace RequestifyTF2.Threads
 {
     class PlayerThread
     {
-        static object Locker = new object();
+        //static object Locker = new object();
         public static void Starter()
         {
             var thread = new Thread(Play) { IsBackground = true };
@@ -30,16 +29,16 @@ namespace RequestifyTF2.Threads
             while (true)
             {
               //BackGround
-                if (Instance.SoundOutBackGround.PlaybackState == PlaybackState.Playing)
+                if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
                 {
-                    Instance.SoundOutBackGround.Volume = Instance.SoundOutForeGround.PlaybackState == PlaybackState.Playing ? 0.65f : 1f;
-                    if (Instance.SoundOutBackGround.WaveSource != null)
+                    Instance.SoundOutBackground.Volume = Instance.SoundOutForeground.PlaybackState == PlaybackState.Playing ? 0.65f : 1f;
+                    if (Instance.SoundOutBackground.WaveSource != null)
                     {
-                        if ((Instance.SoundOutBackGround.WaveSource.Length - Instance.SoundOutBackGround.WaveSource.Position) <
-                            Instance.SoundOutBackGround.WaveSource.WaveFormat.BytesPerSecond / 100)
+                        if ((Instance.SoundOutBackground.WaveSource.Length - Instance.SoundOutBackground.WaveSource.Position) <
+                            Instance.SoundOutBackground.WaveSource.WaveFormat.BytesPerSecond / 100)
                         { 
                             //Little hack becouse ffmpeg don't stop playing :(
-                            Instance.SoundOutBackGround.Stop();
+                            Instance.SoundOutBackground.Stop();
                         }
                     }
                 }
@@ -47,7 +46,7 @@ namespace RequestifyTF2.Threads
                 {
                    
                   //Debug.WriteLine(Instance.SoundOut.WaveSource.GetLength()+"/"+Instance.SoundOut.WaveSource.GetPosition());
-                    if (Instance.SoundOutBackGround.PlaybackState == PlaybackState.Stopped)
+                    if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Stopped)
                     {
 
                         IWaveSource s;
@@ -55,36 +54,36 @@ namespace RequestifyTF2.Threads
                             {
 
                                 //   Instance.SoundOut.Dispose();
-                                Task.Run(() => { Player(s,Instance.SoundOutBackGround); });         
+                                Task.Run(() => { Player(s,Instance.SoundOutBackground); });         
                             }
                         }
                     }
                 //First Placed!
-                if (Instance.SoundOutForeGround.PlaybackState == PlaybackState.Playing)
+                if (Instance.SoundOutForeground.PlaybackState == PlaybackState.Playing)
                 {
-                    if (Instance.SoundOutForeGround.WaveSource != null)
+                    if (Instance.SoundOutForeground.WaveSource != null)
                     {
-                        if ((Instance.SoundOutForeGround.WaveSource.Length - Instance.SoundOutForeGround.WaveSource.Position) <
-                            Instance.SoundOutForeGround.WaveSource.WaveFormat.BytesPerSecond / 100)
+                        if ((Instance.SoundOutForeground.WaveSource.Length - Instance.SoundOutForeground.WaveSource.Position) <
+                            Instance.SoundOutForeground.WaveSource.WaveFormat.BytesPerSecond / 100)
                         {
                             //Little hack becouse ffmpeg don't stop playing :(
-                            Instance.SoundOutForeGround.Stop();
+                            Instance.SoundOutForeground.Stop();
                         }
                     }
                 }
-                if (Instance.QueueForerground.Count > 0)
+                if (Instance.QueueForeGround.Count > 0)
                 {
 
                     //Debug.WriteLine(Instance.SoundOut.WaveSource.GetLength()+"/"+Instance.SoundOut.WaveSource.GetPosition());
-                    if (Instance.SoundOutForeGround.PlaybackState == PlaybackState.Stopped)
+                    if (Instance.SoundOutForeground.PlaybackState == PlaybackState.Stopped)
                     {
 
                         IWaveSource s;
-                        if (Instance.QueueForerground.TryDequeue(out s))
+                        if (Instance.QueueForeGround.TryDequeue(out s))
                         {
 
                             //   Instance.SoundOut.Dispose();
-                            Task.Run(() => { Player(s, Instance.SoundOutForeGround); });
+                            Task.Run(() => { Player(s, Instance.SoundOutForeground); });
                         }
                     }
                 }
