@@ -48,7 +48,5 @@ namespace OofPlugin
             Instance.QueueBackGround = new ConcurrentQueue<IWaveSource>();
 
         }
-
-        //I don't want to download a sound every time.
     }
 }

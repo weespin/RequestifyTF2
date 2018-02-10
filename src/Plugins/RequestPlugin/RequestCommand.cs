@@ -12,7 +12,7 @@ using YoutubeExplode.Models.MediaStreams;
 
 namespace RequestPlugin
 {
-
+    using System.IO;
 
     public class RequestPlugin : IRequestifyPlugin
 
@@ -92,6 +92,26 @@ namespace RequestPlugin
                     Instance.QueueBackGround.Enqueue(new AacDecoder(ext));
                 }
             #endregion
+        }
+
+        public void OnLoad()
+        {
+            using (WebClient web = new WebClient())
+            {
+                //I want to check libs
+                if (!File.Exists("./plugins/libs/YoutubeExplode.dll"))
+                {
+                    web.DownloadFile("https://github.com/weespin/reqdeps/blob/master/YoutubeExplode.dll?raw=true", "./plugins/libs/YoutubeExplode.dll");
+                    RequestifyTF2.PluginLoader.Libraries.Load("./plugins/libs/YoutubeExplode.dll");
+                }
+
+                if (!File.Exists("./plugins/libs/AngleSharp.dll"))
+                {
+                    web.DownloadFile("https://github.com/weespin/reqdeps/blob/master/AngleSharp.dll?raw=true", "./plugins/libs/AngleSharp.dll");
+                    RequestifyTF2.PluginLoader.Libraries.Load("./plugins/libs/AngleSharp.dll");
+                }
+            }
+          
         }
     }
 }
