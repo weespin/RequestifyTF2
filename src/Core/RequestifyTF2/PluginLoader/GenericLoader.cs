@@ -28,20 +28,18 @@ namespace RequestifyTF2.Api
                     {
                         web.Proxy = null;
                         web.DownloadFile(
-                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll",
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/src%2FPlugins%2FTTSPlugin%2Fbin%2FDebug%2FTTSPlugin.dll",
                             path + "/TTSPlugin.dll");
                         web.DownloadFile(
-                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FGrandTTS%2Fbin%2FDebug%2FGrandTTS.dll",
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/src%2FPlugins%2FGrandTTS%2Fbin%2FDebug%2FGrandTTS.dll",
                             path + "/GTTSPlugin.dll");
                         web.DownloadFile(
-                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/src%2FPlugins%2FRequestPlugin%2Fbin%2FDebug%2FRequestPlugin.dll",
                             path + "/RequestPlugin.dll");
                         web.DownloadFile(
-                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll",
+                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/src%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll",
                             path + "/MTTSPlugin.dll");
-                        web.DownloadFile(
-                            "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/scr%2FPlugins%2FRawPlugin%2Fbin%2FDebug%2FRawPlugin.dll",
-                            path + "/RawPlugin.dll");
+                     
                        
                     }
                     Process.Start(Application.ExecutablePath); // to start new instance of application

@@ -57,5 +57,28 @@ namespace RequestifyTF2.PluginLoader
            // Assembly.Load();
 
         }
+        public static void LoadFile(string path)
+        {
+
+           
+
+
+       
+                try
+                {
+                    Proxy pd = new Proxy();
+                    Assembly assemblyz = pd.GetAssembly(path);
+                    Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
+
+
+                }
+                catch (Exception e)
+                {
+                    Logger.Write(Logger.Status.Error, e.ToString());
+                }
+            
+            // Assembly.Load();
+
+        }
     }
 }

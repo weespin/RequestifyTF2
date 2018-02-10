@@ -102,13 +102,13 @@ namespace RequestPlugin
                 if (!File.Exists("./plugins/libs/YoutubeExplode.dll"))
                 {
                     web.DownloadFile("https://github.com/weespin/reqdeps/blob/master/YoutubeExplode.dll?raw=true", "./plugins/libs/YoutubeExplode.dll");
-                    RequestifyTF2.PluginLoader.Libraries.Load("./plugins/libs/YoutubeExplode.dll");
+                    RequestifyTF2.PluginLoader.Libraries.LoadFile("./plugins/libs/YoutubeExplode.dll");
                 }
 
                 if (!File.Exists("./plugins/libs/AngleSharp.dll"))
                 {
                     web.DownloadFile("https://github.com/weespin/reqdeps/blob/master/AngleSharp.dll?raw=true", "./plugins/libs/AngleSharp.dll");
-                    RequestifyTF2.PluginLoader.Libraries.Load("./plugins/libs/AngleSharp.dll");
+                    RequestifyTF2.PluginLoader.Libraries.LoadFile("./plugins/libs/AngleSharp.dll");
                 }
             }
           
