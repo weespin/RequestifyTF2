@@ -16,6 +16,23 @@ RequesifyTF2 is a simple program for Source Engine based games, which supports p
 11. Done!
 # Another plugins
 I have released some plugins but i don't want to include them into default version, so please look at [Plugins page](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) and download needed plugin.
+# Comparison with other projects
+| Features      | RequestifyTF2 | SourceRadio | Slam |
+| ------------- | :-------------: | :-----------: | :----: | 
+| Commands      | 	 ✅		    |    ✅        | ❌ 	 |
+| Playlist      |    ❌          |   ✅ 	      |  ❌   |
+| Admins/Bans   |         50/50 |   ✅ 	   	  |  ❌   |
+| TextToSpeech  |              ✅|          ❌  |   ❌  |
+| Youtube Playing | ✅           |  ✅          |✅     |   
+| Oof!          | 			   ✅| 		   ❌  | ❌    | 
+| SoundCloud 	| ✅				|       	 ❌| ❌ 	 |
+| Can write to game chat   | 			✅	|		✅	     |	 ❌   |
+| Keep updating! | ✅           |  ❌          |   ❌  |
+| Plugins 		|  ✅    	    | ❌  		  | ❌    |
+| Events		|✅    	    | ❌  		  | ❌    |
+|API for Devs	|✅    	    | ❌  		  | ❌    |
+|Works on all servers	|✅    	    | ✅   		  | ❌    |
+|Works on all languages	|❌    	    | ✅   		  | ❌    |
 # Updating
 If new version was released, just replace RequestifyTF2GUI.exe with new file, and remove plugins!
 # Screenshots
