@@ -11,6 +11,5 @@ namespace RequesifyCLI
         public bool OnlyWithCode { get; set; }
         [JsonProperty("Admin")]
         public string Admin { get; set; }
-    }
-    
+    }  
 }
