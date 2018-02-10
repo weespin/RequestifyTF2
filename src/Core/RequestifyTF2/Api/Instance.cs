@@ -93,6 +93,7 @@ namespace RequestifyTF2.Api
             public static bool OnlyWithCode = false;
             public static string GameDir;
             public static string AhkPath;
+            public static string Admin;
         }
     }
 

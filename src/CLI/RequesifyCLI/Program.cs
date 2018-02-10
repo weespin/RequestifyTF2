@@ -37,6 +37,7 @@ namespace RequesifyCLI
             while (true)
             {
                 var key = Console.ReadLine();
+               
                 if (key.StartsWith("reverse"))
                 {
                     if (!Instance.Config.IgnoredReversed)
@@ -57,6 +58,12 @@ namespace RequesifyCLI
 
                 }
                 if (key.StartsWith("dir") && key.Split(null).Length > 1) SetDirectory(key.Replace("dir", null));
+                if (key.StartsWith("admin") && key.Split(null).Length > 1)
+                {
+                  Instance.Config.Admin = (key.Replace("admin", null));
+                  AppConfig.CurrentConfig.Admin = key.Replace("admin", null);
+                  AppConfig.Save();
+                }
                 if (key.StartsWith("code")) Console.WriteLine(Instance.Config.Chiper);
                 if (key.StartsWith("blacklist")) PrintBlackList();
                 if (key.StartsWith("remove"))
@@ -171,6 +178,7 @@ namespace RequesifyCLI
             Logger.Write(Logger.Status.Info,"start - start RequestifyTF2");
             Logger.Write(Logger.Status.Info,"reverse - revert blacklist to whitelist");
             Logger.Write(Logger.Status.Info,"help - get this info.");
+            Logger.Write(Logger.Status.Info,"admin {nick} - set admin name");
         }
         public static List<IRequestifyPlugin> GetAllPlugins()
         {

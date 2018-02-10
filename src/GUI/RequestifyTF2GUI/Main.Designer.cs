@@ -40,6 +40,8 @@
             this.chkbox_onlywithcode = new MaterialSkin.Controls.MaterialCheckBox();
             this.lbl_code = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialSingleLineTextField1 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btn_SelectGamePath = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btn_consoleshow = new MaterialSkin.Controls.MaterialRaisedButton();
             this.txtbx_GamePath = new MaterialSkin.Controls.MaterialLabel();
@@ -57,6 +59,7 @@
             this.list_ignored = new MaterialSkin.Controls.MaterialListView();
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -225,6 +228,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.materialRaisedButton1);
+            this.tabPage2.Controls.Add(this.materialLabel6);
+            this.tabPage2.Controls.Add(this.materialSingleLineTextField1);
             this.tabPage2.Controls.Add(this.btn_SelectGamePath);
             this.tabPage2.Controls.Add(this.btn_consoleshow);
             this.tabPage2.Controls.Add(this.txtbx_GamePath);
@@ -234,7 +241,38 @@
             this.tabPage2.Size = new System.Drawing.Size(411, 228);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // materialLabel6
+            // 
+            this.materialLabel6.AutoSize = true;
+            this.materialLabel6.Depth = 0;
+            this.materialLabel6.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel6.Location = new System.Drawing.Point(27, 72);
+            this.materialLabel6.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel6.Name = "materialLabel6";
+            this.materialLabel6.Size = new System.Drawing.Size(100, 19);
+            this.materialLabel6.TabIndex = 21;
+            this.materialLabel6.Text = "Steam Name:";
+            // 
+            // materialSingleLineTextField1
+            // 
+            this.materialSingleLineTextField1.Depth = 0;
+            this.materialSingleLineTextField1.Hint = "";
+            this.materialSingleLineTextField1.Location = new System.Drawing.Point(133, 68);
+            this.materialSingleLineTextField1.MaxLength = 32767;
+            this.materialSingleLineTextField1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialSingleLineTextField1.Name = "materialSingleLineTextField1";
+            this.materialSingleLineTextField1.PasswordChar = '\0';
+            this.materialSingleLineTextField1.SelectedText = "";
+            this.materialSingleLineTextField1.SelectionLength = 0;
+            this.materialSingleLineTextField1.SelectionStart = 0;
+            this.materialSingleLineTextField1.Size = new System.Drawing.Size(117, 23);
+            this.materialSingleLineTextField1.TabIndex = 20;
+            this.materialSingleLineTextField1.TabStop = false;
+            this.materialSingleLineTextField1.UseSystemPasswordChar = false;
+            this.materialSingleLineTextField1.Click += new System.EventHandler(this.materialSingleLineTextField1_Click);
+            this.materialSingleLineTextField1.DragLeave += new System.EventHandler(this.materialSingleLineTextField1_DragLeave);
             // 
             // btn_SelectGamePath
             // 
@@ -258,7 +296,7 @@
             this.btn_consoleshow.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btn_consoleshow.Depth = 0;
             this.btn_consoleshow.Icon = null;
-            this.btn_consoleshow.Location = new System.Drawing.Point(59, 16);
+            this.btn_consoleshow.Location = new System.Drawing.Point(45, 16);
             this.btn_consoleshow.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_consoleshow.Name = "btn_consoleshow";
             this.btn_consoleshow.Primary = true;
@@ -273,10 +311,10 @@
             this.txtbx_GamePath.Depth = 0;
             this.txtbx_GamePath.Font = new System.Drawing.Font("Roboto", 11F);
             this.txtbx_GamePath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.txtbx_GamePath.Location = new System.Drawing.Point(8, 71);
+            this.txtbx_GamePath.Location = new System.Drawing.Point(8, 137);
             this.txtbx_GamePath.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtbx_GamePath.Name = "txtbx_GamePath";
-            this.txtbx_GamePath.Size = new System.Drawing.Size(394, 152);
+            this.txtbx_GamePath.Size = new System.Drawing.Size(394, 86);
             this.txtbx_GamePath.TabIndex = 15;
             this.txtbx_GamePath.Text = "materialLabel1";
             // 
@@ -452,6 +490,22 @@
             this.materialTabSelector1.TabIndex = 20;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
+            // materialRaisedButton1
+            // 
+            this.materialRaisedButton1.AutoSize = true;
+            this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton1.Depth = 0;
+            this.materialRaisedButton1.Icon = null;
+            this.materialRaisedButton1.Location = new System.Drawing.Point(265, 64);
+            this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton1.Name = "materialRaisedButton1";
+            this.materialRaisedButton1.Primary = true;
+            this.materialRaisedButton1.Size = new System.Drawing.Size(55, 36);
+            this.materialRaisedButton1.TabIndex = 22;
+            this.materialRaisedButton1.Text = "Save";
+            this.materialRaisedButton1.UseVisualStyleBackColor = true;
+            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -509,6 +563,9 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialLabel materialLabel4;
         private MaterialSkin.Controls.MaterialLabel materialLabel5;
+        private MaterialSkin.Controls.MaterialLabel materialLabel6;
+        private MaterialSkin.Controls.MaterialSingleLineTextField materialSingleLineTextField1;
+        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
     }
 }
 

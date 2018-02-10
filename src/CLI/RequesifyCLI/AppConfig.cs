@@ -12,7 +12,7 @@ namespace RequesifyCLI
         
         public static void Load()
         {
-            var emptyjson = JsonConvert.SerializeObject(new ConfigJsonData() { GameDirectory = "", OnlyWithCode = false });
+            var emptyjson = JsonConvert.SerializeObject(new ConfigJsonData() { GameDirectory = "", OnlyWithCode = false ,Admin = "null"});
             if (Directory.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/"))
             {
               
@@ -20,6 +20,7 @@ namespace RequesifyCLI
                 {
                     CurrentConfig = JsonConvert.DeserializeObject<ConfigJsonData>(File.ReadAllText(
                         Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json"));
+                    Instance.Config.Admin = CurrentConfig.Admin;
                 }
                 else
                 {

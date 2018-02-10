@@ -9,5 +9,7 @@ namespace RequestifyTF2Forms.JsonDataClasses
 
         [JsonProperty("OnlyWithCode")]
         public bool OnlyWithCode { get; set; }
+        [JsonProperty("Admin")]
+        public string Admin { get; set; }
     }
 }

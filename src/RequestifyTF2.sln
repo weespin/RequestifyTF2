@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTests", "Tests\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OofPlugin", "Plugins\OofPlugin\OofPlugin.csproj", "{5819E718-7A43-4D44-8899-50EF414CF4A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopPlugin", "Plugins\StopPlugin\StopPlugin.csproj", "{3D24B4C6-FF72-4455-84BF-B3D047F7126B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,14 @@ Global
 		{5819E718-7A43-4D44-8899-50EF414CF4A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5819E718-7A43-4D44-8899-50EF414CF4A7}.Release|x86.ActiveCfg = Release|Any CPU
 		{5819E718-7A43-4D44-8899-50EF414CF4A7}.Release|x86.Build.0 = Release|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Debug|x86.Build.0 = Debug|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Release|x86.ActiveCfg = Release|Any CPU
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +133,7 @@ Global
 		{10B2E841-9E33-471C-8EF5-24DC824BADFA} = {2AABA088-6C61-435B-8E66-AB155563F078}
 		{43CBC27B-FDFF-429A-97A6-E248F2C924DB} = {FD07AD36-E410-41AB-92D2-6E7AA6242873}
 		{5819E718-7A43-4D44-8899-50EF414CF4A7} = {2AABA088-6C61-435B-8E66-AB155563F078}
+		{3D24B4C6-FF72-4455-84BF-B3D047F7126B} = {2AABA088-6C61-435B-8E66-AB155563F078}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC249C04-B158-4593-88AB-E3369D00230A}

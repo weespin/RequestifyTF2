@@ -13,7 +13,7 @@ namespace RequestifyTF2Forms.Config
         
         public static void Load()
         {
-            var emptyjson = JsonConvert.SerializeObject(new ConfigJsonData() { GameDirectory = "", OnlyWithCode = false });
+            var emptyjson = JsonConvert.SerializeObject(new ConfigJsonData() { GameDirectory = "", OnlyWithCode = false ,Admin = ""});
             if (Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/config/"))
             {
               
@@ -21,6 +21,8 @@ namespace RequestifyTF2Forms.Config
                 {
                     CurrentConfig = JsonConvert.DeserializeObject<ConfigJsonData>(File.ReadAllText(
                         Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json"));
+                    Instance.Config.Admin = CurrentConfig.Admin;
+                   
                 }
                 else
                 {
@@ -41,12 +43,15 @@ namespace RequestifyTF2Forms.Config
             if (CurrentConfig.GameDirectory == "")
                 new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory", "Error", RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            
         }
 
         public static void Save()
         {
+
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
             var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
+            CurrentConfig.Admin = Instance.Config.Admin;
             File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json", currentconfig);
         }
     }

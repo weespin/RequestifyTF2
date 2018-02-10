@@ -62,7 +62,7 @@ namespace RequestifyTF2Forms
             var plugins =
                 PluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
                                                             "/plugins/");
-            
+           
             foreach (var item in plugins)
             {
                 Instance.ActivePlugins.Add(item);
@@ -72,7 +72,7 @@ namespace RequestifyTF2Forms
             seedListView(plugins);
             FormClosing += Main_Closing;
             AppConfig.Load();
-           
+            this.materialSingleLineTextField1.Text = Instance.Config.Admin;
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -305,6 +305,22 @@ namespace RequestifyTF2Forms
         private void list_plugins_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void materialSingleLineTextField1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialSingleLineTextField1_DragLeave(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void materialRaisedButton1_Click(object sender, EventArgs e)
+        {
+            Instance.Config.Admin = AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
+            AppConfig.Save();
         }
     }
 
