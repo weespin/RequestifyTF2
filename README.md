@@ -1,20 +1,21 @@
 # RequestifyTF2
 ![Build](https://ci.appveyor.com/api/projects/status/github/weespin/Requestifytf2)
 
-RequesifyTF2 is a simple program for Source Engine based games, which supports plugins.
+RequesifyTF2 is a simple program for Source Engine based games, which supports plugins. "Oof" killmicspam supported!
 # Installation
 1. Go to Download and download lastest [releases](https://github.com/weespin/RequestifyTF2/releases)!
-2. Make sure that u have VLC and [Virtual Audio Cable (paid)](http://software.muzychenko.net/eng/vac.htm) or [VB-Audio (free)](http://vbaudio.jcedeveloppement.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) installed on your pc
+2. Make sure that you have [Virtual Audio Cable (paid)](http://software.muzychenko.net/eng/vac.htm) or [VB-Audio (free)](http://vbaudio.jcedeveloppement.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) installed on your pc
 3. Open RequestifyTF2
 4. Press on Settings button
 5. Select path to the game (for example C:\(something)\steamapps\common\Team Fortress 2\tf or C:\(something)\steamapps\common\Counter-Strike Global Offensive\csgo)
-6. Press Start button (u should press start before starting a game!)
+6. Press Start button (you should press start before starting a game!)
 7. Make sure you have a Virtual Audio Cable or VB-Audio recording device for default.
 8. Start your game!
 9. When you joined a server open console and type "+voicerecord"
-10. If u want to hear what you saying type "voice_loopback 1"
+10. If you want to hear what you saying type "voice_loopback 1"
 11. Done!
-
+# Another plugins
+I have released some plugins but i don't want to include them into default version, so please look at [Plugins page](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) and download needed plugin.
 # Updating
 If new version was released, just replace RequestifyTF2GUI.exe with new file, and remove plugins!
 # Screenshots
