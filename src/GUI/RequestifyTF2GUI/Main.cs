@@ -55,8 +55,7 @@ namespace RequestifyTF2Forms
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/")
             )
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
-            Instance.Config.AhkPath = Path.GetDirectoryName(Application.ExecutablePath) +
-                                       "/plugins/ahk/ahk.exe";
+           
             this.MaximizeBox = false;
           field_ignored.Enter += lbx_IgnoreList_Enter;
             var plugins =

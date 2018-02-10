@@ -17,8 +17,7 @@ namespace RequesifyCLI
             if (!Directory.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/")
             )
                 Directory.CreateDirectory(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
-            Instance.Config.AhkPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) +
-                                      "/plugins/ahk/ahk.exe";
+          
 
             var plugins =
                 PluginLoader<IRequestifyPlugin>.LoadPlugins(

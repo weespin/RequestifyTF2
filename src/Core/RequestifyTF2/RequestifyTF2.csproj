@@ -95,7 +95,6 @@
     <Compile Include="PluginLoader\GenericLoader.cs" />
     <Compile Include="PluginLoader\Libraries.cs" />
     <Compile Include="Threads\PlayerThread.cs" />
-    <Compile Include="Utils\AutoHotKeyChecker.cs" />
     <Compile Include="Utils\CodeGenerator.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,6 +5,10 @@ using System.Windows.Forms;
 
 namespace RequestifyTF2.Api
 {
+    using System.Runtime.InteropServices;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public static class ConsoleSender
     {
         public enum Command
@@ -13,6 +17,9 @@ namespace RequestifyTF2.Api
             Echo,
             Raw
         }
+        [DllImport("user32.dll")]
+        private static extern void keybd_event(byte bVk, byte bScan,
+    int dwFlags, int dwExtraInfo);
 
         public static void SendCommand(string cmnd, Command cmd)
         {
@@ -30,14 +37,19 @@ namespace RequestifyTF2.Api
                     break;
             }
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
-            if (Instance.Config.AhkPath != string.Empty)
-            {
-                Process.Start(Instance.Config.AhkPath);
-            }
-            else
-            {
-                Console.WriteLine("ERROR, AutoHotKey Path is not found!");
-            }
+         
+                Task.Run(
+                    (() =>
+                            {
+                                Thread.Sleep(1000);
+                                keybd_event(0x69, 0x49, 0, 0);
+                                Thread.Sleep(1);
+                                keybd_event(0x69, 0x49, 0x2, 0);
+                            }));
+              
+
+
+           
         }
     }
 
@@ -74,7 +86,7 @@ namespace RequestifyTF2.Api
                 }
 
                 foreach (var line in lines)
-                    if (line.Contains("bind F11 \"exec requestify\""))
+                    if (line.Contains("bind KP_PGUP \"exec requestify\""))
                     {
                         p = true;
                         break;
@@ -83,7 +95,7 @@ namespace RequestifyTF2.Api
                 if (!p)
                 {
                     File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
-                        Environment.NewLine + "bind F11 \"exec requestify\"");
+                        Environment.NewLine + "bind KP_PGUP \"exec requestify\"");
                 }
             }
             else

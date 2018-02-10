@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RequestifyTF2.PluginLoader;
-using RequestifyTF2.Utils;
+
 
 namespace RequestifyTF2.Api
 {
@@ -19,7 +19,7 @@ namespace RequestifyTF2.Api
             Libraries.Load(path+"/libs");
             if (Directory.Exists(path))
             {
-                 AutoHotKeyChecker.Check(path);
+                
                 var dllFileNames = Directory.GetFiles(path, "*.dll");
                 if (dllFileNames.Length == 0)
                 {

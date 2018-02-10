@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.PluginLoader
 {
