@@ -163,7 +163,7 @@
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(115, 22);
             this.materialLabel1.TabIndex = 18;
-            this.materialLabel1.Text = "Weespin 2017";
+            this.materialLabel1.Text = "Weespin 2018";
             this.materialLabel1.Click += new System.EventHandler(this.materialLabel1_Click);
             // 
             // materialDivider1
