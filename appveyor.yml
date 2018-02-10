@@ -14,8 +14,8 @@ artifacts:
     name: core
   - path: scr\Plugins\GrandTTS\bin\Debug\GrandTTS.dll
     name: gtts
-  - path: scr\Plugins\RawPlugin\bin\Debug\RawPlugin.dll
-    name: raw
+  - path: scr\Plugins\OofPlugin\bin\Debug\OofPlugin.dll
+    name: oof
   - path: scr\CLI\RequesifyCLI\bin\Debug\RequesifyCLI.exe
     name: cli
 
