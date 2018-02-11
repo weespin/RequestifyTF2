@@ -12,6 +12,8 @@ namespace RequestifyTF2.Api
 
         public delegate void PlayerSuicideHandler(PlayerSuicideArgs e);
 
+        public delegate void UndefinedStringHandler(UndefinedStringArgs e);
+
         public class PlayerConnect
         {
             public static void Invoke(string nickname)
@@ -107,17 +109,47 @@ namespace RequestifyTF2.Api
             public string Weapon { get; set; } = "";
         }
 
+        public class UndefinedString
+        {
+            public static void Invoke( string text)
+            {
+                var e = new UndefinedStringArgs( text);
+                OnUndefinedString(e);
+            }
+
+            public static event UndefinedStringHandler OnUndefinedString;
+
+            protected static void OnString(UndefinedStringArgs e)
+            {
+                OnUndefinedString?.Invoke(e);
+            }
+        }
+
+        public class UndefinedStringArgs : EventArgs
+        {
+            // Constructor. 
+            public UndefinedStringArgs( string text)
+            {
+               
+                Text = text;
+            }
+
+            // Properties. 
+            public string Text { get; set; } = "";
+
+           
+        }
         public class PlayerChat
         {
             public static void Invoke(string caller, string text)
             {
                 var e = new PlayerChatArgs(caller, text);
-                OnKill(e);
+                OnChat(e);
             }
 
             public static event PlayerChatHandler OnPlayerChat;
 
-            protected static void OnKill(PlayerChatArgs e)
+            protected static void OnChat(PlayerChatArgs e)
             {
                 OnPlayerChat?.Invoke(e);
             }

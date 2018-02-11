@@ -41,11 +41,11 @@ namespace OofPlugin
 
             if (arguments[0] == "que")
             {
-                Instance.QueueBackGround = new ConcurrentQueue<IWaveSource>();
+                Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
                 return;
             }
             Instance.SoundOutBackground.Stop();
-            Instance.QueueBackGround = new ConcurrentQueue<IWaveSource>();
+            Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
 
         }
     }

@@ -14,6 +14,8 @@ namespace RequestPlugin
 {
     using System.IO;
 
+
+
     public class RequestPlugin : IRequestifyPlugin
 
     {
@@ -33,6 +35,7 @@ namespace RequestPlugin
             public string kind { get; set; }
             public int id { get; set; }
             public bool streamable { get; set; }
+            public string title { get; set; }
         }
         public void Execute(string executor, List<string> arguments)
         {
@@ -61,7 +64,9 @@ namespace RequestPlugin
                             var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
                             if (urls.http_mp3_128_url != null)
                             {
-                                Instance.QueueBackGround.Enqueue(new Mp3MediafoundationDecoder(urls.http_mp3_128_url));
+                                RequestifyTF2.Api.ConsoleSender.SendCommand($"{b.title} was added to the queue",ConsoleSender.Command.Chat);
+                                Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(b.title, new Mp3MediafoundationDecoder(urls.http_mp3_128_url), executor));
+                               
                                 return;
                             }
                         }
@@ -89,7 +94,10 @@ namespace RequestPlugin
                     }
 
                     var ext = streamInfo.Url;
-                    Instance.QueueBackGround.Enqueue(new AacDecoder(ext));
+                var title = client.GetVideoAsync(id).Result.Title;
+                ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+                Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),executor));
+               
                 }
             #endregion
         }

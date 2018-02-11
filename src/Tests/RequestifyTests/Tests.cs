@@ -15,7 +15,7 @@ namespace RequestifyTF2.Tests
        static public void TestCommandExecute()
 
         {
-            var sut = ReaderThread.TextChecker("nickname : !request https://www.youtube.com/watch?v=DZV3Xtp-BK0");
+            var sut = ReaderThread.TextChecker("nickname test lyl:) : !request https://www.youtube.com/watch?v=DZV3Xtp-BK0");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.CommandExecute));
 
         }
@@ -24,6 +24,13 @@ namespace RequestifyTF2.Tests
         {
             var sut = ReaderThread.TextChecker(
                 "DllMain | aimware killed One-Man Cheeseburger Apocalypse with sniperrifle. (crit)");
+            Assert.That(sut,Is.EqualTo(ReaderThread.Result.KillCrit));
+        }
+
+        [Test]
+        static public void TestKill2()
+        {
+            var sut = ReaderThread.TextChecker("BoyPussi killed dat boi 28 with sniperrifle. (crit)");
             Assert.That(sut,Is.EqualTo(ReaderThread.Result.KillCrit));
         }
         [Test]

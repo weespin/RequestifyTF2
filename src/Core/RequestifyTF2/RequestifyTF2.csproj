@@ -92,6 +92,7 @@
     <Compile Include="Api\Instance.cs" />
     <Compile Include="Commands\Executer.cs" />
     <Compile Include="Logger\Logger.cs" />
+    <Compile Include="Media\Media.cs" />
     <Compile Include="PluginLoader\GenericLoader.cs" />
     <Compile Include="PluginLoader\Libraries.cs" />
     <Compile Include="Threads\PlayerThread.cs" />

@@ -14,11 +14,9 @@ namespace RequestifyTF2.Api
         /// <summary>
         /// Stores all Windows audio devices.
         /// </summary>
-        public static List<MMDevice> Devices = new List<MMDevice>();
-        
+        public static List<MMDevice> Devices = new List<MMDevice>();     
         public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
         public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
-        public static ConcurrentQueue<IWaveSource> QueueBackGround = new ConcurrentQueue<IWaveSource>();
         public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
 
         /// <summary>
@@ -78,6 +76,7 @@ namespace RequestifyTF2.Api
             Logger.Write(Logger.Status.Info, $"Requestify will use {used.FriendlyName}!");
             Logger.Write(Logger.Status.Info,$"Please set {used.FriendlyName} as default and communication default device in Windows Audio devices -> Recording tab!");
             SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = used;
+           
             return true;
         }
 
@@ -93,6 +92,49 @@ namespace RequestifyTF2.Api
             public static bool OnlyWithCode = false;
             public static string GameDir;
             public static string Admin;
+        }
+        public static class BackGroundQueue
+        {
+
+            public static ConcurrentQueue<Song> PlayList = new ConcurrentQueue<Song>();
+
+            /// <summary>
+            /// Don't use it for playing music. It will show nearest songs only.
+            /// </summary>
+            /// <returns>
+            /// Return Nearest in Queue song. <see cref="Song"/>.
+            /// </returns>
+            public static Song GetNearestSong()
+            {
+                return PlayList.First();
+            }
+            public static Song GetFarSong()
+            {
+                return PlayList.Last();
+            }
+            public static int GetQueueLenght()
+            {
+                return PlayList.Count;
+            }
+
+            public static void AddSong(Song song)
+            {
+                PlayList.Enqueue(song);
+            }
+        }
+
+        public class Song
+        {
+            public string Title;
+            public IWaveSource Source;
+            public string RequestedBy;
+
+            public Song(string title, IWaveSource source, string executor)
+            {
+                this.Title = title;
+                this.Source = source;
+                this.RequestedBy = executor;
+            }
         }
     }
 

@@ -31,7 +31,7 @@ namespace RequestifyTF2.Threads
               //BackGround
                 if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
                 {
-                    Instance.SoundOutBackground.Volume = Instance.SoundOutForeground.PlaybackState == PlaybackState.Playing ? 0.5f : 1f;
+                    Instance.SoundOutBackground.Volume = Instance.SoundOutForeground.PlaybackState == PlaybackState.Playing ? 0.25f :0.5f;
                     if (Instance.SoundOutBackground.WaveSource != null)
                     {
                         if ((Instance.SoundOutBackground.WaveSource.Length - Instance.SoundOutBackground.WaveSource.Position) <
@@ -42,19 +42,25 @@ namespace RequestifyTF2.Threads
                         }
                     }
                 }
-                if (Instance.QueueBackGround.Count > 0)
+                if (Instance.BackGroundQueue.GetQueueLenght() > 0)
                 {
                    
                   //Debug.WriteLine(Instance.SoundOut.WaveSource.GetLength()+"/"+Instance.SoundOut.WaveSource.GetPosition());
                     if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Stopped)
                     {
 
-                        IWaveSource s;
-                            if (Instance.QueueBackGround.TryDequeue(out s))
+                      Instance.Song s;
+                            if (Instance.BackGroundQueue.PlayList.TryDequeue(out s))
                             {
 
                                 //   Instance.SoundOut.Dispose();
-                                Task.Run(() => { Player(s,Instance.SoundOutBackground); });         
+                                Task.Run(
+                                    () =>
+                                        {
+                                            ConsoleSender.SendCommand($"Playing {s.Title} from {s.RequestedBy}",ConsoleSender.Command.Chat);
+                                            Player(s.Source,Instance.SoundOutBackground);
+                                            Instance.SoundOutBackground.Volume = 0.10f;
+                                        });         
                             }
                         }
                     }
