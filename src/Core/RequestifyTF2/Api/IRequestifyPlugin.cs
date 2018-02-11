@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
-
-namespace RequestifyTF2.Api
+﻿namespace RequestifyTF2.Api
 {
+    using System.Collections.Generic;
+
     public interface IRequestifyPlugin
     {
-        string Name { get; }
-        string Command { get; }
-        bool OnlyCode { get; }
         string Author { get; }
+
+        string Command { get; }
+
         string Help { get; }
+
+        string Name { get; }
+
+        bool OnlyCode { get; }
+
         void Execute(string executor, List<string> arguments);
     }
 }

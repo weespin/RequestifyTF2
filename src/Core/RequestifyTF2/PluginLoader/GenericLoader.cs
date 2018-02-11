@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using RequestifyTF2.PluginLoader;
-
-
-namespace RequestifyTF2.Api
+﻿namespace RequestifyTF2.Api
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Net;
+    using System.Reflection;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+
+    using RequestifyTF2.PluginLoader;
+
     public static class PluginLoader<T>
     {
         public static ICollection<T> LoadPlugins(string path)
         {
-            Libraries.Load(path+"/libs");
+            Libraries.Load(path + "/libs");
             if (Directory.Exists(path))
             {
-                
                 var dllFileNames = Directory.GetFiles(path, "*.dll");
                 if (dllFileNames.Length == 0)
                 {
@@ -39,9 +38,8 @@ namespace RequestifyTF2.Api
                         web.DownloadFile(
                             "https://ci.appveyor.com/api/projects/weespin26279/requestifytf2/artifacts/src%2FPlugins%2FMTTSPlugin%2Fbin%2FDebug%2FMTTSPlugin.dll",
                             path + "/MTTSPlugin.dll");
-                     
-                       
                     }
+
                     Process.Start(Application.ExecutablePath); // to start new instance of application
                     Logger.Write(Logger.Status.Info, "Restarting!");
                     Environment.Exit(0);
@@ -88,34 +86,37 @@ namespace RequestifyTF2.Api
                                 sb.AppendLine("Fusion Log:");
                                 sb.AppendLine(exFileNotFound.FusionLog);
                             }
+
                         sb.AppendLine();
                     }
+
                     MessageBox.Show(sb.ToString());
-                    //Display or log the error based on your application.
+
+                    // Display or log the error based on your application.
                 }
 
                 ICollection<T> plugins = new List<T>(pluginTypes.Count);
                 foreach (var type in pluginTypes)
                 {
                     var m = type.GetMethod("OnLoad");
-                    var plugin = (T) Activator.CreateInstance(type);
+                    var plugin = (T)Activator.CreateInstance(type);
                     if (m != null)
                     {
-                     Task.Run(() =>
-                     {
-                         try
-                         {
-
-
-                             m.Invoke(plugin, new object[] { });
-                         }
-                         catch (Exception e)
-                         {
-                             Logger.Write(Logger.Status.Error, e.ToString());
-                         }
-                     });
+                        Task.Run(
+                            () =>
+                                {
+                                    try
+                                    {
+                                        m.Invoke(plugin, new object[] { });
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Logger.Write(Logger.Status.Error, e.ToString());
+                                    }
+                                });
                         Logger.Write(Logger.Status.Info, $"Invoked {type.Assembly.FullName}'s OnLoad! ");
                     }
+
                     plugins.Add(plugin);
                 }
 

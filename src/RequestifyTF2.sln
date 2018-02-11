@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OofPlugin", "Plugins\OofPlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StopPlugin", "Plugins\StopPlugin\StopPlugin.csproj", "{3D24B4C6-FF72-4455-84BF-B3D047F7126B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteSkipPlugin", "Pluguins\VoteSkipPlugin\VoteSkipPlugin.csproj", "{8388E437-4692-4C3C-AEAC-EF9C797AFDE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteSkipPlugin", "Plugins\VoteSkipPlugin\VoteSkipPlugin.csproj", "{8388E437-4692-4C3C-AEAC-EF9C797AFDE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

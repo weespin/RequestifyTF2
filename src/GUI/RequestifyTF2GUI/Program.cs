@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace RequestifyTF2Forms
+﻿namespace RequestifyTF2Forms
 {
+    using System;
+    using System.Windows.Forms;
+
     internal static class Program
     {
         /// <summary>

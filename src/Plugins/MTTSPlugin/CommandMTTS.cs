@@ -1,20 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CSCore.Codecs.MP3;
-using RequestifyTF2.Api;
-
-namespace MTTSPlugin
+﻿namespace MTTSPlugin
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using CSCore.Codecs.MP3;
+
+    using RequestifyTF2.Api;
+
     public class MttsPlugin : IRequestifyPlugin
-
     {
-        public string Name => "MTTS";
         public string Author => "Weespin";
-        public string Help => "Playing a David UK (MLG) voice";
-        public string Command => "!mtts";
-        public bool OnlyCode => false;
 
-   
+        public string Command => "!mtts";
+
+        public string Help => "Playing a David UK (MLG) voice";
+
+        public string Name => "MTTS";
+
+        public bool OnlyCode => false;
 
         public void Execute(string executor, List<string> arguments)
         {
@@ -23,8 +26,8 @@ namespace MTTSPlugin
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 
                 var d =
-                    "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text=" +
-                    text + "&useUTF8=1";
+                    "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text="
+                    + text + "&useUTF8=1";
                 d = d.Replace(" ", "%20");
                 Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
             }

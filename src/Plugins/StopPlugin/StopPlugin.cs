@@ -1,31 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace OofPlugin
+﻿namespace OofPlugin
 {
     using System.Collections.Concurrent;
-    using System.IO;
-
-    using CSCore;
+    using System.Collections.Generic;
 
     using RequestifyTF2.Api;
 
     public class StopPlugin : IRequestifyPlugin
     {
-        public string Name => "Stop";
-
         public string Author => "Weespin";
 
         public string Command => "!stop";
 
         public string Help => "Delete all background queue and stop current music!";
 
+        public string Name => "Stop";
+
         public bool OnlyCode => false;
-
-
-
 
         public void Execute(string executor, List<string> arguments)
         {
@@ -33,6 +23,7 @@ namespace OofPlugin
             {
                 return;
             }
+
             if (arguments[0] == "cur")
             {
                 Instance.SoundOutBackground.Stop();
@@ -44,9 +35,9 @@ namespace OofPlugin
                 Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
                 return;
             }
+
             Instance.SoundOutBackground.Stop();
             Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
-
         }
     }
 }

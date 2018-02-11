@@ -1,24 +1,29 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using CSCore;
-using Newtonsoft.Json;
-using RequestifyTF2.Api;
-
-namespace GTTS
+﻿namespace GTTS
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
+    using CSCore.Codecs.MP3;
+
+    using Newtonsoft.Json;
+
+    using RequestifyTF2.Api;
+
     public class Plugin : IRequestifyPlugin
     {
-        public string Name => "GTTS";
         public string Author => "Weespin";
-        public string Help => "Playing a WillFromAfar (purple sheep) voice";
+
         public string Command => "!gtts";
+
+        public string Help => "Playing a WillFromAfar (purple sheep) voice";
+
+        public string Name => "GTTS";
+
         public bool OnlyCode => false;
-
-
 
         public void Execute(string executor, List<string> arguments)
         {
@@ -30,21 +35,21 @@ namespace GTTS
                 HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
                 var resps = resp.Headers["Set-Cookie"];
                 var regex = @"(acabox=)\w+";
-                var result = "";
+                var result = string.Empty;
                 var match = Regex.Match(resps, regex);
                 if (match.Success)
                 {
                     result = match.Value;
-
                 }
                 else
                 {
                     return;
                 }
+
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 
                 text = text.Replace(" ", "%20");
-                var request = (HttpWebRequest) WebRequest.Create("https://acapela-box.com/AcaBox/dovaas.php");
+                var request = (HttpWebRequest)WebRequest.Create("https://acapela-box.com/AcaBox/dovaas.php");
 
                 text = text.Replace(" ", "%20");
                 var postData =
@@ -64,16 +69,16 @@ namespace GTTS
                 request.ContentLength = data.Length;
 
                 using (var stream = request.GetRequestStream())
-                { 
+                {
                     stream.Write(data, 0, data.Length);
                 }
 
-                var response = (HttpWebResponse) request.GetResponse();
+                var response = (HttpWebResponse)request.GetResponse();
 
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 var s = JsonConvert.DeserializeObject<AcapellaResp>(responseString).snd_url;
-                
-                Instance.QueueForeGround.Enqueue(new CSCore.Codecs.MP3.Mp3MediafoundationDecoder(s));
+
+                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(s));
             }
         }
     }

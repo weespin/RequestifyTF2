@@ -1,113 +1,128 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
-using ConsoleRedirection;
-using MaterialSkin;
-using MaterialSkin.Controls;
-using Ookii.Dialogs;
-using RequestifyTF2;
-using RequestifyTF2.Api;
-using RequestifyTF2Forms.Config;
-using RequestifyTF2GUI.Properties;
-using Application = System.Windows.Forms.Application;
-namespace RequestifyTF2Forms
+﻿namespace RequestifyTF2Forms
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Threading;
+    using System.Windows.Forms;
+
+    using ConsoleRedirection;
+
+    using MaterialSkin;
+    using MaterialSkin.Controls;
+
+    using Ookii.Dialogs;
+
+    using RequestifyTF2;
+    using RequestifyTF2.Api;
+
+    using RequestifyTF2Forms.Config;
+
+    using RequestifyTF2GUI.Properties;
+
     public partial class Main : MaterialForm
     {
-        private bool _started;
-        public static Main instance;
         public static bool ConsoleShowed;
+
+        public static Main instance;
+
         private readonly Dictionary<string, IRequestifyPlugin> _plugins;
+
         private readonly Console cs = new Console();
+
+        private bool _started;
+
         private TextWriter _writer;
-        private void seedListView(ICollection<IRequestifyPlugin> plugins)
-        {
-            //Define
 
-
-            foreach (var item in plugins)
-            {
-                var namencommand = new string[]{item.Name,item.Command,item.Author,"True"};
-                var items = new ListViewItem(namencommand);
-                list_plugins.Items.Add(items);
-            }
-          /*  foreach (var in data)
-            {
-                var item = new ListViewItem(version);
-                materialListView1.Items.Add(item);
-            }*/
-        }
         public Main()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(
+                Primary.BlueGrey800,
+                Primary.BlueGrey900,
+                Primary.BlueGrey500,
+                Accent.LightBlue200,
+                TextShade.WHITE);
             instance = this;
-            Icon = Resources.Icon;
-            _plugins = new Dictionary<string, IRequestifyPlugin>();
-            if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/")
-            )
+            this.Icon = Resources.Icon;
+            this._plugins = new Dictionary<string, IRequestifyPlugin>();
+            if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/"))
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
-           
+
             this.MaximizeBox = false;
-          field_ignored.Enter += lbx_IgnoreList_Enter;
+            this.field_ignored.Enter += this.lbx_IgnoreList_Enter;
             var plugins =
-                PluginLoader<IRequestifyPlugin>.LoadPlugins(Path.GetDirectoryName(Application.ExecutablePath) +
-                                                            "/plugins/");
-           
+                PluginLoader<IRequestifyPlugin>.LoadPlugins(
+                    Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
+
             foreach (var item in plugins)
             {
                 Instance.ActivePlugins.Add(item);
-                _plugins.Add(item.Name, item);
-       //         PluginsList.Items.Add(item.Name, true);
+                this._plugins.Add(item.Name, item);
+
+                // PluginsList.Items.Add(item.Name, true);
             }
-            seedListView(plugins);
-            FormClosing += Main_Closing;
+
+            this.seedListView(plugins);
+            this.FormClosing += this.Main_Closing;
             AppConfig.Load();
             this.materialSingleLineTextField1.Text = Instance.Config.Admin;
-            new Thread(() =>
+            new Thread(
+                () =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+
+                        while (true)
+                        {
+                            Thread.Sleep(2000);
+
+                            ThreadHelperClass.SetText(this, this.lbl_code, "Code: " + Instance.Config.Chiper);
+                        }
+                    }).Start();
+        }
+
+        private void btn_add_Click(object sender, EventArgs e)
+        {
+            var toignorenick = this.field_ignored.Text;
+
+            if (toignorenick == string.Empty || Instance.Config.Ignored.Contains(toignorenick)) return;
+
+            var namencommand = new[] { toignorenick };
+            var items = new ListViewItem(namencommand);
+            this.list_ignored.Items.Add(items);
+            Instance.Config.Ignored.Add(toignorenick);
+        }
+
+        private void btn_consoleshow_Click_1(object sender, EventArgs e)
+        {
+            if (!ConsoleShowed)
             {
-                Thread.CurrentThread.IsBackground = true;
-
-                while (true)
-                {
-                    Thread.Sleep(2000);
-
-                    ThreadHelperClass.SetText(this, lbl_code, "Code: " + Instance.Config.Chiper);
-                }
-            }).Start();
+                this.cs.Show();
+                ConsoleShowed = true;
+            }
+            else
+            {
+                this.cs.Hide();
+                ConsoleShowed = false;
+            }
         }
 
-        #region FormEvents
-
-        private void Main_Load(object sender, EventArgs e)
+        private void btn_remove_Click(object sender, EventArgs e)
         {
-            txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
-            // Instantiate the writer
-            _writer = new TextBoxStreamWriter(cs.txt_console);
-            // Redirect the out Console stream
-            System.Console.SetOut(_writer);
-        }
+            if (this.list_ignored.SelectedItems.Count == 0) return;
+            var selected = this.list_ignored.SelectedItems[0];
 
-
-        private void Main_Closing(object sender, EventArgs e)
-        {
-           
-        }
-
-        #endregion
-
-        private void lbx_IgnoreList_Enter(object sender, EventArgs e)
-        {
-            if (field_ignored.Text == "Enter Name")
-                field_ignored.Text = "";
+            if (selected != null)
+            {
+                Instance.Config.Ignored.Remove(selected.ToString());
+                this.list_ignored.Items.Remove(selected);
+            }
         }
 
         private void btn_SelectGamePath_Click_1(object sender, EventArgs e)
@@ -119,21 +134,19 @@ namespace RequestifyTF2Forms
 
                 if (s.ShowDialog() == DialogResult.OK)
                 {
-                    if (s.SelectedPath == "")
+                    if (s.SelectedPath == string.Empty)
                         return;
-                  
-                   
+
                     var dirs = Directory.GetDirectories(s.SelectedPath);
-                   
+
                     if (dirs.Any(n => n.Contains("cfg")))
                     {
                         AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
-                        txtbx_GamePath.Text = "Current game path: " + s.SelectedPath;
+                        this.txtbx_GamePath.Text = "Current game path: " + s.SelectedPath;
                         AppConfig.Save();
                     }
                     else
                     {
-
                         foreach (var dir in dirs)
                         {
                             var cdir = Directory.GetDirectories(dir);
@@ -141,7 +154,6 @@ namespace RequestifyTF2Forms
                             var cfg = false;
                             foreach (var dirz in cdir)
                             {
-
                                 var pal = dirz;
                                 var z = pal.Remove(0, dir.Length);
 
@@ -149,151 +161,136 @@ namespace RequestifyTF2Forms
                                 {
                                     cfg = true;
                                 }
+
                                 if (z.Contains("bin"))
                                 {
                                     bin = true;
                                 }
+
                                 if (bin && cfg)
                                 {
-                                  
                                     AppConfig.CurrentConfig.GameDirectory = dir;
                                     new RequestifyTF2GUI.MessageBox.MessageBox().Show(
-                                        $"Game path was automatically corrected from \n{s.SelectedPath}\nto\n{dir}", "Done", RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
-                                    txtbx_GamePath.Text = "Current game path: " + dir;
+                                        $"Game path was automatically corrected from \n{s.SelectedPath}\nto\n{dir}",
+                                        "Done",
+                                        RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
+                                    this.txtbx_GamePath.Text = "Current game path: " + dir;
                                     AppConfig.Save();
                                     return;
-
                                 }
                             }
                         }
+
                         new RequestifyTF2GUI.MessageBox.MessageBox().Show(
-                             "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.","Error",RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
-                     
+                            "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.",
+                            "Error",
+                            RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
                     }
-                 
                 }
-            }
-        }
-        private void list_plugins_DoubleClick(object sender, EventArgs e)
-        { 
-            if (list_plugins.SelectedItems[0].SubItems[3].Text == "True")
-            {
-                list_plugins.SelectedItems[0].SubItems[3].Text = "False";
-                foreach (var s in Instance.ActivePlugins)
-                    if (s.Name == list_plugins.SelectedItems[0].SubItems[0].Text)
-                    {
-                        Instance.ActivePlugins.Remove(s);
-                        Instance.DisabledPlugins.Add(s);
-                        break;
-                    }
-
-            }
-            else
-            {
-                list_plugins.SelectedItems[0].SubItems[3].Text = "True";
-                foreach (var s in Instance.DisabledPlugins)
-                    if (s.Name == list_plugins.SelectedItems[0].SubItems[0].Text)
-                    {
-                        Instance.ActivePlugins.Add(s);
-                        Instance.DisabledPlugins.Remove(s);
-                        break;
-                    }
-             
-            }
-           
-        }
-
-      
-
-        private void list_plugins_MouseClick(object sender, MouseEventArgs e)
-        {
-            MouseEventArgs me = (MouseEventArgs)e;
-            if ((me.Button & MouseButtons.Right) != 0)
-            {
-
-                var msgbox = new MessageBox();
-                if (list_plugins.SelectedItems[0].SubItems[0].Text != ""||list_plugins.SelectedItems.Count!=0)
-                {
-
-
-                    msgbox.MessageText = _plugins[list_plugins.SelectedItems[0].SubItems[0].Text].Help;
-
-                    msgbox.Text = list_plugins.SelectedItems[0].SubItems[0].Text;
-                    msgbox.Show();
-                }
-
-                //       MessageBox.Show(selected.SubItems[0].Text);
-            }
-        }
-
-      
-        private void materialCheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            Instance.Config.IgnoredReversed = chkbox_reverse.Checked;
-        }
-
-        private void btn_remove_Click(object sender, EventArgs e)
-        {
-           if( list_ignored.SelectedItems.Count == 0) return;
-            var selected = list_ignored.SelectedItems[0];
-
-            if (selected != null)
-            {
-                Instance.Config.Ignored.Remove(selected.ToString());
-                list_ignored.Items.Remove(selected);
-            }
-        }
-
-        private void btn_add_Click(object sender, EventArgs e)
-        {
-            var toignorenick = field_ignored.Text;
-            
-           if(toignorenick==""|| Instance.Config.Ignored.Contains(toignorenick)) return;
-        
-            var namencommand = new string[] {toignorenick };
-            var items = new ListViewItem(namencommand);
-          list_ignored.Items.Add(items);
-            Instance.Config.Ignored.Add(toignorenick);
-        }
-
-        private void btn_consoleshow_Click_1(object sender, EventArgs e)
-        {
-            if (!ConsoleShowed)
-            {
-                cs.Show();
-                ConsoleShowed = true;
-            }
-            else
-            {
-                cs.Hide();
-                ConsoleShowed = false;
             }
         }
 
         private void btn_start_Click_1(object sender, EventArgs e)
         {
-            if (Instance.Config.GameDir == "")
+            if (Instance.Config.GameDir == string.Empty)
             {
-                new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory","Error",RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
- 
+                new RequestifyTF2GUI.MessageBox.MessageBox().Show(
+                    "Please set the game directory",
+                    "Error",
+                    RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
 
                 return;
-
             }
-            if (!_started)
+
+            if (!this._started)
             {
                 Runner.Start();
-                _started = true;
+                this._started = true;
 
-                var s = _plugins.Aggregate("", (current, plugin) => current + (plugin.Value.Name));
+                var s = this._plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.Name);
             }
-            btn_start.Enabled = false;
-            materialLabel5.Text = "Status: Working";
+
+            this.btn_start.Enabled = false;
+            this.materialLabel5.Text = "Status: Working";
         }
 
         private void chkbox_onlywithcode_CheckedChanged(object sender, EventArgs e)
         {
-            Instance.Config.OnlyWithCode = chkbox_onlywithcode.Checked;
+            Instance.Config.OnlyWithCode = this.chkbox_onlywithcode.Checked;
+        }
+
+        private void lbx_IgnoreList_Enter(object sender, EventArgs e)
+        {
+            if (this.field_ignored.Text == "Enter Name") this.field_ignored.Text = string.Empty;
+        }
+
+        private void list_plugins_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.list_plugins.SelectedItems[0].SubItems[3].Text == "True")
+            {
+                this.list_plugins.SelectedItems[0].SubItems[3].Text = "False";
+                foreach (var s in Instance.ActivePlugins)
+                    if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
+                    {
+                        Instance.ActivePlugins.Remove(s);
+                        Instance.DisabledPlugins.Add(s);
+                        break;
+                    }
+            }
+            else
+            {
+                this.list_plugins.SelectedItems[0].SubItems[3].Text = "True";
+                foreach (var s in Instance.DisabledPlugins)
+                    if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
+                    {
+                        Instance.ActivePlugins.Add(s);
+                        Instance.DisabledPlugins.Remove(s);
+                        break;
+                    }
+            }
+        }
+
+        private void list_plugins_MouseClick(object sender, MouseEventArgs e)
+        {
+            MouseEventArgs me = e;
+            if ((me.Button & MouseButtons.Right) != 0)
+            {
+                var msgbox = new MessageBox();
+                if (this.list_plugins.SelectedItems[0].SubItems[0].Text != string.Empty
+                    || this.list_plugins.SelectedItems.Count != 0)
+                {
+                    msgbox.MessageText = this._plugins[this.list_plugins.SelectedItems[0].SubItems[0].Text].Help;
+
+                    msgbox.Text = this.list_plugins.SelectedItems[0].SubItems[0].Text;
+                    msgbox.Show();
+                }
+
+                // MessageBox.Show(selected.SubItems[0].Text);
+            }
+        }
+
+        private void list_plugins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Main_Closing(object sender, EventArgs e)
+        {
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            this.txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
+
+            // Instantiate the writer
+            this._writer = new TextBoxStreamWriter(this.cs.txt_console);
+
+            // Redirect the out Console stream
+            System.Console.SetOut(this._writer);
+        }
+
+        private void materialCheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Instance.Config.IgnoredReversed = this.chkbox_reverse.Checked;
         }
 
         private void materialLabel1_Click(object sender, EventArgs e)
@@ -301,32 +298,42 @@ namespace RequestifyTF2Forms
             Process.Start("https://steamcommunity.com/id/wspin/");
         }
 
-        private void list_plugins_SelectedIndexChanged(object sender, EventArgs e)
+        private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-
+            Instance.Config.Admin = AppConfig.CurrentConfig.Admin = this.materialSingleLineTextField1.Text;
+            AppConfig.Save();
         }
 
         private void materialSingleLineTextField1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void materialSingleLineTextField1_DragLeave(object sender, EventArgs e)
         {
-           
         }
 
-        private void materialRaisedButton1_Click(object sender, EventArgs e)
+        private void seedListView(ICollection<IRequestifyPlugin> plugins)
         {
-            Instance.Config.Admin = AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
-            AppConfig.Save();
+            // Define
+            foreach (var item in plugins)
+            {
+                var namencommand = new[] { item.Name, item.Command, item.Author, "True" };
+                var items = new ListViewItem(namencommand);
+                this.list_plugins.Items.Add(items);
+            }
+
+            /*  foreach (var in data)
+              {
+                  var item = new ListViewItem(version);
+                  materialListView1.Items.Add(item);
+              }*/
         }
     }
 
-
-
     public static class ThreadHelperClass
     {
+        private delegate void SetTextCallback(Form f, Control ctrl, string text);
+
         /// <summary>
         ///     Set text property of various controls
         /// </summary>
@@ -355,8 +362,5 @@ namespace RequestifyTF2Forms
                 ctrl.Text = text;
             }
         }
-
-        private delegate void SetTextCallback(Form f, Control ctrl, string text);
-
     }
 }

@@ -1,71 +1,107 @@
-﻿using System;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
-using MaterialSkin.Controls;
-using RequestifyTF2GUI.Properties;
-
-namespace RequestifyTF2Forms
+﻿namespace RequestifyTF2Forms
 {
+    using System;
+    using System.Drawing;
+    using System.Threading;
+    using System.Windows.Forms;
+
+    using MaterialSkin.Controls;
+
+    using RequestifyTF2GUI.Properties;
+
     public partial class Console : MaterialForm
     {
-        private readonly int _offsetX =51;
+        private readonly int _offsetX = 51;
 
         private readonly int _offsetY = 0;
 
         public Console()
-        {          
-            InitializeComponent();
-            Icon = Resources.Icon;
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            MinimizeBox = false;
+        {
+            this.InitializeComponent();
+            this.Icon = Resources.Icon;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         private void Thanks_Load(object sender, EventArgs e)
         {
-            FormBorderStyle = FormBorderStyle.None;
-            var xs = Main.instance.Location.X + _offsetX + Main.instance.Height;
-            var ys = Main.instance.Location.Y + _offsetY;
+            this.FormBorderStyle = FormBorderStyle.None;
+            var xs = Main.instance.Location.X + this._offsetX + Main.instance.Height;
+            var ys = Main.instance.Location.Y + this._offsetY;
             ThreadHelperClass.Position(this, this, new Point(xs, ys));
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
+            new Thread(
+                () =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
 
-                while (true)
-                {
-                    Thread.Sleep(1);
-                    if (!Main.ConsoleShowed)
-                    {
-                        Thread.Sleep(200);
-                        continue;
-                    }
-                    try
-                    {
-                        if (Main.instance.Location.Y + _offsetY != Location.Y)
+                        while (true)
                         {
-                            var y = Main.instance.Location.Y + _offsetY;
-                            ThreadHelperClass.Position(this, this, new Point(Location.X, y));
-                        }
-                        if (Main.instance.Location.X + Main.instance.Height + _offsetX != Location.X)
-                        {
-                            var x = Main.instance.Location.X + _offsetX + Main.instance.Height;
+                            Thread.Sleep(1);
+                            if (!Main.ConsoleShowed)
+                            {
+                                Thread.Sleep(200);
+                                continue;
+                            }
 
-                            ThreadHelperClass.Position(this, this, new Point(x, Location.Y));
+                            try
+                            {
+                                if (Main.instance.Location.Y + this._offsetY != this.Location.Y)
+                                {
+                                    var y = Main.instance.Location.Y + this._offsetY;
+                                    ThreadHelperClass.Position(this, this, new Point(this.Location.X, y));
+                                }
+
+                                if (Main.instance.Location.X + Main.instance.Height + this._offsetX != this.Location.X)
+                                {
+                                    var x = Main.instance.Location.X + this._offsetX + Main.instance.Height;
+
+                                    ThreadHelperClass.Position(this, this, new Point(x, this.Location.Y));
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                // ignored
+                            }
+
+                            // 16ms = 60fps
                         }
-                    }
-                    catch (Exception)
-                    {
-                        //ignored
-                    }
-                    //16ms = 60fps
-                 
-                }
-            }).Start();
+                    }).Start();
+        }
+
+        private void txt_console_TextChanged(object sender, EventArgs e)
+        {
         }
 
         public static class ThreadHelperClass
         {
+            private delegate void SetFormstateCallback(Form f, FormWindowState state);
+
+            private delegate void SetPosCallback(Form f, Control ctrl, Point p);
+
+            public static void MiniMaxi(Form form, FormWindowState state)
+            {
+                // InvokeRequired required compares the thread ID of the 
+                // calling thread to the thread ID of the creating thread. 
+                // If these threads are different, it returns true. 
+                if (form.InvokeRequired)
+                {
+                    SetFormstateCallback d = MiniMaxi;
+                    try
+                    {
+                        form.Invoke(d, form, state);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+                }
+                else
+                {
+                    form.WindowState = state;
+                }
+            }
+
             /// <summary>
             ///     Set text property of various controls
             /// </summary>
@@ -94,37 +130,6 @@ namespace RequestifyTF2Forms
                     ctrl.Location = pos;
                 }
             }
-
-            private delegate void SetPosCallback(Form f, Control ctrl, Point p);
-            public static void MiniMaxi(Form form,  FormWindowState state)
-            {
-                // InvokeRequired required compares the thread ID of the 
-                // calling thread to the thread ID of the creating thread. 
-                // If these threads are different, it returns true. 
-                if (form.InvokeRequired)
-                {
-                    SetFormstateCallback d = MiniMaxi;
-                    try
-                    {
-                        form.Invoke(d, form,  state);
-                    }
-                    catch (Exception)
-                    {
-                        // ignored
-                    }
-                }
-                else
-                {
-                    form.WindowState= state;
-                }
-            }
-
-            private delegate void SetFormstateCallback(Form f,  FormWindowState state);
-        }
-
-        private void txt_console_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

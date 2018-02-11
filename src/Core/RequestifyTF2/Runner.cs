@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-using RequestifyTF2.Api;
-using RequestifyTF2.Threads;
-
-
-namespace RequestifyTF2
+﻿namespace RequestifyTF2
 {
+    using System;
+    using System.IO;
+
+    using RequestifyTF2.Api;
+    using RequestifyTF2.Threads;
+
     public static class Runner
     {
         public static void Start()
         {
-
             if (Instance.Config.GameDir == string.Empty)
             {
                 Logger.Write(Logger.Status.Error, "Please set the game directory");
 
                 return;
-
             }
 
             if (!Instance.Load())
             {
-                Logger.Write(Logger.Status.Error, "Errors found. Please fix errors before using this program.", ConsoleColor.Red);
+                Logger.Write(
+                    Logger.Status.Error,
+                    "Errors found. Please fix errors before using this program.",
+                    ConsoleColor.Red);
                 return;
             }
 
@@ -35,10 +34,15 @@ namespace RequestifyTF2
                 }
                 catch
                 {
-                    Logger.Write(Logger.Status.Error, "Can't remove lines from console.log. The game is probably running. Please close the game before starting this program",ConsoleColor.Red);
-             //       return;
+                    Logger.Write(
+                        Logger.Status.Error,
+                        "Can't remove lines from console.log. The game is probably running. Please close the game before starting this program",
+                        ConsoleColor.Red);
+
+                    // return;
                 }
             }
+
             PlayerThread.Starter();
             ReaderThread.Starter();
         }

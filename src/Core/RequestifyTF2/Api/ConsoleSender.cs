@@ -1,10 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Windows.Forms;
-
-namespace RequestifyTF2.Api
+﻿namespace RequestifyTF2.Api
 {
+    using System;
+    using System.IO;
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
@@ -14,16 +11,15 @@ namespace RequestifyTF2.Api
         public enum Command
         {
             Chat,
+
             Echo,
+
             Raw
         }
-        [DllImport("user32.dll")]
-        private static extern void keybd_event(byte bVk, byte bScan,
-    int dwFlags, int dwExtraInfo);
 
         public static void SendCommand(string cmnd, Command cmd)
         {
-            var text = "";
+            var text = string.Empty;
             switch (cmd)
             {
                 case Command.Chat:
@@ -36,30 +32,28 @@ namespace RequestifyTF2.Api
                     text = cmnd;
                     break;
             }
+
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
-         
-                Task.Run(
-                    (() =>
-                            {
-                                Thread.Sleep(1000);
-                                keybd_event(0x69, 0x49, 0, 0);
-                                Thread.Sleep(1);
-                                keybd_event(0x69, 0x49, 0x2, 0);
-                            }));
-              
 
-
-           
+            Task.Run(
+                () =>
+                    {
+                        Thread.Sleep(1000);
+                        keybd_event(0x69, 0x49, 0, 0);
+                        Thread.Sleep(1);
+                        keybd_event(0x69, 0x49, 0x2, 0);
+                    });
         }
+
+        [DllImport("user32.dll")]
+        private static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
     }
 
-   static class AutoexecChecker
+    internal static class AutoexecChecker
     {
-     
-
         public static void Check()
         {
-            if (Instance.Config.GameDir == "" || !Directory.Exists(Instance.Config.GameDir))
+            if (Instance.Config.GameDir == string.Empty || !Directory.Exists(Instance.Config.GameDir))
             {
                 Console.WriteLine("Please set game directory");
                 return;
@@ -81,7 +75,8 @@ namespace RequestifyTF2.Api
 
                 if (!c)
                 {
-                    File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
+                    File.AppendAllText(
+                        Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "con_logfile \"console.log\"");
                 }
 
@@ -94,17 +89,17 @@ namespace RequestifyTF2.Api
 
                 if (!p)
                 {
-                    File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
+                    File.AppendAllText(
+                        Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "bind KP_PGUP \"exec requestify\"");
                 }
             }
             else
             {
-                File.AppendAllText(Instance.Config.GameDir + "/cfg/autoexec.cfg",
+                File.AppendAllText(
+                    Instance.Config.GameDir + "/cfg/autoexec.cfg",
                     "con_logfile \"console.log\"" + Environment.NewLine + "bind F11 \"exec requestify\"");
             }
         }
-
-     
     }
 }

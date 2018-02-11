@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace RequestifyTF2.Api
+﻿namespace RequestifyTF2.Api
 {
+    using System;
+
     public class Events
     {
         public delegate void PlayerChatHandler(PlayerChatArgs e);
@@ -12,142 +12,17 @@ namespace RequestifyTF2.Api
 
         public delegate void PlayerSuicideHandler(PlayerSuicideArgs e);
 
-        public delegate void UndefinedStringHandler(UndefinedStringArgs e);
+        public delegate void UndefinedMessageHandler(UndefinedMessageArgs e);
 
-        public class PlayerConnect
-        {
-            public static void Invoke(string nickname)
-            {
-                var e = new PlayerConnectArgs(nickname);
-                OnConnect(e);
-            }
-
-            public static event PlayerConnectHandler OnPlayerConnect;
-
-            protected static void OnConnect(PlayerConnectArgs e)
-            {
-                OnPlayerConnect?.Invoke(e);
-            }
-        }
-
-        public class PlayerConnectArgs : EventArgs
-        {
-            // Constructor. 
-            public PlayerConnectArgs(string nickname)
-            {
-                NickName = nickname;
-            }
-
-            // Properties. 
-            public string NickName { get; set; } = "";
-        }
-
-        public class PlayerSuicide
-        {
-            public static void Invoke(string nickname)
-            {
-                var e = new PlayerSuicideArgs(nickname);
-                OnSuicide(e);
-            }
-
-            public static event PlayerSuicideHandler OnPlayerSuicide;
-
-            protected static void OnSuicide(PlayerSuicideArgs e)
-            {
-                OnPlayerSuicide?.Invoke(e);
-            }
-        }
-
-        public class PlayerSuicideArgs : EventArgs
-        {
-            // Constructor. 
-            public PlayerSuicideArgs(string nickname)
-            {
-                NickName = nickname;
-            }
-
-            // Properties. 
-            public string NickName { get; set; } = "";
-        }
-
-        public class PlayerKill
-        {
-            public static void Invoke(string killer, string killed, string weapon, bool crit = false)
-            {
-                var e = new PlayerKillArgs(killer, killed, weapon,crit);
-                OnKill(e);
-            }
-
-            public static event PlayerKillHandler OnPlayerKill;
-
-            protected static void OnKill(PlayerKillArgs e)
-            {
-                OnPlayerKill?.Invoke(e);
-            }
-        }
-
-        public class PlayerKillArgs : EventArgs
-        {
-          
-
-            // Constructor. 
-            public PlayerKillArgs(string killer, string killed, string weapon,bool crit = false)
-            {
-                Killer = killer;
-                Crit = crit;
-                Weapon = weapon;
-                Killed = killed;
-            }
-
-            // Properties. 
-            public string Killer { get; set; } = "";
-
-            public bool Crit { get; set; } = false;
-
-            public string Killed { get; set; } = "";
-
-            public string Weapon { get; set; } = "";
-        }
-
-        public class UndefinedString
-        {
-            public static void Invoke( string text)
-            {
-                var e = new UndefinedStringArgs( text);
-                OnUndefinedString(e);
-            }
-
-            public static event UndefinedStringHandler OnUndefinedString;
-
-            protected static void OnString(UndefinedStringArgs e)
-            {
-                OnUndefinedString?.Invoke(e);
-            }
-        }
-
-        public class UndefinedStringArgs : EventArgs
-        {
-            // Constructor. 
-            public UndefinedStringArgs( string text)
-            {
-               
-                Text = text;
-            }
-
-            // Properties. 
-            public string Text { get; set; } = "";
-
-           
-        }
         public class PlayerChat
         {
+            public static event PlayerChatHandler OnPlayerChat;
+
             public static void Invoke(string caller, string text)
             {
                 var e = new PlayerChatArgs(caller, text);
                 OnChat(e);
             }
-
-            public static event PlayerChatHandler OnPlayerChat;
 
             protected static void OnChat(PlayerChatArgs e)
             {
@@ -160,14 +35,135 @@ namespace RequestifyTF2.Api
             // Constructor. 
             public PlayerChatArgs(string caller, string text)
             {
-                User = caller;
-                Chat = text;
+                this.User = caller;
+                this.Chat = text;
+            }
+
+            public string Chat { get; set; } = string.Empty;
+
+            // Properties. 
+            public string User { get; set; } = string.Empty;
+        }
+
+        public class PlayerConnect
+        {
+            public static event PlayerConnectHandler OnPlayerConnect;
+
+            public static void Invoke(string nickname)
+            {
+                var e = new PlayerConnectArgs(nickname);
+                OnConnect(e);
+            }
+
+            protected static void OnConnect(PlayerConnectArgs e)
+            {
+                OnPlayerConnect?.Invoke(e);
+            }
+        }
+
+        public class PlayerConnectArgs : EventArgs
+        {
+            // Constructor. 
+            public PlayerConnectArgs(string nickname)
+            {
+                this.NickName = nickname;
             }
 
             // Properties. 
-            public string User { get; set; } = "";
+            public string NickName { get; set; } = string.Empty;
+        }
 
-            public string Chat { get; set; } = "";
+        public class PlayerKill
+        {
+            public static event PlayerKillHandler OnPlayerKill;
+
+            public static void Invoke(string killer, string killed, string weapon, bool crit = false)
+            {
+                var e = new PlayerKillArgs(killer, killed, weapon, crit);
+                OnKill(e);
+            }
+
+            protected static void OnKill(PlayerKillArgs e)
+            {
+                OnPlayerKill?.Invoke(e);
+            }
+        }
+
+        public class PlayerKillArgs : EventArgs
+        {
+            // Constructor. 
+            public PlayerKillArgs(string killer, string killed, string weapon, bool crit = false)
+            {
+                this.Killer = killer;
+                this.Crit = crit;
+                this.Weapon = weapon;
+                this.Killed = killed;
+            }
+
+            public bool Crit { get; set; }
+
+            public string Killed { get; set; } = string.Empty;
+
+            // Properties. 
+            public string Killer { get; set; } = string.Empty;
+
+            public string Weapon { get; set; } = string.Empty;
+        }
+
+        public class PlayerSuicide
+        {
+            public static event PlayerSuicideHandler OnPlayerSuicide;
+
+            public static void Invoke(string nickname)
+            {
+                var e = new PlayerSuicideArgs(nickname);
+                OnSuicide(e);
+            }
+
+            protected static void OnSuicide(PlayerSuicideArgs e)
+            {
+                OnPlayerSuicide?.Invoke(e);
+            }
+        }
+
+        public class PlayerSuicideArgs : EventArgs
+        {
+            // Constructor. 
+            public PlayerSuicideArgs(string nickname)
+            {
+                this.NickName = nickname;
+            }
+
+            // Properties. 
+            public string NickName { get; set; } = string.Empty;
+        }
+
+        public class UndefinedMessage
+        {
+            public static event UndefinedMessageHandler OnUndefinedMessage;
+
+            public static void Invoke(string nickname)
+            {
+                var e = new UndefinedMessageArgs(nickname);
+                OnSuicide(e);
+            }
+
+            protected static void OnSuicide(UndefinedMessageArgs e)
+            {
+                OnUndefinedMessage?.Invoke(e);
+            }
+        }
+
+        public class UndefinedMessageArgs : EventArgs
+        {
+            // Constructor. 
+            public UndefinedMessageArgs(string message)
+            {
+                this.Message = message;
+            }
+
+            // Properties. 
+            public string Message { get; set; } = string.Empty;
         }
     }
 }
