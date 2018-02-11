@@ -97,6 +97,10 @@
 
         private static Task Player(IWaveSource decoder, WasapiOut device)
         {
+            if (device.PlaybackState == PlaybackState.Playing)
+            {
+                device.Stop();
+            }
             device.Initialize(decoder);
             device.Play();
             return Task.FromResult<object>(null);

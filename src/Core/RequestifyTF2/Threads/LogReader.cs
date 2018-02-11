@@ -89,25 +89,25 @@
                 var reg = CommandRegex.Match(s);
                 var name = reg.Groups[1].Value;
                 var arguments = new List<string>();
-                var split = reg.Groups[2].Value.Split(null);
-                if (split.Length >= 2)
+                var split = reg.Groups[2].Value.Trim(null).Split(null);
+                if (split.Length > 0)
                 {
-                    for (int i = 1; i < split.Length; i++)
-                    {
-                        arguments.Add(split[i]);
-                    }
-
                     if (split[0].StartsWith("!"))
                     {
-                        if (arguments.Count > 0 && arguments[0] != string.Empty)
+                        if (split.Length > 1)
                         {
-                            Executer.Execute(name, split[0], arguments);
-                            return Result.CommandExecute;
+                            for (int i = 1; i < split.Length; i++)
+                            {
+                                arguments.Add(split[i]);
+                            }
                         }
+
+                        Executer.Execute(name, split[0], arguments);
+                        return Result.CommandExecute;
                     }
                 }
 
-                return Result.Undefined;
+                
             }
 
             if (KillRegex.Match(s).Success)

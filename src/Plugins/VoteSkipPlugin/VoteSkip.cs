@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
 
     using CSCore.SoundOut;
 
@@ -27,6 +28,7 @@
 
         public void Execute(string executor, List<string> arguments)
         {
+            ConsoleSender.SendCommand("status",ConsoleSender.Command.Raw);
             if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
             {
                 if (this.MusicId != Instance.SoundOutBackground.WaveSource.Length)
@@ -34,21 +36,36 @@
                     this.VoteUsers.Clear();
                     this.MusicId = Instance.SoundOutBackground.WaveSource.Length;
                     this.VoteUsers.Add(executor);
+                    ConsoleSender.SendCommand(
+                           $"{executor} voted to skip this song. {this.VoteUsers.Count}/{this.PlayersCount}",
+                           ConsoleSender.Command.Chat);
+                    if (this.VoteUsers.Count >= this.PlayersCount / 2)
+                    {
+                        Instance.SoundOutBackground.Stop();
+                        ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                    }
+                    return;
                 }
                 else
                 {
+                    if (this.VoteUsers.Count >= this.PlayersCount / 2)
+                    {
+                        Instance.SoundOutBackground.Stop();
+                        ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                    }
                     if (this.VoteUsers.Contains(executor))
                     {
                         ConsoleSender.SendCommand(
-                            $"{executor} already voted to skip this song. {this.VoteUsers.Count}/5",
+                            $"{executor} already voted to skip this song. {this.VoteUsers.Count}/{this.PlayersCount}",
                             ConsoleSender.Command.Chat);
+
                     }
                     else
                     {
                         ConsoleSender.SendCommand(
-                            $"{executor} voted to skip this song. {this.VoteUsers.Count}/5",
+                            $"{executor} voted to skip this song. {this.VoteUsers.Count}/{this.PlayersCount}",
                             ConsoleSender.Command.Chat);
-                        if (this.VoteUsers.Count >= 5)
+                        if ( this.VoteUsers.Count>= this.PlayersCount)
                         {
                             Instance.SoundOutBackground.Stop();
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
@@ -58,7 +75,7 @@
             }
             else
             {
-                Console.WriteLine("The queue is empty.");
+                ConsoleSender.SendCommand($"{executor}, the queue is empty.",ConsoleSender.Command.Chat);
             }
         }
 
@@ -69,8 +86,10 @@
 
         private void OnUndef(Events.UndefinedMessageArgs e)
         {
-            if (e.Message.StartsWith("players :"))
+            var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
+            if (reg.Success)
             {
+                this.PlayersCount = int.Parse(reg.Groups[1].Value);
             }
         }
     }
