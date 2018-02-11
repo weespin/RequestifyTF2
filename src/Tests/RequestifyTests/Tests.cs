@@ -21,19 +21,13 @@
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.Connected));
         }
 
-        [Test]
         public static void TestKill()
-        {
-            var sut = ReaderThread.TextChecker(
-                "DllMain | aimware killed One-Man Cheeseburger Apocalypse with tf_projectile_rocket.");
-            Assert.That(sut, Is.EqualTo(ReaderThread.Result.Kill));
-        }
-
-        [Test]
-        public static void TestKill2()
         {
             var sut = ReaderThread.TextChecker("BoyPussi killed dat boi 28 with sniperrifle. (crit)");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.KillCrit));
+           sut = ReaderThread.TextChecker(
+                "DllMain | aimware killed One-Man Cheeseburger Apocalypse with tf_projectile_rocket.");
+            Assert.That(sut, Is.EqualTo(ReaderThread.Result.Kill));
         }
 
         [Test]
