@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using RequestifyTF2.Api;
 using RequestifyTF2.PluginLoader;
 using YoutubeExplode;
+using YoutubeExplode.Models;
 using YoutubeExplode.Models.MediaStreams;
 
 namespace RequestPlugin
@@ -227,6 +228,28 @@ namespace RequestPlugin
                     var title = client.GetVideoAsync(id).Result.Title;
                     ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
+                }
+                else
+                {
+                    if (arguments.Count > 1)
+                    {
+                        var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                        var client = new YoutubeClient();
+                       var vids= client.SearchVideosAsync(text).Result;
+                        if (vids.Count > 0)
+                        {
+                           var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);
+                            var streamInfo =
+                                streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
+                            if (streamInfo == null) return;
+
+                            var ext = streamInfo.Url;
+                            var title = client.GetVideoAsync(vids[0].Id).Result.Title;
+                            ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
+                        }
+                        
+                    }
                 }
             }
 
