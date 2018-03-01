@@ -16,7 +16,8 @@ namespace RequestifyTF2.Managers
     {
         public enum Status
         {
-            Enabled,Disabled
+            Enabled,
+            Disabled
         }
 
         public class Plugin
@@ -26,149 +27,185 @@ namespace RequestifyTF2.Managers
                 plugin = Plugin;
                 Status = status;
             }
+
             public IRequestifyPlugin plugin;
             public Status Status;
-
         }
 
-            private static List<Type> plugintypes = new List<Type>();
-            public static List<Assembly> pluginAssemblies = new List<Assembly>();
-               static List<Plugin> Plugins = new List<Plugin>();
-              public static Dictionary<string, string> FindAllPlugins(string directory, string extension = "*.dll")
+        private static List<Type> plugintypes = new List<Type>();
+        public static List<Assembly> pluginAssemblies = new List<Assembly>();
+        static List<Plugin> Plugins = new List<Plugin>();
+
+        public static Dictionary<string, string> FindAllPlugins(string directory, string extension = "*.dll")
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            IEnumerable<FileInfo> dlls = new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
+            foreach (FileInfo file in dlls)
             {
-                Dictionary<string, string> dict = new Dictionary<string, string>();
-                IEnumerable<FileInfo> dlls = new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
-                foreach (FileInfo file in dlls)
-                {
-                    try
-                    {
-                        AssemblyName name = AssemblyName.GetAssemblyName(file.FullName);
-                        dict.Add(name.FullName, file.FullName);
-                    }
-                    catch { }
-                }
-                return dict;
-            }
-            public static List<Assembly> LoadAssembliesFromDirectory(string directory, string extension = "*.dll")
-            {
-                List<Assembly> assemblies = new List<Assembly>();
-                IEnumerable<FileInfo> pluginsLibraries = new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
-
-                foreach (FileInfo library in pluginsLibraries)
-                {
-                    try
-                    {
-                        Assembly assembly = Assembly.LoadFile(library.FullName);
-
-                        List<Type> types = GetTypesFromInterface(assembly, "IRequestifyPlugin");
-
-                        if (types.Count == 1)
-                        {
-                            Console.WriteLine("Loading " + assembly.GetName().Name + " from " + assembly.Location);
-                            assemblies.Add(assembly);
-                            Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,Status.Enabled));
-                        }
-                        else if (types.Count > 1)
-                        {
-                            Console.WriteLine("Invalid plugin: " + assembly.GetName().Name + "\n Plugin has more than 1 interface");
-                        }
-                        else
-
-                        {
-                            Console.WriteLine("Invalid plugin: " + assembly.GetName().Name);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Cant load plugin: " + library.Name);
-                    }
-                }
-                return assemblies;
-            }
-
-            public static List<Type> GetTypesFromInterface(List<Assembly> assemblies, string interfaceName)
-            {
-                List<Type> allTypes = new List<Type>();
-                foreach (Assembly assembly in assemblies)
-                {
-                    allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
-                }
-                return allTypes;
-            }
-
-            public static List<Type> GetTypesFromInterface(Assembly assembly, string interfaceName)
-            {
-                List<Type> allTypes = new List<Type>();
-                Type[] types;
                 try
                 {
-                    types = assembly.GetTypes();
+                    AssemblyName name = AssemblyName.GetAssemblyName(file.FullName);
+                    dict.Add(name.FullName, file.FullName);
                 }
-                catch (ReflectionTypeLoadException e)
+                catch
                 {
+                }
+            }
 
-                    types = e.Types;
-                }
-                foreach (Type type in types.Where(t => t != null))
+            return dict;
+        }
+
+        public static List<Assembly> LoadAssembliesFromDirectory(string directory, string extension = "*.dll")
+        {
+            List<Assembly> assemblies = new List<Assembly>();
+            IEnumerable<FileInfo> pluginsLibraries =
+                new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
+
+            foreach (FileInfo library in pluginsLibraries)
+            {
+                try
                 {
-                    if (type.GetInterface(interfaceName) != null)
+                    Assembly assembly = Assembly.LoadFile(library.FullName);
+
+                    List<Type> types = GetTypesFromInterface(assembly, "IRequestifyPlugin");
+
+                    if (types.Count == 1)
                     {
-                        allTypes.Add(type);
+                        Console.WriteLine("Loading " + assembly.GetName().Name + " from " + assembly.Location);
+                        assemblies.Add(assembly);
+                        Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
+                            Status.Enabled));
+                    }
+                    else if (types.Count > 1)
+                    {
+                        Console.WriteLine("Invalid plugin: " + assembly.GetName().Name +
+                                          "\n Plugin has more than 1 interface");
+                    }
+                    else
+
+                    {
+                        Console.WriteLine("Invalid plugin: " + assembly.GetName().Name);
                     }
                 }
-                return allTypes;
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Cant load plugin: " + library.Name);
+                }
             }
-            public void loadPlugins(string path)
+
+            return assemblies;
+        }
+
+        public static List<Type> GetTypesFromInterface(List<Assembly> assemblies, string interfaceName)
+        {
+            List<Type> allTypes = new List<Type>();
+            foreach (Assembly assembly in assemblies)
             {
-                Libraries.Load(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
+                allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
+            }
+
+            return allTypes;
+        }
+
+        public static List<Type> GetTypesFromInterface(Assembly assembly, string interfaceName)
+        {
+            List<Type> allTypes = new List<Type>();
+            Type[] types;
+            try
+            {
+                types = assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                types = e.Types;
+            }
+
+            foreach (Type type in types.Where(t => t != null))
+            {
+                if (type.GetInterface(interfaceName) != null)
+                {
+                    allTypes.Add(type);
+                }
+            }
+
+            return allTypes;
+        }
+
+        public void loadPlugins(string path)
+        {
+            Libraries.Load(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
             var libraries = FindAllPlugins(path);
-                if (libraries.Count == 0)
-                {
-                    return;
-                }
-                foreach (KeyValuePair<string, string> pair in FindAllPlugins(path))
-                {
-                    if (!libraries.ContainsKey(pair.Key))
-                        libraries.Add(pair.Key, pair.Value);
-                }
-
-                pluginAssemblies = LoadAssembliesFromDirectory(path);
-                List<Type> pluginImplemenations = GetTypesFromInterface(pluginAssemblies, "IRequestifyPlugin");
-                foreach (Type pluginType in pluginImplemenations)
-                {
-
-                    plugintypes.Add(pluginType);
-                }
-
-            }
-            private static List<Assembly> _plugins = new List<Assembly>();
-
-         
-
-            public Assembly GetAssembly(IRequestifyPlugin plugin)
+            if (libraries.Count == 0)
             {
-                 return plugin.GetType().Assembly;
+                return;
             }
 
-            public List<Plugin> GetPlugins()
+            foreach (KeyValuePair<string, string> pair in FindAllPlugins(path))
             {
-                return Plugins;
+                if (!libraries.ContainsKey(pair.Key))
+                    libraries.Add(pair.Key, pair.Value);
             }
 
-            public Plugin GetPlugin(Assembly assembly)
+            pluginAssemblies = LoadAssembliesFromDirectory(path);
+            List<Type> pluginImplemenations = GetTypesFromInterface(pluginAssemblies, "IRequestifyPlugin");
+            foreach (Type pluginType in pluginImplemenations)
             {
-                foreach (var p in Plugins)
-                {
+                plugintypes.Add(pluginType);
+            }
 
-                    if (p.plugin != null && p.plugin.GetType().Assembly == assembly)
+            foreach (var Assembly in pluginAssemblies)
+            {
+                var types = Assembly.GetTypes();
+                foreach (var type in types)
+                {
+                    var m = type.GetMethod("OnLoad");
+                    var plugin = Activator.CreateInstance(type);
+                    if (m != null)
                     {
-                        return p;
-
+                        Task.Run(
+                            () =>
+                            {
+                                try
+                                {
+                                    m.Invoke(plugin, new object[] { });
+                                }
+                                catch (Exception e)
+                                {
+                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                }
+                            });
+                        Logger.Write(Logger.Status.Info, $"Invoked {type.Assembly.FullName}'s OnLoad! ");
                     }
                 }
 
-                return null;
             }
+        }
+
+  
+
+
+        public Assembly GetAssembly(IRequestifyPlugin plugin)
+        {
+            return plugin.GetType().Assembly;
+        }
+
+        public List<Plugin> GetPlugins()
+        {
+            return Plugins;
+        }
+
+        public Plugin GetPlugin(Assembly assembly)
+        {
+            foreach (var p in Plugins)
+            {
+                if (p.plugin != null && p.plugin.GetType().Assembly == assembly)
+                {
+                    return p;
+                }
+            }
+
+            return null;
+        }
 
         public void DisablePlugin(Plugin plg)
         {
@@ -179,15 +216,15 @@ namespace RequestifyTF2.Managers
         {
             plg.Status = Status.Enabled;
         }
-            public Plugin GetPluginFromCommand(CommandManager.RequestifyCommand command)
-            {
-                return GetPlugin(command.Father);
-            }
 
-            public Plugin GetPlugin(string name)
-            {
-                return Plugins.FirstOrDefault(p => p != null && p.plugin.Name == name);
-            }
+        public Plugin GetPluginFromCommand(CommandManager.RequestifyCommand command)
+        {
+            return GetPlugin(command.Father);
+        }
 
+        public Plugin GetPlugin(string name)
+        {
+            return Plugins.FirstOrDefault(p => p != null && p.plugin.Name == name);
         }
     }
+}

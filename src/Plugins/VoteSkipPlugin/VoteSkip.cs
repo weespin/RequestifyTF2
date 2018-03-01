@@ -84,6 +84,7 @@
 
         public void OnLoad()
         {
+		
             Events.UndefinedMessage.OnUndefinedMessage += this.OnUndef;
         }
 
