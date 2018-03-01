@@ -3,7 +3,7 @@
 
 RequesifyTF2 is a simple program for Source Engine based games, which supports plugins. "Oof" killmicspam supported!
 # Installation
-1. Go to Download and download lastest [releases](https://github.com/weespin/RequestifyTF2/releases)!
+1. Go to Download and download lastest [build and plugins](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts)!
 2. Make sure that you have [Virtual Audio Cable (paid)](http://software.muzychenko.net/eng/vac.htm) or [VB-Audio (free)](http://vbaudio.jcedeveloppement.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) installed on your pc
 3. Open RequestifyTF2
 4. Press on Settings button
