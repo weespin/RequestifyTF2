@@ -137,7 +137,7 @@ namespace RequestifyTF2.Api
 
             public static bool IgnoredReversed;
 
-            public static bool OnlyWithCode = false;
+           
         }
 
         public class Song

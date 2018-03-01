@@ -32,9 +32,6 @@ namespace GTTS
         public string Name => "gtts";
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
-        public string Desc { get; }
-
-        public bool OnlyCode => false;
 
         public void Execute(string executor, List<string> arguments)
         {
