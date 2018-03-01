@@ -19,7 +19,17 @@ namespace RequestifyTF2.Commands
                 if (command=="!"+n.Name)
                 {
                     calledcommand = n;
-                    break;
+                    continue;
+                }
+
+                foreach (var s in n.Alias)
+                {
+                    if (command == "!" + s)
+                    {
+                        calledcommand = n;
+                        break;
+                        
+                    }
                 }
             }
            
