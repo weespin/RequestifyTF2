@@ -5,21 +5,15 @@ artifacts:
  # pushing a single file with environment variable in path and "Deployment name" specified
   - path: src\GUI\RequestifyTF2GUI\bin\Debug\RequestifyTF2GUI.exe
     name: forms
-  - path: src\Plugins\MTTSPlugin\bin\Debug\MTTSPlugin.dll
-    name: mtts
   - path: src\Plugins\RequestPlugin\bin\Debug\RequestPlugin.dll
     name: reqmusic
   - path: src\Plugins\TTSPlugin\bin\Debug\TTSPlugin.dll
     name: tts
   - path: src\Core\RequestifyTF2\bin\Debug\RequestifyTF2.dll
     name: core
-  - path: src\Plugins\GrandTTS\bin\Debug\GrandTTS.dll
-    name: gtts
   - path: src\Plugins\OofPlugin\bin\Debug\OofPlugin.dll
     name: oof
   - path: src\CLI\RequesifyCLI\bin\Debug\RequesifyCLI.exe
     name: cli
-  - path: src\Plugins\StopPlugin\bin\Debug\StopPlugin.dll
-    name: stop
 
 
