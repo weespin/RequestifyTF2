@@ -18,7 +18,7 @@
         public static void Load()
         {
             var emptyjson = JsonConvert.SerializeObject(
-                new ConfigJsonData { GameDirectory = string.Empty, OnlyWithCode = false, Admin = string.Empty });
+                new ConfigJsonData { GameDirectory = string.Empty,  Admin = string.Empty });
             if (Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/config/"))
             {
                 if (File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json"))

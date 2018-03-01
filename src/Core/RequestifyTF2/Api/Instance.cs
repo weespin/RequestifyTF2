@@ -31,7 +31,7 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static WasapiOut SoundOutBackground = new WasapiOut();
         public static PluginManager Plugins = new PluginManager();
-        public static CommandManager Commands ;
+        public static CommandManager Commands  = new CommandManager();
         /// <summary>
         ///     Extra channel. Use it for very fast sounds. Does not have a queue!
         /// </summary>
