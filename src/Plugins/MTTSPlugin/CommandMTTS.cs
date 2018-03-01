@@ -7,15 +7,22 @@
 
     using RequestifyTF2.Api;
 
-    public class MttsPlugin : IRequestifyPlugin
+    public class MTTSPlugin : IRequestifyPlugin
     {
         public string Author => "Weespin";
-
-        public string Command => "!mtts";
+        public string Name => "WillfromAfar TTS";
+        public string Desc => "mtts \"text\"";
+    }
+    public class MttsPlugin : IRequestifyCommand
+    {
 
         public string Help => "Playing a David UK (MLG) voice";
 
-        public string Name => "MTTS";
+        public string Name => "mtts";
+
+        public bool OnlyAdmin => false;
+        public List<string> Alias => new List<string>();
+        public string Desc { get; }
 
         public bool OnlyCode => false;
 

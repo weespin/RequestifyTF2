@@ -1,4 +1,6 @@
-﻿namespace RequestifyTF2.Commands
+﻿using RequestifyTF2.Managers;
+
+namespace RequestifyTF2.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +13,16 @@
     {
         public static void Execute(string caller, string command, List<string> arguments)
         {
-            var calledcommand = Instance.ActivePlugins.FirstOrDefault(n => n.Command == command);
+            CommandManager.RequestifyCommand calledcommand = null;
+            foreach (var n in Instance.Commands.RegisteredCommand)
+            {
+                if (command=="!"+n.Name)
+                {
+                    calledcommand = n;
+                    break;
+                }
+            }
+           
             if (calledcommand == null)
             {
                 var argstostring = string.Empty;
@@ -21,6 +32,10 @@
             }
             else
             {
+                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled)
+                {
+                    return;
+                }
                 if (!Instance.Config.Ignored.Contains(caller))
                 {
                     if (!Instance.Config.IgnoredReversed)
@@ -53,6 +68,7 @@
                                 {
                                     try
                                     {
+                                        
                                         calledcommand.Execute(caller, arguments);
                                     }
                                     catch (Exception e)

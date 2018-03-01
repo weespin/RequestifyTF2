@@ -8,14 +8,23 @@
     public class StopPlugin : IRequestifyPlugin
     {
         public string Author => "Weespin";
+        public string Name => "Requestify";
+        public string Desc => "!stop";
+    }
+    public class StopCommand : IRequestifyCommand
+    {
+        public string Author => "Weespin";
 
         public string Command => "!stop";
 
         public string Help => "Delete all background queue and stop current music!";
 
-        public string Name => "Stop";
+        public string Name => "stop";
 
-        public bool OnlyCode => false;
+        public List<string> Alias => new List<string>();
+       
+
+        public bool OnlyAdmin => false;
 
         public void Execute(string executor, List<string> arguments)
         {

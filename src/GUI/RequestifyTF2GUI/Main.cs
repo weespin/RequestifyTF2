@@ -1,4 +1,6 @@
-﻿namespace RequestifyTF2Forms
+﻿using RequestifyTF2.Managers;
+
+namespace RequestifyTF2Forms
 {
     using System;
     using System.Collections.Generic;
@@ -28,7 +30,7 @@
 
         public static Main instance;
 
-        private readonly Dictionary<string, IRequestifyPlugin> _plugins;
+        private readonly Dictionary<string, PluginManager.Plugin> _plugins;
 
         private readonly Console cs = new Console();
 
@@ -51,20 +53,19 @@
                 TextShade.WHITE);
             instance = this;
             this.Icon = Resources.Icon;
-            this._plugins = new Dictionary<string, IRequestifyPlugin>();
+            this._plugins = new Dictionary<string, PluginManager.Plugin>();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/"))
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
 
             this.MaximizeBox = false;
             this.field_ignored.Enter += this.lbx_IgnoreList_Enter;
-            var plugins =
-                PluginLoader<IRequestifyPlugin>.LoadPlugins(
+          Instance.Plugins.loadPlugins(
                     Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
-
+            var plugins = Instance.Plugins.GetPlugins();
             foreach (var item in plugins)
             {
-                Instance.ActivePlugins.Add(item);
-                this._plugins.Add(item.Name, item);
+              //  Instance.ActivePlugins.Add(item);
+                this._plugins.Add(item.plugin.Name, item);
 
                 // PluginsList.Items.Add(item.Name, true);
             }
@@ -207,7 +208,7 @@
                 Runner.Start();
                 this._started = true;
 
-                var s = this._plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.Name);
+                var s = this._plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.plugin.Name);
             }
 
             this.btn_start.Enabled = false;
@@ -226,28 +227,28 @@
 
         private void list_plugins_DoubleClick(object sender, EventArgs e)
         {
-            if (this.list_plugins.SelectedItems[0].SubItems[3].Text == "True")
-            {
-                this.list_plugins.SelectedItems[0].SubItems[3].Text = "False";
-                foreach (var s in Instance.ActivePlugins)
-                    if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
-                    {
-                        Instance.ActivePlugins.Remove(s);
-                        Instance.DisabledPlugins.Add(s);
-                        break;
-                    }
-            }
-            else
-            {
-                this.list_plugins.SelectedItems[0].SubItems[3].Text = "True";
-                foreach (var s in Instance.DisabledPlugins)
-                    if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
-                    {
-                        Instance.ActivePlugins.Add(s);
-                        Instance.DisabledPlugins.Remove(s);
-                        break;
-                    }
-            }
+            //if (this.list_plugins.SelectedItems[0].SubItems[3].Text == "True")
+            //{
+            //    this.list_plugins.SelectedItems[0].SubItems[3].Text = "False";
+            //    foreach (var s in Instance.ActivePlugins)
+            //        if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
+            //        {
+            //            Instance.ActivePlugins.Remove(s);
+            //            Instance.DisabledPlugins.Add(s);
+            //            break;
+            //        }
+            //}
+            //else
+            //{
+            //    this.list_plugins.SelectedItems[0].SubItems[3].Text = "True";
+            //    foreach (var s in Instance.DisabledPlugins)
+            //        if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
+            //        {
+            //            Instance.ActivePlugins.Add(s);
+            //            Instance.DisabledPlugins.Remove(s);
+            //            break;
+            //        }
+            //}
         }
 
         private void list_plugins_MouseClick(object sender, MouseEventArgs e)
@@ -259,7 +260,7 @@
                 if (this.list_plugins.SelectedItems[0].SubItems[0].Text != string.Empty
                     || this.list_plugins.SelectedItems.Count != 0)
                 {
-                    msgbox.MessageText = this._plugins[this.list_plugins.SelectedItems[0].SubItems[0].Text].Help;
+                    msgbox.MessageText = this._plugins[this.list_plugins.SelectedItems[0].SubItems[0].Text].plugin.Desc;
 
                     msgbox.Text = this.list_plugins.SelectedItems[0].SubItems[0].Text;
                     msgbox.Show();
@@ -312,12 +313,12 @@
         {
         }
 
-        private void seedListView(ICollection<IRequestifyPlugin> plugins)
+        private void seedListView(ICollection<PluginManager.Plugin> plugins)
         {
             // Define
             foreach (var item in plugins)
             {
-                var namencommand = new[] { item.Name, item.Command, item.Author, "True" };
+                var namencommand = new[] { item.plugin.Name, item.plugin.Desc, item.plugin.Author, "True" };
                 var items = new ListViewItem(namencommand);
                 this.list_plugins.Items.Add(items);
             }

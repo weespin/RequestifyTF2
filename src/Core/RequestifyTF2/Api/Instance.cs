@@ -1,4 +1,9 @@
-﻿namespace RequestifyTF2.Api
+﻿using System.IO;
+using System.Windows.Forms;
+using RequestifyTF2.Managers;
+using RequestifyTF2.PluginLoader;
+
+namespace RequestifyTF2.Api
 {
     using System;
     using System.Collections.Concurrent;
@@ -11,14 +16,13 @@
 
     public static class Instance
     {
-        public static List<IRequestifyPlugin> ActivePlugins = new List<IRequestifyPlugin>();
+       
 
         /// <summary>
         ///     Stores all Windows audio devices.
         /// </summary>
         public static List<MMDevice> Devices = new List<MMDevice>();
 
-        public static List<IRequestifyPlugin> DisabledPlugins = new List<IRequestifyPlugin>();
 
         public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
 
@@ -26,7 +30,8 @@
         ///     Background channel. Good for long sounds and music.
         /// </summary>
         public static WasapiOut SoundOutBackground = new WasapiOut();
-
+        public static PluginManager Plugins = new PluginManager();
+        public static CommandManager Commands ;
         /// <summary>
         ///     Extra channel. Use it for very fast sounds. Does not have a queue!
         /// </summary>
@@ -42,6 +47,7 @@
         /// </summary>
         public static bool Load()
         {
+           
             using (var deviceEnumerator = new MMDeviceEnumerator())
             {
                 using (var deviceCollection = deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
@@ -52,7 +58,7 @@
                     }
                 }
             }
-
+            Commands = new CommandManager();
             Logger.Write(Logger.Status.Info, "Patching autoexec.cfg");
             AutoexecChecker.Check();
             Logger.Write(Logger.Status.Info, "Searching for usable devices...");

@@ -1,4 +1,7 @@
-﻿namespace RequesifyCLI
+﻿using System.Runtime.CompilerServices;
+using RequestifyTF2.Managers;
+
+namespace RequesifyCLI
 {
     using System;
     using System.Collections.Generic;
@@ -11,13 +14,13 @@
     internal class Program
     {
         private static bool started;
-
-        public static List<IRequestifyPlugin> GetAllPlugins()
+ 
+        public static List<PluginManager.Plugin> GetAllPlugins()
         {
-            var Plugins = new List<IRequestifyPlugin>();
-            foreach (var pl in Instance.ActivePlugins) Plugins.Add(pl);
-            foreach (var pl in Instance.DisabledPlugins) Plugins.Add(pl);
-            Plugins.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.Ordinal));
+            var Plugins = new List<PluginManager.Plugin>();
+            foreach (var pl in Instance.Plugins.GetPlugins()) Plugins.Add(pl);
+ 
+            Plugins.Sort((a, b) => string.Compare(a.plugin.Name, b.plugin.Name, StringComparison.Ordinal));
             return Plugins;
         }
 
@@ -43,18 +46,13 @@
             if (!Directory.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/"))
                 Directory.CreateDirectory(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
 
-            var plugins = PluginLoader<IRequestifyPlugin>.LoadPlugins(
-                Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
+            Instance.Plugins.loadPlugins(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
 
-            foreach (var item in plugins)
-            {
-                Instance.ActivePlugins.Add(item);
-                _plugins.Add(item.Name, item);
-            }
+        
 
             AppConfig.Load();
             GetHelp();
-            PrintPlugins();
+            //PrintPlugins();
             while (true)
             {
                 var key = Console.ReadLine();
@@ -125,7 +123,7 @@
 
                 if (key.StartsWith("list"))
                 {
-                    PrintPlugins();
+                   PrintPlugins();
                 }
 
                 if (key.StartsWith("switch"))
@@ -140,20 +138,17 @@
                                 var plz = allplg[i];
                                 if (plz == null) continue;
 
-                                if (Instance.DisabledPlugins.Contains(plz))
+                                var pl = Instance.Plugins.GetPlugins().Where(n=>n==plz).FirstOrDefault();
+                                if (pl != null)
                                 {
-                                    Instance.ActivePlugins.Add(plz);
-                                    Instance.DisabledPlugins.Remove(plz);
-                                    PrintPlugins();
-                                    continue;
-                                }
-
-                                if (Instance.ActivePlugins.Contains(plz))
-                                {
-                                    Instance.DisabledPlugins.Add(plz);
-                                    Instance.ActivePlugins.Remove(plz);
-                                    PrintPlugins();
-                                    continue;
+                                    if (pl.Status == PluginManager.Status.Enabled)
+                                    {
+                                        Instance.Plugins.DisablePlugin(pl);
+                                    }
+                                    else
+                                    {
+                                        Instance.Plugins.EnablePlugin(pl);
+                                    }
                                 }
                             }
                             else
@@ -202,20 +197,20 @@
             Logger.Write(Logger.Status.Info, "===================BLACKLIST END===================");
         }
 
-        private static void PrintPlugins()
+       private static void PrintPlugins()
         {
-            var i = 0;
+          var i = 0;
             var Plugins = GetAllPlugins();
-            Logger.Write(Logger.Status.Info, "===================PLUGINS===================");
-            foreach (var pl in Plugins)
-            {
-                if (Instance.DisabledPlugins.Contains(pl)) Console.ForegroundColor = ConsoleColor.Red;
+           Logger.Write(Logger.Status.Info, "===================PLUGINS===================");
+          foreach (var pl in Plugins)
+          {
+               if (pl.Status==PluginManager.Status.Disabled) Console.ForegroundColor = ConsoleColor.Red;
 
-                if (Instance.ActivePlugins.Contains(pl)) Console.ForegroundColor = ConsoleColor.Green;
+              if (pl.Status == PluginManager.Status.Enabled) Console.ForegroundColor = ConsoleColor.Green;
 
-                Console.WriteLine($"{{{i}}} {pl.Name} {pl.Command} - {pl.Help} by {pl.Author}");
+              Console.WriteLine($"{{{i}}} {pl.plugin.Name} {pl.plugin.Name}  by {pl.plugin.Author}");
                 i++;
-            }
+           }
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Logger.Write(Logger.Status.Info, "===================PLUGINS END===================");

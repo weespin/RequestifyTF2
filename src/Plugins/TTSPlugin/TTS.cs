@@ -9,15 +9,20 @@
 
     using RequestifyTF2.Api;
 
-    public class TtsPlugin : IRequestifyPlugin
+    public class TTSPlugin : IRequestifyPlugin
     {
         public string Author => "Weespin";
-
-        public string Command => "!tts";
+        public string Name => "Google TTS";
+        public string Desc => "tts \"text\"";
+    }
+    public class TTSCommand : IRequestifyCommand
+    {
 
         public string Help => "Playing a Google voice";
 
-        public string Name => "TTS";
+        public string Name => "tts";
+        public bool OnlyAdmin => false;
+        public List<string> Alias => new List<string>();
 
         public bool OnlyCode => false;
 

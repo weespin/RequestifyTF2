@@ -88,12 +88,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Events.cs" />
-    <Compile Include="Api\IRequestifyPlugin.cs" />
+    <Compile Include="Managers\Interfaces.cs" />
     <Compile Include="Api\Instance.cs" />
+    <Compile Include="Managers\CommandManager.cs" />
+    <Compile Include="Managers\PluginManager.cs" />
     <Compile Include="Commands\Executer.cs" />
+    <Compile Include="Core.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Media\Media.cs" />
-    <Compile Include="PluginLoader\GenericLoader.cs" />
     <Compile Include="PluginLoader\Libraries.cs" />
     <Compile Include="Threads\PlayerThread.cs" />
     <Compile Include="Utils\CodeGenerator.cs" />

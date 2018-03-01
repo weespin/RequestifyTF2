@@ -33,13 +33,9 @@
 
         public string Help => "Oof!";
 
-        public string Name => "Oof";
+        public string Name => "OOf!";
+        public string Desc => "Play off sounds on kill";
 
-        public bool OnlyCode => false;
-
-        public void Execute(string executor, List<string> arguments)
-        {
-        }
 
         public void OnLoad()
         {

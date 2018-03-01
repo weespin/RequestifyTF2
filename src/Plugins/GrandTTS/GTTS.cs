@@ -1,4 +1,8 @@
-﻿namespace GTTS
+﻿using System;
+using System.Net.Http;
+using System.Windows.Forms;
+
+namespace GTTS
 {
     using System.Collections.Generic;
     using System.IO;
@@ -13,15 +17,22 @@
 
     using RequestifyTF2.Api;
 
-    public class Plugin : IRequestifyPlugin
+    public class GTTSPlugin : IRequestifyPlugin
     {
         public string Author => "Weespin";
-
-        public string Command => "!gtts";
+        public string Name => "WillfromAfar TTS";
+        public string Desc => "gtts \"text\"";
+    }
+    public class GTTSCommand : IRequestifyCommand
+    {
 
         public string Help => "Playing a WillFromAfar (purple sheep) voice";
 
-        public string Name => "GTTS";
+   
+        public string Name => "gtts";
+        public bool OnlyAdmin => false;
+        public List<string> Alias => new List<string>();
+        public string Desc { get; }
 
         public bool OnlyCode => false;
 
@@ -29,41 +40,53 @@
         {
             if (arguments.Count > 0)
             {
-                string query = "https://acapela-box.com/AcaBox/index0.php?cookietest=2";
-
-                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(query);
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-                var resps = resp.Headers["Set-Cookie"];
-                var regex = @"(acabox=)\w+";
-                var result = string.Empty;
-                var match = Regex.Match(resps, regex);
-                if (match.Success)
+                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                var link = Parse(text, "willfromafar22k_hq");
+                if (link == "")
                 {
-                    result = match.Value;
-                }
-                else
-                {
+                    
                     return;
                 }
 
-                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(link));
+            }
+        }
+        public static string Parse(string text, string voiceid)
+        {
+            voiceid = voiceid.Replace("22k_hq", "_22k_ns.bvcu");
+            HttpClient client = new HttpClient();
+            Random rnd = new Random();
+            int length = 20;
+            var str = "{\"googleid\":\"";
+            var email = "";
+            for (var i = 0; i < length; i++)
+            {
+                email += ((char)(rnd.Next(1, 26) + 64)).ToString();
+            }
 
-                text = text.Replace(" ", "%20");
-                var request = (HttpWebRequest)WebRequest.Create("https://acapela-box.com/AcaBox/dovaas.php");
+            email += "@gmail.com";
+            var values = new Dictionary<string, string>
+            {
+                {"json", str + email + "\"}"}
 
-                text = text.Replace(" ", "%20");
-                var postData =
-                    $"text=%5Cvct%3D100%5C%20%5Cspd%3D180%5C%20{text}&voice=willfromafar22k&listen=1&format=MP3&codecMP3=1&spd=180&vct=100";
+            };
 
-                var data = Encoding.ASCII.GetBytes(postData);
-                request.Accept = "application/json, text/javascript, */*; q=0.01";
+            var content = new FormUrlEncodedContent(values);
+            var response = client.PostAsync("https://acapelavoices.acapela-group.com/index/getnonce/", content).Result
+                .Content.ReadAsStringAsync().Result;
+            var re = new Regex(@"^\{\""nonce\""\:\""(.+)\""\}$");
+            var m = re.Match(response);
+            if (m.Groups.Count > 1)
+            {
+                var request =
+                    (HttpWebRequest)WebRequest.Create(
+                        "http://www.acapela-group.com:8080/webservices/1-34-01-Mobility/Synthesizer");
+                var g = "{\"nonce\":\"" + m.Groups[1] + ",\"user\":\"" + email + "\"}";
 
-                request.Headers.Add("Origin", "https://acapela-box.com");
-                request.Headers.Add("X-Requested-With", "XMLHttpRequest");
-                request.UserAgent =
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36";
-                request.Referer = "https://acapela-box.com/AcaBox/index.php";
-                request.Headers.Add("Cookie", result);
+                var enc =
+                    $"req_voice=enu_{voiceid}&cl_pwd=&cl_vers=1-30&req_echo=ON&cl_login=AcapelaGroup&req_comment=%7B%22nonce%22%3A%22{m.Groups[1]}%22%2C%22user%22%3A%22{email}%22%7D&req_text={Uri.EscapeDataString(text)}&cl_env=ACAPELA_VOICES&prot_vers=2&cl_app=AcapelaGroup_WebDemo_Android";
+
+                var data = Encoding.ASCII.GetBytes(enc.ToString());
                 request.Method = "POST";
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.ContentLength = data.Length;
@@ -73,18 +96,24 @@
                     stream.Write(data, 0, data.Length);
                 }
 
-                var response = (HttpWebResponse)request.GetResponse();
+                var responses = (HttpWebResponse)request.GetResponse();
 
-                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                var s = JsonConvert.DeserializeObject<AcapellaResp>(responseString).snd_url;
+                var responseString = new StreamReader(responses.GetResponseStream()).ReadToEnd();
+                var reg = new Regex("snd_url=(.+)&snd_size");
+                var regs = reg.Match(responseString);
+                if (regs.Success)
+                {
+                    return regs.Groups[1].Value;
+                }
+                return "";
 
-                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(s));
             }
+            return "";
         }
     }
 
     public class AcapellaResp
     {
-        public string snd_url { get; set; }
+        
     }
 }

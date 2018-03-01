@@ -7,8 +7,13 @@
     using CSCore.SoundOut;
 
     using RequestifyTF2.Api;
-
-    public class VoteSkip : IRequestifyPlugin
+    public class VotePlugin : IRequestifyPlugin
+    {
+        public string Author => "Weespin";
+        public string Name => "Vote for skip!";
+        public string Desc => "!voteskip";
+    }
+    public class VoteCommand : IRequestifyCommand
     {
         private long MusicId;
 
@@ -16,15 +21,13 @@
 
         private readonly List<string> VoteUsers = new List<string>();
 
-        public string Author => "Weespin";
-
-        public string Command => "!voteskip";
 
         public string Help => "Vote for skip!";
-
         public string Name => "voteskip";
+     
 
-        public bool OnlyCode => false;
+        public bool OnlyAdmin => false;
+        public List<string> Alias => new List<string>();
 
         public void Execute(string executor, List<string> arguments)
         {

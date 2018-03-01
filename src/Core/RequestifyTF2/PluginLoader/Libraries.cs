@@ -18,8 +18,8 @@
             {
                 try
                 {
-                    Proxy pd = new Proxy();
-                    Assembly assemblyz = pd.GetAssembly(assembly);
+                    Proxy proxy = new Proxy();
+                    Assembly assemblyz = proxy.GetAssembly(assembly);
                     Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
                 }
                 catch (Exception e)
@@ -28,7 +28,6 @@
                 }
             }
 
-            // Assembly.Load();
         }
 
         public static void LoadFile(string path)
@@ -43,8 +42,6 @@
             {
                 Logger.Write(Logger.Status.Error, e.ToString());
             }
-
-            // Assembly.Load();
         }
 
         public class Proxy : MarshalByRefObject
@@ -58,8 +55,6 @@
                 catch (Exception)
                 {
                     return null;
-
-                    // throw new InvalidOperationException(ex);
                 }
             }
         }

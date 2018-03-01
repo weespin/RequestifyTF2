@@ -17,22 +17,26 @@
 
     using YoutubeExplode;
     using YoutubeExplode.Models.MediaStreams;
-
     public class RequestPlugin : IRequestifyPlugin
+    {
+        public string Author => "Weespin";
+        public string Name => "Requestify";
+        public string Desc => "!request \"link\"";
+    }
+    public class RequestCommand : IRequestifyCommand
     {
         private static readonly int AppID = 1505226596;
 
         private static readonly string clientID = "WKcQQdEZw7Oi01KqtHWxeVSxNyRzgT8M";
 
-        public string Author => "Weespin";
-
-        public string Command => "!request";
+      
 
         public string Help => "Play music. Supports soundcloud and youtube!";
 
         public string Name => "Request";
+        public List<string> Alias { get; }
 
-        public bool OnlyCode => false;
+        public bool OnlyAdmin => false;
 
         public void Execute(string executor, List<string> arguments)
         {
