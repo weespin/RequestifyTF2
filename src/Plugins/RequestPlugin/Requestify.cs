@@ -232,7 +232,7 @@ namespace RequestPlugin
                 }
                 else
                 {
-                    if (arguments.Count > 1)
+                    if (arguments.Count >= 1)
                     {
                         var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                         var client = new YoutubeClient();
