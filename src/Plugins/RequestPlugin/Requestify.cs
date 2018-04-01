@@ -92,21 +92,22 @@ namespace RequestPlugin
         {
             using (var web = new WebClient())
             {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                 // I want to check libs
-                if (!File.Exists("./plugins/libs/YoutubeExplode.dll"))
+                if (!File.Exists("./lib/YoutubeExplode.dll"))
                 {
                     web.DownloadFile(
                         "https://github.com/weespin/reqdeps/blob/master/YoutubeExplode.dll?raw=true",
-                        "./plugins/libs/YoutubeExplode.dll");
-                    Libraries.LoadFile("./plugins/libs/YoutubeExplode.dll");
+                        "./lib/YoutubeExplode.dll");
+                    Libraries.LoadFile("./lib/YoutubeExplode.dll");
                 }
 
-                if (!File.Exists("./plugins/libs/AngleSharp.dll"))
+                if (!File.Exists("./lib/AngleSharp.dll"))
                 {
                     web.DownloadFile(
                         "https://github.com/weespin/reqdeps/blob/master/AngleSharp.dll?raw=true",
-                        "./plugins/libs/AngleSharp.dll");
-                    Libraries.LoadFile("./plugins/libs/AngleSharp.dll");
+                        "./lib/AngleSharp.dll");
+                    Libraries.LoadFile("./lib/AngleSharp.dll");
                 }
             }
 
@@ -164,7 +165,7 @@ namespace RequestPlugin
 
             public string Help => "Play music. Supports soundcloud and youtube!";
 
-            public string Name => "Request";
+            public string Name => "request";
             public List<string> Alias { get; }
 
             public bool OnlyAdmin => false;

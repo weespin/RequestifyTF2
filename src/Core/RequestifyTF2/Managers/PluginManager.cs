@@ -90,6 +90,7 @@ namespace RequestifyTF2.Managers
                 catch (Exception ex)
                 {
                     Console.WriteLine("Cant load plugin: " + library.Name);
+                    Console.WriteLine(ex);
                 }
             }
 

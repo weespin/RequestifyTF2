@@ -22,13 +22,16 @@ namespace RequestifyTF2.Commands
                     continue;
                 }
 
-                foreach (var s in n.Alias)
+                if (n.Alias != null)
                 {
-                    if (command == "!" + s)
+                    foreach (var s in n.Alias)
                     {
-                        calledcommand = n;
-                        break;
-                        
+                        if (command == "!" + s)
+                        {
+                            calledcommand = n;
+                            break;
+
+                        }
                     }
                 }
             }

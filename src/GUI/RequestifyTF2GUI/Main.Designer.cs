@@ -40,6 +40,7 @@
             this.chkbox_onlywithcode = new MaterialSkin.Controls.MaterialCheckBox();
             this.lbl_code = new MaterialSkin.Controls.MaterialLabel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             this.materialSingleLineTextField1 = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btn_SelectGamePath = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -59,7 +60,6 @@
             this.list_ignored = new MaterialSkin.Controls.MaterialListView();
             this.Player = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -242,6 +242,22 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             // 
+            // materialRaisedButton1
+            // 
+            this.materialRaisedButton1.AutoSize = true;
+            this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton1.Depth = 0;
+            this.materialRaisedButton1.Icon = null;
+            this.materialRaisedButton1.Location = new System.Drawing.Point(265, 64);
+            this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton1.Name = "materialRaisedButton1";
+            this.materialRaisedButton1.Primary = true;
+            this.materialRaisedButton1.Size = new System.Drawing.Size(55, 36);
+            this.materialRaisedButton1.TabIndex = 22;
+            this.materialRaisedButton1.Text = "Save";
+            this.materialRaisedButton1.UseVisualStyleBackColor = true;
+            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
+            // 
             // materialLabel6
             // 
             this.materialLabel6.AutoSize = true;
@@ -361,7 +377,7 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Command";
+            this.columnHeader2.Text = "Info";
             this.columnHeader2.Width = 110;
             // 
             // columnHeader3
@@ -489,22 +505,6 @@
             this.materialTabSelector1.Size = new System.Drawing.Size(419, 44);
             this.materialTabSelector1.TabIndex = 20;
             this.materialTabSelector1.Text = "materialTabSelector1";
-            // 
-            // materialRaisedButton1
-            // 
-            this.materialRaisedButton1.AutoSize = true;
-            this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton1.Depth = 0;
-            this.materialRaisedButton1.Icon = null;
-            this.materialRaisedButton1.Location = new System.Drawing.Point(265, 64);
-            this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton1.Name = "materialRaisedButton1";
-            this.materialRaisedButton1.Primary = true;
-            this.materialRaisedButton1.Size = new System.Drawing.Size(55, 36);
-            this.materialRaisedButton1.TabIndex = 22;
-            this.materialRaisedButton1.Text = "Save";
-            this.materialRaisedButton1.UseVisualStyleBackColor = true;
-            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
             // 
             // Main
             // 
