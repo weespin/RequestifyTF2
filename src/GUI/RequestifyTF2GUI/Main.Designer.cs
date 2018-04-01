@@ -185,6 +185,7 @@
             this.btn_start.AutoSize = true;
             this.btn_start.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btn_start.Depth = 0;
+            this.btn_start.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.btn_start.Icon = null;
             this.btn_start.Location = new System.Drawing.Point(27, 6);
             this.btn_start.MouseState = MaterialSkin.MouseState.HOVER;

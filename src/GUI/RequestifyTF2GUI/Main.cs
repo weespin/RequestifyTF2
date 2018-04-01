@@ -209,6 +209,8 @@ namespace RequestifyTF2Forms
                 this._started = true;
 
                 var s = this._plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.plugin.Name);
+                btn_start.Text = "Started";
+                
             }
 
             this.btn_start.Enabled = false;

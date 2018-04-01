@@ -166,7 +166,7 @@ namespace RequestPlugin
             public string Help => "Play music. Supports soundcloud and youtube!";
 
             public string Name => "request";
-            public List<string> Alias { get; }
+            public List<string> Alias => new List<string>();
 
             public bool OnlyAdmin => false;
 
