@@ -38,6 +38,7 @@ namespace RequesifyCLI
             Logger.Write(Logger.Status.Info, "reverse - revert blacklist to whitelist");
             Logger.Write(Logger.Status.Info, "help - get this info.");
             Logger.Write(Logger.Status.Info, "admin {nick} - set admin name");
+            Logger.Write(Logger.Status.Info, "mute - mute or unmute chat");
         }
 
         private static void Main(string[] args)
@@ -152,7 +153,7 @@ namespace RequesifyCLI
                                 var plz = allplg[i];
                                 if (plz == null) continue;
 
-                                var pl = Instance.Plugins.GetPlugins().Where(n=>n==plz).FirstOrDefault();
+                                var pl = Instance.Plugins.GetPlugins().FirstOrDefault(n => n==plz);
                                 if (pl != null)
                                 {
                                     if (pl.Status == PluginManager.Status.Enabled)
