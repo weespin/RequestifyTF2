@@ -23,6 +23,7 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static List<MMDevice> Devices = new List<MMDevice>();
 
+        public static bool isMuted = false;
 
         public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
 

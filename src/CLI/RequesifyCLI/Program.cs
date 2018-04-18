@@ -126,6 +126,20 @@ namespace RequesifyCLI
                    PrintPlugins();
                 }
 
+                if (key.StartsWith("mute"))
+                {
+                    if (Instance.isMuted)
+                    {
+                        Logger.Write(Logger.Status.Info, $"RequestifyTF2 is now unmuted");
+                        Instance.isMuted = false;
+                    }
+                    else
+                    {
+                        Logger.Write(Logger.Status.Info, $"RequestifyTF2 is now muted");
+                        Instance.isMuted = true;
+                    }
+                }
+
                 if (key.StartsWith("switch"))
                     if (key.Split(null).Length > 1)
                     {

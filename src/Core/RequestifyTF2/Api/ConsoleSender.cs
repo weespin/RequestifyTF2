@@ -23,7 +23,11 @@
             switch (cmd)
             {
                 case Command.Chat:
-                    text = "say " + cmnd;
+                    if (!Instance.isMuted)
+                    {
+                        text = "say " + cmnd;
+                    }
+
                     break;
                 case Command.Echo:
                     text = "echo " + cmnd;

@@ -331,6 +331,11 @@ namespace RequestifyTF2Forms
                   materialListView1.Items.Add(item);
               }*/
         }
+
+        private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            Instance.isMuted = this.materialCheckBox1.Checked;
+        }
     }
 
     public static class ThreadHelperClass
