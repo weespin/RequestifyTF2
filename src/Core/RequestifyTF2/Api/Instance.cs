@@ -61,7 +61,7 @@ namespace RequestifyTF2.Api
             }
             Commands = new CommandManager();
             Logger.Write(Logger.Status.Info, "Patching autoexec.cfg");
-            AutoexecChecker.Check();
+            Patcher.PatchAutoExec();
             Logger.Write(Logger.Status.Info, "Searching for usable devices...");
             MMDevice used = null;
             foreach (var n in Devices)
@@ -129,8 +129,6 @@ namespace RequestifyTF2.Api
         public class Config
         {
             public static string Admin;
-
-            public static string Chiper = new CodeGenerator().GenerateWord(4);
 
             public static string GameDir;
 
