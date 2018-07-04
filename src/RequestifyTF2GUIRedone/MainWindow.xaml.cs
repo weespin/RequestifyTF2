@@ -2,7 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ookii.Dialogs;
@@ -26,6 +28,9 @@ namespace RequestifyTF2GUIRedone
         {
             InitializeComponent();
             new Thread(StatsMonitor).Start();
+            AppConfig.Load();
+            this.GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
+            this.AdminName.Content = AppConfig.CurrentConfig.Admin;
         }
 
         private void StatsMonitor()
@@ -270,5 +275,20 @@ namespace RequestifyTF2GUIRedone
             public IRequestifyCommand Command { get; set; }
             public Brush Color { get; set; }
         }
+
+        private void GameBrowser_click(object sender, RoutedEventArgs e)
+        {
+            var a  = new Games();
+            a.DataContext = this;
+            a.Show();
+        }
+
+
+        private void AdminBoxFocusLost(object sender, RoutedEventArgs e)
+        {
+            AppConfig.CurrentConfig.Admin = AdminBox.Text;
+            AppConfig.Save();
+        }
+
     }
 }

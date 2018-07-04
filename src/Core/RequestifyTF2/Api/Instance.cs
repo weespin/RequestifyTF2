@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using RequestifyTF2.Managers;
 using RequestifyTF2.PluginLoader;
+using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Api
 {

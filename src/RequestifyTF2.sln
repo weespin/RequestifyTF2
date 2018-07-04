@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUI2", "GUI2", "{31380333-E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2GUIRedone", "RequestifyTF2GUIRedone\RequestifyTF2GUIRedone.csproj", "{A46E8893-2DB7-4680-8204-8E31A15F7A66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryTest", "RegistryTest\RegistryTest.csproj", "{AA1A5065-30D1-463A-B729-5CEE945C6EBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,14 @@ Global
 		{A46E8893-2DB7-4680-8204-8E31A15F7A66}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A46E8893-2DB7-4680-8204-8E31A15F7A66}.Release|x86.ActiveCfg = Release|Any CPU
 		{A46E8893-2DB7-4680-8204-8E31A15F7A66}.Release|x86.Build.0 = Release|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Debug|x86.Build.0 = Debug|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA1A5065-30D1-463A-B729-5CEE945C6EBF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
