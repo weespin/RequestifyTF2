@@ -1,15 +1,13 @@
-﻿using RequestifyTF2.Managers;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using RequestifyTF2.Api;
+using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Commands
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using RequestifyTF2.Api;
-
     internal class Executer
     {
         public static void Execute(string caller, string command, List<string> arguments)
@@ -17,26 +15,21 @@ namespace RequestifyTF2.Commands
             CommandManager.RequestifyCommand calledcommand = null;
             foreach (var n in Instance.Commands.GetCommands())
             {
-                if (command=="!"+n.Name)
+                if (command == "!" + n.Name)
                 {
                     calledcommand = n;
                     continue;
                 }
 
                 if (n.Alias != null)
-                {
                     foreach (var s in n.Alias)
-                    {
                         if (command == "!" + s)
                         {
                             calledcommand = n;
                             break;
-
                         }
-                    }
-                }
             }
-           
+
             if (calledcommand == null)
             {
                 var argstostring = string.Empty;
@@ -46,26 +39,24 @@ namespace RequestifyTF2.Commands
             }
             else
             {
-                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled||calledcommand.Status==CommandManager.Status.Disabled)
-                {
-                    return;
-                }
+                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled ||
+                    calledcommand.Status == CommandManager.Status.Disabled) return;
                 if (!Instance.Config.Ignored.Contains(caller))
                 {
                     if (!Instance.Config.IgnoredReversed)
                     {
                         Task.Run(
                             () =>
+                            {
+                                try
                                 {
-                                    try
-                                    {
-                                        calledcommand.Execute(caller, arguments);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        Logger.Write(Logger.Status.Error, e.ToString());
-                                    }
-                                });
+                                    calledcommand.Execute(caller, arguments);
+                                }
+                                catch (Exception e)
+                                {
+                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                }
+                            });
                         Logger.Write(Logger.Status.Info, $"{caller} executed {command}");
                     }
                     else
@@ -80,17 +71,16 @@ namespace RequestifyTF2.Commands
                     {
                         Task.Run(
                             () =>
+                            {
+                                try
                                 {
-                                    try
-                                    {
-                                        
-                                        calledcommand.Execute(caller, arguments);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        Logger.Write(Logger.Status.Error, e.ToString());
-                                    }
-                                });
+                                    calledcommand.Execute(caller, arguments);
+                                }
+                                catch (Exception e)
+                                {
+                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                }
+                            });
                         Logger.Write(Logger.Status.Info, $"{caller} invoked {command}");
                     }
                     else

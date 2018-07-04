@@ -1,41 +1,35 @@
-﻿namespace RequestifyTF2.PluginLoader
-{
-    using System;
-    using System.IO;
-    using System.Reflection;
+﻿using System;
+using System.IO;
+using System.Reflection;
 
+namespace RequestifyTF2.PluginLoader
+{
     public class Libraries
     {
         public static void Load(string path)
         {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             var dllFileNames = Directory.GetFiles(path, "*.dll");
             foreach (var assembly in dllFileNames)
-            {
                 try
                 {
-                    Proxy proxy = new Proxy();
-                    Assembly assemblyz = proxy.GetAssembly(assembly);
+                    var proxy = new Proxy();
+                    var assemblyz = proxy.GetAssembly(assembly);
                     Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
                 }
                 catch (Exception e)
                 {
                     Logger.Write(Logger.Status.Error, e.ToString());
                 }
-            }
-
         }
 
         public static void LoadFile(string path)
         {
             try
             {
-                Proxy pd = new Proxy();
-                Assembly assemblyz = pd.GetAssembly(path);
+                var pd = new Proxy();
+                var assemblyz = pd.GetAssembly(path);
                 Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
             }
             catch (Exception e)

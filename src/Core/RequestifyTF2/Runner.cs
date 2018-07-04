@@ -1,11 +1,10 @@
-﻿namespace RequestifyTF2
+﻿using System;
+using System.IO;
+using RequestifyTF2.Api;
+using RequestifyTF2.Threads;
+
+namespace RequestifyTF2
 {
-    using System;
-    using System.IO;
-
-    using RequestifyTF2.Api;
-    using RequestifyTF2.Threads;
-
     public static class Runner
     {
         public static bool Start()
@@ -16,12 +15,14 @@
 
                 return false;
             }
+
             if (!Directory.Exists(Instance.Config.GameDir))
             {
                 Logger.Write(Logger.Status.Error, "Can't find directory " + Instance.Config.GameDir);
 
                 return false;
             }
+
             if (!Instance.Load())
             {
                 Logger.Write(
@@ -32,7 +33,6 @@
             }
 
             if (File.Exists(Instance.Config.GameDir + "/console.log"))
-            {
                 try
                 {
                     File.WriteAllText(Instance.Config.GameDir + "/console.log", string.Empty);
@@ -46,7 +46,6 @@
                     return false;
                     // return;
                 }
-            }
 
             PlayerThread.Starter();
             ReaderThread.Starter();

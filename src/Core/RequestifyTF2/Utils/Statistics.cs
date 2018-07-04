@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RequestifyTF2.Utils
+﻿namespace RequestifyTF2.Utils
 {
-    public static  class Statisctics
+    public static class Statisctics
     {
         public static uint LinesParsed;
         public static uint CommandsParsed;

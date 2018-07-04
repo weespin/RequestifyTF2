@@ -1,16 +1,16 @@
-﻿namespace ConsoleRedirection
-{
-    using System.IO;
-    using System.Text;
-    using System.Windows.Forms;
+﻿using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
+namespace ConsoleRedirection
+{
     public class TextBoxStreamWriter : TextWriter
     {
         public TextBox _output;
 
         public TextBoxStreamWriter(TextBox output)
         {
-            this._output = output;
+            _output = output;
         }
 
         public override Encoding Encoding => Encoding.UTF8;
@@ -19,7 +19,7 @@
         {
             base.Write(value);
 
-            this._output.Invoke(new MethodInvoker(delegate { this._output.AppendText(value.ToString()); }));
+            _output.Invoke(new MethodInvoker(delegate { _output.AppendText(value.ToString()); }));
         }
     }
 }

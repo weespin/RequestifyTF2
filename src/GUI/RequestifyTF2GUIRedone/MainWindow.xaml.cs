@@ -2,9 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ookii.Dialogs;
@@ -29,10 +27,9 @@ namespace RequestifyTF2GUIRedone
             InitializeComponent();
             new Thread(StatsMonitor).Start();
             AppConfig.Load();
-            this.GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
-            this.AdminBox.Text = AppConfig.CurrentConfig.Admin;
-           
-        } 
+            GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
+            AdminBox.Text = AppConfig.CurrentConfig.Admin;
+        }
 
         private void StatsMonitor()
         {
@@ -178,7 +175,6 @@ namespace RequestifyTF2GUIRedone
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
             foreach (var com in Instance.Commands.GetCommands())
                 CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
-        
         }
 
         private void PluginsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -261,23 +257,9 @@ namespace RequestifyTF2GUIRedone
             Instance.Config.IgnoredReversed = false;
         }
 
-        public class PluginItem
-        {
-            public string PluginName { get; set; }
-            public IRequestifyPlugin Plugin { get; set; }
-            public Brush Color { get; set; }
-        }
-
-        public class CommandItem
-        {
-            public string CommandName { get; set; }
-            public IRequestifyCommand Command { get; set; }
-            public Brush Color { get; set; }
-        }
-
         private void GameBrowser_click(object sender, RoutedEventArgs e)
         {
-            var a  = new Games();
+            var a = new Games();
             a.DataContext = this;
             a.Show();
         }
@@ -292,6 +274,20 @@ namespace RequestifyTF2GUIRedone
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        public class PluginItem
+        {
+            public string PluginName { get; set; }
+            public IRequestifyPlugin Plugin { get; set; }
+            public Brush Color { get; set; }
+        }
+
+        public class CommandItem
+        {
+            public string CommandName { get; set; }
+            public IRequestifyCommand Command { get; set; }
+            public Brush Color { get; set; }
         }
     }
 }

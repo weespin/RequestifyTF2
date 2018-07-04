@@ -1,29 +1,21 @@
-﻿using RequestifyTF2.Managers;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using ConsoleRedirection;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using Ookii.Dialogs;
+using RequestifyTF2;
+using RequestifyTF2.Api;
+using RequestifyTF2.Managers;
+using RequestifyTF2Forms.Config;
+using RequestifyTF2GUI.Properties;
 
 namespace RequestifyTF2Forms
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Threading;
-    using System.Windows.Forms;
-
-    using ConsoleRedirection;
-
-    using MaterialSkin;
-    using MaterialSkin.Controls;
-
-    using Ookii.Dialogs;
-
-    using RequestifyTF2;
-    using RequestifyTF2.Api;
-
-    using RequestifyTF2Forms.Config;
-
-    using RequestifyTF2GUI.Properties;
-
     public partial class Main : MaterialForm
     {
         public static bool ConsoleShowed;
@@ -40,7 +32,7 @@ namespace RequestifyTF2Forms
 
         public Main()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -52,40 +44,37 @@ namespace RequestifyTF2Forms
                 Accent.LightBlue200,
                 TextShade.WHITE);
             instance = this;
-            this.Icon = Resources.Icon;
-            this._plugins = new Dictionary<string, PluginManager.Plugin>();
+            Icon = Resources.Icon;
+            _plugins = new Dictionary<string, PluginManager.Plugin>();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/"))
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
 
-            this.MaximizeBox = false;
-            this.field_ignored.Enter += this.lbx_IgnoreList_Enter;
-          Instance.Plugins.loadPlugins(
-                    Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
+            MaximizeBox = false;
+            field_ignored.Enter += lbx_IgnoreList_Enter;
+            Instance.Plugins.loadPlugins(
+                Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
             var plugins = Instance.Plugins.GetPlugins();
             foreach (var item in plugins)
-            {
-              //  Instance.ActivePlugins.Add(item);
-                this._plugins.Add(item.plugin.Name, item);
+                //  Instance.ActivePlugins.Add(item);
+                _plugins.Add(item.plugin.Name, item);
 
-                // PluginsList.Items.Add(item.Name, true);
-            }
+            // PluginsList.Items.Add(item.Name, true);
 
-            this.seedListView(plugins);
-            this.FormClosing += this.Main_Closing;
+            seedListView(plugins);
+            FormClosing += Main_Closing;
             AppConfig.Load();
-            this.materialSingleLineTextField1.Text = Instance.Config.Admin;
-          
+            materialSingleLineTextField1.Text = Instance.Config.Admin;
         }
 
         private void btn_add_Click(object sender, EventArgs e)
         {
-            var toignorenick = this.field_ignored.Text;
+            var toignorenick = field_ignored.Text;
 
             if (toignorenick == string.Empty || Instance.Config.Ignored.Contains(toignorenick)) return;
 
-            var namencommand = new[] { toignorenick };
+            var namencommand = new[] {toignorenick};
             var items = new ListViewItem(namencommand);
-            this.list_ignored.Items.Add(items);
+            list_ignored.Items.Add(items);
             Instance.Config.Ignored.Add(toignorenick);
         }
 
@@ -93,25 +82,25 @@ namespace RequestifyTF2Forms
         {
             if (!ConsoleShowed)
             {
-                this.cs.Show();
+                cs.Show();
                 ConsoleShowed = true;
             }
             else
             {
-                this.cs.Hide();
+                cs.Hide();
                 ConsoleShowed = false;
             }
         }
 
         private void btn_remove_Click(object sender, EventArgs e)
         {
-            if (this.list_ignored.SelectedItems.Count == 0) return;
-            var selected = this.list_ignored.SelectedItems[0];
+            if (list_ignored.SelectedItems.Count == 0) return;
+            var selected = list_ignored.SelectedItems[0];
 
             if (selected != null)
             {
                 Instance.Config.Ignored.Remove(selected.ToString());
-                this.list_ignored.Items.Remove(selected);
+                list_ignored.Items.Remove(selected);
             }
         }
 
@@ -132,7 +121,7 @@ namespace RequestifyTF2Forms
                     if (dirs.Any(n => n.Contains("cfg")))
                     {
                         AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
-                        this.txtbx_GamePath.Text = "Current game path: " + s.SelectedPath;
+                        txtbx_GamePath.Text = "Current game path: " + s.SelectedPath;
                         AppConfig.Save();
                     }
                     else
@@ -147,15 +136,9 @@ namespace RequestifyTF2Forms
                                 var pal = dirz;
                                 var z = pal.Remove(0, dir.Length);
 
-                                if (z.Contains("cfg"))
-                                {
-                                    cfg = true;
-                                }
+                                if (z.Contains("cfg")) cfg = true;
 
-                                if (z.Contains("bin"))
-                                {
-                                    bin = true;
-                                }
+                                if (z.Contains("bin")) bin = true;
 
                                 if (bin && cfg)
                                 {
@@ -164,7 +147,7 @@ namespace RequestifyTF2Forms
                                         $"Game path was automatically corrected from \n{s.SelectedPath}\nto\n{dir}",
                                         "Done",
                                         RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
-                                    this.txtbx_GamePath.Text = "Current game path: " + dir;
+                                    txtbx_GamePath.Text = "Current game path: " + dir;
                                     AppConfig.Save();
                                     return;
                                 }
@@ -192,28 +175,27 @@ namespace RequestifyTF2Forms
                 return;
             }
 
-            if (!this._started)
+            if (!_started)
             {
                 Runner.Start();
-                this._started = true;
+                _started = true;
 
-                var s = this._plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.plugin.Name);
+                var s = _plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.plugin.Name);
                 btn_start.Text = "Started";
-                
             }
 
-            this.btn_start.Enabled = false;
-            this.materialLabel5.Text = "Status: Working";
+            btn_start.Enabled = false;
+            materialLabel5.Text = "Status: Working";
         }
 
         private void chkbox_onlywithcode_CheckedChanged(object sender, EventArgs e)
         {
-         //   Instance.Config.OnlyWithCode = this.chkbox_onlywithcode.Checked;
+            //   Instance.Config.OnlyWithCode = this.chkbox_onlywithcode.Checked;
         }
 
         private void lbx_IgnoreList_Enter(object sender, EventArgs e)
         {
-            if (this.field_ignored.Text == "Enter Name") this.field_ignored.Text = string.Empty;
+            if (field_ignored.Text == "Enter Name") field_ignored.Text = string.Empty;
         }
 
         private void list_plugins_DoubleClick(object sender, EventArgs e)
@@ -244,16 +226,16 @@ namespace RequestifyTF2Forms
 
         private void list_plugins_MouseClick(object sender, MouseEventArgs e)
         {
-            MouseEventArgs me = e;
+            var me = e;
             if ((me.Button & MouseButtons.Right) != 0)
             {
                 var msgbox = new MessageBox();
-                if (this.list_plugins.SelectedItems[0].SubItems[0].Text != string.Empty
-                    || this.list_plugins.SelectedItems.Count != 0)
+                if (list_plugins.SelectedItems[0].SubItems[0].Text != string.Empty
+                    || list_plugins.SelectedItems.Count != 0)
                 {
-                    msgbox.MessageText = this._plugins[this.list_plugins.SelectedItems[0].SubItems[0].Text].plugin.Desc;
+                    msgbox.MessageText = _plugins[list_plugins.SelectedItems[0].SubItems[0].Text].plugin.Desc;
 
-                    msgbox.Text = this.list_plugins.SelectedItems[0].SubItems[0].Text;
+                    msgbox.Text = list_plugins.SelectedItems[0].SubItems[0].Text;
                     msgbox.Show();
                 }
 
@@ -271,18 +253,18 @@ namespace RequestifyTF2Forms
 
         private void Main_Load(object sender, EventArgs e)
         {
-            this.txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
+            txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
 
             // Instantiate the writer
-            this._writer = new TextBoxStreamWriter(this.cs.txt_console);
+            _writer = new TextBoxStreamWriter(cs.txt_console);
 
             // Redirect the out Console stream
-            System.Console.SetOut(this._writer);
+            System.Console.SetOut(_writer);
         }
 
         private void materialCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Instance.Config.IgnoredReversed = this.chkbox_reverse.Checked;
+            Instance.Config.IgnoredReversed = chkbox_reverse.Checked;
         }
 
         private void materialLabel1_Click(object sender, EventArgs e)
@@ -292,7 +274,7 @@ namespace RequestifyTF2Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            Instance.Config.Admin = AppConfig.CurrentConfig.Admin = this.materialSingleLineTextField1.Text;
+            Instance.Config.Admin = AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
             AppConfig.Save();
         }
 
@@ -309,9 +291,9 @@ namespace RequestifyTF2Forms
             // Define
             foreach (var item in plugins)
             {
-                var namencommand = new[] { item.plugin.Name, item.plugin.Desc, item.plugin.Author, "True" };
+                var namencommand = new[] {item.plugin.Name, item.plugin.Desc, item.plugin.Author, "True"};
                 var items = new ListViewItem(namencommand);
-                this.list_plugins.Items.Add(items);
+                list_plugins.Items.Add(items);
             }
 
             /*  foreach (var in data)
@@ -323,19 +305,16 @@ namespace RequestifyTF2Forms
 
         private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
         {
-            Instance.isMuted = this.materialCheckBox1.Checked;
+            Instance.isMuted = materialCheckBox1.Checked;
         }
 
         private void materialTabSelector1_Click(object sender, EventArgs e)
         {
-
         }
     }
 
     public static class ThreadHelperClass
     {
-        private delegate void SetTextCallback(Form f, Control ctrl, string text);
-
         /// <summary>
         ///     Set text property of various controls
         /// </summary>
@@ -364,5 +343,7 @@ namespace RequestifyTF2Forms
                 ctrl.Text = text;
             }
         }
+
+        private delegate void SetTextCallback(Form f, Control ctrl, string text);
     }
 }

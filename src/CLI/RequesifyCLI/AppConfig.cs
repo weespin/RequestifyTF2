@@ -1,12 +1,10 @@
-﻿namespace RequesifyCLI
+﻿using System;
+using System.IO;
+using Newtonsoft.Json;
+using RequestifyTF2.Api;
+
+namespace RequesifyCLI
 {
-    using System;
-    using System.IO;
-
-    using Newtonsoft.Json;
-
-    using RequestifyTF2.Api;
-
     internal static class AppConfig
     {
         public static ConfigJsonData CurrentConfig = new ConfigJsonData();
@@ -14,7 +12,7 @@
         public static void Load()
         {
             var emptyjson = JsonConvert.SerializeObject(
-                new ConfigJsonData { GameDirectory = string.Empty,  Admin = "null" });
+                new ConfigJsonData {GameDirectory = string.Empty, Admin = "null"});
             if (Directory.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/"))
             {
                 if (File.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json"))

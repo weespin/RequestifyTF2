@@ -15,33 +15,26 @@ namespace RequestifyTF2.Utils
             {
                 return a;
             }
-            else
+
+            foreach (var dir in dirs)
             {
-                foreach (var dir in dirs)
+                var cdir = Directory.GetDirectories(dir);
+                var bin = false;
+                var cfg = false;
+                foreach (var dirz in cdir)
                 {
-                    var cdir = Directory.GetDirectories(dir);
-                    var bin = false;
-                    var cfg = false;
-                    foreach (var dirz in cdir)
-                    {
-                        var pal = dirz;
-                        var z = pal.Remove(0, dir.Length);
+                    var pal = dirz;
+                    var z = pal.Remove(0, dir.Length);
 
-                        if (z.Contains("cfg")) cfg = true;
+                    if (z.Contains("cfg")) cfg = true;
 
-                        if (z.Contains("bin")) bin = true;
+                    if (z.Contains("bin")) bin = true;
 
-                        if (bin && cfg)
-                        {
-                            return dir;
-
-
-                        }
-                    }
+                    if (bin && cfg) return dir;
                 }
-
-                return "";
             }
+
+            return "";
         }
 
         public static void PatchAutoExec()
@@ -58,20 +51,16 @@ namespace RequestifyTF2.Utils
                 var flag2 = false;
                 var lines = File.ReadAllLines(Instance.Config.GameDir + "/cfg/autoexec.cfg");
                 foreach (var line in lines)
-                {
                     if (line.Contains("con_logfile \"console.log\""))
                     {
                         flag1 = true;
                         break;
                     }
-                }
 
                 if (!flag1)
-                {
                     File.AppendAllText(
                         Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "con_logfile \"console.log\"");
-                }
 
                 foreach (var line in lines)
                     if (line.Contains("bind KP_PGUP \"exec requestify\""))
@@ -81,11 +70,9 @@ namespace RequestifyTF2.Utils
                     }
 
                 if (!flag2)
-                {
                     File.AppendAllText(
                         Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "bind KP_PGUP \"exec requestify\"");
-                }
             }
             else
             {

@@ -5,16 +5,6 @@ using RequestifyTF2.Api;
 
 internal static class AppConfig
 {
-
-    internal class ConfigJsonData
-    {
-        [JsonProperty("Admin")] public string Admin { get; set; }
-
-        [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
-
-
-    }
-
     public static ConfigJsonData CurrentConfig = new ConfigJsonData();
 
     public static void Load()
@@ -56,5 +46,12 @@ internal static class AppConfig
         var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
         CurrentConfig.Admin = Instance.Config.Admin;
         File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json", currentconfig);
+    }
+
+    internal class ConfigJsonData
+    {
+        [JsonProperty("Admin")] public string Admin { get; set; }
+
+        [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
     }
 }

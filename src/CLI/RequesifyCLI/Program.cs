@@ -1,25 +1,22 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using RequestifyTF2;
+using RequestifyTF2.Api;
 using RequestifyTF2.Managers;
 
 namespace RequesifyCLI
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-
-    using RequestifyTF2;
-    using RequestifyTF2.Api;
-
     internal class Program
     {
         private static bool started;
- 
+
         public static List<PluginManager.Plugin> GetAllPlugins()
         {
             var Plugins = new List<PluginManager.Plugin>();
             foreach (var pl in Instance.Plugins.GetPlugins()) Plugins.Add(pl);
- 
+
             Plugins.Sort((a, b) => string.Compare(a.plugin.Name, b.plugin.Name, StringComparison.Ordinal));
             return Plugins;
         }
@@ -49,7 +46,6 @@ namespace RequesifyCLI
 
             Instance.Plugins.loadPlugins(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
 
-        
 
             AppConfig.Load();
             GetHelp();
@@ -61,21 +57,14 @@ namespace RequesifyCLI
                 if (key.StartsWith("reverse"))
                 {
                     if (!Instance.Config.IgnoredReversed)
-                    {
                         Logger.Write(Logger.Status.Info, "WhiteList activated");
-                    }
                     else
-                    {
                         Logger.Write(Logger.Status.Info, "BlackList activated");
-                    }
 
                     Instance.Config.IgnoredReversed = !Instance.Config.IgnoredReversed;
                 }
 
-                if (key.StartsWith("help"))
-                {
-                    GetHelp();
-                }
+                if (key.StartsWith("help")) GetHelp();
 
                 if (key.StartsWith("dir") && key.Split(null).Length > 1) SetDirectory(key.Replace("dir", null));
                 if (key.StartsWith("admin") && key.Split(null).Length > 1)
@@ -85,7 +74,7 @@ namespace RequesifyCLI
                     AppConfig.Save();
                 }
 
-            
+
                 if (key.StartsWith("blacklist")) PrintBlackList();
                 if (key.StartsWith("remove"))
                     if (key.Split(null).Length > 1)
@@ -122,10 +111,7 @@ namespace RequesifyCLI
                     PrintBlackList();
                 }
 
-                if (key.StartsWith("list"))
-                {
-                   PrintPlugins();
-                }
+                if (key.StartsWith("list")) PrintPlugins();
 
                 if (key.StartsWith("mute"))
                 {
@@ -153,17 +139,13 @@ namespace RequesifyCLI
                                 var plz = allplg[i];
                                 if (plz == null) continue;
 
-                                var pl = Instance.Plugins.GetPlugins().FirstOrDefault(n => n==plz);
+                                var pl = Instance.Plugins.GetPlugins().FirstOrDefault(n => n == plz);
                                 if (pl != null)
                                 {
                                     if (pl.Status == PluginManager.Status.Enabled)
-                                    {
                                         Instance.Plugins.DisablePlugin(pl);
-                                    }
                                     else
-                                    {
                                         Instance.Plugins.EnablePlugin(pl);
-                                    }
                                 }
                             }
                             else
@@ -212,20 +194,20 @@ namespace RequesifyCLI
             Logger.Write(Logger.Status.Info, "===================BLACKLIST END===================");
         }
 
-       private static void PrintPlugins()
+        private static void PrintPlugins()
         {
-          var i = 0;
+            var i = 0;
             var Plugins = GetAllPlugins();
-           Logger.Write(Logger.Status.Info, "===================PLUGINS===================");
-          foreach (var pl in Plugins)
-          {
-               if (pl.Status==PluginManager.Status.Disabled) Console.ForegroundColor = ConsoleColor.Red;
+            Logger.Write(Logger.Status.Info, "===================PLUGINS===================");
+            foreach (var pl in Plugins)
+            {
+                if (pl.Status == PluginManager.Status.Disabled) Console.ForegroundColor = ConsoleColor.Red;
 
-              if (pl.Status == PluginManager.Status.Enabled) Console.ForegroundColor = ConsoleColor.Green;
+                if (pl.Status == PluginManager.Status.Enabled) Console.ForegroundColor = ConsoleColor.Green;
 
-              Console.WriteLine($"{{{i}}} {pl.plugin.Name} {pl.plugin.Name}  by {pl.plugin.Author}");
+                Console.WriteLine($"{{{i}}} {pl.plugin.Name} {pl.plugin.Name}  by {pl.plugin.Author}");
                 i++;
-           }
+            }
 
             Console.ForegroundColor = ConsoleColor.Gray;
             Logger.Write(Logger.Status.Info, "===================PLUGINS END===================");
@@ -253,15 +235,9 @@ namespace RequesifyCLI
                         var pal = dirz;
                         var z = pal.Remove(0, dir.Length);
 
-                        if (z.Contains("cfg"))
-                        {
-                            cfg = true;
-                        }
+                        if (z.Contains("cfg")) cfg = true;
 
-                        if (z.Contains("bin"))
-                        {
-                            bin = true;
-                        }
+                        if (z.Contains("bin")) bin = true;
 
                         if (bin && cfg)
                         {

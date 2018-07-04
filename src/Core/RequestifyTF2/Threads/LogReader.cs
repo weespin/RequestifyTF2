@@ -1,27 +1,16 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using RequestifyTF2.Api;
+using RequestifyTF2.Commands;
 using RequestifyTF2.Utils;
 
 namespace RequestifyTF2
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Threading;
-
-    using RequestifyTF2.Api;
-    using RequestifyTF2.Commands;
-
     public class ReaderThread
     {
-        public static Regex CommandRegex = new Regex(@"^(.+) : (.+)$");
-
-        public static Regex ConnectRegex = new Regex(@"^(.+)(connected)$");
-
-        public static Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
-
-        public static Regex SuicideRegex = new Regex(@"^(.+) (suicided)\.$");
-
         public enum Result
         {
             CommandExecute,
@@ -39,15 +28,22 @@ namespace RequestifyTF2
             KillCrit
         }
 
+        public static Regex CommandRegex = new Regex(@"^(.+) : (.+)$");
+
+        public static Regex ConnectRegex = new Regex(@"^(.+)(connected)$");
+
+        public static Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
+
+        public static Regex SuicideRegex = new Regex(@"^(.+) (suicided)\.$");
+
         public static void Read()
         {
-           
             var wh = new AutoResetEvent(false);
             var fsw = new FileSystemWatcher(".")
-                          {
-                              Filter = Instance.Config.GameDir + "/console.log",
-                              EnableRaisingEvents = true
-                          };
+            {
+                Filter = Instance.Config.GameDir + "/console.log",
+                EnableRaisingEvents = true
+            };
             fsw.Changed += (s, e) => wh.Set();
             if (!File.Exists(Instance.Config.GameDir + "/console.log"))
                 File.Create(Instance.Config.GameDir + "/console.log");
@@ -65,23 +61,25 @@ namespace RequestifyTF2
                     s = sr.ReadLine();
                     if (!string.IsNullOrEmpty(s))
                     {
-                        Encoding utf8 = Encoding.GetEncoding("UTF-8");
-                        Encoding win1251 = Encoding.GetEncoding("Windows-1251");
+                        var utf8 = Encoding.GetEncoding("UTF-8");
+                        var win1251 = Encoding.GetEncoding("Windows-1251");
 
-                        byte[] utf8Bytes = win1251.GetBytes(s);
-                        byte[] win1251Bytes = Encoding.Convert(utf8, win1251, utf8Bytes);
+                        var utf8Bytes = win1251.GetBytes(s);
+                        var win1251Bytes = Encoding.Convert(utf8, win1251, utf8Bytes);
                         s = win1251.GetString(win1251Bytes);
                         TextChecker(s);
                     }
                     else
+                    {
                         wh.WaitOne(25);
+                    }
                 }
             }
         }
 
         public static void Starter()
         {
-            var thread = new Thread(Read) { IsBackground = true };
+            var thread = new Thread(Read) {IsBackground = true};
             thread.Start();
             Logger.Write(Logger.Status.Info, "Started LogReader Thread!");
         }
@@ -95,24 +93,16 @@ namespace RequestifyTF2
                 var arguments = new List<string>();
                 var split = reg.Groups[2].Value.Trim(null).Split(null);
                 if (split.Length > 0)
-                {
                     if (split[0].StartsWith("!"))
                     {
                         if (split.Length > 1)
-                        {
-                            for (int i = 1; i < split.Length; i++)
-                            {
+                            for (var i = 1; i < split.Length; i++)
                                 arguments.Add(split[i]);
-                            }
-                        }
 
                         Executer.Execute(name, split[0], arguments);
                         Statisctics.CommandsParsed++;
                         return Result.CommandExecute;
                     }
-                }
-
-                
             }
 
             if (KillRegex.Match(s).Success)
@@ -126,43 +116,27 @@ namespace RequestifyTF2
                 {
                     // THIS IS NOT A CRIT
                     if (killer == Instance.Config.Admin)
-                    {
                         Statisctics.YourKills++;
-                    }
                     else
-                    {
                         Statisctics.GameKills++;
-                    }
 
                     if (killed == Instance.Config.Admin)
-                    {
                         Statisctics.YourDeaths++;
-                    }
                     else
-                    {
                         Statisctics.Deaths++;
-                    }
                     Events.PlayerKill.Invoke(killer, killed, weapon);
                     return Result.Kill;
                 }
-                if (killer == Instance.Config.Admin)
-                {
-                    Statisctics.YourCritsKill++;
-                }
-                else
-                {
 
+                if (killer == Instance.Config.Admin)
+                    Statisctics.YourCritsKill++;
+                else
                     Statisctics.CritsKill++;
-                }
 
                 if (killed == Instance.Config.Admin)
-                {
                     Statisctics.YourDeaths++;
-                }
                 else
-                {
                     Statisctics.Deaths++;
-                }
                 Events.PlayerKill.Invoke(killer, killed, weapon, true);
                 return Result.KillCrit;
             }
@@ -179,13 +153,9 @@ namespace RequestifyTF2
             {
                 var reg = SuicideRegex.Match(s);
                 if (reg.Groups[1].Value == Instance.Config.Admin)
-                {
                     Statisctics.YourSuicides++;
-                }
                 else
-                {
                     Statisctics.Suicides++;
-                }
 
                 Events.PlayerSuicide.Invoke(reg.Groups[1].Value);
                 return Result.Suicide;

@@ -1,7 +1,7 @@
-﻿namespace RequestifyTF2.Api
-{
-    using System;
+﻿using System;
 
+namespace RequestifyTF2.Api
+{
     public class Events
     {
         public delegate void PlayerChatHandler(PlayerChatArgs e);
@@ -35,8 +35,8 @@
             // Constructor. 
             public PlayerChatArgs(string caller, string text)
             {
-                this.User = caller;
-                this.Chat = text;
+                User = caller;
+                Chat = text;
             }
 
             public string Chat { get; set; } = string.Empty;
@@ -66,7 +66,7 @@
             // Constructor. 
             public PlayerConnectArgs(string nickname)
             {
-                this.NickName = nickname;
+                NickName = nickname;
             }
 
             // Properties. 
@@ -94,10 +94,10 @@
             // Constructor. 
             public PlayerKillArgs(string killer, string killed, string weapon, bool crit = false)
             {
-                this.Killer = killer;
-                this.Crit = crit;
-                this.Weapon = weapon;
-                this.Killed = killed;
+                Killer = killer;
+                Crit = crit;
+                Weapon = weapon;
+                Killed = killed;
             }
 
             public bool Crit { get; set; }
@@ -131,7 +131,7 @@
             // Constructor. 
             public PlayerSuicideArgs(string nickname)
             {
-                this.NickName = nickname;
+                NickName = nickname;
             }
 
             // Properties. 
@@ -159,7 +159,7 @@
             // Constructor. 
             public UndefinedMessageArgs(string message)
             {
-                this.Message = message;
+                Message = message;
             }
 
             // Properties. 

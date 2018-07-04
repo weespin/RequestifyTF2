@@ -1,11 +1,20 @@
-﻿namespace RequestifyTF2.Tests
+﻿using NUnit.Framework;
+
+namespace RequestifyTF2.Tests
 
 {
-    using NUnit.Framework;
-
     [TestFixture]
     public static class RequestifyTest
     {
+        public static void TestKill()
+        {
+            var sut = ReaderThread.TextChecker("BoyPussi killed dat boi 28 with sniperrifle. (crit)");
+            Assert.That(sut, Is.EqualTo(ReaderThread.Result.KillCrit));
+            sut = ReaderThread.TextChecker(
+                "DllMain | aimware killed One-Man Cheeseburger Apocalypse with tf_projectile_rocket.");
+            Assert.That(sut, Is.EqualTo(ReaderThread.Result.Kill));
+        }
+
         [Test]
         public static void TestCommandExecute()
         {
@@ -19,15 +28,6 @@
         {
             var sut = ReaderThread.TextChecker("DllMain | aimware connected");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.Connected));
-        }
-
-        public static void TestKill()
-        {
-            var sut = ReaderThread.TextChecker("BoyPussi killed dat boi 28 with sniperrifle. (crit)");
-            Assert.That(sut, Is.EqualTo(ReaderThread.Result.KillCrit));
-           sut = ReaderThread.TextChecker(
-                "DllMain | aimware killed One-Man Cheeseburger Apocalypse with tf_projectile_rocket.");
-            Assert.That(sut, Is.EqualTo(ReaderThread.Result.Kill));
         }
 
         [Test]

@@ -25,11 +25,10 @@ namespace RequestPlugin
 
     public class VoteCommand : IRequestifyCommand
     {
+        private readonly List<string> VoteUsers = new List<string>();
         private long MusicId;
 
         private int PlayersCount;
-
-        private readonly List<string> VoteUsers = new List<string>();
 
 
         public string Help => "Vote for skip!";
@@ -91,7 +90,8 @@ namespace RequestPlugin
         {
             using (var web = new WebClient())
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
+                                                       SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
                 // I want to check libs
                 if (!File.Exists("./lib/YoutubeExplode.dll"))
                 {
@@ -235,10 +235,10 @@ namespace RequestPlugin
                     {
                         var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                         var client = new YoutubeClient();
-                       var vids= client.SearchVideosAsync(text).Result;
+                        var vids = client.SearchVideosAsync(text).Result;
                         if (vids.Count > 0)
                         {
-                           var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);
+                            var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);
                             var streamInfo =
                                 streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
                             if (streamInfo == null) return;
@@ -246,9 +246,9 @@ namespace RequestPlugin
                             var ext = streamInfo.Url;
                             var title = client.GetVideoAsync(vids[0].Id).Result.Title;
                             ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
-                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
+                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),
+                                executor));
                         }
-                        
                     }
                 }
             }

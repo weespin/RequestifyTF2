@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
-
 using RequestifyTF2.Api;
 
 public class Logger
 {
-    private static string _mExePath = string.Empty;
-
     public enum Status
     {
         Code,
@@ -17,6 +14,8 @@ public class Logger
 
         STATUS
     }
+
+    private static string _mExePath = string.Empty;
 
     public static void Log(IRequestifyPlugin plugin, string message)
     {
@@ -59,15 +58,12 @@ public class Logger
 
     private static void LogWrite(string logMessage)
     {
-       // Console.WriteLine(logMessage);
-        if (_mExePath == string.Empty)
-        {
-            _mExePath = AppDomain.CurrentDomain.BaseDirectory;
-        }
+        // Console.WriteLine(logMessage);
+        if (_mExePath == string.Empty) _mExePath = AppDomain.CurrentDomain.BaseDirectory;
 
         try
         {
-            using (StreamWriter w = File.AppendText(_mExePath + "\\" + "log.txt"))
+            using (var w = File.AppendText(_mExePath + "\\" + "log.txt"))
             {
                 Log(logMessage, w);
             }

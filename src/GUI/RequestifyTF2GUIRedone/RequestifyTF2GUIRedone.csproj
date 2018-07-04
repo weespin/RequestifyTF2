@@ -149,7 +149,7 @@
     <Resource Include="icons8-multiply-50.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\RequestifyTF2\RequestifyTF2.csproj">
+    <ProjectReference Include="..\..\Core\RequestifyTF2\RequestifyTF2.csproj">
       <Project>{6a852064-d79a-457e-adc8-f6a3d34e51e2}</Project>
       <Name>RequestifyTF2</Name>
     </ProjectReference>

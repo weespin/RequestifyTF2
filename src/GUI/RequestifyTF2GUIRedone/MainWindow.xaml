@@ -163,7 +163,10 @@
                                Width="522" Grid.ColumnSpan="2" Height="88" ScrollViewer.CanContentScroll="True" />
                     <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
                            Margin="20,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-                    <TextBox Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="77,269,0,0" TextWrapping="Wrap" Text="Copy here your steam name" VerticalAlignment="Top" Width="200" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#B2000000"/>
+                    <TextBox Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Left"
+                             Height="23" Margin="77,269,0,0" TextWrapping="Wrap" Text="Copy here your steam name"
+                             VerticalAlignment="Top" Width="200" Background="{x:Null}" BorderBrush="{x:Null}"
+                             Foreground="#B2000000" />
 
                 </Grid>
             </TabItem>
@@ -230,7 +233,8 @@
                         <RowDefinition Height="3*" />
                         <RowDefinition Height="92*" />
                     </Grid.RowDefinitions>
-                    <Button  BorderBrush="{x:Null}" Content="Manually Select Game Path" HorizontalAlignment="Left" Margin="305,121,0,0" Grid.Row="1"
+                    <Button BorderBrush="{x:Null}" Content="Manually Select Game Path" HorizontalAlignment="Left"
+                            Margin="305,121,0,0" Grid.Row="1"
                             VerticalAlignment="Top" Width="207" Click="Button_Click_1" />
                     <Label x:Name="GamePath" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1"
                            VerticalAlignment="Top" Width="543" Height="37" />
@@ -292,9 +296,11 @@
                            VerticalAlignment="Top" RenderTransformOrigin="1.111,-1.677" />
                     <Label Content="0" Name="TotalSuicides" HorizontalAlignment="Left" Margin="400,337,0,0"
                            Grid.Row="1" VerticalAlignment="Top" />
-                    <Button  BorderBrush="{x:Null}" Click="GameBrowser_click" Content="Select Game from Game Browser" HorizontalAlignment="Left" Margin="10,121,0,0" Grid.Row="1" VerticalAlignment="Top" Width="230"/>
+                    <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="Select Game from Game Browser"
+                            HorizontalAlignment="Left" Margin="10,121,0,0" Grid.Row="1" VerticalAlignment="Top"
+                            Width="230" />
                     <Label Content="TF2 only" HorizontalAlignment="Left" Margin="490,395,0,0" Grid.Row="1"
-                        VerticalAlignment="Top" Width="73" Foreground="#99000000" RenderTransformOrigin="0.74,3.871" />
+                           VerticalAlignment="Top" Width="73" Foreground="#99000000" RenderTransformOrigin="0.74,3.871" />
                 </Grid>
             </TabItem>
             <TabItem Header="Ignore List" BorderBrush="{x:Null}" Foreground="Black" Background="White"
@@ -307,9 +313,11 @@
                              VerticalAlignment="Top" Width="191" />
                     <TextBox Name="IgnoreBox" HorizontalAlignment="Left" Height="23" Margin="206,10,0,0"
                              TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="120" />
-                    <Button   BorderBrush="{x:Null}" Content="Add" Click="IgnoreListButtonAdd_OnClick" HorizontalAlignment="Left"
+                    <Button BorderBrush="{x:Null}" Content="Add" Click="IgnoreListButtonAdd_OnClick"
+                            HorizontalAlignment="Left"
                             Margin="206,38,0,0" VerticalAlignment="Top" Width="120" />
-                    <Button  BorderBrush="{x:Null}" Content="Remove" Click="IgnoreListButtonRemove_OnClick" HorizontalAlignment="Left"
+                    <Button BorderBrush="{x:Null}" Content="Remove" Click="IgnoreListButtonRemove_OnClick"
+                            HorizontalAlignment="Left"
                             Margin="206,93,0,0" VerticalAlignment="Top" Width="120" />
                     <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
                               Name="RemoveCheckBox" Content="Reversed" HorizontalAlignment="Left" Margin="206,68,0,0"
