@@ -129,7 +129,7 @@ namespace RequestifyTF2.Api
                 return false;
             }
 
-            return true;
+          
         }
 
 
