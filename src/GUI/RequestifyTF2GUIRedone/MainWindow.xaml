@@ -11,7 +11,7 @@
     WindowStyle="None"
     ResizeMode="NoResize"
     AllowsTransparency="True"
-    Title="MainWindow" Height="480" Width="660">
+    Title="RequestifyTF2" Height="480" Width="660">
     <Window.Resources>
         <Style x:Key="FadeLeftRightLabel" TargetType="{x:Type Label}">
             <Setter Property="Template">
