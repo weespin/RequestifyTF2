@@ -38,21 +38,37 @@ I have released some plugins but i don't want to include them into default versi
 # Updating
 If new version was released, just replace RequestifyTF2GUI.exe with new file, and remove plugins!
 # Screenshots
-![Plugins](http://i.imgur.com/ccoM7Dy.png)
+![Main](https://i.imgur.com/8KAvnT2.png)
+![Plugins](https://i.imgur.com/OruxLSR.png)
+![Settings](https://i.imgur.com/EyIFyG7.png)
+![IgnoreList](https://i.imgur.com/JBDOQ77.png)
+![GameBrowser](https://i.imgur.com/eqnrbj8.png)
+# Screenshots (Old WinForms)
 
-![Ignore List](http://i.imgur.com/T2cVaVE.png)
+![OldPlugins](http://i.imgur.com/ccoM7Dy.png)
 
-![Settings + Console](http://i.imgur.com/zv2sd03.png)
-# Old Screenshots
-![Old](http://i.imgur.com/J2XXlDS.png)
+![OldIgnore List](http://i.imgur.com/T2cVaVE.png)
 
-![Old1](http://i.imgur.com/Xx9lJph.png)
+![OldSettings + Console](http://i.imgur.com/zv2sd03.png)
+# Oldest Screenshots
+![OldestScreenshot1](http://i.imgur.com/J2XXlDS.png)
+
+![OldestScreenshot2](http://i.imgur.com/Xx9lJph.png)
 
 # Dowload
 [Releases](https://github.com/weespin/RequestifyTF2/releases)!
 (Download RequestifyTF2GUI.exe)
 ## Bleeding Edge files
 [Download](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts)
+# New Version
+I know, im bad at design but UI Framework from WinForms (MaterialUI) was too complex.
+I made a new WPF version which includes 🥁:
+ 1. Game Browser! No need to Manually Select Path!
+ 2. AutoDevicePicker! No need to Manually select Virtual Device!
+ 3. Disabling commands! Yeah! Now you can disable commands instad of full Plugins!
+ 4. Statistics! Yeeaah, but TF2 only :(
+ 5. ConsoleSender is better now. ConsoleSender is now clearing himself :)
+ 6. And.. The project is alive for 2 fkng years! 
 # About Valve Anti-Cheat (VAC)
 ## This programm is not a hack, not a cheat, not modifying game files, not injecting into game processes, not reading and writing into games memory.
 My programm is 100% VAC secure, its not even reading game memory!
