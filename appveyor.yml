@@ -15,5 +15,7 @@ artifacts:
     name: oof
   - path: src\CLI\RequesifyCLI\bin\Debug\RequesifyCLI.exe
     name: cli
+  - path: src\GUI\RequestifyTF2GUIRedone\bin\Debug\RequestifyTF2GUIRedone.exe
+    name: gui2
 
 

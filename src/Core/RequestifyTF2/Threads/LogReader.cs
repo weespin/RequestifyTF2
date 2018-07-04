@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -48,11 +49,14 @@ namespace RequestifyTF2
             if (!File.Exists(Instance.Config.GameDir + "/console.log"))
                 File.Create(Instance.Config.GameDir + "/console.log");
             Thread.Sleep(30);
+
+
             var fs = new FileStream(
                 Instance.Config.GameDir + "/console.log",
                 FileMode.Open,
                 FileAccess.Read,
                 FileShare.ReadWrite);
+           
             using (var sr = new StreamReader(fs, Encoding.GetEncoding("Windows-1251")))
             {
                 var s = string.Empty;
@@ -75,6 +79,7 @@ namespace RequestifyTF2
                     }
                 }
             }
+           
         }
 
         public static void Starter()

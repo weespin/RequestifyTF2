@@ -215,6 +215,11 @@ namespace RequesifyCLI
 
         private static void SetDirectory(string v)
         {
+            if (!Directory.Exists(v))
+            {
+                Logger.Write(Logger.Status.Error,"This is not a directory");
+                return;
+            }
             var dirs = Directory.GetDirectories(v);
 
             if (dirs.Any(n => n.Contains("cfg")))
