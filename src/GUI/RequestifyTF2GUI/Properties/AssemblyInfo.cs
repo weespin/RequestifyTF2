@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RequestifyTF2")]
-[assembly: AssemblyDescription("What are you doing there?")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RequestifyTF2")]
-[assembly: AssemblyCopyright("Copyright © Weespin 2017")]
+[assembly: AssemblyCopyright("Copyright © Weespin 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 // Setting ComVisible to false makes the types in this assembly not visible 
