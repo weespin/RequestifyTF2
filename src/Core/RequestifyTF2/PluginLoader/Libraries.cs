@@ -12,16 +12,20 @@ namespace RequestifyTF2.PluginLoader
 
             var dllFileNames = Directory.GetFiles(path, "*.dll");
             foreach (var assembly in dllFileNames)
+            {
                 try
                 {
                     var proxy = new Proxy();
                     var assemblyz = proxy.GetAssembly(assembly);
                     Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
+
+
                 }
                 catch (Exception e)
                 {
                     Logger.Write(Logger.Status.Error, e.ToString());
                 }
+            }
         }
 
         public static void LoadFile(string path)

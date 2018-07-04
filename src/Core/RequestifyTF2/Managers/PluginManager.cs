@@ -43,8 +43,9 @@ namespace RequestifyTF2.Managers
                     var name = AssemblyName.GetAssemblyName(file.FullName);
                     dict.Add(name.FullName, file.FullName);
                 }
-                catch
+                catch (Exception e)
                 {
+                    Logger.Write(Logger.Status.Error,e.ToString());
                 }
 
             return dict;
@@ -122,9 +123,9 @@ namespace RequestifyTF2.Managers
         {
             Libraries.Load(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
             var libraries = FindAllPlugins(path);
-            if (libraries.Count == 0) return;
+           
 
-            foreach (var pair in FindAllPlugins(path))
+            foreach (var pair in libraries)
                 if (!libraries.ContainsKey(pair.Key))
                     libraries.Add(pair.Key, pair.Value);
 
