@@ -85,7 +85,7 @@ namespace RequesifyCLI
                     AppConfig.Save();
                 }
 
-                if (key.StartsWith("code")) Console.WriteLine(Instance.Config.Chiper);
+            
                 if (key.StartsWith("blacklist")) PrintBlackList();
                 if (key.StartsWith("remove"))
                     if (key.Split(null).Length > 1)

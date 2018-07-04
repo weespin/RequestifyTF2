@@ -12,7 +12,8 @@ namespace RequestifyTF2.Managers
 
     public class CommandManager
     {
-       public List<RequestifyCommand> RegisteredCommand = new List<RequestifyCommand>();
+
+      private List<RequestifyCommand> Commands = new List<RequestifyCommand>();
 
         public CommandManager()
         {
@@ -24,29 +25,34 @@ namespace RequestifyTF2.Managers
 
 
                     var NewCommand = new RequestifyCommand(Plugin,
-                        Activator.CreateInstance(type) as IRequestifyCommand);
-                    if (RegisteredCommand.Count(n => n.Name == NewCommand.Name) == 0)
+                        Activator.CreateInstance(type) as IRequestifyCommand,Status.Enabled);
+                    if (Commands.Count(n => n.Name == NewCommand.Name) == 0)
                     {
-                        RegisteredCommand.Add(new RequestifyCommand(Plugin,
-                            Activator.CreateInstance(type) as IRequestifyCommand));
+                        Commands.Add(new RequestifyCommand(Plugin,
+                            Activator.CreateInstance(type) as IRequestifyCommand,Status.Enabled));
                     }
 
                 }
             }
         }
 
-
+        public enum Status
+        {
+            Enabled,
+            Disabled
+        }
         public class RequestifyCommand : IRequestifyCommand
         {
+            
             public IRequestifyCommand ICommand;
-
-            public RequestifyCommand(Assembly father, IRequestifyCommand command)
+            public RequestifyCommand(Assembly father, IRequestifyCommand command,Status status)
             {
                 Father = father;
                 ICommand = command;
-             
+                Status = status;
             }
 
+            public Status Status;
             public Assembly Father;
 
             public void Execute(string executor, List<string> arguments)
@@ -110,6 +116,34 @@ namespace RequestifyTF2.Managers
 
             return allTypes;
         }
+        public void DisableCommand(RequestifyCommand command)
+        {
+            command.Status =CommandManager.Status.Disabled;
+        }
 
+        public void EnableCommand(RequestifyCommand command)
+        {
+            command.Status = CommandManager.Status.Disabled;
+        }
+        public List<RequestifyCommand> GetCommands()
+        {
+            return Commands;
+        }
+        public RequestifyCommand GetCommand(string name)
+        {
+            foreach (var p in Commands)
+            {
+                if (p.Name==name||p.Alias.Contains(name))
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+        public RequestifyCommand GetCommand(RequestifyCommand command)
+        {
+            return GetCommands().FirstOrDefault(n => n.Name == command.Name && n.Alias == command.Alias);
+          
+        }
     }
 }

@@ -74,18 +74,7 @@ namespace RequestifyTF2Forms
             this.FormClosing += this.Main_Closing;
             AppConfig.Load();
             this.materialSingleLineTextField1.Text = Instance.Config.Admin;
-            new Thread(
-                () =>
-                    {
-                        Thread.CurrentThread.IsBackground = true;
-
-                        while (true)
-                        {
-                            Thread.Sleep(2000);
-
-                            ThreadHelperClass.SetText(this, this.lbl_code, "Code: " + Instance.Config.Chiper);
-                        }
-                    }).Start();
+          
         }
 
         private void btn_add_Click(object sender, EventArgs e)
@@ -335,6 +324,11 @@ namespace RequestifyTF2Forms
         private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
         {
             Instance.isMuted = this.materialCheckBox1.Checked;
+        }
+
+        private void materialTabSelector1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

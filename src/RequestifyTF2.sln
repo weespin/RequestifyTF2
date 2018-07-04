@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicRequestPlugin", "Plugins\RequestPlugin\MusicRequestPlugin.csproj", "{AE92C1CB-BD89-4A2C-8650-FF70F08D9794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleTTSPlugin", "Plugins\TTSPlugin\GoogleTTSPlugin.csproj", "{5C383BCB-52E5-4D6F-BB86-A8BEB86F43AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTSPlugin", "Plugins\TTSPlugin\TTSPlugin.csproj", "{5C383BCB-52E5-4D6F-BB86-A8BEB86F43AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{051B47FE-0BE7-49B7-8478-AE221DA531D3}"
 EndProject

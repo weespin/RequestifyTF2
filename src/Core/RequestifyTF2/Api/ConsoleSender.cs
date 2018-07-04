@@ -27,7 +27,6 @@
                     {
                         text = "say " + cmnd;
                     }
-
                     break;
                 case Command.Echo:
                     text = "echo " + cmnd;

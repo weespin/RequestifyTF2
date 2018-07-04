@@ -12,7 +12,6 @@ using Newtonsoft.Json;
 using RequestifyTF2.Api;
 using RequestifyTF2.PluginLoader;
 using YoutubeExplode;
-using YoutubeExplode.Models;
 using YoutubeExplode.Models.MediaStreams;
 
 namespace RequestPlugin

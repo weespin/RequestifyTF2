@@ -1,4 +1,5 @@
 ﻿using RequestifyTF2.Managers;
+using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Commands
 {
@@ -14,7 +15,7 @@ namespace RequestifyTF2.Commands
         public static void Execute(string caller, string command, List<string> arguments)
         {
             CommandManager.RequestifyCommand calledcommand = null;
-            foreach (var n in Instance.Commands.RegisteredCommand)
+            foreach (var n in Instance.Commands.GetCommands())
             {
                 if (command=="!"+n.Name)
                 {
@@ -45,7 +46,7 @@ namespace RequestifyTF2.Commands
             }
             else
             {
-                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled)
+                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled||calledcommand.Status==CommandManager.Status.Disabled)
                 {
                     return;
                 }
@@ -69,6 +70,7 @@ namespace RequestifyTF2.Commands
                     }
                     else
                     {
+                        Statisctics.IgnoreListStopped++;
                         Logger.Write(Logger.Status.Info, $"{caller} was blacklisted to execute {command}");
                     }
                 }
@@ -93,6 +95,7 @@ namespace RequestifyTF2.Commands
                     }
                     else
                     {
+                        Statisctics.IgnoreListStopped++;
                         Logger.Write(Logger.Status.Info, $"{caller} was blacklisted to execute {command}");
                     }
                 }

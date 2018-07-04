@@ -1,4 +1,7 @@
-﻿namespace RequestifyTF2
+﻿using System.Windows.Forms;
+using RequestifyTF2.Utils;
+
+namespace RequestifyTF2
 {
     using System.Collections.Generic;
     using System.IO;
@@ -38,6 +41,7 @@
 
         public static void Read()
         {
+           
             var wh = new AutoResetEvent(false);
             var fsw = new FileSystemWatcher(".")
                           {
@@ -103,6 +107,7 @@
                         }
 
                         Executer.Execute(name, split[0], arguments);
+                        Statisctics.CommandsParsed++;
                         return Result.CommandExecute;
                     }
                 }
@@ -120,16 +125,51 @@
                 if (!crit)
                 {
                     // THIS IS NOT A CRIT
+                    if (killer == Instance.Config.Admin)
+                    {
+                        Statisctics.YourKills++;
+                    }
+                    else
+                    {
+                        Statisctics.GameKills++;
+                    }
+
+                    if (killed == Instance.Config.Admin)
+                    {
+                        Statisctics.YourDeaths++;
+                    }
+                    else
+                    {
+                        Statisctics.Deaths++;
+                    }
                     Events.PlayerKill.Invoke(killer, killed, weapon);
                     return Result.Kill;
                 }
+                if (killer == Instance.Config.Admin)
+                {
+                    Statisctics.YourCritsKill++;
+                }
+                else
+                {
 
+                    Statisctics.CritsKill++;
+                }
+
+                if (killed == Instance.Config.Admin)
+                {
+                    Statisctics.YourDeaths++;
+                }
+                else
+                {
+                    Statisctics.Deaths++;
+                }
                 Events.PlayerKill.Invoke(killer, killed, weapon, true);
                 return Result.KillCrit;
             }
 
             if (ConnectRegex.Match(s).Success && !s.Contains(":"))
             {
+                Statisctics.ConnectedPlayers++;
                 var reg = ConnectRegex.Match(s);
                 Events.PlayerConnect.Invoke(reg.Groups[1].Value);
                 return Result.Connected;
@@ -138,11 +178,21 @@
             if (SuicideRegex.Match(s).Success && !s.Contains(":"))
             {
                 var reg = SuicideRegex.Match(s);
+                if (reg.Groups[1].Value == Instance.Config.Admin)
+                {
+                    Statisctics.YourSuicides++;
+                }
+                else
+                {
+                    Statisctics.Suicides++;
+                }
+
                 Events.PlayerSuicide.Invoke(reg.Groups[1].Value);
                 return Result.Suicide;
             }
 
             Events.UndefinedMessage.Invoke(s);
+            Statisctics.LinesParsed++;
             return Result.Undefined;
         }
     }

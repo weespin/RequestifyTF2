@@ -14,6 +14,16 @@ namespace RequestifyTF2.Managers
 {
     public class PluginManager
     {
+        public PluginManager()
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "/plugins/"))
+                Directory.CreateDirectory(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "/plugins/");
+
+
+            //          this.field_ignored.Enter += this.lbx_IgnoreList_Enter;
+            loadPlugins(
+                Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
+        }
         public enum Status
         {
             Enabled,

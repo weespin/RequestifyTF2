@@ -8,22 +8,27 @@
 
     public static class Runner
     {
-        public static void Start()
+        public static bool Start()
         {
             if (Instance.Config.GameDir == string.Empty)
             {
                 Logger.Write(Logger.Status.Error, "Please set the game directory");
 
-                return;
+                return false;
             }
+            if (!Directory.Exists(Instance.Config.GameDir))
+            {
+                Logger.Write(Logger.Status.Error, "Can't find directory " + Instance.Config.GameDir);
 
+                return false;
+            }
             if (!Instance.Load())
             {
                 Logger.Write(
                     Logger.Status.Error,
                     "Errors found. Please fix errors before using this program.",
                     ConsoleColor.Red);
-                return;
+                return false;
             }
 
             if (File.Exists(Instance.Config.GameDir + "/console.log"))
@@ -38,13 +43,14 @@
                         Logger.Status.Error,
                         "Can't remove lines from console.log. The game is probably running. Please close the game before starting this program",
                         ConsoleColor.Red);
-
+                    return false;
                     // return;
                 }
             }
 
             PlayerThread.Starter();
             ReaderThread.Starter();
+            return true;
         }
     }
 }

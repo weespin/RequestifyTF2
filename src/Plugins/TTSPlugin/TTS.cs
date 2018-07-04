@@ -18,7 +18,7 @@ namespace TTSPlugin
     public class TTSPlugin : IRequestifyPlugin
     {
         public string Author => "Weespin";
-        public string Name => "Google TTS";
+        public string Name => "TTS";
         public string Desc => "tts \"text\"";
     }
     public class MttsPlugin : IRequestifyCommand
