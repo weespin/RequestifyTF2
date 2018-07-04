@@ -30,8 +30,9 @@ namespace RequestifyTF2GUIRedone
             new Thread(StatsMonitor).Start();
             AppConfig.Load();
             this.GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
-            this.AdminName.Content = AppConfig.CurrentConfig.Admin;
-        }
+            this.AdminBox.Text = AppConfig.CurrentConfig.Admin;
+           
+        } 
 
         private void StatsMonitor()
         {
@@ -102,6 +103,8 @@ namespace RequestifyTF2GUIRedone
             _started = Runner.Start();
             if (_started)
             {
+                var id = Instance.SoundOutBackground.Device.DeviceID;
+                //AudioDefaultSwitcherWrapper.AudioController.SwitchTo("{0.0.1.00000000}.{359646ab-53ff-4f79-904f-40dae5b51b6b}", DeviceRole.All);
                 StartButton.Content = "Stop";
                 StatusLabel.Content = "Status: Working";
             }
@@ -171,15 +174,11 @@ namespace RequestifyTF2GUIRedone
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
             if (plugins.Count == 0) Logger.Write(Logger.Status.Error, "I can't find any plugins");
-
             foreach (var item in plugins)
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
-
             foreach (var com in Instance.Commands.GetCommands())
                 CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
-            var a = Instance.Commands.GetCommands();
-            AppConfig.Load();
-            AdminName.Content = "Admin: " + Instance.Config.Admin;
+        
         }
 
         private void PluginsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -290,5 +289,9 @@ namespace RequestifyTF2GUIRedone
             AppConfig.Save();
         }
 
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }

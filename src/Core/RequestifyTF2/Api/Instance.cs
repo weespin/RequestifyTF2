@@ -17,12 +17,12 @@ namespace RequestifyTF2.Api
 
     public static class Instance
     {
-       
-
+        
+      
         /// <summary>
         ///     Stores all Windows audio devices.
         /// </summary>
-        public static List<MMDevice> Devices = new List<MMDevice>();
+      
 
         public static bool isMuted = false;
 
@@ -44,55 +44,113 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static WasapiOut SoundOutForeground = new WasapiOut();
 
+       public static DeviceConnector deviceConnector = new DeviceConnector();
         /// <summary>
         ///     Patching autoexec.cfg, setting audio devices
         /// </summary>
         public static bool Load()
         {
-           
-            using (var deviceEnumerator = new MMDeviceEnumerator())
-            {
-                using (var deviceCollection = deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
-                {
-                    foreach (var device in deviceCollection)
-                    {
-                        Devices.Add(device);
-                    }
-                }
-            }
-            Commands = new CommandManager();
             Logger.Write(Logger.Status.Info, "Patching autoexec.cfg");
             Patcher.PatchAutoExec();
-            Logger.Write(Logger.Status.Info, "Searching for usable devices...");
-            MMDevice used = null;
-            foreach (var n in Devices)
-            {
-                if (n.FriendlyName.Contains("Cable") && n.FriendlyName.Contains("Virtual")
-                                                     && n.FriendlyName.Contains("Audio"))
-                {
-                    used = n;
-                    break;
-                }
-            }
-
-            if (used == null)
-            {
-                Logger.Write(
-                    Logger.Status.Error,
-                    "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
-                    ConsoleColor.Red);
-                return false;
-            }
-
-            Logger.Write(Logger.Status.Info, $"Requestify will use {used.FriendlyName}!");
-            Logger.Write(
-                Logger.Status.Info,
-                $"Please set {used.FriendlyName} as default and communication default device in Windows Audio devices -> Recording tab!");
-            SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = used;
-
             return true;
         }
 
+        public class DeviceConnector
+        {
+
+            public List<MMDevice> GoodInputDevices = new List<MMDevice>();
+            public List<MMDevice> GoodOutputDevices = new List<MMDevice>();
+
+            public DeviceConnector()
+            {
+                Console.WriteLine("Ha");
+                Logger.Write(Logger.Status.Info, "Searching for usable devices...");
+
+                using (var deviceEnumerator = new MMDeviceEnumerator())
+                {
+                    using (var deviceoutCollection =
+                        deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
+                    {
+                        foreach (var device in deviceoutCollection)
+                            if (device.FriendlyName.Contains("Cable") && device.FriendlyName.Contains("Virtual")
+                                                                      && device.FriendlyName.Contains("Audio"))
+                                GoodOutputDevices.Add(device);
+                        using (var deviceinpCollection =
+                            deviceEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
+                        {
+                            foreach (var device in deviceinpCollection) GoodInputDevices.Add(device);
+                        }
+                    }
+
+                    if (GoodOutputDevices.Count == 0 || GoodInputDevices.Count == 0)
+                    {
+                        Logger.Write(
+                            Logger.Status.Error,
+                            "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
+                            ConsoleColor.Red);
+                        return;
+                    }
+
+                    if (GoodOutputDevices.Count(n => n.FriendlyName.Contains("VB-Audio")) != 0 &&
+                        GoodInputDevices.Count(n => n.FriendlyName.Contains("VB-Audio")) != 0)
+                    {
+                        var outp = GoodOutputDevices.FirstOrDefault(n => n.FriendlyName.Contains("VB-Audio"));
+                        var inp = GoodInputDevices.FirstOrDefault(n => n.FriendlyName.Contains("VB-Audio"));
+                        try
+                        {
+                            AudioDeviceChanger.SetDefaultInputDevice(inp.DeviceID);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Write(
+                                Logger.Status.Error,
+                                $"Error while setting {inp.FriendlyName} as default input device\n{e}");
+                        }
+
+                        SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
+                        Logger.Write(
+                            Logger.Status.STATUS,
+                            $"Used {outp.FriendlyName} as output device and {inp.FriendlyName} as input device");
+                        return;
+                    }
+
+                    if (GoodOutputDevices.Count(n => n.FriendlyName.Contains("Virtual Audio Cable")) != 0 &&
+                        GoodInputDevices.Count(n => n.FriendlyName.Contains("Virtual Audio Cable")) != 0)
+                    {
+                        var outp = GoodOutputDevices.FirstOrDefault(n =>
+                            n.FriendlyName.Contains("Virtual Audio Cable"));
+                        var inp = GoodInputDevices.FirstOrDefault(n => n.FriendlyName.Contains("Virtual Audio Cable"));
+                        try
+                        {
+                            AudioDeviceChanger.SetDefaultInputDevice(inp.DeviceID);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Write(
+                                Logger.Status.Error,
+                                $"Error while setting {inp.FriendlyName} as default input device\n{e}");
+                        }
+
+                        SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
+                        Logger.Write(
+                            Logger.Status.STATUS,
+                            $"Used {outp.FriendlyName} as output device and {inp.FriendlyName} as input device",
+                            ConsoleColor.Red);
+                        return;
+                    }
+
+                    Logger.Write(
+                        Logger.Status.Error,
+                        "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
+                        ConsoleColor.Red);
+                }
+            }
+        }
+
+        public static string GetDeviceName()
+        {
+            return Instance.SoundOutBackground.Device.DeviceID;
+        }
         public static class BackGroundQueue
         {
             public static ConcurrentQueue<Song> PlayList = new ConcurrentQueue<Song>();
