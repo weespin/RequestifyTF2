@@ -34,7 +34,9 @@ namespace RequestifyTF2.Commands
             {
                 var argstostring = string.Empty;
                 if (arguments.Count > 0)
-                    argstostring = string.Join(" ", argstostring.ToArray());
+                {
+                    argstostring = string.Join(" ", arguments.ToArray());
+                }
                 Events.PlayerChat.Invoke(caller, command + " " + argstostring);
             }
             else

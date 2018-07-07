@@ -192,9 +192,7 @@ namespace RequestifyTF2
             {
                 ret.Tag |= Tag.Team;
                 
-
             }
-
             ret.Name = s.Replace(Localization.Localization.TF_CHAT_TEAM, "")
                 .Replace(Localization.Localization.TF_CHAT_DEAD, "");
             return ret;

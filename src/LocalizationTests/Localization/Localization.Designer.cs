@@ -70,6 +70,15 @@ namespace LocalizationTests.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на (Spectator).
+        /// </summary>
+        internal static string TF_CHAT_SPECTATOR {
+            get {
+                return ResourceManager.GetString("TF_CHAT_SPECTATOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на (TEAM).
         /// </summary>
         internal static string TF_CHAT_TEAM {
