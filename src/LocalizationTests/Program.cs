@@ -13,6 +13,7 @@ namespace LocalizationTests
     {
         static void Main(string[] args)
         {
+            var ab = Encoding.Default;
             Read();
             var a = File.ReadAllLines(@"C:\Program Files (x86)\Steam\steamapps\common\Team Fortress 2\tf\console.log");
             foreach (var line in a)
