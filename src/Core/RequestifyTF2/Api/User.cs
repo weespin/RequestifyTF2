@@ -5,14 +5,15 @@ namespace RequestifyTF2.Api
     [Flags]
     public enum Tag
     {
-        Undefined = 1,
-        Spectator = 2,
-        Team = 4,
-        Dead = 8
+        None = 0,
+        Spectator = 1 << 0,
+        Team = 1 << 1,
+        Dead = 1 << 2
     }
+
     public class User
     {
-        public Tag Tag = Tag.Undefined;
         public string Name = "";
+        public Tag Tag = Tag.None;
     }
 }
