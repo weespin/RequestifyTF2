@@ -7,15 +7,15 @@ artifacts:
     name: forms
   - path: src\Plugins\RequestPlugin\bin\x64\Debug\RequestPlugin.dll
     name: reqmusic
-  - path: src\Plugins\TTSPlugin\bin\Debug\x64\TTSPlugin.dll
+  - path: src\Plugins\TTSPlugin\bin\x64\Debug\TTSPlugin.dll
     name: tts
-  - path: src\Core\RequestifyTF2\bin\Debug\x64\RequestifyTF2.dll
+  - path: src\Core\RequestifyTF2\bin\x64\Debug\RequestifyTF2.dll
     name: core
-  - path: src\Plugins\OofPlugin\bin\Debug\x64\OofPlugin.dll
+  - path: src\Plugins\OofPlugin\bin\x64\Debug\OofPlugin.dll
     name: oof
-  - path: src\CLI\RequesifyCLI\bin\Debug\x64\RequesifyCLI.exe
+  - path: src\CLI\RequesifyCLI\bin\x64\Debug\RequesifyCLI.exe
     name: cli
-  - path: src\GUI\RequestifyTF2GUIRedone\bin\Debug\x64\RequestifyTF2GUIRedone.exe
+  - path: src\GUI\RequestifyTF2GUIRedone\bin\x64\Debug\RequestifyTF2GUIRedone.exe
     name: gui2
 
 
