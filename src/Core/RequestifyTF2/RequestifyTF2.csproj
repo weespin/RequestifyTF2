@@ -101,6 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Events.cs" />
+    <Compile Include="Localization\Localization.uk.Designer.cs">
+      <DependentUpon>Localization.uk.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Localization\Localization.zh.Designer.cs">
       <DependentUpon>Localization.zh.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -108,11 +113,6 @@
     </Compile>
     <Compile Include="Localization\Localization.zh-CN.Designer.cs">
       <DependentUpon>Localization.zh-CN.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Localization\Localization.uk.Designer.cs">
-      <DependentUpon>Localization.uk.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -253,6 +253,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Localization\Localization.uk.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Localization.uk.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\Localization.zh.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.zh.Designer.cs</LastGenOutput>
@@ -260,10 +264,6 @@
     <EmbeddedResource Include="Localization\Localization.zh-CN.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Localization.zh-CN.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Localization\Localization.uk.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Localization.uk.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\Localization.th.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TF_CHAT_DEAD" xml:space="preserve">
-    <value>*МЕРТВИЙ*</value>
+    <value>*DOOD*</value>
   </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
-    <value>(КОМАНДІ)</value>
+    <value>(TEAM)</value>
   </data>
 </root>

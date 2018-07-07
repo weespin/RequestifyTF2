@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OofPlugin", "Plugins\OofPlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2GUIRedone", "GUI\RequestifyTF2GUIRedone\RequestifyTF2GUIRedone.csproj", "{A46E8893-2DB7-4680-8204-8E31A15F7A66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalizationTests", "LocalizationTests\LocalizationTests.csproj", "{71B5DD81-57AA-4FAC-B872-E414879BBB40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,6 +136,18 @@ Global
 		{A46E8893-2DB7-4680-8204-8E31A15F7A66}.Release|x64.Build.0 = Release|x64
 		{A46E8893-2DB7-4680-8204-8E31A15F7A66}.Release|x86.ActiveCfg = Release|Any CPU
 		{A46E8893-2DB7-4680-8204-8E31A15F7A66}.Release|x86.Build.0 = Release|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Debug|x64.Build.0 = Debug|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Debug|x86.Build.0 = Debug|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Release|x64.ActiveCfg = Release|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Release|x64.Build.0 = Release|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Release|x86.ActiveCfg = Release|Any CPU
+		{71B5DD81-57AA-4FAC-B872-E414879BBB40}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
