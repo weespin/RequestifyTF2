@@ -305,13 +305,13 @@ namespace RequestifyTF2.Api
 
         public class Song
         {
-            public string RequestedBy;
+            public User RequestedBy;
 
             public IWaveSource Source;
 
             public string Title;
 
-            public Song(string title, IWaveSource source, string executor)
+            public Song(string title, IWaveSource source, User executor)
             {
                 Title = title;
                 Source = source;

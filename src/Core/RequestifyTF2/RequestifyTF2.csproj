@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Events.cs" />
+    <Compile Include="Api\User.cs" />
     <Compile Include="Localization\Localization.uk.Designer.cs">
       <DependentUpon>Localization.uk.resx</DependentUpon>
       <AutoGen>True</AutoGen>

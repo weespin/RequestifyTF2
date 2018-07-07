@@ -38,7 +38,7 @@ namespace RequestPlugin
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
-        public void Execute(string executor, List<string> arguments)
+        public void Execute(User executor, List<string> arguments)
         {
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
             if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
@@ -46,7 +46,7 @@ namespace RequestPlugin
                 {
                     VoteUsers.Clear();
                     MusicId = Instance.SoundOutBackground.WaveSource.Length;
-                    VoteUsers.Add(executor);
+                    VoteUsers.Add(executor.Name);
                     ConsoleSender.SendCommand(
                         $"{executor} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
                         ConsoleSender.Command.Chat);
@@ -64,7 +64,7 @@ namespace RequestPlugin
                         ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
                     }
 
-                    if (VoteUsers.Contains(executor))
+                    if (VoteUsers.Contains(executor.Name))
                     {
                         ConsoleSender.SendCommand(
                             $"{executor} already voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
@@ -134,9 +134,9 @@ namespace RequestPlugin
 
             public bool OnlyAdmin => true;
 
-            public void Execute(string executor, List<string> arguments)
+            public void Execute(User executor, List<string> arguments)
             {
-                if (executor != Instance.Config.Admin) return;
+                if (executor.Name != Instance.Config.Admin) return;
 
                 if (arguments[0] == "cur")
                 {
@@ -169,7 +169,7 @@ namespace RequestPlugin
 
             public bool OnlyAdmin => false;
 
-            public void Execute(string executor, List<string> arguments)
+            public void Execute(User executor, List<string> arguments)
             {
                 if (arguments.Count <= 0) return;
 

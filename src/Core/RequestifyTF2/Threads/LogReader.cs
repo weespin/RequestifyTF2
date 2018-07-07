@@ -12,6 +12,7 @@ namespace RequestifyTF2
 {
     public class ReaderThread
     {
+       
         public enum Result
         {
             CommandExecute,
@@ -36,7 +37,7 @@ namespace RequestifyTF2
         public static Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
 
         public static Regex SuicideRegex = new Regex(@"^(.+) (suicided)\.$");
-
+ 
         public static void Read()
         {
             var wh = new AutoResetEvent(false);
@@ -94,20 +95,34 @@ namespace RequestifyTF2
             if (CommandRegex.Match(s).Success && s.Split(null).Length > 3)
             {
                 var reg = CommandRegex.Match(s);
-                var name = reg.Groups[1].Value;
+              
                 var arguments = new List<string>();
                 var split = reg.Groups[2].Value.Trim(null).Split(null);
+
+
+
                 if (split.Length > 0)
+                {
                     if (split[0].StartsWith("!"))
                     {
                         if (split.Length > 1)
                             for (var i = 1; i < split.Length; i++)
                                 arguments.Add(split[i]);
 
-                        Executer.Execute(name, split[0], arguments);
+                        Executer.Execute(ProcessUser(reg.Groups[1].Value), split[0], arguments);
                         Statisctics.CommandsParsed++;
                         return Result.CommandExecute;
                     }
+                    else
+                    {
+                    
+                        
+                        Events.PlayerChat.Invoke(ProcessUser(reg.Groups[1].Value), reg.Groups[2].Value.Trim(null));
+                        return Result.Chatted;
+                    }
+                }
+
+
             }
 
             if (KillRegex.Match(s).Success)
@@ -169,6 +184,25 @@ namespace RequestifyTF2
             Events.UndefinedMessage.Invoke(s);
             Statisctics.LinesParsed++;
             return Result.Undefined;
+        }
+
+        public static User ProcessUser(string s)
+        {
+            var ret = new User();
+            if (s.Contains(Localization.Localization.TF_CHAT_DEAD))
+            {
+                ret.Dead = true;
+            }
+
+            if (s.Contains(Localization.Localization.TF_CHAT_TEAM))
+            {
+                ret.Tag = Tag.Team;
+            }
+
+
+            ret.Name = s.Replace(Localization.Localization.TF_CHAT_TEAM, "")
+                .Replace(Localization.Localization.TF_CHAT_DEAD, "");
+            return ret;
         }
     }
 }

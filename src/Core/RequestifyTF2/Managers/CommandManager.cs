@@ -103,7 +103,7 @@ namespace RequestifyTF2.Managers
                 Status = status;
             }
 
-            public void Execute(string executor, List<string> arguments)
+            public void Execute(User executor, List<string> arguments)
             {
                 ICommand.Execute(executor, arguments);
             }
