@@ -40,7 +40,11 @@ namespace RequestifyTF2.Api
         //todo: make this garbage shorter
         public static ELanguage Language
         {
-            get => _language;
+            get
+            {
+                return _language;
+            }
+
             set
             {
                 switch (value)
@@ -127,7 +131,7 @@ namespace RequestifyTF2.Api
                         throw new ArgumentOutOfRangeException(nameof(value), value, null);
                 }
                 _language = value;
-            } 
+            }
         }
 
         /// <summary>
