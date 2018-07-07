@@ -11,14 +11,14 @@ namespace RequestifyTF2
         {
             if (Instance.Config.GameDir == string.Empty)
             {
-                Logger.Write(Logger.Status.Error, "Please set the game directory");
+                Logger.Write(Logger.Status.Error, Localization.Localization.CORE_SET_DIRECTORY);
 
                 return false;
             }
 
             if (!Directory.Exists(Instance.Config.GameDir))
             {
-                Logger.Write(Logger.Status.Error, "Can't find directory " + Instance.Config.GameDir);
+                Logger.Write(Logger.Status.Error, Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Instance.Config.GameDir);
 
                 return false;
             }
@@ -27,7 +27,7 @@ namespace RequestifyTF2
             {
                 Logger.Write(
                     Logger.Status.Error,
-                    "Errors found. Please fix errors before using this program.",
+                    Localization.Localization.CORE_ERRORS_FOUND_CLOSE_PROGRAM,
                     ConsoleColor.Red);
                 return false;
             }
@@ -41,7 +41,7 @@ namespace RequestifyTF2
                 {
                     Logger.Write(
                         Logger.Status.Error,
-                        "Can't remove lines from console.log. The game is probably running. Please close the game before starting this program",
+                        Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
                         ConsoleColor.Red);
                     return false;
                     // return;

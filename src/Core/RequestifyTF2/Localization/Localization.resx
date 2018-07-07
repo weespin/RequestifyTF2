@@ -126,4 +126,72 @@
   <data name="TF_CHAT_TEAM" xml:space="preserve">
     <value>(TEAM)</value>
   </data>
+  <data name="CORE_PATCHING_AUTOEXEC" xml:space="preserve">
+    <value>Patching autoexec.cfg</value>
+  </data>
+  <data name="CORE_SEARCHING_FOR_DEVICES" xml:space="preserve">
+    <value>Searching for usable devices...</value>
+  </data>
+  <data name="CORE_CANNOT_FIND_DEVICES" xml:space="preserve">
+    <value>Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled in device manager!</value>
+  </data>
+  <data name="CORE_ERROR_WHILE_SETTING_INPUT" xml:space="preserve">
+    <value>Error while setting {0} as default input device
+{1}</value>
+  </data>
+  <data name="CORE_USED_DEVICES" xml:space="preserve">
+    <value>Used {0} as output device and {1} as input device</value>
+  </data>
+  <data name="CORE_EXECUTED_COMMAND" xml:space="preserve">
+    <value>{0} executed {1}</value>
+  </data>
+  <data name="CORE_USER_BLACKLISTED_FOR_EXECUTING" xml:space="preserve">
+    <value>{0} was blacklisted to execute {1}</value>
+  </data>
+  <data name="CORE_USER_INVOKED" xml:space="preserve">
+    <value>{0} invoked {1}</value>
+  </data>
+  <data name="CORE_PLUGIN_LOADING_FROM" xml:space="preserve">
+    <value>Loading {0} from {1}</value>
+  </data>
+  <data name="CORE_INVALID_PLUGIN_MORE_THAN_ONE_INTERFACE" xml:space="preserve">
+    <value>Invalid plugin: {0}
+ Plugin has more than 1 interface</value>
+  </data>
+  <data name="CORE_INVALID_PLUGIN" xml:space="preserve">
+    <value>Invalid plugin: </value>
+  </data>
+  <data name="CORE_CANT_LOAD_PLUGIN" xml:space="preserve">
+    <value>Cant load plugin: </value>
+  </data>
+  <data name="INVOKED_ONLOAD_METHOD" xml:space="preserve">
+    <value>Invoked {0} OnLoad method! </value>
+  </data>
+  <data name="CORE_INVOKED_ONLOAD_METHOD" xml:space="preserve">
+    <value>Invoked {0} OnLoad method! </value>
+  </data>
+  <data name="CORE_LOADED_PLUGIN" xml:space="preserve">
+    <value>Loaded {0}</value>
+  </data>
+  <data name="CORE_STARTED_LOGREADER_THREAD" xml:space="preserve">
+    <value>Started LogReader Thread!</value>
+  </data>
+  <data name="CORE_STARTED_PLAYER_THREAD" xml:space="preserve">
+    <value>Started Player Thread!</value>
+  </data>
+  <data name="CORE_PLAYING_TITLE_FROM" xml:space="preserve">
+    <value>Playing {0} from {1}</value>
+  </data>
+  <data name="CORE_SET_DIRECTORY" xml:space="preserve">
+    <value>Please set game directory</value>
+  </data>
+  <data name="CORE_ERROR_CANT_FIND_DIR" xml:space="preserve">
+    <value>Can't find directory </value>
+  </data>
+  <data name="CORE_ERRORS_FOUND_CLOSE_PROGRAM" xml:space="preserve">
+    <value>Errors found. Please fix errors before using this program.</value>
+  </data>
+  <data name="CORE_ERROR_CANT_PREPARE_CONSOLE_LOG" xml:space="preserve">
+    <value>Can't remove lines from console.log. The game is probably running. Please close the game before starting this program</value>
+  </data>
 </root>

@@ -59,12 +59,12 @@ namespace RequestifyTF2.Commands
                                     Logger.Write(Logger.Status.Error, e.ToString());
                                 }
                             });
-                        Logger.Write(Logger.Status.Info, $"{caller} executed {command}");
+                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_EXECUTED_COMMAND, caller, command));
                     }
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Write(Logger.Status.Info, $"{caller} was blacklisted to execute {command}");
+                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller, command));
                     }
                 }
                 else
@@ -83,12 +83,13 @@ namespace RequestifyTF2.Commands
                                     Logger.Write(Logger.Status.Error, e.ToString());
                                 }
                             });
-                        Logger.Write(Logger.Status.Info, $"{caller} invoked {command}");
+                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_USER_INVOKED, caller, command));
                     }
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Write(Logger.Status.Info, $"{caller} was blacklisted to execute {command}");
+                        Logger.Write(Logger.Status.Info,
+                            string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller, command));
                     }
                 }
             }

@@ -32,7 +32,7 @@ namespace RequestifyTF2
 
         public static Regex CommandRegex = new Regex(@"^(.+) : (.+)$");
 
-        public static Regex ConnectRegex = new Regex(@"^(.+)(connected)$");
+        public static Regex ConnectRegex = new Regex(@"^(.+)(connected)$"); //todo: localize this
 
         public static Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
 
@@ -81,7 +81,7 @@ namespace RequestifyTF2
         {
             var thread = new Thread(Read) {IsBackground = true};
             thread.Start();
-            Logger.Write(Logger.Status.Info, "Started LogReader Thread!");
+            Logger.Write(Logger.Status.Info, Localization.Localization.CORE_STARTED_LOGREADER_THREAD);
         }
 
         public static Result TextChecker(string s)
@@ -183,16 +183,12 @@ namespace RequestifyTF2
         public static User ProcessUser(string s)
         {
             var ret = new User();
-            if (s.Contains(Localization.Localization.TF_CHAT_DEAD))
-            {
-                ret.Tag |= Tag.Dead;
-            }
+            if (s.Contains(Localization.Localization.TF_CHAT_DEAD)) ret.Tag |= Tag.Dead;
 
-            if (s.Contains(Localization.Localization.TF_CHAT_TEAM))
-            {
-                ret.Tag |= Tag.Team;
-                
-            }
+            if (s.Contains(Localization.Localization.TF_CHAT_TEAM)) ret.Tag |= Tag.Team;
+
+            if (s.Contains(Localization.Localization.TF_CHAT_SPECTATOR)) ret.Tag |= Tag.Spectator;
+
             ret.Name = s.Replace(Localization.Localization.TF_CHAT_TEAM, "")
                 .Replace(Localization.Localization.TF_CHAT_DEAD, "");
             return ret;

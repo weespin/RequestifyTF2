@@ -17,7 +17,7 @@ namespace RequestifyTF2.PluginLoader
                 {
                     var proxy = new Proxy();
                     var assemblyz = proxy.GetAssembly(assembly);
-                    Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
+                    Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
 
 
                 }
@@ -34,7 +34,7 @@ namespace RequestifyTF2.PluginLoader
             {
                 var pd = new Proxy();
                 var assemblyz = pd.GetAssembly(path);
-                Logger.Write(Logger.Status.Info, $"Loaded {assemblyz.GetName()}");
+                Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
             }
             catch (Exception e)
             {

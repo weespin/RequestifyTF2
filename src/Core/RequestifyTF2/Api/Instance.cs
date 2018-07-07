@@ -141,9 +141,9 @@ namespace RequestifyTF2.Api
         {
             var GoodInputDevices = new List<MMDevice>();
             var GoodOutputDevices = new List<MMDevice>();
-            Logger.Write(Logger.Status.Info, "Patching autoexec.cfg");
+            Logger.Write(Logger.Status.Info, Localization.Localization.CORE_PATCHING_AUTOEXEC);
             Patcher.PatchAutoExec();
-            Logger.Write(Logger.Status.Info, "Searching for usable devices...");
+            Logger.Write(Logger.Status.Info, Localization.Localization.CORE_SEARCHING_FOR_DEVICES);
             using (var deviceEnumerator = new MMDeviceEnumerator())
             {
                 using (var deviceoutCollection =
@@ -164,7 +164,7 @@ namespace RequestifyTF2.Api
                 {
                     Logger.Write(
                         Logger.Status.Error,
-                        "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
+                        Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                         ConsoleColor.Red);
                     return false;
                 }
@@ -182,13 +182,13 @@ namespace RequestifyTF2.Api
                     {
                         Logger.Write(
                             Logger.Status.Error,
-                            $"Error while setting {inp.FriendlyName} as default input device\n{e}");
+                            string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
                     }
 
                     SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
-                        $"Used {outp.FriendlyName} as output device and {inp.FriendlyName} as input device");
+                        string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName));
                     return true;
                 }
 
@@ -206,21 +206,21 @@ namespace RequestifyTF2.Api
                     {
                         Logger.Write(
                             Logger.Status.Error,
-                            $"Error while setting {inp.FriendlyName} as default input device\n{e}");
+                            string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
                         return false;
                     }
 
                     SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
-                        $"Used {outp.FriendlyName} as output device and {inp.FriendlyName} as input device",
+                        string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName),
                         ConsoleColor.Red);
                     return true;
                 }
 
                 Logger.Write(
                     Logger.Status.Error,
-                    "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
+                    Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                     ConsoleColor.Red);
                 return false;
             }

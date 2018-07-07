@@ -14,7 +14,7 @@ namespace RequestifyTF2.Threads
             var thread = new Thread(Play) {IsBackground = true};
             thread.Start();
 
-            Logger.Write(Logger.Status.Info, "Started Player Thread!");
+            Logger.Write(Logger.Status.Info, Localization.Localization.CORE_STARTED_PLAYER_THREAD);
         }
 
         private static void Play()
@@ -42,7 +42,7 @@ namespace RequestifyTF2.Threads
                                 () =>
                                 {
                                     ConsoleSender.SendCommand(
-                                        $"Playing {s.Title} from {s.RequestedBy}",
+                                        string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title, s.RequestedBy),
                                         ConsoleSender.Command.Chat);
                                     Player(s.Source, Instance.SoundOutBackground);
                                     Instance.SoundOutBackground.Volume = 0.10f;
