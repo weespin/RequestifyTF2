@@ -18,7 +18,6 @@ namespace RequestifyTF2.Api
         public static bool isMuted = false;
 
         public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
-
         /// <summary>
         ///     Background channel. Good for long sounds and music.
         /// </summary>
@@ -131,7 +130,7 @@ namespace RequestifyTF2.Api
 
           
         }
-
+        
 
         public static string GetDeviceName()
         {
