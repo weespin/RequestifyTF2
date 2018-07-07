@@ -58,7 +58,7 @@ namespace RequestifyTF2
                 FileAccess.Read,
                 FileShare.ReadWrite);
            
-            using (var sr = new StreamReader(fs, Encoding.GetEncoding("Windows-1251")))
+            using (var sr = new StreamReader(fs, Encoding.GetEncoding("UTF-8")))
             {
                 var s = string.Empty;
                 while (true)
@@ -66,12 +66,6 @@ namespace RequestifyTF2
                     s = sr.ReadLine();
                     if (!string.IsNullOrEmpty(s))
                     {
-                        var utf8 = Encoding.GetEncoding("UTF-8");
-                        var win1251 = Encoding.GetEncoding("Windows-1251");
-
-                        var utf8Bytes = win1251.GetBytes(s);
-                        var win1251Bytes = Encoding.Convert(utf8, win1251, utf8Bytes);
-                        s = win1251.GetString(win1251Bytes);
                         TextChecker(s);
                     }
                     else
