@@ -120,6 +120,9 @@
   <data name="TF_CHAT_DEAD" xml:space="preserve">
     <value>*МЕРТВИЙ*</value>
   </data>
+  <data name="TF_CHAT_SPECTATOR" xml:space="preserve">
+    <value>(Глядач)</value>
+  </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
     <value>(КОМАНДІ)</value>
   </data>

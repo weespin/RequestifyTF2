@@ -118,9 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TF_CHAT_DEAD" xml:space="preserve">
-    <value>*TOT*</value>
+    <value>*DØD*</value>
+  </data>
+  <data name="TF_CHAT_SPECTATOR" xml:space="preserve">
+    <value>(Tilskuer)</value>
   </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
-    <value>(TEAM)</value>
+    <value>(HOLD)</value>
   </data>
 </root>

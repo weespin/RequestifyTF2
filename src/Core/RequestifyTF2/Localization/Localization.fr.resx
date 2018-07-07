@@ -120,6 +120,9 @@
   <data name="TF_CHAT_DEAD" xml:space="preserve">
     <value>*MORT*</value>
   </data>
+  <data name="TF_CHAT_SPECTATOR" xml:space="preserve">
+    <value>(Spectateur)</value>
+  </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
     <value>(ÉQUIPE)</value>
   </data>

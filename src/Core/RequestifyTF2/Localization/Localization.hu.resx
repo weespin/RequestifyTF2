@@ -120,6 +120,9 @@
   <data name="TF_CHAT_DEAD" xml:space="preserve">
     <value>*HALOTT*</value>
   </data>
+  <data name="TF_CHAT_SPECTATOR" xml:space="preserve">
+    <value>(Néző)</value>
+  </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
     <value>(CSAPAT)</value>
   </data>

@@ -120,6 +120,9 @@
   <data name="TF_CHAT_DEAD" xml:space="preserve">
     <value>*사망*</value>
   </data>
+  <data name="TF_CHAT_SPECTATOR" xml:space="preserve">
+    <value>(관전자)</value>
+  </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
     <value>(팀)</value>
   </data>

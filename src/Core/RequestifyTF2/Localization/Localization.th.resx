@@ -120,6 +120,9 @@
   <data name="TF_CHAT_DEAD" xml:space="preserve">
     <value>*ตาย*</value>
   </data>
+  <data name="TF_CHAT_SPECTATOR" xml:space="preserve">
+    <value>(ผู้สังเกตการณ์)</value>
+  </data>
   <data name="TF_CHAT_TEAM" xml:space="preserve">
     <value>(ทีม)</value>
   </data>
