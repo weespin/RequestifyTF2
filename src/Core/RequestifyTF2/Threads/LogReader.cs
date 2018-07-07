@@ -191,14 +191,15 @@ namespace RequestifyTF2
             var ret = new User();
             if (s.Contains(Localization.Localization.TF_CHAT_DEAD))
             {
-                ret.Dead = true;
+                ret.Tag |= Tag.Dead;
             }
 
             if (s.Contains(Localization.Localization.TF_CHAT_TEAM))
             {
-                ret.Tag = Tag.Team;
-            }
+                ret.Tag |= Tag.Team;
+                
 
+            }
 
             ret.Name = s.Replace(Localization.Localization.TF_CHAT_TEAM, "")
                 .Replace(Localization.Localization.TF_CHAT_DEAD, "");

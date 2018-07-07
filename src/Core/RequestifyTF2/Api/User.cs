@@ -1,15 +1,18 @@
-﻿namespace RequestifyTF2.Api
+﻿using System;
+
+namespace RequestifyTF2.Api
 {
+    [Flags]
     public enum Tag
     {
-        Spec,
-        Team,
-        Und
+        Undefined = 1,
+        Spectator = 2,
+        Team = 4,
+        Dead = 8
     }
     public class User
     {
-        public bool Dead = false;
-        public Tag Tag = Tag.Und;
+        public Tag Tag = Tag.Undefined;
         public string Name = "";
     }
 }
