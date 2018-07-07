@@ -79,7 +79,7 @@ Game is writing log from console into a file and im reading this log as text fil
 [This programm can work with AHK. But AHK is not used now.](https://gaming.stackexchange.com/a/301540)
 # Plugin Requesting
 Be free to create a issue and write idea about next plugin.
-Requestify can do something:
+Requestify can do everything:
  1. On calling command
  2. On text chatting
  3. On killing

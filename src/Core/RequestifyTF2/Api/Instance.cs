@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using CSCore;
 using CSCore.CoreAudioAPI;
@@ -47,90 +48,8 @@ namespace RequestifyTF2.Api
 
             set
             {
-                switch (value)
-                {
-                    case ELanguage.BG:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("bg");
-                        break;
-                    case ELanguage.CS:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs");
-                        break;
-                    case ELanguage.DA:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("da");
-                        break;
-                    case ELanguage.DE:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de");
-                        break;
-                    case ELanguage.EL:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("el");
-                        break;
-                    case ELanguage.ES:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("es");
-                        break;
-                    case ELanguage.FI:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fi");
-                        break;
-                    case ELanguage.FR:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr");
-                        break;
-                    case ELanguage.HU:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("hu");
-                        break;
-                    case ELanguage.IT:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("it");
-                        break;
-                    case ELanguage.JA:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ja");
-                        break;
-                    case ELanguage.KO:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ko");
-                        break;
-                    case ELanguage.NL:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("nl");
-                        break;
-                    case ELanguage.NN:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("nn");
-                        break;
-                    case ELanguage.PL:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pl");
-                        break;
-                    case ELanguage.BR:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pt-BR");
-                        break;
-                    case ELanguage.PT:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pt");
-                        break;
-                    case ELanguage.EN:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
-                        break;
-                    case ELanguage.RO:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ro");
-                        break;
-                    case ELanguage.RU:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ru");
-                        break;
-                    case ELanguage.SV:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sv");
-                        break;
-                    case ELanguage.TH:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("th");
-                        break;
-                    case ELanguage.TR:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("tr");
-                        break;
-                    case ELanguage.UK:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("uk");
-                        break;
-                    case ELanguage.TZN:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh");
-                        break;
-                    case ELanguage.SZN:
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
-                }
                 _language = value;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
             }
         }
 
@@ -228,6 +147,7 @@ namespace RequestifyTF2.Api
           
         }
 
+       
         public enum ELanguage
         {
             BG,
