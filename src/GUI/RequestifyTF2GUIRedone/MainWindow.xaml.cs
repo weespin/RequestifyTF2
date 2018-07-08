@@ -179,7 +179,7 @@ namespace RequestifyTF2GUIRedone
             _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
-            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.Resources["cs_Cant_Find_Plugins"].ToString());
+            //if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.Resources["cs_Cant_Find_Plugins"].ToString());
             foreach (var item in plugins)
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
             foreach (var com in Instance.Commands.GetCommands())
