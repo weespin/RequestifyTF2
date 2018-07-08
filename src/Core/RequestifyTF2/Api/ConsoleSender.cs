@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace RequestifyTF2.Api
                     keybd_event(0x69, 0x49, 0x2, 0);
                 });
             Thread.Sleep(100);
-            File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", "");
+            File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", string.Empty);
         }
 
         [DllImport("user32.dll")]

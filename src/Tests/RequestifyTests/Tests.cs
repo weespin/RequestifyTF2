@@ -22,6 +22,13 @@ namespace RequestifyTF2.Tests
                 "nickname test lyl:) : !request https://www.youtube.com/watch?v=DZV3Xtp-BK0");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.CommandExecute));
         }
+        [Test]
+        public static void TestChat()
+        {
+            var sut = ReaderThread.TextChecker(
+                "*DEAD* Hey : ImJust a test lul");
+            Assert.That(sut, Is.EqualTo(ReaderThread.Result.Chatted));
+        }
 
         [Test]
         public static void TestConnect()

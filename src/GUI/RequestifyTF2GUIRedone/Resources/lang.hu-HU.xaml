@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- Main window -->
+    <v:String x:Key="m_Main">Fő</v:String>
+    <v:String x:Key="m_Plugins">Dugó</v:String>
+    <v:String x:Key="m_Settings">Beállítások</v:String>
+    <v:String x:Key="m_Ignore_List">Ignore Lista</v:String>
+    <v:String x:Key="m_Console">Konzol</v:String>
+    <v:String x:Key="m_Ready">Kész</v:String>
+    <v:String x:Key="m_Start">Start</v:String>
+    <v:String x:Key="m_Welcome">Üdv RequestifyTF2, nyomja meg a Start gombot.</v:String>
+    <v:String x:Key="m_Dont_Forget">Ne felejtsd el, hogy adja meg az elérési utat a beállításokat!</v:String>
+    <v:String x:Key="m_Press_Start">Meg kell nyomni a Start indítása előtt egy játék!</v:String>
+    <v:String x:Key="m_Copy_Steam">Másolja ide a steam név</v:String>
+    <v:String x:Key="m_Admin_Name">Admin Neve:</v:String>
+    <v:String x:Key="m_Muted">Némítva</v:String>
+    <v:String x:Key="p_Commands">Parancsok</v:String>
+    <v:String x:Key="p_Plugins">Dugó</v:String>
+    <v:String x:Key="p_Tip">Tipp: Dupla Kattintás Plugin vagy Parancsok letiltja őket</v:String>
+    <v:String x:Key="s_UI_Lang">UI Nyelv</v:String>
+    <v:String x:Key="s_Core_Lang">Core (Játék) Nyelv</v:String>
+    <v:String x:Key="s_GameBrowser">Válassza ki a Játék, a Játék Böngészőben</v:String>
+    <v:String x:Key="s_ManualBrowser">Kézzel Válassza Ki A Játék Út</v:String>
+    <v:String x:Key="s_Statistics">Statisztikák:</v:String>
+    <v:String x:Key="s_Lines_Parsed">Vonalak Értelmezi:</v:String>
+    <v:String x:Key="s_Your_Deaths">A Halálesetek:</v:String>
+    <v:String x:Key="s_Commands_Parsed">Parancsok Értelmezi:</v:String>
+    <v:String x:Key="s_Game_Deaths">Játék Haláleset:</v:String>
+    <v:String x:Key="s_Game_Kills">Játék Megöl:</v:String>
+    <v:String x:Key="s_Total_Deaths">Összesen Haláleset:</v:String>
+    <v:String x:Key="s_Your_Kills">A Öli Meg:</v:String>
+    <v:String x:Key="s_Your_Suicides">Az Öngyilkosságok:</v:String>
+    <v:String x:Key="s_Total_Kills">Teljes Megöli:</v:String>
+    <v:String x:Key="s_Game_Suicides">Játék Öngyilkosságok:</v:String>
+    <v:String x:Key="s_Your_Crits_Kills">Az Ad Kritikus Találatokat Megöli:</v:String>
+    <v:String x:Key="s_Total_Suicides">Teljes Öngyilkosságok:</v:String>
+    <v:String x:Key="s_Game_Crits_Kills">A Játék Ad Kritikus Találatokat Megöli:</v:String>
+    <v:String x:Key="s_Total_Crits_Kills">Összesen Ad Kritikus Találatokat Megöli:</v:String>
+    <v:String x:Key="s_TF_Only">Csak a TF2</v:String>
+    <v:String x:Key="i_Name">Név</v:String>
+    <v:String x:Key="i_Add">Add</v:String>
+    <v:String x:Key="i_Reversed">Fordított</v:String>
+    <v:String x:Key="i_Remove">Eltávolítani</v:String>
+    <v:String x:Key="i_Attempts">Megpróbálja használni RequestifyTF2 letiltott:</v:String>
+    <v:String x:Key="cs_Error">Hiba</v:String>
+    <v:String x:Key="cs_Set_Game_Dir">Kérjük, állítsa be a játék könyvtárába</v:String>
+    <v:String x:Key="cs_Stop">Stop</v:String>
+    <v:String x:Key="cs_Status_Working">Állapot: Működő</v:String>
+    <v:String x:Key="cs_Select_Game_Path">Válassza ki a játék mappáját</v:String>
+    <v:String x:Key="cs_Current_Game_Path">Aktuális játék útvonal: </v:String>
+    <v:String x:Key="cs_Not_Source_Engine_Game">Ez nem egy Forrás Motor játék</v:String>
+    <v:String x:Key="cs_Cant_Find_Plugins">Nem találok semmilyen plugin</v:String>
+
+</ResourceDictionary>
+<!--{DynamicResource }-->

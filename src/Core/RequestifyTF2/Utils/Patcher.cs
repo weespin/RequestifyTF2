@@ -41,7 +41,7 @@ namespace RequestifyTF2.Utils
         {
             if (Instance.Config.GameDir == string.Empty || !Directory.Exists(Instance.Config.GameDir))
             {
-                Console.WriteLine("Please set game directory");
+                Console.WriteLine(Localization.Localization.CORE_SET_DIRECTORY);
                 return;
             }
 

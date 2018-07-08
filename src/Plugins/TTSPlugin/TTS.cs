@@ -28,7 +28,7 @@ namespace TTSPlugin
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
-        public void Execute(string executor, List<string> arguments)
+        public void Execute(User executor, List<string> arguments)
         {
             if (arguments.Count > 0)
             {
@@ -52,7 +52,7 @@ namespace TTSPlugin
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
-        public void Execute(string executor, List<string> arguments)
+        public void Execute(User executor, List<string> arguments)
         {
             if (arguments.Count > 0)
             {
@@ -126,7 +126,7 @@ namespace TTSPlugin
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
-        public void Execute(string executor, List<string> arguments)
+        public void Execute(User executor, List<string> arguments)
         {
             if (arguments.Count > 0)
             {

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ookii.Dialogs;
@@ -29,44 +31,257 @@ namespace RequestifyTF2GUIRedone
             AppConfig.Load();
             GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
             AdminBox.Text = AppConfig.CurrentConfig.Admin;
+            App.LanguageChanged += LanguageChanged;
+           
+         
+            CultureInfo currLang = App.Language;
+           
+            //Заполняем меню смены языка:
+            menuLanguage.Items.Clear();
+            foreach (var lang in App.Languages)
+            {
+                MenuItem menuLang = new MenuItem();
+                menuLang.Header = lang.DisplayName;
+                menuLang.Tag = lang;
+                menuLang.IsChecked = lang.Equals(currLang);
+                menuLang.Click += ChangeLanguageClick;
+                menuLanguage.Items.Add(menuLang);
+               
+            }
+            foreach (var lang in App.Languages)
+            {
+                MenuItem menuLang = new MenuItem();
+                menuLang.Header = lang.DisplayName;
+                menuLang.Tag = lang;
+                menuLang.IsChecked = lang.Equals(Instance.GetCulture);
+                menuLang.Click += ChangeCoreLanguageClick;
+                menuCoreLanguage.Items.Add(menuLang);
+            }
+
+            if (AppConfig.CurrentConfig.CoreLang == null)
+            {
+                AppConfig.CurrentConfig.CoreLang = "en";
+                AppConfig.Save();
+            }
+           currLang = new CultureInfo(AppConfig.CurrentConfig.CoreLang);
+            foreach (MenuItem i in menuCoreLanguage.Items)
+            {
+                CultureInfo ci = (CultureInfo)i.Tag;
+                i.IsChecked = ci != null && ci.Name==currLang.Name;
+            }
+
+            ChangeCoreLang(currLang);
+        }
+        private void LanguageChanged(Object sender, EventArgs e)
+        {
+            CultureInfo currLang = App.Language;
+            foreach (MenuItem i in menuLanguage.Items)
+            {
+                CultureInfo ci = i.Tag as CultureInfo;
+                i.IsChecked = ci != null && ci.Equals(currLang);
+            }
         }
 
+        private void ChangeLanguageClick(Object sender, EventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+            if (mi != null)
+            {
+                CultureInfo lang = mi.Tag as CultureInfo;
+                if (lang != null)
+                {
+                    App.Language = lang;
+                }
+            }
+
+        }
+      
+        private void ChangeCoreLanguageClick(Object sender, EventArgs e)
+        {
+            var mi = (MenuItem) sender;
+            if (mi != null)
+            {
+                return;
+            }
+            var lang = (CultureInfo) mi.Tag;
+            if (lang==null)
+            {
+                return;
+            }
+
+            ChangeCoreLang(lang);
+            foreach (MenuItem i in menuCoreLanguage.Items)
+            {
+                CultureInfo ci = (CultureInfo)i.Tag;
+                if (ci != null)
+                {
+                    if (ci.Name.Equals(lang.Name))
+                    {
+                        i.IsChecked = true;
+                    }
+                    else
+                    {
+                        i.IsChecked = false;
+                    }
+                }
+            }
+            AppConfig.CurrentConfig.CoreLang = lang.TextInfo.CultureName;
+            AppConfig.Save();
+        }
+
+        private void ChangeCoreLang(CultureInfo lang)
+        {
+            if (lang.Name.Contains("bg"))
+            {
+                Instance.Language = Instance.ELanguage.BG;
+            }
+            else if (lang.Name.Contains( "cs"))
+            {
+                Instance.Language = Instance.ELanguage.CS;
+            }
+            else if (lang.Name.Contains( "da"))
+            {
+                Instance.Language = Instance.ELanguage.DA;
+            }
+            else if (lang.Name.Contains( "de"))
+            {
+                Instance.Language = Instance.ELanguage.DE;
+            }
+            else if (lang.Name.Contains( "el"))
+            {
+                Instance.Language = Instance.ELanguage.EL;
+            }
+            else if (lang.Name.Contains( "es"))
+            {
+                Instance.Language = Instance.ELanguage.ES;
+            }
+            else if (lang.Name.Contains( "fi"))
+            {
+                Instance.Language = Instance.ELanguage.FI;
+            }
+            else if (lang.Name.Contains( "fr"))
+            {
+                Instance.Language = Instance.ELanguage.FR;
+            }
+            else if (lang.Name.Contains( "hu"))
+            {
+                Instance.Language = Instance.ELanguage.HU;
+            }
+            else if (lang.Name.Contains( "it"))
+            {
+                Instance.Language = Instance.ELanguage.IT;
+            }
+            else if (lang.Name.Contains( "ja"))
+            {
+                Instance.Language = Instance.ELanguage.JA;
+            }
+            else if (lang.Name.Contains( "ko"))
+            {
+                Instance.Language = Instance.ELanguage.KO;
+            }
+            else if (lang.Name.Contains( "nl"))
+            {
+                Instance.Language = Instance.ELanguage.NL;
+            }
+            else if (lang.Name.Contains( "nn"))
+            {
+                Instance.Language = Instance.ELanguage.NN;
+            }
+            else if (lang.Name.Contains( "pt"))
+            {
+                if (lang.Name.Contains("BR"))
+                {
+                    Instance.Language = Instance.ELanguage.BR;
+                }
+                else
+                {
+                    Instance.Language = Instance.ELanguage.PT;
+                }
+            }
+            else if (lang.Name.Contains("en"))
+            {
+                Instance.Language = Instance.ELanguage.EN;
+            }
+            else if (lang.Name.Contains("ro"))
+            {
+                Instance.Language = Instance.ELanguage.RO;
+            }
+            else if (lang.Name.Contains("ru"))
+            {
+                Instance.Language = Instance.ELanguage.RU;
+            }
+            else if (lang.Name.Contains("sv"))
+            {
+                Instance.Language = Instance.ELanguage.SV;
+            }
+            else if (lang.Name.Contains("th"))
+            {
+                Instance.Language = Instance.ELanguage.TH;
+            }
+            else if (lang.Name.Contains("tr"))
+            {
+                Instance.Language = Instance.ELanguage.TR;
+            }
+            else if (lang.Name.Contains("uk"))
+            {
+                Instance.Language = Instance.ELanguage.UK;
+            }
+            else if (lang.Name.Contains("zh"))
+            {
+                if (lang.Name.Contains("CN"))
+                {
+                    Instance.Language = Instance.ELanguage.SZN;
+                }
+                else
+                {
+                    Instance.Language = Instance.ELanguage.TZN;
+                }
+            }
+            else
+            {
+                Instance.Language = Instance.ELanguage.EN;
+            }
+        }
         private void StatsMonitor()
         {
             while (true)
             {
-                LinesParsed.Dispatcher.Invoke(() => { LinesParsed.Content = Statisctics.LinesParsed.ToString(); });
+                LinesParsed.Dispatcher.Invoke(() => { LinesParsed.Content = Application.Current.FindResource("s_Lines_Parsed").ToString()+Statisctics.LinesParsed.ToString(); });
 
                 CommandsParsed.Dispatcher.Invoke(() =>
                 {
-                    CommandsParsed.Content = Statisctics.CommandsParsed.ToString();
+                    CommandsParsed.Content = Application.Current.FindResource("s_Commands_Parsed").ToString()+Statisctics.CommandsParsed.ToString();
                 });
-                GameKills.Dispatcher.Invoke(() => { GameKills.Content = Statisctics.GameKills.ToString(); });
-                YourKills.Dispatcher.Invoke(() => { YourKills.Content = Statisctics.YourKills.ToString(); });
+                GameKills.Dispatcher.Invoke(() => { GameKills.Content = Application.Current.FindResource("s_Game_Kills").ToString()+Statisctics.GameKills.ToString(); });
+                YourKills.Dispatcher.Invoke(() => { YourKills.Content = Application.Current.FindResource("s_Your_Kills").ToString()+Statisctics.YourKills.ToString(); });
                 TotalKills.Dispatcher.Invoke(() =>
                 {
-                    TotalKills.Content = Convert.ToString(Statisctics.YourKills + Statisctics.GameKills);
+                    TotalKills.Content = Application.Current.FindResource("s_Total_Kills").ToString()+Convert.ToString(Statisctics.YourKills + Statisctics.GameKills);
                 });
                 YourCritKills.Dispatcher.Invoke(() =>
                 {
-                    YourCritKills.Content = Statisctics.YourCritsKill.ToString();
+                    YourCritKills.Content = Application.Current.FindResource("s_Your_Crits_Kills").ToString() + Statisctics.YourCritsKill.ToString();
                 });
-                GameCritKills.Dispatcher.Invoke(() => { GameCritKills.Content = Statisctics.GameKills.ToString(); });
+                GameCritKills.Dispatcher.Invoke(() => { GameCritKills.Content = Application.Current.FindResource("s_Game_Crits_Kills").ToString() + Statisctics.CritsKill.ToString(); });
                 TotalCritKills.Dispatcher.Invoke(() =>
                 {
-                    TotalCritKills.Content = Convert.ToString(Statisctics.CritsKill + Statisctics.YourCritsKill);
+                    TotalCritKills.Content = Application.Current.FindResource("s_Total_Crits_Kills").ToString() + Convert.ToString(Statisctics.CritsKill + Statisctics.YourCritsKill);
                 });
-                YourDeaths.Dispatcher.Invoke(() => { YourDeaths.Content = Statisctics.YourDeaths.ToString(); });
-                GameDeaths.Dispatcher.Invoke(() => { GameDeaths.Content = Statisctics.Deaths.ToString(); });
+                YourDeaths.Dispatcher.Invoke(() => { YourDeaths.Content = Application.Current.FindResource("s_Your_Deaths").ToString() + Statisctics.YourDeaths.ToString(); });
+                GameDeaths.Dispatcher.Invoke(() => { GameDeaths.Content = Application.Current.FindResource("s_Game_Deaths").ToString() + Statisctics.Deaths.ToString(); });
                 TotalDeaths.Dispatcher.Invoke(() =>
                 {
-                    TotalDeaths.Content = Convert.ToString(Statisctics.YourDeaths + Statisctics.Deaths);
+                    TotalDeaths.Content = Application.Current.FindResource("s_Total_Deaths").ToString() + Convert.ToString(Statisctics.YourDeaths + Statisctics.Deaths);
                 });
-                YourSuicides.Dispatcher.Invoke(() => { YourSuicides.Content = Statisctics.YourSuicides.ToString(); });
-                GameSuicides.Dispatcher.Invoke(() => { GameSuicides.Content = Statisctics.Suicides.ToString(); });
+                YourSuicides.Dispatcher.Invoke(() => { YourSuicides.Content = Application.Current.FindResource("s_Your_Suicides").ToString() + Statisctics.YourSuicides.ToString(); });
+                GameSuicides.Dispatcher.Invoke(() => { GameSuicides.Content = Application.Current.FindResource("s_Game_Suicides").ToString() + Statisctics.Suicides.ToString(); });
                 TotalSuicides.Dispatcher.Invoke(() =>
                 {
-                    TotalSuicides.Content = Convert.ToString(Statisctics.Suicides + Statisctics.YourSuicides);
+                    TotalSuicides.Content = Application.Current.FindResource("s_Total_Suicides").ToString() + Convert.ToString(Statisctics.Suicides + Statisctics.YourSuicides);
+                });
+                Attempts.Dispatcher.Invoke(() =>
+                {
+                   Attempts.Content = Application.Current.FindResource("i_Attempts").ToString() + Statisctics.IgnoreListStopped;
                 });
                 Thread.Sleep(250);
             }
@@ -90,9 +305,8 @@ namespace RequestifyTF2GUIRedone
             if (Instance.Config.GameDir == string.Empty)
             {
                 MessageBox.Show(
-                    "Please set the game directory",
-                    "Error"
-                );
+                    Application.Current.FindResource("cs_Set_Game_Dir").ToString(),
+                        Application.Current.FindResource("cs_Error").ToString());
 
                 return;
             }
@@ -100,10 +314,8 @@ namespace RequestifyTF2GUIRedone
             _started = Runner.Start();
             if (_started)
             {
-                var id = Instance.SoundOutBackground.Device.DeviceID;
-                //AudioDefaultSwitcherWrapper.AudioController.SwitchTo("{0.0.1.00000000}.{359646ab-53ff-4f79-904f-40dae5b51b6b}", DeviceRole.All);
-                StartButton.Content = "Stop";
-                StatusLabel.Content = "Status: Working";
+                StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
+                StatusLabel.Content = Application.Current.FindResource("cs_Status_Working").ToString();
             }
         }
 
@@ -112,55 +324,26 @@ namespace RequestifyTF2GUIRedone
             using (var s = new VistaFolderBrowserDialog())
             {
                 s.UseDescriptionForTitle = true;
-                s.Description = "Select game folder";
+                s.Description = Application.Current.FindResource("cs_Select_Game_Path").ToString();
 
                 if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     if (s.SelectedPath == string.Empty)
                         return;
-
-                    var dirs = Directory.GetDirectories(s.SelectedPath);
-
-                    if (dirs.Any(n => n.Contains("cfg")))
+                    var path = Patcher.ResolveFolder(s.SelectedPath);
+                    if (path != "")
                     {
-                        AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
-                        GamePath.Content = "Current game path: " + s.SelectedPath;
+                        GamePath.Content = Application.Current.FindResource("cs_Current_Game_Path").ToString() + path;
+                        AppConfig.CurrentConfig.GameDirectory = path;
                         AppConfig.Save();
+
+                        Close();
                     }
                     else
                     {
-                        foreach (var dir in dirs)
-                        {
-                            var cdir = Directory.GetDirectories(dir);
-                            var bin = false;
-                            var cfg = false;
-                            foreach (var dirz in cdir)
-                            {
-                                var pal = dirz;
-                                var z = pal.Remove(0, dir.Length);
-
-                                if (z.Contains("cfg")) cfg = true;
-
-                                if (z.Contains("bin")) bin = true;
-
-                                if (bin && cfg)
-                                {
-                                    AppConfig.CurrentConfig.GameDirectory = dir;
-                                    MessageBox.Show(
-                                        $"Game path was automatically corrected from \n{s.SelectedPath}\nto\n{dir}",
-                                        "Done"
-                                    );
-                                    GamePath.Content = "Current game path: " + dir;
-                                    AppConfig.Save();
-                                    return;
-                                }
-                            }
-                        }
-
-                        MessageBox.Show(
-                            "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.",
-                            "Error");
-                    }
+                        MessageBox.Show(Application.Current.FindResource("cs_Not_Source_Engine_Game").ToString(), Application.Current.FindResource("cs_Error").ToString(),
+                            MessageBoxButton.OK);
+                    }      
                 }
             }
         }
@@ -170,7 +353,7 @@ namespace RequestifyTF2GUIRedone
             _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
-            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, "I can't find any plugins");
+            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
             foreach (var item in plugins)
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
             foreach (var com in Instance.Commands.GetCommands())
@@ -288,6 +471,21 @@ namespace RequestifyTF2GUIRedone
             public string CommandName { get; set; }
             public IRequestifyCommand Command { get; set; }
             public Brush Color { get; set; }
+        }
+
+        private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Instance.isMuted = true;
+        }
+
+        private void MutedCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            Instance.isMuted = false;
+        }
+
+        private void menuCoreLanguage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -15,6 +15,6 @@ namespace RequestifyTF2.Api
         string Name { get; }
         bool OnlyAdmin { get; }
         List<string> Alias { get; }
-        void Execute(string executor, List<string> arguments);
+        void Execute(User executor, List<string> arguments);
     }
 }

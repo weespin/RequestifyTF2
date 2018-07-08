@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- Main window -->
+    <v:String x:Key="m_Main">Главная</v:String>
+    <v:String x:Key="m_Plugins">Плагины</v:String>
+    <v:String x:Key="m_Settings">Настройки</v:String>
+    <v:String x:Key="m_Ignore_List">Игнор-лист</v:String>
+    <v:String x:Key="m_Console">Консоль</v:String>
+    <v:String x:Key="m_Ready">Готов</v:String>
+    <v:String x:Key="m_Start">Запуск</v:String>
+    <v:String x:Key="m_Welcome">Добро пожаловать на RequestifyTF2, нажмите кнопку Старт.</v:String>
+    <v:String x:Key="m_Dont_Forget">Не забудьте указать путь в настройках!</v:String>
+    <v:String x:Key="m_Press_Start">Вам нужно нажать старт перед запуском игры!</v:String>
+    <v:String x:Key="m_Copy_Steam">Скопируйте сюда никнейм Steam</v:String>
+    <v:String x:Key="m_Admin_Name">Имя администратора:</v:String>
+    <v:String x:Key="m_Muted">Заглушен</v:String>
+    <v:String x:Key="p_Commands">Команды</v:String>
+    <v:String x:Key="p_Plugins">Плагины</v:String>
+    <v:String x:Key="p_Tip">Совет: Двойной щелчок на плагины или команды отключит их</v:String>
+    <v:String x:Key="s_UI_Lang">Язык интерфейса</v:String>
+    <v:String x:Key="s_Core_Lang">Язык ядра (игры)</v:String>
+    <v:String x:Key="s_GameBrowser">Выберите игру из игры мини браузера</v:String>
+    <v:String x:Key="s_ManualBrowser">Вручную выбрать путь игры</v:String>
+    <v:String x:Key="s_Statistics">Статистика:</v:String>
+    <v:String x:Key="s_Lines_Parsed">Парснуто строк:</v:String>
+    <v:String x:Key="s_Your_Deaths">Смерти:</v:String>
+    <v:String x:Key="s_Commands_Parsed">Парснуто команд:</v:String>
+    <v:String x:Key="s_Game_Deaths">Смертей в игре:</v:String>
+    <v:String x:Key="s_Game_Kills">Убийств в игре:</v:String>
+    <v:String x:Key="s_Total_Deaths">Всего смертей:</v:String>
+    <v:String x:Key="s_Your_Kills">Ваши убийства:</v:String>
+    <v:String x:Key="s_Your_Suicides">Ваши самоубийства:</v:String>
+    <v:String x:Key="s_Total_Kills">Всего убийств: </v:String>
+    <v:String x:Key="s_Game_Suicides">Ваши самоубийства: </v:String>
+    <v:String x:Key="s_Your_Crits_Kills">Ваших убийств с критом:</v:String>
+    <v:String x:Key="s_Total_Suicides">Ваши самоубийства:</v:String>
+    <v:String x:Key="s_Game_Crits_Kills">Всего убийств с критом:</v:String>
+    <v:String x:Key="s_Total_Crits_Kills">Всего убийств с критом:</v:String>
+    <v:String x:Key="s_TF_Only">TF2 только</v:String>
+    <v:String x:Key="i_Name">Имя</v:String>
+    <v:String x:Key="i_Add">Добавить</v:String>
+    <v:String x:Key="i_Reversed">В обратном порядке</v:String>
+    <v:String x:Key="i_Remove">Удалить</v:String>
+    <v:String x:Key="i_Attempts">Попытки использовать RequestifyTF2 заблокированы:</v:String>
+    <v:String x:Key="cs_Error">Ошибка</v:String>
+    <v:String x:Key="cs_Set_Game_Dir">Пожалуйста, установите директорию игры</v:String>
+    <v:String x:Key="cs_Stop">Стоп</v:String>
+    <v:String x:Key="cs_Status_Working">Статус: Работаю</v:String>
+    <v:String x:Key="cs_Select_Game_Path">Выберите папку игры</v:String>
+    <v:String x:Key="cs_Current_Game_Path">Текущий путь к игре: </v:String>
+    <v:String x:Key="cs_Not_Source_Engine_Game">Эта игра не на движке Source</v:String>
+    <v:String x:Key="cs_Cant_Find_Plugins">Я не могу найти любые плагины</v:String>
+
+</ResourceDictionary>
+<!--{DynamicResource }-->

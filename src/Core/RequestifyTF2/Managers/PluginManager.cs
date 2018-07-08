@@ -66,25 +66,24 @@ namespace RequestifyTF2.Managers
 
                     if (types.Count == 1)
                     {
-                        Console.WriteLine("Loading " + assembly.GetName().Name + " from " + assembly.Location);
+                        Console.WriteLine(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location);
                         assemblies.Add(assembly);
                         Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
                             Status.Enabled));
                     }
                     else if (types.Count > 1)
                     {
-                        Console.WriteLine("Invalid plugin: " + assembly.GetName().Name +
-                                          "\n Plugin has more than 1 interface");
+                        Console.WriteLine(Localization.Localization.CORE_INVALID_PLUGIN_MORE_THAN_ONE_INTERFACE, assembly.GetName().Name);
                     }
                     else
 
                     {
-                        Console.WriteLine("Invalid plugin: " + assembly.GetName().Name);
+                        Console.WriteLine(Localization.Localization.CORE_INVALID_PLUGIN + assembly.GetName().Name);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Cant load plugin: " + library.Name);
+                    Console.WriteLine(Localization.Localization.CORE_CANT_LOAD_PLUGIN + library.Name);
                     Console.WriteLine(ex);
                 }
 
@@ -154,7 +153,7 @@ namespace RequestifyTF2.Managers
                                     Logger.Write(Logger.Status.Error, e.ToString());
                                 }
                             });
-                        Logger.Write(Logger.Status.Info, $"Invoked {type.Assembly.FullName}'s OnLoad! ");
+                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
                     }
                 }
             }

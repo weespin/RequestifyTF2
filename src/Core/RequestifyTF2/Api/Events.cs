@@ -18,7 +18,7 @@ namespace RequestifyTF2.Api
         {
             public static event PlayerChatHandler OnPlayerChat;
 
-            public static void Invoke(string caller, string text)
+            public static void Invoke(User caller, string text)
             {
                 var e = new PlayerChatArgs(caller, text);
                 OnChat(e);
@@ -33,7 +33,7 @@ namespace RequestifyTF2.Api
         public class PlayerChatArgs : EventArgs
         {
             // Constructor. 
-            public PlayerChatArgs(string caller, string text)
+            public PlayerChatArgs(User caller, string text)
             {
                 User = caller;
                 Chat = text;
@@ -42,7 +42,7 @@ namespace RequestifyTF2.Api
             public string Chat { get; set; } = string.Empty;
 
             // Properties. 
-            public string User { get; set; } = string.Empty;
+            public User User { get; set; }
         }
 
         public class PlayerConnect

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using CSCore;
 using CSCore.CoreAudioAPI;
 using CSCore.SoundOut;
@@ -18,7 +20,6 @@ namespace RequestifyTF2.Api
         public static bool isMuted = false;
 
         public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
-
         /// <summary>
         ///     Background channel. Good for long sounds and music.
         /// </summary>
@@ -37,7 +38,24 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static WasapiOut SoundOutForeground = new WasapiOut();
 
+        private static ELanguage _language;
+        //todo: make this garbage shorter
+        public static CultureInfo GetCulture => Thread.CurrentThread.CurrentUICulture;
+        public static ELanguage Language
+        {
+            get
+            {
+                return _language;
+            }
 
+            set
+            {
+                _language = value;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
+            }
+        }
+
+       
         /// <summary>
         ///     Patching autoexec.cfg, setting audio devices
         /// </summary>
@@ -45,9 +63,9 @@ namespace RequestifyTF2.Api
         {
             var GoodInputDevices = new List<MMDevice>();
             var GoodOutputDevices = new List<MMDevice>();
-            Logger.Write(Logger.Status.Info, "Patching autoexec.cfg");
+            Logger.Write(Logger.Status.Info, Localization.Localization.CORE_PATCHING_AUTOEXEC);
             Patcher.PatchAutoExec();
-            Logger.Write(Logger.Status.Info, "Searching for usable devices...");
+            Logger.Write(Logger.Status.Info, Localization.Localization.CORE_SEARCHING_FOR_DEVICES);
             using (var deviceEnumerator = new MMDeviceEnumerator())
             {
                 using (var deviceoutCollection =
@@ -68,7 +86,7 @@ namespace RequestifyTF2.Api
                 {
                     Logger.Write(
                         Logger.Status.Error,
-                        "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
+                        Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                         ConsoleColor.Red);
                     return false;
                 }
@@ -86,13 +104,13 @@ namespace RequestifyTF2.Api
                     {
                         Logger.Write(
                             Logger.Status.Error,
-                            $"Error while setting {inp.FriendlyName} as default input device\n{e}");
+                            string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
                     }
 
                     SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
-                        $"Used {outp.FriendlyName} as output device and {inp.FriendlyName} as input device");
+                        string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName));
                     return true;
                 }
 
@@ -110,21 +128,21 @@ namespace RequestifyTF2.Api
                     {
                         Logger.Write(
                             Logger.Status.Error,
-                            $"Error while setting {inp.FriendlyName} as default input device\n{e}");
+                            string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
                         return false;
                     }
 
                     SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
-                        $"Used {outp.FriendlyName} as output device and {inp.FriendlyName} as input device",
+                        string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName),
                         ConsoleColor.Red);
                     return true;
                 }
 
                 Logger.Write(
                     Logger.Status.Error,
-                    "Cannot find usable device. Make sure that you have VB-Audio or Virtual Audio Cable installed and enabled!",
+                    Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                     ConsoleColor.Red);
                 return false;
             }
@@ -132,7 +150,36 @@ namespace RequestifyTF2.Api
           
         }
 
-
+       
+        public enum ELanguage
+        {
+            BG,
+            CS,
+            DA,
+            DE,
+            EL,
+            ES,
+            FI,
+            FR,
+            HU,
+            IT,
+            JA,
+            KO,
+            NL,
+            NN,
+            PL,
+            BR,
+            PT,
+            EN,
+            RO,
+            RU,
+            SV,
+            TH,
+            TR,
+            UK,
+            TZN,
+            SZN
+        }
         public static string GetDeviceName()
         {
             return SoundOutBackground.Device.DeviceID;
@@ -185,13 +232,13 @@ namespace RequestifyTF2.Api
 
         public class Song
         {
-            public string RequestedBy;
+            public User RequestedBy;
 
             public IWaveSource Source;
 
             public string Title;
 
-            public Song(string title, IWaveSource source, string executor)
+            public Song(string title, IWaveSource source, User executor)
             {
                 Title = title;
                 Source = source;

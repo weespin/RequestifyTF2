@@ -1,24 +1,32 @@
 # RequestifyTF2
-![Build](https://ci.appveyor.com/api/projects/status/github/weespin/Requestifytf2)
+[![Build](https://ci.appveyor.com/api/projects/status/github/weespin/Requestifytf2)](https://ci.appveyor.com/project/weespin26279/requestifytf2/)
 
-RequesifyTF2 is a simple program for Source Engine based games, which supports plugins. "Oof" killmicspam supported!
-# Commands/Configruations
+RequesifyTF2 is a simple program for Source Engine based games, which supports plugins, micspam, and alot of custom things.
+## New Version
+I know, im bad at design but UI Framework from WinForms (MaterialUI) was too complex.
+I made a new WPF version which includes 🥁:
+ 1. Game Browser! No need to Manually Select Path!
+ 2. AutoDevicePicker! No need to Manually select Virtual Device!
+ 3. Disabling commands! Yeah! Now you can disable commands instad of full Plugins!
+ 4. Statistics! Yeeaah, but TF2 only :(
+ 5. ConsoleSender is better now. ConsoleSender is now clearing himself :)
+ 6. Added alot of languages (to be honest... All TF2 languages)
+ 7. And.. The project is alive for 2 fkng years! 
+## Commands/Configruations
 Head over [here](https://github.com/weespin/RequestifyTF2/wiki/Commands) for wiki
-# Installation
-1. Go to Download and download lastest [build and plugins](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts)!
-2. Make sure that you have [Virtual Audio Cable (paid)](http://software.muzychenko.net/eng/vac.htm) or [VB-Audio (free)](http://vbaudio.jcedeveloppement.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) installed on your pc
+## Installation
+1. Go to download lastest [build and plugins](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts), or download [stable releases](https://github.com/weespin/RequestifyTF2/releases)!
+2. Make sure that you have [Virtual Audio Cable (paid)](http://software.muzychenko.net/eng/vac.htm) or [VB-Audio (free)](http://vbaudio.jcedeveloppement.com/Download_CABLE/VBCABLE_Driver_Pack43.zip) installed and enabled on your PC
 3. Open RequestifyTF2
 4. Press on Settings button
-5. Select path to the game (for example C:\(something)\steamapps\common\Team Fortress 2\tf or C:\(something)\steamapps\common\Counter-Strike Global Offensive\csgo)
-6. Press Start button (you should press start before starting a game!)
-7. Make sure you have a Virtual Audio Cable or VB-Audio recording device for default.
+5. Use Game Browser and pick your game.
+6. Pick Core (Game) Language
+7. Press Start button (you should press start BEFORE starting a game!)
 8. Start your game!
-9. When you joined a server open console and type "+voicerecord"
+9. When you joined a server open console and type "+voicerecord" to use your mic
 10. If you want to hear what you saying type "voice_loopback 1"
 11. Done!
-# Another plugins
-I have released some plugins but i don't want to include them into default version, so please look at [Plugins page](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) and download needed plugin.
-# Comparison with other projects
+## Comparison with other projects
 | Features      | RequestifyTF2 | SourceRadio | Slam |
 | ------------- | :-------------: | :-----------: | :----: | 
 | Commands      | 	 ✅		    |    ✅        | ❌ 	 |
@@ -34,52 +42,21 @@ I have released some plugins but i don't want to include them into default versi
 | Events		|✅    	    | ❌  		  | ❌    |
 |API for Devs	|✅    	    | ❌  		  | ❌    |
 |Works on all servers	|✅    	    | ✅   		  | ❌    |
-|Works on all languages	|❌    	    | ✅   		  | ❌    |
-# Updating
-If new version was released, just replace RequestifyTF2GUI.exe with new file, and remove plugins!
+|Works on all languages	|✅    	    | ✅   		  | ❌    |
 # Screenshots
 ![Main](https://i.imgur.com/8KAvnT2.png)
 ![Plugins](https://i.imgur.com/OruxLSR.png)
-![Settings](https://i.imgur.com/EyIFyG7.png)
-![IgnoreList](https://i.imgur.com/JBDOQ77.png)
 ![GameBrowser](https://i.imgur.com/eqnrbj8.png)
-# Screenshots (Old WinForms)
 
-![OldPlugins](http://i.imgur.com/ccoM7Dy.png)
-
-![OldIgnore List](http://i.imgur.com/T2cVaVE.png)
-
-![OldSettings + Console](http://i.imgur.com/zv2sd03.png)
-# Oldest Screenshots
-![OldestScreenshot1](http://i.imgur.com/J2XXlDS.png)
-
-![OldestScreenshot2](http://i.imgur.com/Xx9lJph.png)
-
-# Dowload
-[Releases](https://github.com/weespin/RequestifyTF2/releases)!
-(Download RequestifyTF2GUI.exe)
-## Bleeding Edge files
-[Download](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts)
-# New Version
-I know, im bad at design but UI Framework from WinForms (MaterialUI) was too complex.
-I made a new WPF version which includes 🥁:
- 1. Game Browser! No need to Manually Select Path!
- 2. AutoDevicePicker! No need to Manually select Virtual Device!
- 3. Disabling commands! Yeah! Now you can disable commands instad of full Plugins!
- 4. Statistics! Yeeaah, but TF2 only :(
- 5. ConsoleSender is better now. ConsoleSender is now clearing himself :)
- 6. And.. The project is alive for 2 fkng years! 
-# About Valve Anti-Cheat (VAC)
-## This programm is not a hack, not a cheat, not modifying game files, not injecting into game processes, not reading and writing into games memory.
+## About Valve Anti-Cheat (VAC)
+#### This programm is not a hack, not a cheat, not modifying game files, not injecting into game processes, not reading and writing into games memory.
 My programm is 100% VAC secure, its not even reading game memory!
 Its reading 1 file named console.log which was generated by game using in game console command con_logfile "console.log"
 
 Game is writing log from console into a file and im reading this log as text file. Thats all!
-
-[This programm can work with AHK. But AHK is not used now.](https://gaming.stackexchange.com/a/301540)
 # Plugin Requesting
 Be free to create a issue and write idea about next plugin.
-Requestify can do something:
+Requestify can do everything:
  1. On calling command
  2. On text chatting
  3. On killing
@@ -87,22 +64,19 @@ Requestify can do something:
  5. On another players connect
  6. Do config commands (with generated code)
 # Development
-## Core
-Download RequestifyTF2.dll from [AppVeyor](https://ci.appveyor.com/project/weespin26279/requestifytf2/build/artifacts) (RequestifyTF2.dll)
-## Template
-Just use a plugins from scr/Plugin folder as tempate.
-# Methods
-## OnLoad (should be non-static!)
-Invokes on Load
-## Execute (string nickname, List<string> arguments)
-Invokes when someone executed a plugins command
-# Events
-OnPlayerConnect => Returns a connected user nickname
+Use [development guide](https://github.com/weespin/RequestifyTF2/wiki/Developing)
 
-OnPlayerChat => Returns a user nickname and text (invoked if text is not a command!)
+### Screenshots (Old WinForms)
 
-OnPlayerKill => Returns Killer's Nickname, Killed Nickname, Weapon and crit (TF2 only)
+![OldPlugins](http://i.imgur.com/ccoM7Dy.png)
 
-OnPlayerSuicide => Returns a user nickname (TF2 only)
-# Questions?
+![OldIgnore List](http://i.imgur.com/T2cVaVE.png)
+
+![OldSettings + Console](http://i.imgur.com/zv2sd03.png)
+### Oldest Screenshots
+![OldestScreenshot1](http://i.imgur.com/J2XXlDS.png)
+
+![OldestScreenshot2](http://i.imgur.com/Xx9lJph.png)
+
+### Questions?
 Make a issue or add me on [Steam](http://steamcommunity.com/id/wspin/)

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- Main window -->
+    <v:String x:Key="m_Main">Principale</v:String>
+    <v:String x:Key="m_Plugins">Plugin</v:String>
+    <v:String x:Key="m_Settings">Impostazioni</v:String>
+    <v:String x:Key="m_Ignore_List">Lista Ignorati</v:String>
+    <v:String x:Key="m_Console">Console</v:String>
+    <v:String x:Key="m_Ready">Pronto</v:String>
+    <v:String x:Key="m_Start">Inizio</v:String>
+    <v:String x:Key="m_Welcome">Benvenuti a RequestifyTF2, premere il tasto Start.</v:String>
+    <v:String x:Key="m_Dont_Forget">Non dimenticare di specificare il percorso nelle impostazioni!</v:String>
+    <v:String x:Key="m_Press_Start">È necessario premere il tasto di Avvio prima di avviare un gioco!</v:String>
+    <v:String x:Key="m_Copy_Steam">Copia qui il tuo nome steam</v:String>
+    <v:String x:Key="m_Admin_Name">Admin Name:</v:String>
+    <v:String x:Key="m_Muted">Silenziato</v:String>
+    <v:String x:Key="p_Commands">Comandi</v:String>
+    <v:String x:Key="p_Plugins">Plugin</v:String>
+    <v:String x:Key="p_Tip">Suggerimento: fare Doppio Clic sul plug-in o i Comandi di disattivarli</v:String>
+    <v:String x:Key="s_UI_Lang">Lingua dell'interfaccia utente</v:String>
+    <v:String x:Key="s_Core_Lang">Core (Gioco) Lingua</v:String>
+    <v:String x:Key="s_GameBrowser">Selezionare il Gioco dal Browser Game</v:String>
+    <v:String x:Key="s_ManualBrowser">Selezionare Manualmente Il Percorso Di Gioco</v:String>
+    <v:String x:Key="s_Statistics">Statistiche:</v:String>
+    <v:String x:Key="s_Lines_Parsed">Linee Analizzato:</v:String>
+    <v:String x:Key="s_Your_Deaths">Il Tuo Morti:</v:String>
+    <v:String x:Key="s_Commands_Parsed">Comandi Analizzato:</v:String>
+    <v:String x:Key="s_Game_Deaths">Gioco Di Morti:</v:String>
+    <v:String x:Key="s_Game_Kills">Gioco Uccide:</v:String>
+    <v:String x:Key="s_Total_Deaths">Totale Morti:</v:String>
+    <v:String x:Key="s_Your_Kills">Il Vostro Uccide:</v:String>
+    <v:String x:Key="s_Your_Suicides">Il Tuo Suicidi:</v:String>
+    <v:String x:Key="s_Total_Kills">Totale Di Uccisioni:</v:String>
+    <v:String x:Key="s_Game_Suicides">Gioco Suicidi:</v:String>
+    <v:String x:Key="s_Your_Crits_Kills">Il Tuo Critici Uccide:</v:String>
+    <v:String x:Key="s_Total_Suicides">Totale Suicidi:</v:String>
+    <v:String x:Key="s_Game_Crits_Kills">Gioco Critici Uccide:</v:String>
+    <v:String x:Key="s_Total_Crits_Kills">Totale Critici Uccide:</v:String>
+    <v:String x:Key="s_TF_Only">TF2 solo</v:String>
+    <v:String x:Key="i_Name">Nome</v:String>
+    <v:String x:Key="i_Add">Aggiungere</v:String>
+    <v:String x:Key="i_Reversed">Invertito</v:String>
+    <v:String x:Key="i_Remove">Rimuovere</v:String>
+    <v:String x:Key="i_Attempts">I tentativi di utilizzare RequestifyTF2 bloccato:</v:String>
+    <v:String x:Key="cs_Error">Errore</v:String>
+    <v:String x:Key="cs_Set_Game_Dir">Si prega di impostare il gioco directory</v:String>
+    <v:String x:Key="cs_Stop">Stop</v:String>
+    <v:String x:Key="cs_Status_Working">Status: Lavoro</v:String>
+    <v:String x:Key="cs_Select_Game_Path">Selezionare cartella di gioco</v:String>
+    <v:String x:Key="cs_Current_Game_Path">Attuale percorso di gioco: </v:String>
+    <v:String x:Key="cs_Not_Source_Engine_Game">Questa non è una Fonte del Motore di gioco</v:String>
+    <v:String x:Key="cs_Cant_Find_Plugins">Non riesco a trovare un plugin</v:String>
+
+</ResourceDictionary>
+<!--{DynamicResource }-->
