@@ -157,17 +157,17 @@
                         HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="543"
                         Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
           <Label x:Name="AdminName" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" Margin="10,265,0,0"
-                           VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                           VerticalAlignment="Top" Grid.ColumnSpan="2" Width="191" />
           <TextBlock TextWrapping="Wrap" x:Name="ConsoleLabel2" Text="" HorizontalAlignment="Left"
                                Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.315,-0.613"
                                Width="798.333" Grid.ColumnSpan="2" Height="88" ScrollViewer.CanContentScroll="True" />
           <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
                            Margin="20,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-          <TextBox Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Left"
-                             Height="23" Margin="77,269,0,0" TextWrapping="Wrap" Text="{DynamicResource m_Copy_Steam}"
-                             VerticalAlignment="Top" Width="200" Background="{x:Null}" BorderBrush="{x:Null}"
+          <TextBox Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Right"
+                             Height="23" Margin="0,269,117,0" TextWrapping="Wrap" Text="{DynamicResource m_Copy_Steam}"
+                             VerticalAlignment="Top" Width="495" Background="{x:Null}" BorderBrush="{x:Null}"
                              Foreground="#B2000000" />
-          <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="10,318.72,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994"/>
+          <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Grid.ColumnSpan="2" Width="361"/>
           <Label
                         Content="{DynamicResource m_Press_Start}"
                         HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="543"
@@ -285,7 +285,7 @@
             <MenuItem x:Name="menuLanguage" Header="{DynamicResource s_UI_Lang}"  Height="20" Width="372.041" RenderTransformOrigin="0.5,0.5" />
           </Menu>
           <Menu HorizontalAlignment="Left" Name="CoreLanguage"  Height="20" Margin="387.041,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420.822" Background="{x:Null}">
-            <MenuItem  x:Name="menuCoreLanguage" Header="{DynamicResource s_Core_Lang}" Height="20" Width="420.822" />
+            <MenuItem  x:Name="menuCoreLanguage" Header="{DynamicResource s_Core_Lang}" Height="20" Width="420.822" Click="menuCoreLanguage_Click" />
           </Menu>
 
         </Grid>

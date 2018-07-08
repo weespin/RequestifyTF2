@@ -53,5 +53,6 @@ internal static class AppConfig
         [JsonProperty("Admin")] public string Admin { get; set; }
 
         [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
+        [JsonProperty("CoreLang")] public string CoreLang { get; set; }
     }
 }

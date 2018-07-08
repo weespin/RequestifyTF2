@@ -32,9 +32,10 @@ namespace RequestifyTF2GUIRedone
             GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
             AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
-
+           
+         
             CultureInfo currLang = App.Language;
-
+           
             //Заполняем меню смены языка:
             menuLanguage.Items.Clear();
             foreach (var lang in App.Languages)
@@ -45,13 +46,35 @@ namespace RequestifyTF2GUIRedone
                 menuLang.IsChecked = lang.Equals(currLang);
                 menuLang.Click += ChangeLanguageClick;
                 menuLanguage.Items.Add(menuLang);
+               
             }
+            foreach (var lang in App.Languages)
+            {
+                MenuItem menuLang = new MenuItem();
+                menuLang.Header = lang.DisplayName;
+                menuLang.Tag = lang;
+                menuLang.IsChecked = lang.Equals(Instance.GetCulture);
+                menuLang.Click += ChangeCoreLanguageClick;
+                menuCoreLanguage.Items.Add(menuLang);
+            }
+
+            if (AppConfig.CurrentConfig.CoreLang == null)
+            {
+                AppConfig.CurrentConfig.CoreLang = "en";
+                AppConfig.Save();
+            }
+           currLang = new CultureInfo(AppConfig.CurrentConfig.CoreLang);
+            foreach (MenuItem i in menuCoreLanguage.Items)
+            {
+                CultureInfo ci = (CultureInfo)i.Tag;
+                i.IsChecked = ci != null && ci.Name==currLang.Name;
+            }
+
+            ChangeCoreLang(currLang);
         }
         private void LanguageChanged(Object sender, EventArgs e)
         {
             CultureInfo currLang = App.Language;
-
-            //Отмечаем нужный пункт смены языка как выбранный язык
             foreach (MenuItem i in menuLanguage.Items)
             {
                 CultureInfo ci = i.Tag as CultureInfo;
@@ -71,6 +94,144 @@ namespace RequestifyTF2GUIRedone
                 }
             }
 
+        }
+      
+        private void ChangeCoreLanguageClick(Object sender, EventArgs e)
+        {
+            if (!(sender is MenuItem mi)) return;
+            if (!(mi.Tag is CultureInfo lang)) return;
+            ChangeCoreLang(lang);
+            foreach (MenuItem i in menuCoreLanguage.Items)
+            {
+                CultureInfo ci = (CultureInfo)i.Tag;
+                if (ci != null)
+                {
+                    if (ci.Name.Equals(lang.Name))
+                    {
+                        i.IsChecked = true;
+                    }
+                    else
+                    {
+                        i.IsChecked = false;
+                    }
+                }
+            }
+            AppConfig.CurrentConfig.CoreLang = lang.TextInfo.CultureName;
+            AppConfig.Save();
+        }
+
+        private void ChangeCoreLang(CultureInfo lang)
+        {
+            if (lang.Name.Contains("bg"))
+            {
+                Instance.Language = Instance.ELanguage.BG;
+            }
+            else if (lang.Name.Contains( "cs"))
+            {
+                Instance.Language = Instance.ELanguage.CS;
+            }
+            else if (lang.Name.Contains( "da"))
+            {
+                Instance.Language = Instance.ELanguage.DA;
+            }
+            else if (lang.Name.Contains( "de"))
+            {
+                Instance.Language = Instance.ELanguage.DE;
+            }
+            else if (lang.Name.Contains( "el"))
+            {
+                Instance.Language = Instance.ELanguage.EL;
+            }
+            else if (lang.Name.Contains( "es"))
+            {
+                Instance.Language = Instance.ELanguage.ES;
+            }
+            else if (lang.Name.Contains( "fi"))
+            {
+                Instance.Language = Instance.ELanguage.FI;
+            }
+            else if (lang.Name.Contains( "fr"))
+            {
+                Instance.Language = Instance.ELanguage.FR;
+            }
+            else if (lang.Name.Contains( "hu"))
+            {
+                Instance.Language = Instance.ELanguage.HU;
+            }
+            else if (lang.Name.Contains( "it"))
+            {
+                Instance.Language = Instance.ELanguage.IT;
+            }
+            else if (lang.Name.Contains( "ja"))
+            {
+                Instance.Language = Instance.ELanguage.JA;
+            }
+            else if (lang.Name.Contains( "ko"))
+            {
+                Instance.Language = Instance.ELanguage.KO;
+            }
+            else if (lang.Name.Contains( "nl"))
+            {
+                Instance.Language = Instance.ELanguage.NL;
+            }
+            else if (lang.Name.Contains( "nn"))
+            {
+                Instance.Language = Instance.ELanguage.NN;
+            }
+            else if (lang.Name.Contains( "pt"))
+            {
+                if (lang.Name.Contains("BR"))
+                {
+                    Instance.Language = Instance.ELanguage.BR;
+                }
+                else
+                {
+                    Instance.Language = Instance.ELanguage.PT;
+                }
+            }
+            else if (lang.Name.Contains("en"))
+            {
+                Instance.Language = Instance.ELanguage.EN;
+            }
+            else if (lang.Name.Contains("ro"))
+            {
+                Instance.Language = Instance.ELanguage.RO;
+            }
+            else if (lang.Name.Contains("ru"))
+            {
+                Instance.Language = Instance.ELanguage.RU;
+            }
+            else if (lang.Name.Contains("sv"))
+            {
+                Instance.Language = Instance.ELanguage.SV;
+            }
+            else if (lang.Name.Contains("th"))
+            {
+                Instance.Language = Instance.ELanguage.TH;
+            }
+            else if (lang.Name.Contains("tr"))
+            {
+                Instance.Language = Instance.ELanguage.TR;
+            }
+            else if (lang.Name.Contains("uk"))
+            {
+                Instance.Language = Instance.ELanguage.UK;
+            }
+            else if (lang.Name.Contains("zh"))
+            {
+                if (lang.Name.Contains("CN"))
+                {
+                    Instance.Language = Instance.ELanguage.SZN;
+                }
+                else
+                {
+                    Instance.Language = Instance.ELanguage.TZN;
+                }
+            }
+            else
+            {
+                Instance.Language = Instance.ELanguage.EN;
+            }
         }
         private void StatsMonitor()
         {
@@ -311,6 +472,11 @@ namespace RequestifyTF2GUIRedone
         private void MutedCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
         {
             Instance.isMuted = false;
+        }
+
+        private void menuCoreLanguage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using CSCore;
 using CSCore.CoreAudioAPI;
 using CSCore.SoundOut;
@@ -39,6 +40,7 @@ namespace RequestifyTF2.Api
 
         private static ELanguage _language;
         //todo: make this garbage shorter
+        public static CultureInfo GetCulture => Thread.CurrentThread.CurrentUICulture;
         public static ELanguage Language
         {
             get
@@ -53,6 +55,7 @@ namespace RequestifyTF2.Api
             }
         }
 
+       
         /// <summary>
         ///     Patching autoexec.cfg, setting audio devices
         /// </summary>
