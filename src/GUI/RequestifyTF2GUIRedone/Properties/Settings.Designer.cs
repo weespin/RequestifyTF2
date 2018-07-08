@@ -34,17 +34,5 @@ namespace RequestifyTF2GUIRedone.Properties {
                 this["DefaultLanguage"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("en")]
-        public global::System.Globalization.CultureInfo DefaultCoreLanguage {
-            get {
-                return ((global::System.Globalization.CultureInfo)(this["DefaultCoreLanguage"]));
-            }
-            set {
-                this["DefaultCoreLanguage"] = value;
-            }
-        }
     }
 }
