@@ -43,5 +43,14 @@
     <v:String x:Key="i_Reversed">Reversed</v:String>
     <v:String x:Key="i_Remove">Remove</v:String>
     <v:String x:Key="i_Attempts">Attempts to use RequestifyTF2 blocked:</v:String>
+    <v:String x:Key="cs_Error">Error</v:String>
+    <v:String x:Key="cs_Set_Game_Dir">Please set the game directory</v:String>
+    <v:String x:Key="cs_Stop">Stop</v:String>
+    <v:String x:Key="cs_Status_Working">Status: Working</v:String>
+    <v:String x:Key="cs_Select_Game_Path">Select game folder</v:String>
+    <v:String x:Key="cs_Current_Game_Path">Current game path: </v:String>
+    <v:String x:Key="cs_Not_Source_Engine_Game">This is not a Source Engine game</v:String>
+    <v:String x:Key="cs_Cant_Find_Plugins">I can't find any plugins</v:String>
+
 </ResourceDictionary>
 <!--{DynamicResource }-->

@@ -131,9 +131,8 @@ namespace RequestifyTF2GUIRedone
             if (Instance.Config.GameDir == string.Empty)
             {
                 MessageBox.Show(
-                    "Please set the game directory",
-                    "Error"
-                );
+                    Application.Current.Resources["cs_Set_Game_Dir"].ToString(),
+                        Application.Current.Resources["cs_Error"].ToString());
 
                 return;
             }
@@ -141,10 +140,8 @@ namespace RequestifyTF2GUIRedone
             _started = Runner.Start();
             if (_started)
             {
-                var id = Instance.SoundOutBackground.Device.DeviceID;
-                //AudioDefaultSwitcherWrapper.AudioController.SwitchTo("{0.0.1.00000000}.{359646ab-53ff-4f79-904f-40dae5b51b6b}", DeviceRole.All);
-                StartButton.Content = "Stop";
-                StatusLabel.Content = "Status: Working";
+                StartButton.Content = Application.Current.Resources["cs_Stop"].ToString();
+                StatusLabel.Content = Application.Current.Resources["cs_Status_Working"].ToString();
             }
         }
 
@@ -153,55 +150,26 @@ namespace RequestifyTF2GUIRedone
             using (var s = new VistaFolderBrowserDialog())
             {
                 s.UseDescriptionForTitle = true;
-                s.Description = "Select game folder";
+                s.Description = Application.Current.Resources["cs_Select_Game_Path"].ToString();
 
                 if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     if (s.SelectedPath == string.Empty)
                         return;
-
-                    var dirs = Directory.GetDirectories(s.SelectedPath);
-
-                    if (dirs.Any(n => n.Contains("cfg")))
+                    var path = Patcher.ResolveFolder(s.SelectedPath);
+                    if (path != "")
                     {
-                        AppConfig.CurrentConfig.GameDirectory = s.SelectedPath;
-                        GamePath.Content = "Current game path: " + s.SelectedPath;
+                        GamePath.Content = Application.Current.Resources["cs_Current_Game_Path"].ToString() + path;
+                        AppConfig.CurrentConfig.GameDirectory = path;
                         AppConfig.Save();
+
+                        Close();
                     }
                     else
                     {
-                        foreach (var dir in dirs)
-                        {
-                            var cdir = Directory.GetDirectories(dir);
-                            var bin = false;
-                            var cfg = false;
-                            foreach (var dirz in cdir)
-                            {
-                                var pal = dirz;
-                                var z = pal.Remove(0, dir.Length);
-
-                                if (z.Contains("cfg")) cfg = true;
-
-                                if (z.Contains("bin")) bin = true;
-
-                                if (bin && cfg)
-                                {
-                                    AppConfig.CurrentConfig.GameDirectory = dir;
-                                    MessageBox.Show(
-                                        $"Game path was automatically corrected from \n{s.SelectedPath}\nto\n{dir}",
-                                        "Done"
-                                    );
-                                    GamePath.Content = "Current game path: " + dir;
-                                    AppConfig.Save();
-                                    return;
-                                }
-                            }
-                        }
-
-                        MessageBox.Show(
-                            "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.",
-                            "Error");
-                    }
+                        MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
+                            MessageBoxButton.OK);
+                    }      
                 }
             }
         }
@@ -211,7 +179,7 @@ namespace RequestifyTF2GUIRedone
             _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
-            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, "I can't find any plugins");
+            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.Resources["cs_Cant_Find_Plugins"].ToString());
             foreach (var item in plugins)
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
             foreach (var com in Instance.Commands.GetCommands())

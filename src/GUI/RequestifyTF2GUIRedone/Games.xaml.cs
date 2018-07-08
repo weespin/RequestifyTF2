@@ -93,7 +93,7 @@ namespace RequestifyTF2GUIRedone
                 }
                 else
                 {
-                    MessageBox.Show("This is not a Source Engine game", "Error",
+                    MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
                         MessageBoxButton.OK);
                 }
             }
@@ -114,7 +114,7 @@ namespace RequestifyTF2GUIRedone
             }
             else
             {
-                MessageBox.Show("This is not a Source Engine game", "Error",
+                MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
                     MessageBoxButton.OK);
             }
         }
