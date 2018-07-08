@@ -76,38 +76,42 @@ namespace RequestifyTF2GUIRedone
         {
             while (true)
             {
-                LinesParsed.Dispatcher.Invoke(() => { LinesParsed.Content = Statisctics.LinesParsed.ToString(); });
+                LinesParsed.Dispatcher.Invoke(() => { LinesParsed.Content = Application.Current.FindResource("s_Lines_Parsed").ToString()+Statisctics.LinesParsed.ToString(); });
 
                 CommandsParsed.Dispatcher.Invoke(() =>
                 {
-                    CommandsParsed.Content = Statisctics.CommandsParsed.ToString();
+                    CommandsParsed.Content = Application.Current.FindResource("s_Commands_Parsed").ToString()+Statisctics.CommandsParsed.ToString();
                 });
-                GameKills.Dispatcher.Invoke(() => { GameKills.Content = Statisctics.GameKills.ToString(); });
-                YourKills.Dispatcher.Invoke(() => { YourKills.Content = Statisctics.YourKills.ToString(); });
+                GameKills.Dispatcher.Invoke(() => { GameKills.Content = Application.Current.FindResource("s_Game_Kills").ToString()+Statisctics.GameKills.ToString(); });
+                YourKills.Dispatcher.Invoke(() => { YourKills.Content = Application.Current.FindResource("s_Your_Kills").ToString()+Statisctics.YourKills.ToString(); });
                 TotalKills.Dispatcher.Invoke(() =>
                 {
-                    TotalKills.Content = Convert.ToString(Statisctics.YourKills + Statisctics.GameKills);
+                    TotalKills.Content = Application.Current.FindResource("s_Total_Kills").ToString()+Convert.ToString(Statisctics.YourKills + Statisctics.GameKills);
                 });
                 YourCritKills.Dispatcher.Invoke(() =>
                 {
-                    YourCritKills.Content = Statisctics.YourCritsKill.ToString();
+                    YourCritKills.Content = Application.Current.FindResource("s_Your_Crits_Kills").ToString() + Statisctics.YourCritsKill.ToString();
                 });
-                GameCritKills.Dispatcher.Invoke(() => { GameCritKills.Content = Statisctics.GameKills.ToString(); });
+                GameCritKills.Dispatcher.Invoke(() => { GameCritKills.Content = Application.Current.FindResource("s_Game_Crits_Kills").ToString() + Statisctics.CritsKill.ToString(); });
                 TotalCritKills.Dispatcher.Invoke(() =>
                 {
-                    TotalCritKills.Content = Convert.ToString(Statisctics.CritsKill + Statisctics.YourCritsKill);
+                    TotalCritKills.Content = Application.Current.FindResource("s_Total_Crits_Kills").ToString() + Convert.ToString(Statisctics.CritsKill + Statisctics.YourCritsKill);
                 });
-                YourDeaths.Dispatcher.Invoke(() => { YourDeaths.Content = Statisctics.YourDeaths.ToString(); });
-                GameDeaths.Dispatcher.Invoke(() => { GameDeaths.Content = Statisctics.Deaths.ToString(); });
+                YourDeaths.Dispatcher.Invoke(() => { YourDeaths.Content = Application.Current.FindResource("s_Your_Deaths").ToString() + Statisctics.YourDeaths.ToString(); });
+                GameDeaths.Dispatcher.Invoke(() => { GameDeaths.Content = Application.Current.FindResource("s_Game_Deaths").ToString() + Statisctics.Deaths.ToString(); });
                 TotalDeaths.Dispatcher.Invoke(() =>
                 {
-                    TotalDeaths.Content = Convert.ToString(Statisctics.YourDeaths + Statisctics.Deaths);
+                    TotalDeaths.Content = Application.Current.FindResource("s_Total_Deaths").ToString() + Convert.ToString(Statisctics.YourDeaths + Statisctics.Deaths);
                 });
-                YourSuicides.Dispatcher.Invoke(() => { YourSuicides.Content = Statisctics.YourSuicides.ToString(); });
-                GameSuicides.Dispatcher.Invoke(() => { GameSuicides.Content = Statisctics.Suicides.ToString(); });
+                YourSuicides.Dispatcher.Invoke(() => { YourSuicides.Content = Application.Current.FindResource("s_Your_Suicides").ToString() + Statisctics.YourSuicides.ToString(); });
+                GameSuicides.Dispatcher.Invoke(() => { GameSuicides.Content = Application.Current.FindResource("s_Game_Suicides").ToString() + Statisctics.Suicides.ToString(); });
                 TotalSuicides.Dispatcher.Invoke(() =>
                 {
-                    TotalSuicides.Content = Convert.ToString(Statisctics.Suicides + Statisctics.YourSuicides);
+                    TotalSuicides.Content = Application.Current.FindResource("s_Total_Suicides").ToString() + Convert.ToString(Statisctics.Suicides + Statisctics.YourSuicides);
+                });
+                Attempts.Dispatcher.Invoke(() =>
+                {
+                   Attempts.Content = Application.Current.FindResource("i_Attempts").ToString() + Statisctics.IgnoreListStopped;
                 });
                 Thread.Sleep(250);
             }
