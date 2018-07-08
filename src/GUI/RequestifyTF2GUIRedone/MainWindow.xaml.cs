@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Ookii.Dialogs;
@@ -29,8 +31,47 @@ namespace RequestifyTF2GUIRedone
             AppConfig.Load();
             GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
             AdminBox.Text = AppConfig.CurrentConfig.Admin;
+            App.LanguageChanged += LanguageChanged;
+
+            CultureInfo currLang = App.Language;
+
+            //Заполняем меню смены языка:
+            menuLanguage.Items.Clear();
+            foreach (var lang in App.Languages)
+            {
+                MenuItem menuLang = new MenuItem();
+                menuLang.Header = lang.DisplayName;
+                menuLang.Tag = lang;
+                menuLang.IsChecked = lang.Equals(currLang);
+                menuLang.Click += ChangeLanguageClick;
+                menuLanguage.Items.Add(menuLang);
+            }
+        }
+        private void LanguageChanged(Object sender, EventArgs e)
+        {
+            CultureInfo currLang = App.Language;
+
+            //Отмечаем нужный пункт смены языка как выбранный язык
+            foreach (MenuItem i in menuLanguage.Items)
+            {
+                CultureInfo ci = i.Tag as CultureInfo;
+                i.IsChecked = ci != null && ci.Equals(currLang);
+            }
         }
 
+        private void ChangeLanguageClick(Object sender, EventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+            if (mi != null)
+            {
+                CultureInfo lang = mi.Tag as CultureInfo;
+                if (lang != null)
+                {
+                    App.Language = lang;
+                }
+            }
+
+        }
         private void StatsMonitor()
         {
             while (true)
@@ -288,6 +329,16 @@ namespace RequestifyTF2GUIRedone
             public string CommandName { get; set; }
             public IRequestifyCommand Command { get; set; }
             public Brush Color { get; set; }
+        }
+
+        private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Instance.isMuted = true;
+        }
+
+        private void MutedCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            Instance.isMuted = false;
         }
     }
 }

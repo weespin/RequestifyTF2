@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- Main window -->
+    <v:String x:Key="m_Main">Main</v:String>
+    <v:String x:Key="m_Plugins">Plugins</v:String>
+    <v:String x:Key="m_Settings">Settings</v:String>
+    <v:String x:Key="m_Ignore_List">Ignore List</v:String>
+    <v:String x:Key="m_Console">Console</v:String>
+    <v:String x:Key="m_Ready">Ready</v:String>
+    <v:String x:Key="m_Start">Start</v:String>
+    <v:String x:Key="m_Welcome">Welcome to RequestifyTF2, press Start.</v:String>
+    <v:String x:Key="m_Dont_Forget">Do not forget to specify the path in the settings!</v:String>
+    <v:String x:Key="m_Press_Start">You should press Start before launching a game!</v:String>
+    <v:String x:Key="m_Copy_Steam">Copy here your steam name</v:String>
+    <v:String x:Key="m_Admin_Name">Admin Name:</v:String>
+    <v:String x:Key="m_Muted">Muted</v:String>
+    <v:String x:Key="p_Commands">Commands</v:String>
+    <v:String x:Key="p_Plugins">Plugins</v:String>
+    <v:String x:Key="p_Tip">Tip: Double-Clicking on Plugins or Commands will disable them</v:String>
+    <v:String x:Key="s_UI_Lang">UI Language</v:String>
+    <v:String x:Key="s_Core_Lang">Core (Game) Language</v:String>
+    <v:String x:Key="s_GameBrowser">Select Game from Game Browser</v:String>
+    <v:String x:Key="s_ManualBrowser">Manually Select Game Path</v:String>
+    <v:String x:Key="s_Statistics">Statistics:</v:String>
+    <v:String x:Key="s_Lines_Parsed">Lines Parsed:</v:String>
+    <v:String x:Key="s_Your_Deaths">Your Deaths:</v:String>
+    <v:String x:Key="s_Commands_Parsed">Commands Parsed:</v:String>
+    <v:String x:Key="s_Game_Deaths">Game Deaths:</v:String>
+    <v:String x:Key="s_Game_Kills">Game Kills:</v:String>
+    <v:String x:Key="s_Total_Deaths">Total Deaths:</v:String>
+    <v:String x:Key="s_Your_Kills">Your Kills:</v:String>
+    <v:String x:Key="s_Your_Suicides">Your Suicides:</v:String>
+    <v:String x:Key="s_Total_Kills">Total Kills:</v:String>
+    <v:String x:Key="s_Game_Suicides">Game Suicides:</v:String>
+    <v:String x:Key="s_Your_Crits_Kills">Your Crits Kills:</v:String>
+    <v:String x:Key="s_Total_Suicides">Total Suicides:</v:String>
+    <v:String x:Key="s_Game_Crits_Kills">Game Crits Kills:</v:String>
+    <v:String x:Key="s_Total_Crits_Kills">Total Crits Kills:</v:String>
+    <v:String x:Key="s_TF_Only">TF2 only</v:String>
+    <v:String x:Key="i_Name">Name</v:String>
+    <v:String x:Key="i_Add">Add</v:String>
+    <v:String x:Key="i_Reversed">Reversed</v:String>
+    <v:String x:Key="i_Remove">Remove</v:String>
+    <v:String x:Key="i_Attempts">Attempts to use RequestifyTF2 blocked:</v:String>
+</ResourceDictionary>
+<!--{DynamicResource }-->

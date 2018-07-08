@@ -96,7 +96,7 @@ namespace RequestPlugin
                 if (!File.Exists("./lib/YoutubeExplode.dll"))
                 {
                     web.DownloadFile(
-                        "https://github.com/weespin/reqdeps/blob/master/YoutubeExplode64.dll?raw=true",
+                        "https://github.com/weespin/reqdeps/blob/master/YoutubeExplode.dll?raw=true",
                         "./lib/YoutubeExplode.dll");
                     Libraries.LoadFile("./lib/YoutubeExplode.dll");
                 }
@@ -104,7 +104,7 @@ namespace RequestPlugin
                 if (!File.Exists("./lib/AngleSharp.dll"))
                 {
                     web.DownloadFile(
-                        "https://github.com/weespin/reqdeps/blob/master/AngleSharp64.dll?raw=true",
+                        "https://github.com/weespin/reqdeps/blob/master/AngleSharp.dll?raw=true",
                         "./lib/AngleSharp.dll");
                     Libraries.LoadFile("./lib/AngleSharp.dll");
                 }
