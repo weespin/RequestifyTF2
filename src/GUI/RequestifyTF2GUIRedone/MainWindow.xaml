@@ -12,348 +12,347 @@
     ResizeMode="NoResize"
     AllowsTransparency="True"
     Title="RequestifyTF2" Height="480" Width="660">
-    <Window.Resources>
-        <Style x:Key="FadeLeftRightLabel" TargetType="{x:Type Label}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Label}">
-                        <ContentPresenter>
-                            <ContentPresenter.OpacityMask>
-                                <LinearGradientBrush StartPoint="0.0,0.5" EndPoint="1.0,0.5">
-                                    <GradientStop x:Name="GradientStop1" Offset="0" Color="Black" />
-                                    <GradientStop x:Name="GradientStop2" Offset="0" Color="Transparent" />
-                                </LinearGradientBrush>
-                            </ContentPresenter.OpacityMask>
-                        </ContentPresenter>
-                        <ControlTemplate.Triggers>
-                            <EventTrigger RoutedEvent="Binding.TargetUpdated">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="GradientStop1"
+  <Window.Resources>
+    <Style x:Key="FadeLeftRightLabel" TargetType="{x:Type Label}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Label}">
+            <ContentPresenter>
+              <ContentPresenter.OpacityMask>
+                <LinearGradientBrush StartPoint="0.0,0.5" EndPoint="1.0,0.5">
+                  <GradientStop x:Name="GradientStop1" Offset="0" Color="Black" />
+                  <GradientStop x:Name="GradientStop2" Offset="0" Color="Transparent" />
+                </LinearGradientBrush>
+              </ContentPresenter.OpacityMask>
+            </ContentPresenter>
+            <ControlTemplate.Triggers>
+              <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="GradientStop1"
                                                          Storyboard.TargetProperty="Offset" Duration="0:0:1" From="0.0"
                                                          To="1.0" BeginTime="0:0:0" />
-                                        <DoubleAnimation Storyboard.TargetName="GradientStop2"
+                    <DoubleAnimation Storyboard.TargetName="GradientStop2"
                                                          Storyboard.TargetProperty="Offset" Duration="0:0:1" From="0.0"
                                                          To="1.0" BeginTime="0:0:0" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ButtonStyle1"
+                  </Storyboard>
+                </BeginStoryboard>
+              </EventTrigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ButtonStyle1"
                TargetType="{x:Type Button}">
-            <Setter Property="Foreground"
+      <Setter Property="Foreground"
                     Value="Red" />
-            <Setter Property="Margin"
+      <Setter Property="Margin"
                     Value="10" />
-        </Style>
-        <Style x:Key="ButtonStyle2"
+    </Style>
+    <Style x:Key="ButtonStyle2"
                TargetType="{x:Type Button}">
-            <Setter Property="Foreground"
+      <Setter Property="Foreground"
                     Value="Blue" />
-            <Setter Property="Margin"
+      <Setter Property="Margin"
                     Value="10" />
-        </Style>
-    </Window.Resources>
+    </Style>
+  </Window.Resources>
 
-    <Grid Loaded="FrameworkElement_OnLoaded" RenderTransformOrigin="0.521,0.347" Background="White" Height="635"
+  <Grid Loaded="FrameworkElement_OnLoaded" RenderTransformOrigin="0.521,0.347" Background="White" Height="635"
           VerticalAlignment="Top" HorizontalAlignment="Left" Width="660">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0*" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Rectangle Margin="0,0,0,597" Fill="#FF1BA1E2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="660"
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="0*" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Rectangle Margin="0,0,0,597" Fill="#FF1BA1E2" Grid.RowSpan="2" HorizontalAlignment="Left" Width="660"
                    MouseDown="UIElement_OnMouseDown" Height="38" VerticalAlignment="Bottom" />
-        <Button Margin="0,4,8,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Click="Button_Click"
+    <Button Margin="0,4,8,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Click="Button_Click"
                 HorizontalAlignment="Right" Width="30" Height="25" VerticalAlignment="Top">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1" />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </Button.RenderTransform>
-            <Button.Template>
-                <ControlTemplate>
-                    <Image Source="icons8-multiply-50.png" />
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button Margin="0,4,34,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Click="Minimize_Click"
+      <Button.RenderTransform>
+        <TransformGroup>
+          <ScaleTransform ScaleX="-1" />
+          <SkewTransform />
+          <RotateTransform />
+          <TranslateTransform />
+        </TransformGroup>
+      </Button.RenderTransform>
+      <Button.Template>
+        <ControlTemplate>
+          <Image Source="icons8-multiply-50.png" />
+        </ControlTemplate>
+      </Button.Template>
+    </Button>
+    <Button Margin="0,4,34,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Click="Minimize_Click"
                 HorizontalAlignment="Right" Width="30" Height="25" VerticalAlignment="Top">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="-1" />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
-                </TransformGroup>
-            </Button.RenderTransform>
-            <Button.Template>
-                <ControlTemplate>
-                    <Image Source="icons8-minimize-window-50.png" />
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+      <Button.RenderTransform>
+        <TransformGroup>
+          <ScaleTransform ScaleX="-1" />
+          <SkewTransform />
+          <RotateTransform />
+          <TranslateTransform />
+        </TransformGroup>
+      </Button.RenderTransform>
+      <Button.Template>
+        <ControlTemplate>
+          <Image Source="icons8-minimize-window-50.png" />
+        </ControlTemplate>
+      </Button.Template>
+    </Button>
 
-        <Label Content="RequestifyTF2" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Top" Height="35"
+    <Label Content="RequestifyTF2" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Top" Height="35"
                Width="242" Background="{x:Null}" FontSize="16" Margin="0,3,0,0" />
-        <TabControl TabStripPlacement="Left" HorizontalAlignment="Left" Margin="0,35.168,0,0" Width="660"
+    <TabControl TabStripPlacement="Left" HorizontalAlignment="Left" Margin="0,35.168,0,0" Width="660"
                     RenderTransformOrigin="0.5,0.511" Grid.Row="1" Height="446" VerticalAlignment="Top"
                     BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}">
-            <TabControl.Resources>
-                <Style TargetType="{x:Type TabItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type TabItem}">
-                                <Grid x:Name="Panel">
-                                    <ContentPresenter x:Name="ContentSite"
+      <TabControl.Resources>
+        <Style TargetType="{x:Type TabItem}">
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="{x:Type TabItem}">
+                <Grid x:Name="Panel">
+                  <ContentPresenter x:Name="ContentSite"
                                                       VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"
                                                       ContentSource="Header"
                                                       Margin="10,2" />
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="False">
-                                        <Setter TargetName="Panel" Property="Background" Value="White" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TabControl.Resources>
-            <TabItem Header="{DynamicResource m_Main}" BorderBrush="{x:Null}" Foreground="Black" Background="{x:Null}"
+                </Grid>
+                <ControlTemplate.Triggers>
+                  <Trigger Property="IsSelected" Value="True">
+                    <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                  </Trigger>
+                  <Trigger Property="IsSelected" Value="False">
+                    <Setter TargetName="Panel" Property="Background" Value="White" />
+                  </Trigger>
+                </ControlTemplate.Triggers>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+        </Style>
+      </TabControl.Resources>
+      <TabItem Header="{DynamicResource m_Main}" BorderBrush="{x:Null}" Foreground="Black" Background="{x:Null}"
                      FontFamily="Segoe UI Light" FontSize="16" Height="88" MinWidth="12" Margin="0.5,2.499,-0.5,-2.5">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="10*" />
-                        <ColumnDefinition Width="131*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="17*" />
+        <Grid Background="#FFE5E5E5">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="131*" />
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="17*" />
 
-                    </Grid.RowDefinitions>
+          </Grid.RowDefinitions>
 
-                    <Rectangle HorizontalAlignment="Left" Height="156" Margin="10,10,0,0" VerticalAlignment="Top"
+          <Rectangle HorizontalAlignment="Left" Height="156" Margin="10,10,0,0" VerticalAlignment="Top"
                                Width="531" Fill="#FF53CF7B" Grid.ColumnSpan="2" />
-                    <Label x:Name="StatusLabel" Content="{DynamicResource m_Ready}" HorizontalAlignment="Left" Margin="380.5,129,0,0"
+          <Label x:Name="StatusLabel" Content="{DynamicResource m_Ready}" HorizontalAlignment="Left" Margin="380.5,129,0,0"
                            VerticalAlignment="Top" Height="31" Width="112" Grid.Column="1" />
-                    <Button x:Name="StartButton" Content="{DynamicResource m_Start}" HorizontalAlignment="Left" Margin="10,178,0,0"
+          <Button x:Name="StartButton" Content="{DynamicResource m_Start}" HorizontalAlignment="Left" Margin="10,178,0,0"
                             VerticalAlignment="Top" Width="95" Height="70" Click="ButtonBase_OnClick"
                             BorderBrush="{x:Null}" Grid.ColumnSpan="2" />
-                    <Label
+          <Label
                         Content="{DynamicResource m_Welcome}"
                         HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="543"
                         Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
-                    <Label x:Name="AdminName" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" Margin="10,265,0,0"
+          <Label x:Name="AdminName" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" Margin="10,265,0,0"
                            VerticalAlignment="Top" Grid.ColumnSpan="2" />
-                    <TextBlock TextWrapping="Wrap" x:Name="ConsoleLabel2" Text="" HorizontalAlignment="Left"
+          <TextBlock TextWrapping="Wrap" x:Name="ConsoleLabel2" Text="" HorizontalAlignment="Left"
                                Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.315,-0.613"
                                Width="522" Grid.ColumnSpan="2" Height="88" ScrollViewer.CanContentScroll="True" />
-                    <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
+          <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
                            Margin="20,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-                    <TextBox Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Left"
+          <TextBox Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Left"
                              Height="23" Margin="77,269,0,0" TextWrapping="Wrap" Text="{DynamicResource m_Copy_Steam}"
                              VerticalAlignment="Top" Width="200" Background="{x:Null}" BorderBrush="{x:Null}"
                              Foreground="#B2000000" />
-                    <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="10,301,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <Label
+          <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="10,301,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+          <Label
                         Content="{DynamicResource m_Press_Start}"
                         HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="543"
                         Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
-                    <Label
+          <Label
                         Content="{DynamicResource m_Dont_Forget}"
                         HorizontalAlignment="Left" Margin="10,408,0,0" VerticalAlignment="Top" Width="543"
                         Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
 
-                </Grid>
-            </TabItem>
-            <TabItem Header="{DynamicResource m_Plugins}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
+        </Grid>
+      </TabItem>
+      <TabItem Header="{DynamicResource m_Plugins}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
                      FontFamily="Segoe UI Light" FontSize="16" Height="88" MinWidth="12" Margin="0.5,2.499,-0.5,-2.5">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ListBox MouseDoubleClick="PluginsList_OnMouseDoubleClick" Name="PluginsList"
+        <Grid Background="#FFE5E5E5">
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <ListBox MouseDoubleClick="PluginsList_OnMouseDoubleClick" Name="PluginsList"
                              HorizontalAlignment="Left" Height="169" Grid.Row="1" VerticalAlignment="Top" Width="206"
                              Margin="282,32,0,0">
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="100" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding PluginName}" Background="{Binding Color}" />
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid Margin="0,2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Text="{Binding PluginName}" Background="{Binding Color}" />
 
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
 
 
-                    </ListBox>
-                    <Label Content="{DynamicResource p_Commands}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+          </ListBox>
+          <Label Content="{DynamicResource p_Commands}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
                            Width="205" Grid.RowSpan="2" />
-                    <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top"
+          <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top"
                            Grid.RowSpan="2" />
-                    <ListBox Name="CommandsBox" MouseDoubleClick="CommandsBox_OnMouseDoubleClick"
+          <ListBox Name="CommandsBox" MouseDoubleClick="CommandsBox_OnMouseDoubleClick"
                              HorizontalAlignment="Left" Height="169" Grid.Row="1" VerticalAlignment="Top" Width="206"
                              Margin="10,32,0,0">
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="100" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding CommandName}" Background="{Binding Color}" />
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid Margin="0,2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Text="{Binding CommandName}" Background="{Binding Color}" />
 
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
 
 
-                    </ListBox>
-                    <Label Content="{DynamicResource p_Tip}"
+          </ListBox>
+          <Label Content="{DynamicResource p_Tip}"
                            HorizontalAlignment="Left" Height="49" Margin="10,377,0,0" Grid.Row="1"
                            VerticalAlignment="Top" Width="486" FontStyle="Italic" FontFamily="Segoe UI Light"
                            Foreground="#99000000" />
 
-                </Grid>
-            </TabItem>
-            <TabItem Header="{DynamicResource m_Settings}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
+        </Grid>
+      </TabItem>
+      <TabItem Header="{DynamicResource m_Settings}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
                      Margin="0.5,2.499,-0.5,-2.5" FontFamily="Segoe UI Light" FontSize="16" Height="88" MinWidth="12">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*" />
-                        <RowDefinition Height="92*" />
-                    </Grid.RowDefinitions>
-                    <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}" HorizontalAlignment="Left"
+        <Grid Background="#FFE5E5E5">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="92*" />
+          </Grid.RowDefinitions>
+          <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}" HorizontalAlignment="Left"
                             Margin="305,121,0,0" Grid.Row="1"
                             VerticalAlignment="Top" Width="207" Click="Button_Click_1" />
-                    <Label x:Name="GamePath" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1"
+          <Label x:Name="GamePath" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1"
                            VerticalAlignment="Top" Width="543" Height="37" />
-                    <Label Content="{DynamicResource s_Statistics}" HorizontalAlignment="Left" Margin="10,151,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Statistics}" HorizontalAlignment="Left" Margin="10,151,0,0" Grid.Row="1"
                            VerticalAlignment="Top" Width="73" />
-                    <Label Content="{DynamicResource s_Lines_Parsed}" HorizontalAlignment="Left" Margin="10,182,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Lines_Parsed}" HorizontalAlignment="Left" Margin="10,182,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Commands_Parsed}" HorizontalAlignment="Left" Margin="10,213,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Commands_Parsed}" HorizontalAlignment="Left" Margin="10,213,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Game_Kills}" HorizontalAlignment="Left" Margin="10,244,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Game_Kills}" HorizontalAlignment="Left" Margin="10,244,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Your_Kills}" HorizontalAlignment="Left" Margin="10,275,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Your_Kills}" HorizontalAlignment="Left" Margin="10,275,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Total_Kills}" HorizontalAlignment="Left" Margin="10,306,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Total_Kills}" HorizontalAlignment="Left" Margin="10,306,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Your_Crits_Kills}" HorizontalAlignment="Left" Margin="10,337,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Your_Crits_Kills}" HorizontalAlignment="Left" Margin="10,337,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Game_Crits_Kills}" HorizontalAlignment="Left" Margin="10,368,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Game_Crits_Kills}" HorizontalAlignment="Left" Margin="10,368,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Total_Crits_Kills}" HorizontalAlignment="Left" Margin="305,368,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Total_Crits_Kills}" HorizontalAlignment="Left" Margin="305,368,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Your_Deaths}" HorizontalAlignment="Left" Margin="305,182,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Your_Deaths}" HorizontalAlignment="Left" Margin="305,182,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Game_Deaths}" HorizontalAlignment="Left" Margin="305,213,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Game_Deaths}" HorizontalAlignment="Left" Margin="305,213,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Total_Deaths}" HorizontalAlignment="Left" Margin="305,244,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Total_Deaths}" HorizontalAlignment="Left" Margin="305,244,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Total_Suicides}" HorizontalAlignment="Left" Margin="305,337,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Total_Suicides}" HorizontalAlignment="Left" Margin="305,337,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Your_Suicides}" HorizontalAlignment="Left" Margin="305,275,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Your_Suicides}" HorizontalAlignment="Left" Margin="305,275,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource s_Game_Suicides }" HorizontalAlignment="Left" Margin="305,306,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_Game_Suicides }" HorizontalAlignment="Left" Margin="305,306,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="LinesParsed" HorizontalAlignment="Left" Margin="99,182,0,0" Grid.Row="1"
+          <Label Content="0" Name="LinesParsed" HorizontalAlignment="Left" Margin="99,182,0,0" Grid.Row="1"
                            VerticalAlignment="Top" RenderTransformOrigin="1.889,0.452" />
-                    <Label Content="0" Name="CommandsParsed" HorizontalAlignment="Left" Margin="141,213,0,0"
+          <Label Content="0" Name="CommandsParsed" HorizontalAlignment="Left" Margin="141,213,0,0"
                            Grid.Row="1" VerticalAlignment="Top" />
-                    <Label Content="0" Name="GameKills" HorizontalAlignment="Left" Margin="83,244,0,0" Grid.Row="1"
+          <Label Content="0" Name="GameKills" HorizontalAlignment="Left" Margin="83,244,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="YourKills" HorizontalAlignment="Left" Margin="74,275,0,0" Grid.Row="1"
+          <Label Content="0" Name="YourKills" HorizontalAlignment="Left" Margin="74,275,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="TotalKills" HorizontalAlignment="Left" Margin="74,306,0,0" Grid.Row="1"
+          <Label Content="0" Name="TotalKills" HorizontalAlignment="Left" Margin="74,306,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="YourCritKills" HorizontalAlignment="Left" Margin="108,337,0,0"
+          <Label Content="0" Name="YourCritKills" HorizontalAlignment="Left" Margin="108,337,0,0"
                            Grid.Row="1" VerticalAlignment="Top" />
-                    <Label Content="0" Name="GameCritKills" HorizontalAlignment="Left" Margin="117,368,0,0"
+          <Label Content="0" Name="GameCritKills" HorizontalAlignment="Left" Margin="117,368,0,0"
                            Grid.Row="1" VerticalAlignment="Top" />
-                    <Label Content="0" Name="TotalCritKills" HorizontalAlignment="Left" Margin="405,368,0,0"
+          <Label Content="0" Name="TotalCritKills" HorizontalAlignment="Left" Margin="405,368,0,0"
                            Grid.Row="1" VerticalAlignment="Top" />
-                    <Label Content="0" Name="YourDeaths" HorizontalAlignment="Left" Margin="394,182,0,0" Grid.Row="1"
+          <Label Content="0" Name="YourDeaths" HorizontalAlignment="Left" Margin="394,182,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="GameDeaths" HorizontalAlignment="Left" Margin="405,213,0,0" Grid.Row="1"
+          <Label Content="0" Name="GameDeaths" HorizontalAlignment="Left" Margin="405,213,0,0" Grid.Row="1"
                            VerticalAlignment="Top" RenderTransformOrigin="0,0.548" />
-                    <Label Content="0" Name="TotalDeaths" HorizontalAlignment="Left" Margin="394,244,0,0" Grid.Row="1"
+          <Label Content="0" Name="TotalDeaths" HorizontalAlignment="Left" Margin="394,244,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="YourSuicides" HorizontalAlignment="Left" Margin="400,275,0,0" Grid.Row="1"
+          <Label Content="0" Name="YourSuicides" HorizontalAlignment="Left" Margin="400,275,0,0" Grid.Row="1"
                            VerticalAlignment="Top" />
-                    <Label Content="0" Name="GameSuicides" HorizontalAlignment="Left" Margin="412,306,0,0" Grid.Row="1"
+          <Label Content="0" Name="GameSuicides" HorizontalAlignment="Left" Margin="412,306,0,0" Grid.Row="1"
                            VerticalAlignment="Top" RenderTransformOrigin="1.111,-1.677" />
-                    <Label Content="0" Name="TotalSuicides" HorizontalAlignment="Left" Margin="400,337,0,0"
+          <Label Content="0" Name="TotalSuicides" HorizontalAlignment="Left" Margin="400,337,0,0"
                            Grid.Row="1" VerticalAlignment="Top" />
-                    <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
+          <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
                             HorizontalAlignment="Left" Margin="10,121,0,0" Grid.Row="1" VerticalAlignment="Top"
                             Width="230" />
-                    <Label Content="{DynamicResource s_TF_Only }" HorizontalAlignment="Left" Margin="490,395,0,0" Grid.Row="1"
+          <Label Content="{DynamicResource s_TF_Only }" HorizontalAlignment="Left" Margin="490,395,0,0" Grid.Row="1"
                            VerticalAlignment="Top" Width="73" Foreground="#99000000" RenderTransformOrigin="0.74,3.871" />
-                    <Menu HorizontalAlignment="Left" Name="Language"  Height="20" Margin="112,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="128" Background="{x:Null}">
-                        <MenuItem x:Name="menuLanguage" Header="{DynamicResource m_menu_Language}" Height="20" Width="128" RenderTransformOrigin="0.5,0.5" />
-                    </Menu>
-                    <Menu HorizontalAlignment="Left" Name="CoreLanguage"  Height="20" Margin="431,99,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Background="{x:Null}">
-                        <MenuItem x:Name="menuCoreLanguage" Header="{DynamicResource m_core_Language}" Height="20" Width="105" />
-                    </Menu>
-                    <Label Content="{DynamicResource s_Core_Lang}" HorizontalAlignment="Left" Margin="304,94,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="12"/>
-                    <Label Content="{DynamicResource s_UI_Lang}" HorizontalAlignment="Left" Margin="10,89,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="14"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="{DynamicResource m_Ignore_List}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
+          <Menu HorizontalAlignment="Left" Name="Language"  Height="20" Margin="10,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="230" Background="{x:Null}">
+            <MenuItem x:Name="menuLanguage" Header="{DynamicResource s_UI_Lang}"  Height="20" Width="230" RenderTransformOrigin="0.5,0.5" />
+          </Menu>
+          <Menu HorizontalAlignment="Left" Name="CoreLanguage"  Height="20" Margin="305,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="207" Background="{x:Null}">
+            <MenuItem  x:Name="menuCoreLanguage" Header="{DynamicResource s_Core_Lang}" Height="20" Width="207" />
+          </Menu>
+
+        </Grid>
+      </TabItem>
+      <TabItem Header="{DynamicResource m_Ignore_List}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
                      Margin="0.5,2.499,-0.5,-2.5" FontFamily="Segoe UI Light" FontSize="16" Height="88" MinWidth="12">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="169*" />
-                        <RowDefinition Height="271*"/>
-                    </Grid.RowDefinitions>
-                    <ListBox Name="IgnoreList" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0"
+        <Grid Background="#FFE5E5E5">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="169*" />
+            <RowDefinition Height="271*"/>
+          </Grid.RowDefinitions>
+          <ListBox Name="IgnoreList" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0"
                              VerticalAlignment="Top" Width="191" Grid.RowSpan="2" />
-                    <TextBox Name="IgnoreBox" HorizontalAlignment="Left" Height="23" Margin="206,10,0,0"
+          <TextBox Name="IgnoreBox" HorizontalAlignment="Left" Height="23" Margin="206,10,0,0"
                              TextWrapping="Wrap" Text="{DynamicResource i_Name}" VerticalAlignment="Top" Width="120" />
-                    <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Add}" Click="IgnoreListButtonAdd_OnClick"
+          <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Add}" Click="IgnoreListButtonAdd_OnClick"
                             HorizontalAlignment="Left"
                             Margin="206,38,0,0" VerticalAlignment="Top" Width="120" />
-                    <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Remove}" Click="IgnoreListButtonRemove_OnClick"
+          <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Remove}" Click="IgnoreListButtonRemove_OnClick"
                             HorizontalAlignment="Left"
                             Margin="206,93,0,0" VerticalAlignment="Top" Width="120" />
-                    <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
+          <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
                               Name="RemoveCheckBox" Content="{DynamicResource i_Reversed}" HorizontalAlignment="Left" Margin="206,68,0,0"
                               VerticalAlignment="Top" />
-                    <Label Content="{DynamicResource i_Attempts}" HorizontalAlignment="Left"
+          <Label Content="{DynamicResource i_Attempts}" HorizontalAlignment="Left"
                            Margin="201,230,0,0" VerticalAlignment="Top" Width="281" Foreground="#99000000" Grid.Row="1" />
-                    <Label Content="0" HorizontalAlignment="Left" Margin="468,230,0,0" VerticalAlignment="Top"
+          <Label Content="0" HorizontalAlignment="Left" Margin="468,230,0,0" VerticalAlignment="Top"
                            Foreground="#99000000" Grid.Row="1" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="{DynamicResource m_Console}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
+        </Grid>
+      </TabItem>
+      <TabItem Header="{DynamicResource m_Console}" BorderBrush="{x:Null}" Foreground="Black" Background="White"
                      Margin="0.5,2.499,-0.5,-2.5" FontFamily="Segoe UI Light" FontSize="16" Height="88" MinWidth="12">
-                <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="Console" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+        <Grid Background="#FFE5E5E5">
+          <TextBox x:Name="Console" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
                              HorizontalAlignment="Left" Height="410" TextWrapping="Wrap" VerticalAlignment="Top"
                              Width="543" Margin="10,20,0,0" />
-                </Grid>
-            </TabItem>
-        </TabControl>
-    </Grid>
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </Grid>
 </Window>

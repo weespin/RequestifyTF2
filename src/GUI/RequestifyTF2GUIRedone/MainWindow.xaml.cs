@@ -131,8 +131,8 @@ namespace RequestifyTF2GUIRedone
             if (Instance.Config.GameDir == string.Empty)
             {
                 MessageBox.Show(
-                    Application.Current.Resources["cs_Set_Game_Dir"].ToString(),
-                        Application.Current.Resources["cs_Error"].ToString());
+                    Application.Current.FindResource("cs_Set_Game_Dir").ToString(),
+                        Application.Current.FindResource("cs_Error").ToString());
 
                 return;
             }
@@ -140,8 +140,8 @@ namespace RequestifyTF2GUIRedone
             _started = Runner.Start();
             if (_started)
             {
-                StartButton.Content = Application.Current.Resources["cs_Stop"].ToString();
-                StatusLabel.Content = Application.Current.Resources["cs_Status_Working"].ToString();
+                StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
+                StatusLabel.Content = Application.Current.FindResource("cs_Status_Working").ToString();
             }
         }
 
@@ -150,7 +150,7 @@ namespace RequestifyTF2GUIRedone
             using (var s = new VistaFolderBrowserDialog())
             {
                 s.UseDescriptionForTitle = true;
-                s.Description = Application.Current.Resources["cs_Select_Game_Path"].ToString();
+                s.Description = Application.Current.FindResource("cs_Select_Game_Path").ToString();
 
                 if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -159,7 +159,7 @@ namespace RequestifyTF2GUIRedone
                     var path = Patcher.ResolveFolder(s.SelectedPath);
                     if (path != "")
                     {
-                        GamePath.Content = Application.Current.Resources["cs_Current_Game_Path"].ToString() + path;
+                        GamePath.Content = Application.Current.FindResource("cs_Current_Game_Path").ToString() + path;
                         AppConfig.CurrentConfig.GameDirectory = path;
                         AppConfig.Save();
 
@@ -167,7 +167,7 @@ namespace RequestifyTF2GUIRedone
                     }
                     else
                     {
-                        MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
+                        MessageBox.Show(Application.Current.FindResource("cs_Not_Source_Engine_Game").ToString(), Application.Current.FindResource("cs_Error").ToString(),
                             MessageBoxButton.OK);
                     }      
                 }
@@ -179,7 +179,7 @@ namespace RequestifyTF2GUIRedone
             _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
-            //if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.Resources["cs_Cant_Find_Plugins"].ToString());
+            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
             foreach (var item in plugins)
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
             foreach (var com in Instance.Commands.GetCommands())

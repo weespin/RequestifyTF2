@@ -28,9 +28,33 @@ namespace RequestifyTF2GUIRedone
 
             m_Languages.Clear();
             m_Languages.Add(new CultureInfo("en-US")); //Нейтральная культура для этого проекта
+            m_Languages.Add(new CultureInfo("bg-BG"));
+            m_Languages.Add(new CultureInfo("cs-CZ"));
+            m_Languages.Add(new CultureInfo("da-DK"));
+            m_Languages.Add(new CultureInfo("de-DE"));
+            m_Languages.Add(new CultureInfo("el-GR"));
+            m_Languages.Add(new CultureInfo("et-EE"));
+            m_Languages.Add(new CultureInfo("fi-FI"));
+            m_Languages.Add(new CultureInfo("fr-FR"));
+            m_Languages.Add(new CultureInfo("hu-HU"));
+            m_Languages.Add(new CultureInfo("it-IT"));
+            m_Languages.Add(new CultureInfo("ja-JP"));
+            m_Languages.Add(new CultureInfo("ko-KR"));
+            m_Languages.Add(new CultureInfo("nl-NL"));
+            m_Languages.Add(new CultureInfo("nn-NO"));
+            m_Languages.Add(new CultureInfo("pl-PL"));
+            m_Languages.Add(new CultureInfo("pt-BR"));
+            m_Languages.Add(new CultureInfo("pt-PT"));
+            m_Languages.Add(new CultureInfo("ro-RO"));
             m_Languages.Add(new CultureInfo("ru-RU"));
+            m_Languages.Add(new CultureInfo("sv-SE"));
+            m_Languages.Add(new CultureInfo("th-TH"));
+            m_Languages.Add(new CultureInfo("tr-TR"));
+            m_Languages.Add(new CultureInfo("uk-UA"));
+            m_Languages.Add(new CultureInfo("zh-CN"));
+            m_Languages.Add(new CultureInfo("zh-TW"));
 
-            Language = RequestifyTF2GUIRedone.Properties.Settings.Default.DefaultLanguage;
+Language = RequestifyTF2GUIRedone.Properties.Settings.Default.DefaultLanguage;
            
         }
 
@@ -55,8 +79,80 @@ namespace RequestifyTF2GUIRedone
                 ResourceDictionary dict = new ResourceDictionary();
                 switch (value.Name)
                 {
+                    case "bg-BG":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "cs-CZ":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "da-DK":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "de-DE":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "el-GR":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "et-EE":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "fi-FI":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "fr-FR":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "hu-HU":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "it-IT":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "ja-JP":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "ko-KR":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "nl-NL":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "nn-NO":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "pl-PL":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "pt-BR":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "pt-PT":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "ro-RO":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
                     case "ru-RU":
-                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", "ru"), UriKind.Relative);
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "sv-SE":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "th-TH":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "tr-TR":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "uk-UA":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "zh-CN":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
+                        break;
+                    case "zh-TW":
+                        dict.Source = new Uri(String.Format("Resources/lang.{0}.xaml", value.Name), UriKind.Relative);
                         break;
                     default:
                         dict.Source = new Uri("Resources/lang.xaml", UriKind.Relative);
