@@ -19,7 +19,6 @@ namespace RequesifyCLI
             {
                 Plugins.Add(pl);
             }
-
             Plugins.Sort((a, b) => string.Compare(a.plugin.Name, b.plugin.Name, StringComparison.Ordinal));
             return Plugins;
         }
