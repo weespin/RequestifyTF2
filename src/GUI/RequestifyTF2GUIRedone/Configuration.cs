@@ -36,7 +36,10 @@ internal static class AppConfig
         }
 
         if (CurrentConfig.GameDirectory == string.Empty)
+        {
             MessageBox.Show("Please set the game directory", "Error");
+        }
+
         Instance.Config.GameDir = CurrentConfig.GameDirectory;
     }
 

@@ -22,7 +22,10 @@ namespace RequestifyTF2GUIRedone
             _output.Dispatcher.BeginInvoke(new Action(delegate { _output.AppendText(value.ToString()); }));
             _outp2.Dispatcher.BeginInvoke(new Action(delegate
             {
-                if (_outp2.Text.EndsWith(Environment.NewLine)) _outp2.Text = null;
+                if (_outp2.Text.EndsWith(Environment.NewLine))
+                {
+                    _outp2.Text = null;
+                }
 
                 _outp2.Text += value.ToString();
             }));

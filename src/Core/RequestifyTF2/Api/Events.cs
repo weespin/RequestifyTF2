@@ -14,7 +14,7 @@ namespace RequestifyTF2.Api
 
         public delegate void UndefinedMessageHandler(UndefinedMessageArgs e);
 
-        public class PlayerChat
+       public static class PlayerChat
         {
             public static event PlayerChatHandler OnPlayerChat;
 
@@ -24,13 +24,13 @@ namespace RequestifyTF2.Api
                 OnChat(e);
             }
 
-            protected static void OnChat(PlayerChatArgs e)
+            private static void OnChat(PlayerChatArgs e)
             {
                 OnPlayerChat?.Invoke(e);
             }
         }
 
-        public class PlayerChatArgs : EventArgs
+        public  class PlayerChatArgs : EventArgs
         {
             // Constructor. 
             public PlayerChatArgs(User caller, string text)
@@ -45,7 +45,7 @@ namespace RequestifyTF2.Api
             public User User { get; set; }
         }
 
-        public class PlayerConnect
+        public static class PlayerConnect
         {
             public static event PlayerConnectHandler OnPlayerConnect;
 
@@ -55,7 +55,7 @@ namespace RequestifyTF2.Api
                 OnConnect(e);
             }
 
-            protected static void OnConnect(PlayerConnectArgs e)
+            private static void OnConnect(PlayerConnectArgs e)
             {
                 OnPlayerConnect?.Invoke(e);
             }
@@ -73,7 +73,7 @@ namespace RequestifyTF2.Api
             public string NickName { get; set; } = string.Empty;
         }
 
-        public class PlayerKill
+        public static class PlayerKill
         {
             public static event PlayerKillHandler OnPlayerKill;
 
@@ -83,7 +83,7 @@ namespace RequestifyTF2.Api
                 OnKill(e);
             }
 
-            protected static void OnKill(PlayerKillArgs e)
+           private static void OnKill(PlayerKillArgs e)
             {
                 OnPlayerKill?.Invoke(e);
             }
@@ -110,7 +110,7 @@ namespace RequestifyTF2.Api
             public string Weapon { get; set; } = string.Empty;
         }
 
-        public class PlayerSuicide
+        public static class PlayerSuicide
         {
             public static event PlayerSuicideHandler OnPlayerSuicide;
 
@@ -120,7 +120,7 @@ namespace RequestifyTF2.Api
                 OnSuicide(e);
             }
 
-            protected static void OnSuicide(PlayerSuicideArgs e)
+            private static void OnSuicide(PlayerSuicideArgs e)
             {
                 OnPlayerSuicide?.Invoke(e);
             }
@@ -138,7 +138,7 @@ namespace RequestifyTF2.Api
             public string NickName { get; set; } = string.Empty;
         }
 
-        public class UndefinedMessage
+        public static class UndefinedMessage
         {
             public static event UndefinedMessageHandler OnUndefinedMessage;
 
@@ -148,7 +148,7 @@ namespace RequestifyTF2.Api
                 OnSuicide(e);
             }
 
-            protected static void OnSuicide(UndefinedMessageArgs e)
+            private static void OnSuicide(UndefinedMessageArgs e)
             {
                 OnUndefinedMessage?.Invoke(e);
             }

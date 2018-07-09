@@ -8,7 +8,7 @@ using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Commands
 {
-    internal class Executer
+    static class Executer
     {
         public static void Execute(User caller, string command, List<string> arguments)
         {
@@ -22,12 +22,16 @@ namespace RequestifyTF2.Commands
                 }
 
                 if (n.Alias != null)
+                {
                     foreach (var s in n.Alias)
+                    {
                         if (command == "!" + s)
                         {
                             calledcommand = n;
                             break;
                         }
+                    }
+                }
             }
 
             if (calledcommand == null)
@@ -42,7 +46,11 @@ namespace RequestifyTF2.Commands
             else
             {
                 if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled ||
-                    calledcommand.Status == CommandManager.Status.Disabled) return;
+                    calledcommand.Status == CommandManager.Status.Disabled)
+                {
+                    return;
+                }
+
                 if (!Instance.Config.Ignored.Contains(caller.Name))
                 {
                     if (!Instance.Config.IgnoredReversed)

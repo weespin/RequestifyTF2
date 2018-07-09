@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="API\Events.cs" />
     <Compile Include="API\User.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Localization\Localization.uk.Designer.cs">
       <DependentUpon>Localization.uk.resx</DependentUpon>
       <AutoGen>True</AutoGen>

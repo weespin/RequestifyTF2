@@ -17,7 +17,7 @@ namespace RequestifyTF2GUIRedone
     /// </summary>
     public partial class Games : Window
     {
-        public static List<SteamGame> SteamIdList = new List<SteamGame>();
+        public static List<SteamGame> SteamIdList { get; set; } = new List<SteamGame>();
 
         public Games()
         {
@@ -35,7 +35,11 @@ namespace RequestifyTF2GUIRedone
                 var a = Regex.Match(v);
                 if (a.Success)
                 {
-                    if (SteamIdList.Any(n => n.id == Convert.ToInt32(a.Groups[1].Value))) continue;
+                    if (SteamIdList.Any(n => n.id == Convert.ToInt32(a.Groups[1].Value)))
+                    {
+                        continue;
+                    }
+
                     var game = new SteamGame
                     {
                         id = Convert.ToInt32(a.Groups[1].Value),
@@ -68,33 +72,10 @@ namespace RequestifyTF2GUIRedone
         {
             Refresh();
             foreach (var games in SteamIdList)
-                if (games.Name != null)
-                    GamesList.Items.Add(games);
-        }
-
-        private void RefreshClick(object sender, RoutedEventArgs e)
-        {
-            Refresh();
-        }
-
-        private void SelectClick(object sender, RoutedEventArgs e)
-        {
-            if (GamesList.SelectedItem != null)
             {
-                var a = (SteamGame) GamesList.SelectedItem;
-
-                var path = Patcher.ResolveFolder(a.path);
-                if (path != "")
+                if (games.Name != null)
                 {
-                    AppConfig.CurrentConfig.GameDirectory = path;
-                    AppConfig.Save();
-
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
-                        MessageBoxButton.OK);
+                   GamesList.Items.Add(games);
                 }
             }
         }
@@ -127,7 +108,9 @@ namespace RequestifyTF2GUIRedone
         private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
+            {
                 DragMove();
+            }
         }
 
         public class SteamGame

@@ -15,11 +15,11 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private readonly List<RequestifyCommand> Commands = new List<RequestifyCommand>();
+        private readonly List<RequestifyCommand> Commands  = new List<RequestifyCommand>();
 
         public CommandManager()
         {
-            foreach (var Plugin in PluginManager.pluginAssemblies)
+            foreach (var Plugin in PluginManager.PluginAssemblies)
             {
                 var CommTypes = GetTypesFromInterface(Plugin, "IRequestifyCommand");
                 foreach (var type in CommTypes)
@@ -27,8 +27,10 @@ namespace RequestifyTF2.Managers
                     var NewCommand = new RequestifyCommand(Plugin,
                         Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled);
                     if (Commands.Count(n => n.Name == NewCommand.Name) == 0)
+                    {
                         Commands.Add(new RequestifyCommand(Plugin,
                             Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled));
+                    }
                 }
             }
         }
@@ -36,7 +38,10 @@ namespace RequestifyTF2.Managers
         public static List<Type> GetTypesFromInterface(List<Assembly> assemblies, string interfaceName)
         {
             var allTypes = new List<Type>();
-            foreach (var assembly in assemblies) allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
+            foreach (var assembly in assemblies)
+            {
+                allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
+            }
 
             return allTypes;
         }
@@ -55,8 +60,12 @@ namespace RequestifyTF2.Managers
             }
 
             foreach (var type in types.Where(t => t != null))
+            {
                 if (type.GetInterface(interfaceName) != null)
+                {
                     allTypes.Add(type);
+                }
+            }
 
             return allTypes;
         }
@@ -79,8 +88,13 @@ namespace RequestifyTF2.Managers
         public RequestifyCommand GetCommand(string name)
         {
             foreach (var p in Commands)
+            {
                 if (p.Name == name || p.Alias.Contains(name))
+                {
                     return p;
+                }
+            }
+
             return null;
         }
 
@@ -91,12 +105,12 @@ namespace RequestifyTF2.Managers
 
         public class RequestifyCommand : IRequestifyCommand
         {
-            [JsonIgnoreAttribute]
-            public Assembly Father;
-            [JsonIgnoreAttribute]
-            public IRequestifyCommand ICommand;
+            [JsonIgnore] public Assembly Father { get; set; }
 
-            public Status Status;
+            [JsonIgnoreAttribute]
+            public IRequestifyCommand ICommand { get; set; }
+
+            public Status Status { get; set; }
 
             public RequestifyCommand(Assembly father, IRequestifyCommand command, Status status)
             {

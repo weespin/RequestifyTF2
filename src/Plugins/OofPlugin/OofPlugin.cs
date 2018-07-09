@@ -42,11 +42,20 @@ namespace OofPlugin
                 if (File.Exists("./oof/conf.json"))
                 {
                     config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("./oof/conf.json"));
-                    if (config.MinecraftOof) of.Add(minecraftoof);
+                    if (config.MinecraftOof)
+                    {
+                        of.Add(minecraftoof);
+                    }
 
-                    if (config.Oof) of.Add(oof);
+                    if (config.Oof)
+                    {
+                        of.Add(oof);
+                    }
 
-                    if (config.SlowOof) of.Add(slowoff);
+                    if (config.SlowOof)
+                    {
+                        of.Add(slowoff);
+                    }
                 }
                 else
                 {
@@ -69,14 +78,19 @@ namespace OofPlugin
         private void PlayerKill_OnPlayerKill(Events.PlayerKillArgs e)
         {
             if (config.Name != string.Empty)
+            {
                 if (e.Killer == config.Name)
                 {
                     Stream s = new MemoryStream(Convert.FromBase64String(of[new Random().Next(0, of.Count)]));
-                    if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing) Instance.SoundOutExtra.Stop();
+                    if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                    {
+                        Instance.SoundOutExtra.Stop();
+                    }
 
                     Instance.SoundOutExtra.Initialize(new DmoMp3Decoder(s));
                     Instance.SoundOutExtra.Play();
                 }
+            }
         }
 
         public class Config

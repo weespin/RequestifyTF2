@@ -53,13 +53,17 @@ public class Logger
         }
         catch (Exception)
         {
+            // ignored
         }
     }
 
     private static void LogWrite(string logMessage)
     {
-        // Console.WriteLine(logMessage);
-        if (_mExePath == string.Empty) _mExePath = AppDomain.CurrentDomain.BaseDirectory;
+       
+        if (_mExePath == string.Empty)
+        {
+            _mExePath = AppDomain.CurrentDomain.BaseDirectory;
+        }
 
         try
         {

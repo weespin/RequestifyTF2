@@ -7,7 +7,7 @@ namespace RequesifyCLI
 {
     internal static class AppConfig
     {
-        public static ConfigJsonData CurrentConfig = new ConfigJsonData();
+        public static ConfigJsonData CurrentConfig { get; set; } = new ConfigJsonData();
 
         public static void Load()
         {
@@ -41,7 +41,10 @@ namespace RequesifyCLI
             }
 
             if (CurrentConfig.GameDirectory == string.Empty)
+            {
                 Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");
+            }
+
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
         }
 

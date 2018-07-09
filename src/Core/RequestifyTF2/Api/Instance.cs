@@ -19,26 +19,27 @@ namespace RequestifyTF2.Api
         /// <summary>
         ///     Stores all Windows audio devices.
         /// </summary>
-        public static bool isMuted = false;
+        public static bool IsMuted { get; set; } 
 
-        public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
+        public static config Config { get; set; } = new config();
+        public static ConcurrentQueue<IWaveSource> QueueForeGround { get; set; } = new ConcurrentQueue<IWaveSource>();
         /// <summary>
         ///     Background channel. Good for long sounds and music.
         /// </summary>
-        public static WasapiOut SoundOutBackground = new WasapiOut();
+        public static WasapiOut SoundOutBackground { get; set; } = new WasapiOut();
 
-        public static PluginManager Plugins = new PluginManager();
-        public static CommandManager Commands = new CommandManager();
+        public static PluginManager Plugins { get; set; } = new PluginManager();
+        public static CommandManager Commands { get; set; } = new CommandManager();
 
         /// <summary>
         ///     Extra channel. Use it for very fast sounds. Does not have a queue!
         /// </summary>
-        public static WasapiOut SoundOutExtra = new WasapiOut();
+        public static WasapiOut SoundOutExtra { get; set; } = new WasapiOut();
 
         /// <summary>
         ///     Foreground channel. When sound is playing from this channel, the background channel will be silent.
         /// </summary>
-        public static WasapiOut SoundOutForeground = new WasapiOut();
+        public static WasapiOut SoundOutForeground { get; set; } = new WasapiOut();
 
         private static ELanguage _language = ELanguage.EN;
         //todo: make this garbage shorter
@@ -71,11 +72,11 @@ namespace RequestifyTF2.Api
          
             if(songtype == SongType.MP3)
             { 
-            BackGroundQueue.PlayList.Enqueue(new Song(title, new Mp3MediafoundationDecoder(Link),new User(){Name = RequestedBy,Tag=0}));
+            BackGroundQueue.PlayList.Enqueue(new Song(title, new Mp3MediafoundationDecoder(Link),new User{Name = RequestedBy,Tag=0}));
             }
             else
             {
-                BackGroundQueue.PlayList.Enqueue(new Song(title, new AacDecoder(Link), new User() { Name = RequestedBy, Tag = 0 }));
+                BackGroundQueue.PlayList.Enqueue(new Song(title, new AacDecoder(Link), new User{ Name = RequestedBy, Tag = 0 }));
             }
 
                 return true;
@@ -102,13 +103,21 @@ namespace RequestifyTF2.Api
                     deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
                 {
                     foreach (var device in deviceoutCollection)
+                    {
                         if (device.FriendlyName.Contains("Cable") && device.FriendlyName.Contains("Virtual")
                                                                   && device.FriendlyName.Contains("Audio"))
+                        {
                             GoodOutputDevices.Add(device);
+                        }
+                    }
+
                     using (var deviceinpCollection =
                         deviceEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
                     {
-                        foreach (var device in deviceinpCollection) GoodInputDevices.Add(device);
+                        foreach (var device in deviceinpCollection)
+                        {
+                            GoodInputDevices.Add(device);
+                        }
                     }
                 }
 
@@ -137,7 +146,9 @@ namespace RequestifyTF2.Api
                             string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
                     }
 
-                    SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
+                    SoundOutExtra.Device = outp;
+                    SoundOutBackground.Device = outp;
+                    SoundOutForeground.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
                         string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName));
@@ -162,7 +173,9 @@ namespace RequestifyTF2.Api
                         return false;
                     }
 
-                    SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
+                    SoundOutForeground.Device = outp;
+                    SoundOutBackground.Device = outp;
+                    SoundOutExtra.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
                         string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName),
@@ -217,7 +230,7 @@ namespace RequestifyTF2.Api
 
         public static class BackGroundQueue
         {
-            public static ConcurrentQueue<Song> PlayList = new ConcurrentQueue<Song>();
+            public static ConcurrentQueue<Song> PlayList { get; set; } = new ConcurrentQueue<Song>();
 
             public static void AddSong(Song song)
             {
@@ -249,26 +262,26 @@ namespace RequestifyTF2.Api
         /// <summary>
         ///     Configuration class.
         /// </summary>
-        public class Config
+        public class config
         {
-            public static string Admin;
+            public string Admin { get; set; }
 
-            public static string GameDir;
+            public string GameDir { get; set; }
 
-            public static List<string> Ignored = new List<string>();
+            public List<string> Ignored { get; set; } = new List<string>();
 
-            public static bool IgnoredReversed;
+            public bool IgnoredReversed { get; set; }
         }
 
         public class Song
         {
-            public bool Dequeued;
+            public bool Dequeued { get; set; }
 
-            public User RequestedBy;
+            public User RequestedBy { get; set; }
 
-            public IWaveSource Source;
+            public IWaveSource Source { get; set; }
 
-            public string Title;
+            public string Title { get; set; }
 
             public Song(string title, IWaveSource source, User executor)
             {

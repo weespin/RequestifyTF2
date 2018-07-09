@@ -18,17 +18,18 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private static readonly List<Type> plugintypes = new List<Type>();
-        public static List<Assembly> pluginAssemblies = new List<Assembly>();
+        private static readonly List<Type> Plugintypes  = new List<Type>();
+        public static readonly List<Assembly> PluginAssemblies = new List<Assembly>();
         private static readonly List<Plugin> Plugins = new List<Plugin>();
 
         public PluginManager()
         {
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/"))
+            {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
+            }
 
-
-            //          this.field_ignored.Enter += this.lbx_IgnoreList_Enter;
+         
             loadPlugins(
                 Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
         }
@@ -38,6 +39,7 @@ namespace RequestifyTF2.Managers
             var dict = new Dictionary<string, string>();
             IEnumerable<FileInfo> dlls = new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
             foreach (var file in dlls)
+            {
                 try
                 {
                     var name = AssemblyName.GetAssemblyName(file.FullName);
@@ -47,6 +49,7 @@ namespace RequestifyTF2.Managers
                 {
                     Logger.Write(Logger.Status.Error,e.ToString());
                 }
+            }
 
             return dict;
         }
@@ -58,6 +61,7 @@ namespace RequestifyTF2.Managers
                 new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
 
             foreach (var library in pluginsLibraries)
+            {
                 try
                 {
                     var assembly = Assembly.LoadFile(library.FullName);
@@ -86,6 +90,7 @@ namespace RequestifyTF2.Managers
                     Console.WriteLine(Localization.Localization.CORE_CANT_LOAD_PLUGIN + library.Name);
                     Console.WriteLine(ex);
                 }
+            }
 
             return assemblies;
         }
@@ -93,7 +98,10 @@ namespace RequestifyTF2.Managers
         public static List<Type> GetTypesFromInterface(List<Assembly> assemblies, string interfaceName)
         {
             var allTypes = new List<Type>();
-            foreach (var assembly in assemblies) allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
+            foreach (var assembly in assemblies)
+            {
+                allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
+            }
 
             return allTypes;
         }
@@ -112,8 +120,12 @@ namespace RequestifyTF2.Managers
             }
 
             foreach (var type in types.Where(t => t != null))
+            {
                 if (type.GetInterface(interfaceName) != null)
+                {
                     allTypes.Add(type);
+                }
+            }
 
             return allTypes;
         }
@@ -125,14 +137,25 @@ namespace RequestifyTF2.Managers
            
 
             foreach (var pair in libraries)
+            {
                 if (!libraries.ContainsKey(pair.Key))
+                {
                     libraries.Add(pair.Key, pair.Value);
+                }
+            }
 
-            pluginAssemblies = LoadAssembliesFromDirectory(path);
-            var pluginImplemenations = GetTypesFromInterface(pluginAssemblies, "IRequestifyPlugin");
-            foreach (var pluginType in pluginImplemenations) plugintypes.Add(pluginType);
+            var asseblylist = LoadAssembliesFromDirectory(path);
+            foreach (var assebly in asseblylist)
+            {
+                PluginAssemblies.Add(assebly);
+            }
+            var pluginImplemenations = GetTypesFromInterface(PluginAssemblies, "IRequestifyPlugin");
+            foreach (var pluginType in pluginImplemenations)
+            {
+                Plugintypes.Add(pluginType);
+            }
 
-            foreach (var Assembly in pluginAssemblies)
+            foreach (var Assembly in PluginAssemblies)
             {
                 var types = Assembly.GetTypes();
                 foreach (var type in types)
@@ -171,8 +194,12 @@ namespace RequestifyTF2.Managers
         public Plugin GetPlugin(Assembly assembly)
         {
             foreach (var p in Plugins)
+            {
                 if (p.plugin != null && p.plugin.GetType().Assembly == assembly)
+                {
                     return p;
+                }
+            }
 
             return null;
         }
