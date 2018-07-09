@@ -43,12 +43,8 @@ namespace RequesifyCLI
 
         private static void Main(string[] args)
         {
-            var _plugins = new Dictionary<string, IRequestifyPlugin>();
-           
-
             AppConfig.Load();
             GetHelp();
-            //PrintPlugins();
             while (true)
             {
                 var key = Console.ReadLine();

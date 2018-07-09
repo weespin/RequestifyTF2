@@ -302,8 +302,6 @@ namespace RequestifyTF2GUIRedone
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            //LabelResp();
-            //lbl.Content += "kek\n"
             if (Instance.Config.GameDir == string.Empty)
             {
                 MessageBox.Show(
@@ -312,7 +310,6 @@ namespace RequestifyTF2GUIRedone
 
                 return;
             }
-
             _started = Runner.Start();
             if (_started)
             {
@@ -352,7 +349,6 @@ namespace RequestifyTF2GUIRedone
                 }
             }
         }
-
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
             _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
@@ -466,8 +462,7 @@ namespace RequestifyTF2GUIRedone
 
         private void GameBrowser_click(object sender, RoutedEventArgs e)
         {
-            var a = new Games();
-            a.DataContext = this;
+            var a = new Games {DataContext = this};
             a.Show();
         }
 

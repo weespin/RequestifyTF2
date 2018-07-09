@@ -58,12 +58,8 @@ namespace RequestifyTF2Forms
             var plugins = Instance.Plugins.GetPlugins();
             foreach (var item in plugins)
             {
-                //  Instance.ActivePlugins.Add(item);
                 _plugins.Add(item.plugin.Name, item);
-            }
-
-            // PluginsList.Items.Add(item.Name, true);
-
+            } 
             seedListView(plugins);
             AppConfig.Load();
             materialSingleLineTextField1.Text = Instance.Config.Admin;

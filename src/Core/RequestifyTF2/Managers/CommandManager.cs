@@ -15,7 +15,7 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private readonly List<RequestifyCommand> Commands = new List<RequestifyCommand>();
+        private readonly List<RequestifyCommand> Commands  = new List<RequestifyCommand>();
 
         public CommandManager()
         {
@@ -105,12 +105,12 @@ namespace RequestifyTF2.Managers
 
         public class RequestifyCommand : IRequestifyCommand
         {
-            [JsonIgnoreAttribute]
-            public Assembly Father;
-            [JsonIgnoreAttribute]
-            public IRequestifyCommand ICommand;
+            [JsonIgnore] public Assembly Father { get; set; }
 
-            public Status Status;
+            [JsonIgnoreAttribute]
+            public IRequestifyCommand ICommand { get; set; }
+
+            public Status Status { get; set; }
 
             public RequestifyCommand(Assembly father, IRequestifyCommand command, Status status)
             {

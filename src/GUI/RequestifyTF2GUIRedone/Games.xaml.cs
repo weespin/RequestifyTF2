@@ -75,34 +75,7 @@ namespace RequestifyTF2GUIRedone
             {
                 if (games.Name != null)
                 {
-                    GamesList.Items.Add(games);
-                }
-            }
-        }
-
-        private void RefreshClick(object sender, RoutedEventArgs e)
-        {
-            Refresh();
-        }
-
-        private void SelectClick(object sender, RoutedEventArgs e)
-        {
-            if (GamesList.SelectedItem != null)
-            {
-                var a = (SteamGame) GamesList.SelectedItem;
-
-                var path = Patcher.ResolveFolder(a.path);
-                if (path != "")
-                {
-                    AppConfig.CurrentConfig.GameDirectory = path;
-                    AppConfig.Save();
-
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
-                        MessageBoxButton.OK);
+                   GamesList.Items.Add(games);
                 }
             }
         }

@@ -45,7 +45,6 @@ namespace RequestifyTF2
                         Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
                         ConsoleColor.Red);
                     return false;
-                    // return;
                 }
             }
 

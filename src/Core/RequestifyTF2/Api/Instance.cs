@@ -19,9 +19,9 @@ namespace RequestifyTF2.Api
         /// <summary>
         ///     Stores all Windows audio devices.
         /// </summary>
-        public static bool IsMuted { get; set; } = false;
+        public static bool IsMuted { get; set; } 
 
-        public static config Config = new config();
+        public static config Config { get; set; } = new config();
         public static ConcurrentQueue<IWaveSource> QueueForeGround { get; set; } = new ConcurrentQueue<IWaveSource>();
         /// <summary>
         ///     Background channel. Good for long sounds and music.
@@ -72,11 +72,11 @@ namespace RequestifyTF2.Api
          
             if(songtype == SongType.MP3)
             { 
-            BackGroundQueue.PlayList.Enqueue(new Song(title, new Mp3MediafoundationDecoder(Link),new User(){Name = RequestedBy,Tag=0}));
+            BackGroundQueue.PlayList.Enqueue(new Song(title, new Mp3MediafoundationDecoder(Link),new User{Name = RequestedBy,Tag=0}));
             }
             else
             {
-                BackGroundQueue.PlayList.Enqueue(new Song(title, new AacDecoder(Link), new User() { Name = RequestedBy, Tag = 0 }));
+                BackGroundQueue.PlayList.Enqueue(new Song(title, new AacDecoder(Link), new User{ Name = RequestedBy, Tag = 0 }));
             }
 
                 return true;
@@ -173,7 +173,9 @@ namespace RequestifyTF2.Api
                         return false;
                     }
 
-                    SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
+                    SoundOutForeground.Device = outp;
+                    SoundOutBackground.Device = outp;
+                    SoundOutExtra.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
                         string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName),
