@@ -1,6 +1,5 @@
 # RequestifyTF2
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ce1b58babd174d2db3e1f8b658089dcd)](https://app.codacy.com/app/weespin/RequestifyTF2?utm_source=github.com&utm_medium=referral&utm_content=weespin/RequestifyTF2&utm_campaign=badger)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/30407e0b2748487a91525bd4009ad340)](https://app.codacy.com/app/weespin/RequestifyTF2?utm_source=github.com&utm_medium=referral&utm_content=weespin/RequestifyTF2&utm_campaign=badger)
 [![Build](https://ci.appveyor.com/api/projects/status/github/weespin/Requestifytf2)](https://ci.appveyor.com/project/weespin26279/requestifytf2/)
 
 RequesifyTF2 is a simple program for Source Engine based games, which supports plugins, micspam, and alot of custom things.
