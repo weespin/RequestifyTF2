@@ -13,7 +13,7 @@ namespace RequestifyTF2.Api
 
     public class User
     {
-        public string Name = "";
-        public Tag Tag = Tag.None;
+        public string Name { get; set; } = "";
+        public Tag Tag { get; set; } = Tag.None;
     }
 }

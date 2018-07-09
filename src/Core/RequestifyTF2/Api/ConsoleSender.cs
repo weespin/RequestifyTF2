@@ -23,7 +23,7 @@ namespace RequestifyTF2.Api
             switch (cmd)
             {
                 case Command.Chat:
-                    if (!Instance.isMuted)
+                    if (!Instance.IsMuted)
                     {
                         text = "say " + cmnd;
                     }
@@ -35,6 +35,9 @@ namespace RequestifyTF2.Api
                 case Command.Raw:
                     text = cmnd;
                     break;
+                default:
+                    throw new InvalidOperationException();
+                  
             }
 
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
