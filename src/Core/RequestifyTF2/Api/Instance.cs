@@ -20,7 +20,7 @@ namespace RequestifyTF2.Api
         ///     Stores all Windows audio devices.
         /// </summary>
         public static bool isMuted = false;
-
+        public static config Config = new config();
         public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
         /// <summary>
         ///     Background channel. Good for long sounds and music.
@@ -102,21 +102,13 @@ namespace RequestifyTF2.Api
                     deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
                 {
                     foreach (var device in deviceoutCollection)
-                    {
                         if (device.FriendlyName.Contains("Cable") && device.FriendlyName.Contains("Virtual")
                                                                   && device.FriendlyName.Contains("Audio"))
-                        {
                             GoodOutputDevices.Add(device);
-                        }
-                    }
-
                     using (var deviceinpCollection =
                         deviceEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
                     {
-                        foreach (var device in deviceinpCollection)
-                        {
-                            GoodInputDevices.Add(device);
-                        }
+                        foreach (var device in deviceinpCollection) GoodInputDevices.Add(device);
                     }
                 }
 
@@ -257,15 +249,15 @@ namespace RequestifyTF2.Api
         /// <summary>
         ///     Configuration class.
         /// </summary>
-        public class Config
+        public class config
         {
-            public static string Admin;
+            public string Admin { get; set; }
 
-            public static string GameDir;
+            public string GameDir { get; set; }
 
-            public static List<string> Ignored = new List<string>();
+            public List<string> Ignored = new List<string>();
 
-            public static bool IgnoredReversed;
+            public bool IgnoredReversed { get; set; }
         }
 
         public class Song

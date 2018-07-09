@@ -27,10 +27,8 @@ namespace RequestifyTF2.Managers
                     var NewCommand = new RequestifyCommand(Plugin,
                         Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled);
                     if (Commands.Count(n => n.Name == NewCommand.Name) == 0)
-                    {
                         Commands.Add(new RequestifyCommand(Plugin,
                             Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled));
-                    }
                 }
             }
         }
@@ -38,10 +36,7 @@ namespace RequestifyTF2.Managers
         public static List<Type> GetTypesFromInterface(List<Assembly> assemblies, string interfaceName)
         {
             var allTypes = new List<Type>();
-            foreach (var assembly in assemblies)
-            {
-                allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
-            }
+            foreach (var assembly in assemblies) allTypes.AddRange(GetTypesFromInterface(assembly, interfaceName));
 
             return allTypes;
         }
@@ -60,12 +55,8 @@ namespace RequestifyTF2.Managers
             }
 
             foreach (var type in types.Where(t => t != null))
-            {
                 if (type.GetInterface(interfaceName) != null)
-                {
                     allTypes.Add(type);
-                }
-            }
 
             return allTypes;
         }
@@ -88,13 +79,8 @@ namespace RequestifyTF2.Managers
         public RequestifyCommand GetCommand(string name)
         {
             foreach (var p in Commands)
-            {
                 if (p.Name == name || p.Alias.Contains(name))
-                {
                     return p;
-                }
-            }
-
             return null;
         }
 

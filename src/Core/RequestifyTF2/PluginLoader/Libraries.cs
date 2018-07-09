@@ -8,10 +8,7 @@ namespace RequestifyTF2.PluginLoader
     {
         public static void Load(string path)
         {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             var dllFileNames = Directory.GetFiles(path, "*.dll");
             foreach (var assembly in dllFileNames)

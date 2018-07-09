@@ -33,7 +33,6 @@ namespace RequestifyTF2
             }
 
             if (File.Exists(Instance.Config.GameDir + "/console.log"))
-            {
                 try
                 {
                     File.WriteAllText(Instance.Config.GameDir + "/console.log", string.Empty);
@@ -47,7 +46,6 @@ namespace RequestifyTF2
                     return false;
                     // return;
                 }
-            }
 
             PlayerThread.Starter();
             ReaderThread.Starter();

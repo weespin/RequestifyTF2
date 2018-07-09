@@ -42,7 +42,6 @@ namespace RequestPlugin
         {
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
             if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
-            {
                 if (MusicId != Instance.SoundOutBackground.WaveSource.Length)
                 {
                     VoteUsers.Clear();
@@ -83,11 +82,8 @@ namespace RequestPlugin
                         }
                     }
                 }
-            }
             else
-            {
                 ConsoleSender.SendCommand($"{executor}, the queue is empty.", ConsoleSender.Command.Chat);
-            }
         }
 
         public void OnLoad()
@@ -120,10 +116,7 @@ namespace RequestPlugin
         private void OnUndef(Events.UndefinedMessageArgs e)
         {
             var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
-            if (reg.Success)
-            {
-                PlayersCount = int.Parse(reg.Groups[1].Value);
-            }
+            if (reg.Success) PlayersCount = int.Parse(reg.Groups[1].Value);
         }
 
         public class StopCommand : IRequestifyCommand
@@ -143,10 +136,7 @@ namespace RequestPlugin
 
             public void Execute(User executor, List<string> arguments)
             {
-                if (executor.Name != Instance.Config.Admin)
-                {
-                    return;
-                }
+                if (executor.Name != Instance.Config.Admin) return;
 
                 if (arguments[0] == "cur")
                 {
@@ -181,16 +171,12 @@ namespace RequestPlugin
 
             public void Execute(User executor, List<string> arguments)
             {
-                if (arguments.Count <= 0)
-                {
-                    return;
-                }
+                if (arguments.Count <= 0) return;
 
                 var url = arguments[0];
 
                 var regex = new Regex(@"^(https?:\/\/)?(www.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$");
                 if (regex.Match(url).Success)
-                {
                     try
                     {
                         using (var web = new WebClient())
@@ -225,7 +211,7 @@ namespace RequestPlugin
                     {
                         return;
                     }
-                }
+
 
                 var youtube = new Regex(@"youtube\..+?/watch.*?v=(.*?)(?:&|/|$)");
                 var shortregex = new Regex(@"youtu\.be/(.*?)(?:\?|&|/|$)");
@@ -236,10 +222,7 @@ namespace RequestPlugin
                     var streamInfoSet = client.GetVideoMediaStreamInfosAsync(id);
                     var streamInfo =
                         streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
-                    if (streamInfo == null)
-                    {
-                        return;
-                    }
+                    if (streamInfo == null) return;
 
                     var ext = streamInfo.Url;
                     var title = client.GetVideoAsync(id).Result.Title;
@@ -259,10 +242,7 @@ namespace RequestPlugin
                             var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);
                             var streamInfo =
                                 streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
-                            if (streamInfo == null)
-                            {
-                                return;
-                            }
+                            if (streamInfo == null) return;
 
                             var ext = streamInfo.Url;
                             var title = client.GetVideoAsync(vids[0].Id).Result.Title;

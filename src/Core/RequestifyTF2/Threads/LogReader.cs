@@ -48,10 +48,7 @@ namespace RequestifyTF2
             };
             fsw.Changed += (s, e) => wh.Set();
             if (!File.Exists(Instance.Config.GameDir + "/console.log"))
-            {
                 File.Create(Instance.Config.GameDir + "/console.log");
-            }
-
             Thread.Sleep(30);
 
 
@@ -103,12 +100,8 @@ namespace RequestifyTF2
                     if (split[0].StartsWith("!"))
                     {
                         if (split.Length > 1)
-                        {
                             for (var i = 1; i < split.Length; i++)
-                            {
                                 arguments.Add(split[i]);
-                            }
-                        }
 
                         Executer.Execute(ProcessUser(reg.Groups[1].Value), split[0], arguments);
                         Statisctics.CommandsParsed++;
@@ -137,45 +130,27 @@ namespace RequestifyTF2
                 {
                     // THIS IS NOT A CRIT
                     if (killer == Instance.Config.Admin)
-                    {
                         Statisctics.YourKills++;
-                    }
                     else
-                    {
                         Statisctics.GameKills++;
-                    }
 
                     if (killed == Instance.Config.Admin)
-                    {
                         Statisctics.YourDeaths++;
-                    }
                     else
-                    {
                         Statisctics.Deaths++;
-                    }
-
                     Events.PlayerKill.Invoke(killer, killed, weapon);
                     return Result.Kill;
                 }
 
                 if (killer == Instance.Config.Admin)
-                {
                     Statisctics.YourCritsKill++;
-                }
                 else
-                {
                     Statisctics.CritsKill++;
-                }
 
                 if (killed == Instance.Config.Admin)
-                {
                     Statisctics.YourDeaths++;
-                }
                 else
-                {
                     Statisctics.Deaths++;
-                }
-
                 Events.PlayerKill.Invoke(killer, killed, weapon, true);
                 return Result.KillCrit;
             }
@@ -192,13 +167,9 @@ namespace RequestifyTF2
             {
                 var reg = SuicideRegex.Match(s);
                 if (reg.Groups[1].Value == Instance.Config.Admin)
-                {
                     Statisctics.YourSuicides++;
-                }
                 else
-                {
                     Statisctics.Suicides++;
-                }
 
                 Events.PlayerSuicide.Invoke(reg.Groups[1].Value);
                 return Result.Suicide;
@@ -212,20 +183,11 @@ namespace RequestifyTF2
         public static User ProcessUser(string s)
         {
             var ret = new User();
-            if (s.Contains(Localization.Localization.TF_CHAT_DEAD))
-            {
-                ret.Tag |= Tag.Dead;
-            }
+            if (s.Contains(Localization.Localization.TF_CHAT_DEAD)) ret.Tag |= Tag.Dead;
 
-            if (s.Contains(Localization.Localization.TF_CHAT_TEAM))
-            {
-                ret.Tag |= Tag.Team;
-            }
+            if (s.Contains(Localization.Localization.TF_CHAT_TEAM)) ret.Tag |= Tag.Team;
 
-            if (s.Contains(Localization.Localization.TF_CHAT_SPECTATOR))
-            {
-                ret.Tag |= Tag.Spectator;
-            }
+            if (s.Contains(Localization.Localization.TF_CHAT_SPECTATOR)) ret.Tag |= Tag.Spectator;
 
             ret.Name = s.Replace(Localization.Localization.TF_CHAT_TEAM, "")
                 .Replace(Localization.Localization.TF_CHAT_DEAD, "");

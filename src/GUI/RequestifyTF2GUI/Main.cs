@@ -209,7 +209,7 @@ namespace RequestifyTF2Forms
 
         private void chkbox_onlywithcode_CheckedChanged(object sender, EventArgs e)
         {
-            //   Instance.Config.OnlyWithCode = this.chkbox_onlywithcode.Checked;
+            //   Instance.config.OnlyWithCode = this.chkbox_onlywithcode.Checked;
         }
 
         private void lbx_IgnoreList_Enter(object sender, EventArgs e)
