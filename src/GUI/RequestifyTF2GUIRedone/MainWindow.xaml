@@ -285,7 +285,7 @@
             <MenuItem x:Name="menuLanguage" Header="{DynamicResource s_UI_Lang}"  Height="20" Width="372.041" RenderTransformOrigin="0.5,0.5" />
           </Menu>
           <Menu HorizontalAlignment="Left" Name="CoreLanguage"  Height="20" Margin="387.041,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420.822" Background="{x:Null}">
-            <MenuItem  x:Name="menuCoreLanguage" Header="{DynamicResource s_Core_Lang}" Height="20" Width="420.822" Click="menuCoreLanguage_Click" />
+            <MenuItem  x:Name="menuCoreLanguage" Header="{DynamicResource s_Core_Lang}" Height="20" Width="420.822" />
           </Menu>
 
         </Grid>

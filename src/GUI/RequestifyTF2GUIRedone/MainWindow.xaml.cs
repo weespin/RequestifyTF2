@@ -507,9 +507,5 @@ namespace RequestifyTF2GUIRedone
             Instance.IsMuted = false;
         }
 
-        private void menuCoreLanguage_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

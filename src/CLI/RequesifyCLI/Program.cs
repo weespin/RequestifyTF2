@@ -199,10 +199,6 @@ namespace RequesifyCLI
                         Logger.Write(Logger.Status.Info, "Please set the game directory");
                         return;
                     }
-
-                  
-                        
-                  
                     Runner.Start();
                     started = true;
 
@@ -218,7 +214,7 @@ namespace RequesifyCLI
             Logger.Write(Logger.Status.Info, "===================BLACKLIST===================");
             foreach (var blocked in blacklisted)
             {
-                Console.WriteLine($"{{{i}}} {blocked}");
+                Console.WriteLine($@"{{{i}}} {blocked}");
                 i++;
             }
 

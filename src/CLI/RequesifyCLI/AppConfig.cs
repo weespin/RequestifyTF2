@@ -7,7 +7,7 @@ namespace RequesifyCLI
 {
     internal static class AppConfig
     {
-        public static ConfigJsonData CurrentConfig = new ConfigJsonData();
+        public static ConfigJsonData CurrentConfig { get; set; } = new ConfigJsonData();
 
         public static void Load()
         {

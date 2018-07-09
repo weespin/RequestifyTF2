@@ -65,7 +65,6 @@ namespace RequestifyTF2Forms
             // PluginsList.Items.Add(item.Name, true);
 
             seedListView(plugins);
-            FormClosing += Main_Closing;
             AppConfig.Load();
             materialSingleLineTextField1.Text = Instance.Config.Admin;
         }
@@ -207,22 +206,12 @@ namespace RequestifyTF2Forms
             materialLabel5.Text = "Status: Working";
         }
 
-        private void chkbox_onlywithcode_CheckedChanged(object sender, EventArgs e)
-        {
-            //   Instance.config.OnlyWithCode = this.chkbox_onlywithcode.Checked;
-        }
-
         private void lbx_IgnoreList_Enter(object sender, EventArgs e)
         {
             if (field_ignored.Text == "Enter Name")
             {
                 field_ignored.Text = string.Empty;
             }
-        }
-
-        private void list_plugins_DoubleClick(object sender, EventArgs e)
-        {
-                        
         }
 
         private void list_plugins_MouseClick(object sender, MouseEventArgs e)
@@ -242,15 +231,6 @@ namespace RequestifyTF2Forms
 
             }
         }
-
-        private void list_plugins_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void Main_Closing(object sender, EventArgs e)
-        {
-        }
-
         private void Main_Load(object sender, EventArgs e)
         {
             txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
@@ -278,13 +258,7 @@ namespace RequestifyTF2Forms
             AppConfig.Save();
         }
 
-        private void materialSingleLineTextField1_Click(object sender, EventArgs e)
-        {
-        }
 
-        private void materialSingleLineTextField1_DragLeave(object sender, EventArgs e)
-        {
-        }
 
         private void seedListView(ICollection<PluginManager.Plugin> plugins)
         {
@@ -300,10 +274,6 @@ namespace RequestifyTF2Forms
         private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
         {
             Instance.IsMuted = materialCheckBox1.Checked;
-        }
-
-        private void materialTabSelector1_Click(object sender, EventArgs e)
-        {
         }
     }
 

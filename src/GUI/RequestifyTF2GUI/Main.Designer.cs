@@ -213,7 +213,6 @@
             this.chkbox_onlywithcode.TabIndex = 15;
             this.chkbox_onlywithcode.Text = "Only with Code";
             this.chkbox_onlywithcode.UseVisualStyleBackColor = true;
-            this.chkbox_onlywithcode.CheckedChanged += new System.EventHandler(this.chkbox_onlywithcode_CheckedChanged);
             // 
             // lbl_code
             // 
@@ -307,8 +306,6 @@
             this.materialSingleLineTextField1.TabIndex = 20;
             this.materialSingleLineTextField1.TabStop = false;
             this.materialSingleLineTextField1.UseSystemPasswordChar = false;
-            this.materialSingleLineTextField1.Click += new System.EventHandler(this.materialSingleLineTextField1_Click);
-            this.materialSingleLineTextField1.DragLeave += new System.EventHandler(this.materialSingleLineTextField1_DragLeave);
             // 
             // btn_SelectGamePath
             // 
@@ -386,8 +383,6 @@
             this.list_plugins.TabIndex = 2;
             this.list_plugins.UseCompatibleStateImageBehavior = false;
             this.list_plugins.View = System.Windows.Forms.View.Details;
-            this.list_plugins.SelectedIndexChanged += new System.EventHandler(this.list_plugins_SelectedIndexChanged);
-            this.list_plugins.DoubleClick += new System.EventHandler(this.list_plugins_DoubleClick);
             this.list_plugins.MouseClick += new System.Windows.Forms.MouseEventHandler(this.list_plugins_MouseClick);
             // 
             // columnHeader1
@@ -525,7 +520,6 @@
             this.materialTabSelector1.Size = new System.Drawing.Size(419, 44);
             this.materialTabSelector1.TabIndex = 20;
             this.materialTabSelector1.Text = "materialTabSelector1";
-            this.materialTabSelector1.Click += new System.EventHandler(this.materialTabSelector1_Click);
             // 
             // Main
             // 

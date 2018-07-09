@@ -37,7 +37,7 @@ namespace RequestifyTF2.Api
                     break;
                 default:
                     throw new InvalidOperationException();
-                    break;
+                  
             }
 
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);

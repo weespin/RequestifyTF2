@@ -17,7 +17,7 @@ namespace RequestifyTF2GUIRedone
     /// </summary>
     public partial class Games : Window
     {
-        public static List<SteamGame> SteamIdList = new List<SteamGame>();
+        public static List<SteamGame> SteamIdList { get; set; } = new List<SteamGame>();
 
         public Games()
         {

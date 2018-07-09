@@ -30,13 +30,13 @@ namespace RequestifyTF2
             KillCrit
         }
 
-        public static Regex CommandRegex = new Regex(@"^(.+) : (.+)$");
+        public static readonly Regex CommandRegex = new Regex(@"^(.+) : (.+)$");
 
-        public static Regex ConnectRegex = new Regex(@"^(.+)(connected)$"); //todo: localize this
+        public static readonly Regex ConnectRegex = new Regex(@"^(.+)(connected)$"); //todo: localize this
 
-        public static Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
-
-        public static Regex SuicideRegex = new Regex(@"^(.+) (suicided)\.$");
+        public static readonly Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
+         
+        public static readonly Regex SuicideRegex = new Regex(@"^(.+) (suicided)\.$");
  
         public static void Read()
         {
