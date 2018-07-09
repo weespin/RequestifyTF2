@@ -81,7 +81,15 @@ namespace RequestifyTF2GUIRedone
             CultureInfo currLang = App.Language;
             foreach (MenuItem i in menuLanguage.Items)
             {
-                i.IsChecked = i.Tag is CultureInfo ci && ci.Equals(currLang);
+                var ci = (CultureInfo) i.Tag;
+                if (ci != null && ci.Equals(currLang))
+                {
+                    i.IsChecked = true;
+                }
+                else
+                {
+                    i.IsChecked =false;
+                }
             }
         }
 

@@ -21,7 +21,6 @@ namespace APIPlugin
     public class APIPlugin : IRequestifyPlugin
     {
 
-        private Thread ServerThread;
         public string Author => "Weespin";
         public string Name => "API";
         public string Desc => "Mini API Server for controlling";
