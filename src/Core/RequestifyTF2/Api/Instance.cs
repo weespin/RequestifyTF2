@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using CSCore;
+using CSCore.Codecs.AAC;
+using CSCore.Codecs.MP3;
 using CSCore.CoreAudioAPI;
 using CSCore.SoundOut;
 using RequestifyTF2.Managers;
@@ -38,7 +40,7 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static WasapiOut SoundOutForeground = new WasapiOut();
 
-        private static ELanguage _language;
+        private static ELanguage _language = ELanguage.EN;
         //todo: make this garbage shorter
         public static CultureInfo GetCulture => Thread.CurrentThread.CurrentUICulture;
         public static ELanguage Language
@@ -55,7 +57,35 @@ namespace RequestifyTF2.Api
             }
         }
 
-       
+        public enum SongType
+        {
+            MP3,
+            AAC
+        }
+        public static bool AddEqueue(SongType songtype, string Link, string RequestedBy,string title)
+        {
+
+            try
+            {
+
+         
+            if(songtype == SongType.MP3)
+            { 
+            BackGroundQueue.PlayList.Enqueue(new Song(title, new Mp3MediafoundationDecoder(Link),new User(){Name = RequestedBy,Tag=0}));
+            }
+            else
+            {
+                BackGroundQueue.PlayList.Enqueue(new Song(title, new AacDecoder(Link), new User() { Name = RequestedBy, Tag = 0 }));
+            }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
         /// <summary>
         ///     Patching autoexec.cfg, setting audio devices
         /// </summary>
@@ -232,6 +262,8 @@ namespace RequestifyTF2.Api
 
         public class Song
         {
+            public bool Dequeued;
+
             public User RequestedBy;
 
             public IWaveSource Source;

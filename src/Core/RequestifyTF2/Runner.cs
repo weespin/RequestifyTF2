@@ -20,7 +20,7 @@ namespace RequestifyTF2
             {
                 Logger.Write(Logger.Status.Error, Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Instance.Config.GameDir);
 
-                return false;
+                return false; 
             }
 
             if (!Instance.Load())

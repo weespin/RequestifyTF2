@@ -141,9 +141,7 @@ namespace RequestifyTF2.Managers
                     var plugin = Activator.CreateInstance(type);
                     if (m != null)
                     {
-                        Task.Run(
-                            () =>
-                            {
+                        
                                 try
                                 {
                                     m.Invoke(plugin, new object[] { });
@@ -152,7 +150,7 @@ namespace RequestifyTF2.Managers
                                 {
                                     Logger.Write(Logger.Status.Error, e.ToString());
                                 }
-                            });
+                          
                         Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
                     }
                 }

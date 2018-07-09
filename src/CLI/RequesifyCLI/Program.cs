@@ -41,11 +41,7 @@ namespace RequesifyCLI
         private static void Main(string[] args)
         {
             var _plugins = new Dictionary<string, IRequestifyPlugin>();
-            if (!Directory.Exists(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/"))
-                Directory.CreateDirectory(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
-
-            Instance.Plugins.loadPlugins(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/plugins/");
-
+           
 
             AppConfig.Load();
             GetHelp();
@@ -111,7 +107,7 @@ namespace RequesifyCLI
                     PrintBlackList();
                 }
 
-                if (key.StartsWith("list")) PrintPlugins();
+             //   if (key.StartsWith("list")) PrintPlugins();
 
                 if (key.StartsWith("mute"))
                 {
@@ -169,13 +165,14 @@ namespace RequesifyCLI
                         return;
                     }
 
-                    if (!started)
-                    {
-                        Runner.Start();
-                        started = true;
+                  
+                        
+                    //    Instance.Language = Instance.ELanguage.EN;
+                 var _started = Runner.Start();
+                    started = true;
 
-                        var s = _plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.Name);
-                    }
+                     //   var s = _plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.Name);
+                    
                 }
             }
         }

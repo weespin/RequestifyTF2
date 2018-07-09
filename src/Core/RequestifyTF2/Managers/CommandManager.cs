@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
 using RequestifyTF2.Api;
 
 namespace RequestifyTF2.Managers
@@ -90,8 +91,9 @@ namespace RequestifyTF2.Managers
 
         public class RequestifyCommand : IRequestifyCommand
         {
+            [JsonIgnoreAttribute]
             public Assembly Father;
-
+            [JsonIgnoreAttribute]
             public IRequestifyCommand ICommand;
 
             public Status Status;

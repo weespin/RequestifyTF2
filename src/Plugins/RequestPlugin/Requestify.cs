@@ -227,6 +227,7 @@ namespace RequestPlugin
                     var ext = streamInfo.Url;
                     var title = client.GetVideoAsync(id).Result.Title;
                     ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+                  
                     Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
                 }
                 else
