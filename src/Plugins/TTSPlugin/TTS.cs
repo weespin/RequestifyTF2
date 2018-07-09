@@ -74,13 +74,13 @@ namespace TTSPlugin
             var rnd = new Random();
             var length = 20;
             var str = "{\"googleid\":\"";
-            var email = "";
+            StringBuilder email = new StringBuilder();
             for (var i = 0; i < length; i++)
             {
-                email += ((char) (rnd.Next(1, 26) + 64)).ToString();
+                email.Append(((char) (rnd.Next(1, 26) + 64)).ToString());
             }
 
-            email += "@gmail.com";
+            email.Append("@gmail.com");
             var values = new Dictionary<string, string>
             {
                 {"json", str + email + "\"}"}
@@ -96,7 +96,7 @@ namespace TTSPlugin
                 var request =
                     (HttpWebRequest) WebRequest.Create(
                         "http://www.acapela-group.com:8080/webservices/1-34-01-Mobility/Synthesizer");
-                var g = "{\"nonce\":\"" + m.Groups[1] + ",\"user\":\"" + email + "\"}";
+                var g = "{\"nonce\":\"" + m.Groups[1] + ",\"user\":\"" + email.ToString() + "\"}";
 
                 var enc =
                     $"req_voice=enu_{voiceid}&cl_pwd=&cl_vers=1-30&req_echo=ON&cl_login=AcapelaGroup&req_comment=%7B%22nonce%22%3A%22{m.Groups[1]}%22%2C%22user%22%3A%22{email}%22%7D&req_text={Uri.EscapeDataString(text)}&cl_env=ACAPELA_VOICES&prot_vers=2&cl_app=AcapelaGroup_WebDemo_Android";
