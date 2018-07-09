@@ -30,7 +30,7 @@ namespace RequestifyTF2.Managers
             }
 
 
-            //          this.field_ignored.Enter += this.lbx_IgnoreList_Enter;
+         
             loadPlugins(
                 Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
         }

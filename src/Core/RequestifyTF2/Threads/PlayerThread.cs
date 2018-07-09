@@ -8,7 +8,7 @@ namespace RequestifyTF2.Threads
 {
     internal class PlayerThread
     {
-        // static object Locker = new object();
+    
         public static void Starter()
         {
             var thread = new Thread(Play) {IsBackground = true};

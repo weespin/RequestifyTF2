@@ -202,12 +202,11 @@ namespace RequesifyCLI
 
                   
                         
-                    //    Instance.Language = Instance.ELanguage.EN;
-                 var _started = Runner.Start();
+                  
+                    Runner.Start();
                     started = true;
 
-                     //   var s = _plugins.Aggregate(string.Empty, (current, plugin) => current + plugin.Value.Name);
-                    
+                  
                 }
             }
         }

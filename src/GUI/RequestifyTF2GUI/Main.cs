@@ -222,28 +222,7 @@ namespace RequestifyTF2Forms
 
         private void list_plugins_DoubleClick(object sender, EventArgs e)
         {
-            //if (this.list_plugins.SelectedItems[0].SubItems[3].Text == "True")
-            //{
-            //    this.list_plugins.SelectedItems[0].SubItems[3].Text = "False";
-            //    foreach (var s in Instance.ActivePlugins)
-            //        if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
-            //        {
-            //            Instance.ActivePlugins.Remove(s);
-            //            Instance.DisabledPlugins.Add(s);
-            //            break;
-            //        }
-            //}
-            //else
-            //{
-            //    this.list_plugins.SelectedItems[0].SubItems[3].Text = "True";
-            //    foreach (var s in Instance.DisabledPlugins)
-            //        if (s.Name == this.list_plugins.SelectedItems[0].SubItems[0].Text)
-            //        {
-            //            Instance.ActivePlugins.Add(s);
-            //            Instance.DisabledPlugins.Remove(s);
-            //            break;
-            //        }
-            //}
+                        return;
         }
 
         private void list_plugins_MouseClick(object sender, MouseEventArgs e)
@@ -261,7 +240,6 @@ namespace RequestifyTF2Forms
                     msgbox.Show();
                 }
 
-                // MessageBox.Show(selected.SubItems[0].Text);
             }
         }
 
@@ -317,12 +295,6 @@ namespace RequestifyTF2Forms
                 var items = new ListViewItem(namencommand);
                 list_plugins.Items.Add(items);
             }
-
-            /*  foreach (var in data)
-              {
-                  var item = new ListViewItem(version);
-                  materialListView1.Items.Add(item);
-              }*/
         }
 
         private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
