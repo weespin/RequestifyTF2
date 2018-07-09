@@ -250,7 +250,8 @@ namespace RequestifyTF2Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            Instance.Config.Admin = AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
+            Instance.Config.Admin=materialSingleLineTextField1.Text;
+            AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
             AppConfig.Save();
         }
 

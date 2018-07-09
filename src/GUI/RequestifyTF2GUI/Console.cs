@@ -11,7 +11,7 @@ namespace RequestifyTF2Forms
     {
         private readonly int _offsetX = 51;
 
-        private readonly int _offsetY;
+        private const int _offsetY = 0;
 
         public Console()
         {

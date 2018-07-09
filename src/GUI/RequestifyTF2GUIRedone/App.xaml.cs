@@ -11,7 +11,7 @@ namespace RequestifyTF2GUIRedone
     /// </summary>
     public partial class App : Application
     {
-        private static List<CultureInfo> m_Languages = new List<CultureInfo>();
+        private static readonly List<CultureInfo> m_Languages = new List<CultureInfo>();
 
         public static List<CultureInfo> Languages
         {
@@ -74,7 +74,7 @@ Language = RequestifyTF2GUIRedone.Properties.Settings.Default.DefaultLanguage;
                     throw new ArgumentNullException("value");
                 }
 
-                if (value == System.Threading.Thread.CurrentThread.CurrentUICulture)
+                if (Equals(value, System.Threading.Thread.CurrentThread.CurrentUICulture))
                 {
                     return;
                 }
