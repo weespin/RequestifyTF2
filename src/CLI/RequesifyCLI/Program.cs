@@ -15,7 +15,10 @@ namespace RequesifyCLI
         public static List<PluginManager.Plugin> GetAllPlugins()
         {
             var Plugins = new List<PluginManager.Plugin>();
-            foreach (var pl in Instance.Plugins.GetPlugins()) Plugins.Add(pl);
+            foreach (var pl in Instance.Plugins.GetPlugins())
+            {
+                Plugins.Add(pl);
+            }
 
             Plugins.Sort((a, b) => string.Compare(a.plugin.Name, b.plugin.Name, StringComparison.Ordinal));
             return Plugins;
@@ -53,16 +56,27 @@ namespace RequesifyCLI
                 if (key.StartsWith("reverse"))
                 {
                     if (!Instance.Config.IgnoredReversed)
+                    {
                         Logger.Write(Logger.Status.Info, "WhiteList activated");
+                    }
                     else
+                    {
                         Logger.Write(Logger.Status.Info, "BlackList activated");
+                    }
 
                     Instance.Config.IgnoredReversed = !Instance.Config.IgnoredReversed;
                 }
 
-                if (key.StartsWith("help")) GetHelp();
+                if (key.StartsWith("help"))
+                {
+                    GetHelp();
+                }
 
-                if (key.StartsWith("dir") && key.Split(null).Length > 1) SetDirectory(key.Replace("dir", null));
+                if (key.StartsWith("dir") && key.Split(null).Length > 1)
+                {
+                    SetDirectory(key.Replace("dir", null));
+                }
+
                 if (key.StartsWith("admin") && key.Split(null).Length > 1)
                 {
                     Instance.Config.Admin = key.Replace("admin", null);
@@ -71,8 +85,13 @@ namespace RequesifyCLI
                 }
 
 
-                if (key.StartsWith("blacklist")) PrintBlackList();
+                if (key.StartsWith("blacklist"))
+                {
+                    PrintBlackList();
+                }
+
                 if (key.StartsWith("remove"))
+                {
                     if (key.Split(null).Length > 1)
                     {
                         var i = 0;
@@ -82,7 +101,10 @@ namespace RequesifyCLI
                             if (i >= 0 && i < allplg.Count)
                             {
                                 var plz = allplg[i];
-                                if (plz == null) continue;
+                                if (plz == null)
+                                {
+                                    continue;
+                                }
 
                                 Instance.Config.Ignored.Remove(plz);
                                 PrintBlackList();
@@ -97,6 +119,7 @@ namespace RequesifyCLI
                             Logger.Write(Logger.Status.Error, $"Cant find any number");
                         }
                     }
+                }
 
                 if (key.StartsWith("add"))
                 {
@@ -107,7 +130,10 @@ namespace RequesifyCLI
                     PrintBlackList();
                 }
 
-             //   if (key.StartsWith("list")) PrintPlugins();
+             if (key.StartsWith("list"))
+                {
+                    PrintPlugins();
+                }
 
                 if (key.StartsWith("mute"))
                 {
@@ -124,6 +150,7 @@ namespace RequesifyCLI
                 }
 
                 if (key.StartsWith("switch"))
+                {
                     if (key.Split(null).Length > 1)
                     {
                         var i = 0;
@@ -133,15 +160,22 @@ namespace RequesifyCLI
                             if (i >= 0 && i < allplg.Count)
                             {
                                 var plz = allplg[i];
-                                if (plz == null) continue;
+                                if (plz == null)
+                                {
+                                    continue;
+                                }
 
                                 var pl = Instance.Plugins.GetPlugins().FirstOrDefault(n => n == plz);
                                 if (pl != null)
                                 {
                                     if (pl.Status == PluginManager.Status.Enabled)
+                                    {
                                         Instance.Plugins.DisablePlugin(pl);
+                                    }
                                     else
+                                    {
                                         Instance.Plugins.EnablePlugin(pl);
+                                    }
                                 }
                             }
                             else
@@ -156,6 +190,7 @@ namespace RequesifyCLI
                             Logger.Write(Logger.Status.Error, $"Cant find any number");
                         }
                     }
+                }
 
                 if (key.StartsWith("start"))
                 {
@@ -198,9 +233,15 @@ namespace RequesifyCLI
             Logger.Write(Logger.Status.Info, "===================PLUGINS===================");
             foreach (var pl in Plugins)
             {
-                if (pl.Status == PluginManager.Status.Disabled) Console.ForegroundColor = ConsoleColor.Red;
+                if (pl.Status == PluginManager.Status.Disabled)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
 
-                if (pl.Status == PluginManager.Status.Enabled) Console.ForegroundColor = ConsoleColor.Green;
+                if (pl.Status == PluginManager.Status.Enabled)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
 
                 Console.WriteLine($"{{{i}}} {pl.plugin.Name} {pl.plugin.Name}  by {pl.plugin.Author}");
                 i++;
@@ -237,9 +278,15 @@ namespace RequesifyCLI
                         var pal = dirz;
                         var z = pal.Remove(0, dir.Length);
 
-                        if (z.Contains("cfg")) cfg = true;
+                        if (z.Contains("cfg"))
+                        {
+                            cfg = true;
+                        }
 
-                        if (z.Contains("bin")) bin = true;
+                        if (z.Contains("bin"))
+                        {
+                            bin = true;
+                        }
 
                         if (bin && cfg)
                         {

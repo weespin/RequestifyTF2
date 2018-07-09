@@ -41,8 +41,11 @@ namespace RequestifyTF2Forms.Config
             }
 
             if (CurrentConfig.GameDirectory == string.Empty)
+            {
                 new RequestifyTF2GUI.MessageBox.MessageBox().Show("Please set the game directory", "Error",
                     RequestifyTF2GUI.MessageBox.MessageBox.Sounds.Exclamation);
+            }
+
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
         }
 

@@ -295,7 +295,9 @@ namespace RequestifyTF2GUIRedone
         private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
+            {
                 DragMove();
+            }
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
@@ -329,7 +331,10 @@ namespace RequestifyTF2GUIRedone
                 if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     if (s.SelectedPath == string.Empty)
+                    {
                         return;
+                    }
+
                     var path = Patcher.ResolveFolder(s.SelectedPath);
                     if (path != "")
                     {
@@ -353,11 +358,20 @@ namespace RequestifyTF2GUIRedone
             _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
-            if (plugins.Count == 0) Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
+            if (plugins.Count == 0)
+            {
+                Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
+            }
+
             foreach (var item in plugins)
+            {
                 PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
+            }
+
             foreach (var com in Instance.Commands.GetCommands())
+            {
                 CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
+            }
         }
 
         private void PluginsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -409,7 +423,10 @@ namespace RequestifyTF2GUIRedone
             if (!IgnoreList.Items.Contains(IgnoreBox.Text))
             {
                 IgnoreList.Items.Add(IgnoreBox.Text);
-                if (!Instance.Config.Ignored.Contains(IgnoreBox.Text)) Instance.Config.Ignored.Add(IgnoreBox.Text);
+                if (!Instance.Config.Ignored.Contains(IgnoreBox.Text))
+                {
+                    Instance.Config.Ignored.Add(IgnoreBox.Text);
+                }
             }
         }
 
@@ -417,7 +434,11 @@ namespace RequestifyTF2GUIRedone
         {
             if (IgnoreList.Items.Contains(IgnoreBox.Text))
             {
-                if (Instance.Config.Ignored.Contains(IgnoreBox.Text)) Instance.Config.Ignored.Remove(IgnoreBox.Text);
+                if (Instance.Config.Ignored.Contains(IgnoreBox.Text))
+                {
+                    Instance.Config.Ignored.Remove(IgnoreBox.Text);
+                }
+
                 IgnoreList.Items.Remove(IgnoreBox.Text);
                 return;
             }
@@ -425,7 +446,10 @@ namespace RequestifyTF2GUIRedone
             if (IgnoreList.SelectedItem != null)
             {
                 if (Instance.Config.Ignored.Contains(IgnoreList.SelectedItem))
+                {
                     Instance.Config.Ignored.Remove(IgnoreList.SelectedItem.ToString());
+                }
+
                 IgnoreList.Items.Remove(IgnoreList.SelectedItem);
             }
         }

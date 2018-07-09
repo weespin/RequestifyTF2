@@ -35,7 +35,11 @@ namespace RequestifyTF2GUIRedone
                 var a = Regex.Match(v);
                 if (a.Success)
                 {
-                    if (SteamIdList.Any(n => n.id == Convert.ToInt32(a.Groups[1].Value))) continue;
+                    if (SteamIdList.Any(n => n.id == Convert.ToInt32(a.Groups[1].Value)))
+                    {
+                        continue;
+                    }
+
                     var game = new SteamGame
                     {
                         id = Convert.ToInt32(a.Groups[1].Value),
@@ -68,8 +72,12 @@ namespace RequestifyTF2GUIRedone
         {
             Refresh();
             foreach (var games in SteamIdList)
+            {
                 if (games.Name != null)
+                {
                     GamesList.Items.Add(games);
+                }
+            }
         }
 
         private void RefreshClick(object sender, RoutedEventArgs e)
@@ -127,7 +135,9 @@ namespace RequestifyTF2GUIRedone
         private void UIElement_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
+            {
                 DragMove();
+            }
         }
 
         public class SteamGame

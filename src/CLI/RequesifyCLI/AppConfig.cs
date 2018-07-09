@@ -41,7 +41,10 @@ namespace RequesifyCLI
             }
 
             if (CurrentConfig.GameDirectory == string.Empty)
+            {
                 Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");
+            }
+
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
         }
 

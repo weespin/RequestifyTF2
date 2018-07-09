@@ -47,7 +47,9 @@ namespace RequestifyTF2Forms
             Icon = Resources.Icon;
             _plugins = new Dictionary<string, PluginManager.Plugin>();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/"))
+            {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
+            }
 
             MaximizeBox = false;
             field_ignored.Enter += lbx_IgnoreList_Enter;
@@ -55,8 +57,10 @@ namespace RequestifyTF2Forms
                 Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
             var plugins = Instance.Plugins.GetPlugins();
             foreach (var item in plugins)
+            {
                 //  Instance.ActivePlugins.Add(item);
                 _plugins.Add(item.plugin.Name, item);
+            }
 
             // PluginsList.Items.Add(item.Name, true);
 
@@ -70,7 +74,10 @@ namespace RequestifyTF2Forms
         {
             var toignorenick = field_ignored.Text;
 
-            if (toignorenick == string.Empty || Instance.Config.Ignored.Contains(toignorenick)) return;
+            if (toignorenick == string.Empty || Instance.Config.Ignored.Contains(toignorenick))
+            {
+                return;
+            }
 
             var namencommand = new[] {toignorenick};
             var items = new ListViewItem(namencommand);
@@ -94,7 +101,11 @@ namespace RequestifyTF2Forms
 
         private void btn_remove_Click(object sender, EventArgs e)
         {
-            if (list_ignored.SelectedItems.Count == 0) return;
+            if (list_ignored.SelectedItems.Count == 0)
+            {
+                return;
+            }
+
             var selected = list_ignored.SelectedItems[0];
 
             if (selected != null)
@@ -114,7 +125,9 @@ namespace RequestifyTF2Forms
                 if (s.ShowDialog() == DialogResult.OK)
                 {
                     if (s.SelectedPath == string.Empty)
+                    {
                         return;
+                    }
 
                     var dirs = Directory.GetDirectories(s.SelectedPath);
 
@@ -136,9 +149,15 @@ namespace RequestifyTF2Forms
                                 var pal = dirz;
                                 var z = pal.Remove(0, dir.Length);
 
-                                if (z.Contains("cfg")) cfg = true;
+                                if (z.Contains("cfg"))
+                                {
+                                    cfg = true;
+                                }
 
-                                if (z.Contains("bin")) bin = true;
+                                if (z.Contains("bin"))
+                                {
+                                    bin = true;
+                                }
 
                                 if (bin && cfg)
                                 {
@@ -195,7 +214,10 @@ namespace RequestifyTF2Forms
 
         private void lbx_IgnoreList_Enter(object sender, EventArgs e)
         {
-            if (field_ignored.Text == "Enter Name") field_ignored.Text = string.Empty;
+            if (field_ignored.Text == "Enter Name")
+            {
+                field_ignored.Text = string.Empty;
+            }
         }
 
         private void list_plugins_DoubleClick(object sender, EventArgs e)

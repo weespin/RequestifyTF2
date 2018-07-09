@@ -69,8 +69,15 @@ Language = RequestifyTF2GUIRedone.Properties.Settings.Default.DefaultLanguage;
             }
             set
             {
-                if (value == null) throw new ArgumentNullException("value");
-                if (value == System.Threading.Thread.CurrentThread.CurrentUICulture) return;
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+
+                if (value == System.Threading.Thread.CurrentThread.CurrentUICulture)
+                {
+                    return;
+                }
 
                 //1. Меняем язык приложения:
                 System.Threading.Thread.CurrentThread.CurrentUICulture = value;

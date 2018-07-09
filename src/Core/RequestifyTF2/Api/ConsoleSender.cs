@@ -23,7 +23,11 @@ namespace RequestifyTF2.Api
             switch (cmd)
             {
                 case Command.Chat:
-                    if (!Instance.isMuted) text = "say " + cmnd;
+                    if (!Instance.isMuted)
+                    {
+                        text = "say " + cmnd;
+                    }
+
                     break;
                 case Command.Echo:
                     text = "echo " + cmnd;
