@@ -19,7 +19,7 @@ namespace RequestifyTF2GUIRedone
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool _started;
+        private bool _started;
 
 
         private TextWriter _writer;
@@ -40,20 +40,24 @@ namespace RequestifyTF2GUIRedone
             menuLanguage.Items.Clear();
             foreach (var lang in App.Languages)
             {
-                MenuItem menuLang = new MenuItem();
-                menuLang.Header = lang.DisplayName;
-                menuLang.Tag = lang;
-                menuLang.IsChecked = lang.Equals(currLang);
+                MenuItem menuLang = new MenuItem
+                {
+                    Header = lang.DisplayName,
+                    Tag = lang,
+                    IsChecked = lang.Equals(currLang)
+                };
                 menuLang.Click += ChangeLanguageClick;
                 menuLanguage.Items.Add(menuLang);
                
             }
             foreach (var lang in App.Languages)
             {
-                MenuItem menuLang = new MenuItem();
-                menuLang.Header = lang.DisplayName;
-                menuLang.Tag = lang;
-                menuLang.IsChecked = lang.Equals(Instance.GetCulture);
+                MenuItem menuLang = new MenuItem
+                {
+                    Header = lang.DisplayName,
+                    Tag = lang,
+                    IsChecked = lang.Equals(Instance.GetCulture)
+                };
                 menuLang.Click += ChangeCoreLanguageClick;
                 menuCoreLanguage.Items.Add(menuLang);
             }
@@ -77,20 +81,29 @@ namespace RequestifyTF2GUIRedone
             CultureInfo currLang = App.Language;
             foreach (MenuItem i in menuLanguage.Items)
             {
-                CultureInfo ci = i.Tag as CultureInfo;
-                i.IsChecked = ci != null && ci.Equals(currLang);
+                var ci = (CultureInfo) i.Tag;
+                if (ci != null && ci.Equals(currLang))
+                {
+                    i.IsChecked = true;
+                }
+                else
+                {
+                    i.IsChecked =false;
+                }
             }
         }
 
         private void ChangeLanguageClick(Object sender, EventArgs e)
         {
-            MenuItem mi = sender as MenuItem;
-            if (mi != null)
+            var mi = (MenuItem)sender;
+            if (mi!=null)
             {
-                CultureInfo lang = mi.Tag as CultureInfo;
+                var lang = (CultureInfo) mi.Tag;
                 if (lang != null)
                 {
-                    App.Language = lang;
+                  
+                        App.Language = lang;
+                    
                 }
             }
 

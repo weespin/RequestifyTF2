@@ -7,8 +7,8 @@ namespace RequestifyTF2GUIRedone
 {
     public class TextBoxStreamWriter : TextWriter
     {
-        public TextBlock _outp2;
-        public TextBox _output;
+        private readonly TextBlock _outp2;
+        private readonly TextBox _output;
         public TextBoxStreamWriter(TextBox output, TextBlock outp2)
         {
             _output = output;
