@@ -222,7 +222,7 @@ namespace RequestifyTF2Forms
 
         private void list_plugins_DoubleClick(object sender, EventArgs e)
         {
-                        return;
+                        
         }
 
         private void list_plugins_MouseClick(object sender, MouseEventArgs e)
@@ -299,7 +299,7 @@ namespace RequestifyTF2Forms
 
         private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
         {
-            Instance.isMuted = materialCheckBox1.Checked;
+            Instance.IsMuted = materialCheckBox1.Checked;
         }
 
         private void materialTabSelector1_Click(object sender, EventArgs e)

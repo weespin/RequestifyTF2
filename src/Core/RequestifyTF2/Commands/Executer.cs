@@ -8,7 +8,7 @@ using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Commands
 {
-    internal class Executer
+    static class Executer
     {
         public static void Execute(User caller, string command, List<string> arguments)
         {

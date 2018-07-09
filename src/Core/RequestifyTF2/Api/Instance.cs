@@ -19,7 +19,8 @@ namespace RequestifyTF2.Api
         /// <summary>
         ///     Stores all Windows audio devices.
         /// </summary>
-        public static bool isMuted = false;
+        public static bool IsMuted { get; set; } = false;
+
         public static config Config = new config();
         public static ConcurrentQueue<IWaveSource> QueueForeGround { get; set; } = new ConcurrentQueue<IWaveSource>();
         /// <summary>
@@ -27,7 +28,7 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static WasapiOut SoundOutBackground { get; set; } = new WasapiOut();
 
-        public static PluginManager Plugins = new PluginManager();
+        public static PluginManager Plugins { get; set; } = new PluginManager();
         public static CommandManager Commands { get; set; } = new CommandManager();
 
         /// <summary>
@@ -145,7 +146,9 @@ namespace RequestifyTF2.Api
                             string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
                     }
 
-                    SoundOutForeground.Device = SoundOutBackground.Device = SoundOutExtra.Device = outp;
+                    SoundOutExtra.Device = outp;
+                    SoundOutBackground.Device = outp;
+                    SoundOutForeground.Device = outp;
                     Logger.Write(
                         Logger.Status.STATUS,
                         string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName));
@@ -225,7 +228,7 @@ namespace RequestifyTF2.Api
 
         public static class BackGroundQueue
         {
-            public static ConcurrentQueue<Song> PlayList = new ConcurrentQueue<Song>();
+            public static ConcurrentQueue<Song> PlayList { get; set; } = new ConcurrentQueue<Song>();
 
             public static void AddSong(Song song)
             {
@@ -263,20 +266,20 @@ namespace RequestifyTF2.Api
 
             public string GameDir { get; set; }
 
-            public List<string> Ignored = new List<string>();
+            public List<string> Ignored { get; set; } = new List<string>();
 
             public bool IgnoredReversed { get; set; }
         }
 
         public class Song
         {
-            public bool Dequeued;
+            public bool Dequeued { get; set; }
 
-            public User RequestedBy;
+            public User RequestedBy { get; set; }
 
-            public IWaveSource Source;
+            public IWaveSource Source { get; set; }
 
-            public string Title;
+            public string Title { get; set; }
 
             public Song(string title, IWaveSource source, User executor)
             {

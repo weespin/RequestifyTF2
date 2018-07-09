@@ -137,15 +137,15 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("mute"))
                 {
-                    if (Instance.isMuted)
+                    if (Instance.IsMuted)
                     {
                         Logger.Write(Logger.Status.Info, $"RequestifyTF2 is now unmuted");
-                        Instance.isMuted = false;
+                        Instance.IsMuted = false;
                     }
                     else
                     {
                         Logger.Write(Logger.Status.Info, $"RequestifyTF2 is now muted");
-                        Instance.isMuted = true;
+                        Instance.IsMuted = true;
                     }
                 }
 

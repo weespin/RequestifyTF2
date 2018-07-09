@@ -499,12 +499,12 @@ namespace RequestifyTF2GUIRedone
 
         private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
         {
-            Instance.isMuted = true;
+            Instance.IsMuted = true;
         }
 
         private void MutedCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            Instance.isMuted = false;
+            Instance.IsMuted = false;
         }
 
         private void menuCoreLanguage_Click(object sender, RoutedEventArgs e)
