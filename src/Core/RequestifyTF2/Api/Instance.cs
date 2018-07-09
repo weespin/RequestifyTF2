@@ -102,13 +102,21 @@ namespace RequestifyTF2.Api
                     deviceEnumerator.EnumAudioEndpoints(DataFlow.Render, DeviceState.Active))
                 {
                     foreach (var device in deviceoutCollection)
+                    {
                         if (device.FriendlyName.Contains("Cable") && device.FriendlyName.Contains("Virtual")
                                                                   && device.FriendlyName.Contains("Audio"))
+                        {
                             GoodOutputDevices.Add(device);
+                        }
+                    }
+
                     using (var deviceinpCollection =
                         deviceEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
                     {
-                        foreach (var device in deviceinpCollection) GoodInputDevices.Add(device);
+                        foreach (var device in deviceinpCollection)
+                        {
+                            GoodInputDevices.Add(device);
+                        }
                     }
                 }
 

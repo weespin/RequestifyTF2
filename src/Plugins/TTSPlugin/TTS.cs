@@ -58,7 +58,10 @@ namespace TTSPlugin
             {
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                 var link = Parse(text, "willfromafar22k_hq");
-                if (link == "") return;
+                if (link == "")
+                {
+                    return;
+                }
 
                 Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(link));
             }
@@ -72,7 +75,10 @@ namespace TTSPlugin
             var length = 20;
             var str = "{\"googleid\":\"";
             var email = "";
-            for (var i = 0; i < length; i++) email += ((char) (rnd.Next(1, 26) + 64)).ToString();
+            for (var i = 0; i < length; i++)
+            {
+                email += ((char) (rnd.Next(1, 26) + 64)).ToString();
+            }
 
             email += "@gmail.com";
             var values = new Dictionary<string, string>
@@ -110,7 +116,11 @@ namespace TTSPlugin
                 var responseString = new StreamReader(responses.GetResponseStream()).ReadToEnd();
                 var reg = new Regex("snd_url=(.+)&snd_size");
                 var regs = reg.Match(responseString);
-                if (regs.Success) return regs.Groups[1].Value;
+                if (regs.Success)
+                {
+                    return regs.Groups[1].Value;
+                }
+
                 return "";
             }
 

@@ -26,11 +26,20 @@ namespace RequestifyTF2.Utils
                     var pal = dirz;
                     var z = pal.Remove(0, dir.Length);
 
-                    if (z.Contains("cfg")) cfg = true;
+                    if (z.Contains("cfg"))
+                    {
+                        cfg = true;
+                    }
 
-                    if (z.Contains("bin")) bin = true;
+                    if (z.Contains("bin"))
+                    {
+                        bin = true;
+                    }
 
-                    if (bin && cfg) return dir;
+                    if (bin && cfg)
+                    {
+                        return dir;
+                    }
                 }
             }
 
@@ -51,28 +60,36 @@ namespace RequestifyTF2.Utils
                 var flag2 = false;
                 var lines = File.ReadAllLines(Instance.Config.GameDir + "/cfg/autoexec.cfg");
                 foreach (var line in lines)
+                {
                     if (line.Contains("con_logfile \"console.log\""))
                     {
                         flag1 = true;
                         break;
                     }
+                }
 
                 if (!flag1)
+                {
                     File.AppendAllText(
                         Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "con_logfile \"console.log\"");
+                }
 
                 foreach (var line in lines)
+                {
                     if (line.Contains("bind KP_PGUP \"exec requestify\""))
                     {
                         flag2 = true;
                         break;
                     }
+                }
 
                 if (!flag2)
+                {
                     File.AppendAllText(
                         Instance.Config.GameDir + "/cfg/autoexec.cfg",
                         Environment.NewLine + "bind KP_PGUP \"exec requestify\"");
+                }
             }
             else
             {
