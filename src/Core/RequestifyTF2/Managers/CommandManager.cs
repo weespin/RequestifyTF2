@@ -19,7 +19,7 @@ namespace RequestifyTF2.Managers
 
         public CommandManager()
         {
-            foreach (var Plugin in PluginManager.pluginAssemblies)
+            foreach (var Plugin in PluginManager.PluginAssemblies)
             {
                 var CommTypes = GetTypesFromInterface(Plugin, "IRequestifyCommand");
                 foreach (var type in CommTypes)

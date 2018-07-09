@@ -18,8 +18,8 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private static readonly List<Type> plugintypes = new List<Type>();
-        public static readonly List<Assembly> pluginAssemblies = new List<Assembly>();
+        private static readonly List<Type> Plugintypes  = new List<Type>();
+        public static readonly List<Assembly> PluginAssemblies = new List<Assembly>();
         private static readonly List<Plugin> Plugins = new List<Plugin>();
 
         public PluginManager()
@@ -147,15 +147,15 @@ namespace RequestifyTF2.Managers
             var asseblylist = LoadAssembliesFromDirectory(path);
             foreach (var assebly in asseblylist)
             {
-                pluginAssemblies.Add(assebly);
+                PluginAssemblies.Add(assebly);
             }
-            var pluginImplemenations = GetTypesFromInterface(pluginAssemblies, "IRequestifyPlugin");
+            var pluginImplemenations = GetTypesFromInterface(PluginAssemblies, "IRequestifyPlugin");
             foreach (var pluginType in pluginImplemenations)
             {
-                plugintypes.Add(pluginType);
+                Plugintypes.Add(pluginType);
             }
 
-            foreach (var Assembly in pluginAssemblies)
+            foreach (var Assembly in PluginAssemblies)
             {
                 var types = Assembly.GetTypes();
                 foreach (var type in types)

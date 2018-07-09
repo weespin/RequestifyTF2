@@ -6,7 +6,8 @@ using RequestifyTF2.Api;
 
 namespace RequestifyTF2.Threads
 {
-    internal class PlayerThread
+    
+  internal static  class PlayerThread
     {
     
         public static void Starter()

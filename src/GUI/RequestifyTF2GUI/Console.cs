@@ -11,7 +11,7 @@ namespace RequestifyTF2Forms
     {
         private readonly int _offsetX = 51;
 
-        private readonly int _offsetY = 0;
+        private readonly int _offsetY;
 
         public Console()
         {
@@ -67,9 +67,7 @@ namespace RequestifyTF2Forms
                 }).Start();
         }
 
-        private void txt_console_TextChanged(object sender, EventArgs e)
-        {
-        }
+      
 
         public static class ThreadHelperClass
         {

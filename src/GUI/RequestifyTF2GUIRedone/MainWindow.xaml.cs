@@ -99,12 +99,8 @@ namespace RequestifyTF2GUIRedone
         private void ChangeCoreLanguageClick(Object sender, EventArgs e)
         {
             var mi = (MenuItem) sender;
-            if (mi != null)
-            {
-                return;
-            }
-            var lang = (CultureInfo) mi.Tag;
-            if (lang==null)
+            var lang = (CultureInfo) mi?.Tag;
+            if (lang == null)
             {
                 return;
             }
