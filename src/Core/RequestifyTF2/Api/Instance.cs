@@ -21,24 +21,24 @@ namespace RequestifyTF2.Api
         /// </summary>
         public static bool isMuted = false;
         public static config Config = new config();
-        public static ConcurrentQueue<IWaveSource> QueueForeGround = new ConcurrentQueue<IWaveSource>();
+        public static ConcurrentQueue<IWaveSource> QueueForeGround { get; set; } = new ConcurrentQueue<IWaveSource>();
         /// <summary>
         ///     Background channel. Good for long sounds and music.
         /// </summary>
-        public static WasapiOut SoundOutBackground = new WasapiOut();
+        public static WasapiOut SoundOutBackground { get; set; } = new WasapiOut();
 
         public static PluginManager Plugins = new PluginManager();
-        public static CommandManager Commands = new CommandManager();
+        public static CommandManager Commands { get; set; } = new CommandManager();
 
         /// <summary>
         ///     Extra channel. Use it for very fast sounds. Does not have a queue!
         /// </summary>
-        public static WasapiOut SoundOutExtra = new WasapiOut();
+        public static WasapiOut SoundOutExtra { get; set; } = new WasapiOut();
 
         /// <summary>
         ///     Foreground channel. When sound is playing from this channel, the background channel will be silent.
         /// </summary>
-        public static WasapiOut SoundOutForeground = new WasapiOut();
+        public static WasapiOut SoundOutForeground { get; set; } = new WasapiOut();
 
         private static ELanguage _language = ELanguage.EN;
         //todo: make this garbage shorter
