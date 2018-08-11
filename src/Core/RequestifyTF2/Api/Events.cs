@@ -18,7 +18,8 @@ namespace RequestifyTF2.API
         {
             public static event PlayerChatHandler OnPlayerChat;
 
-            public static void Invoke(User caller, string text)
+            // ReSharper disable once RedundantNameQualifier
+            public static void Invoke(RequestifyTF2.API.User caller, string text)
             {
                 var e = new PlayerChatArgs(caller, text);
                 OnChat(e);
@@ -33,7 +34,8 @@ namespace RequestifyTF2.API
         public  class PlayerChatArgs : EventArgs
         {
             // Constructor. 
-            public PlayerChatArgs(User caller, string text)
+            // ReSharper disable once RedundantNameQualifier
+            public PlayerChatArgs(RequestifyTF2.API.User caller, string text)
             {
                 User = caller;
                 Chat = text;
@@ -42,7 +44,8 @@ namespace RequestifyTF2.API
             public string Chat { get; set; } = string.Empty;
 
             // Properties. 
-            public User User { get; set; }
+            // ReSharper disable once RedundantNameQualifier
+            public RequestifyTF2.API.User User { get; set; }
         }
 
         public static class PlayerConnect
