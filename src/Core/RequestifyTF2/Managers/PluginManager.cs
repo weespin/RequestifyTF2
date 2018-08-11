@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.PluginLoader;
 
 namespace RequestifyTF2.Managers

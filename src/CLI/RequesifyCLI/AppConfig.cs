@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 
 namespace RequesifyCLI
 {

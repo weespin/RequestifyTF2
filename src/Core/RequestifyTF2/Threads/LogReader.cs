@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.Commands;
 using RequestifyTF2.Utils;
 
@@ -80,10 +80,17 @@ namespace RequestifyTF2
             }
            
         }
-
-        public static void Starter()
+        private static Thread thread;
+        public static void StopThread()
         {
-            var thread = new Thread(Read) {IsBackground = true};
+            if (thread.IsAlive)
+            {
+                thread.Abort();
+            }
+        }
+        public static void StartThread()
+        {
+            thread = new Thread(Read) {IsBackground = true};
             thread.Start();
             Logger.Write(Logger.Status.Info, Localization.Localization.CORE_STARTED_LOGREADER_THREAD);
         }

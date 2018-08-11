@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 
 namespace RequestifyTF2.Utils
 {

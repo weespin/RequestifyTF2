@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using CSCore.Codecs.MP3;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 
 namespace TTSPlugin
 {

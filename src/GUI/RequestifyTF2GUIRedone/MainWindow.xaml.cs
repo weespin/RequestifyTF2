@@ -9,7 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Ookii.Dialogs;
 using RequestifyTF2;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.Utils;
 
 namespace RequestifyTF2GUIRedone

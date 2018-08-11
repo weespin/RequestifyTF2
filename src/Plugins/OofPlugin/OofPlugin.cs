@@ -4,7 +4,7 @@ using System.IO;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
 using Newtonsoft.Json;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 
 namespace OofPlugin
 {

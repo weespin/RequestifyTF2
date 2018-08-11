@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using RequestifyTF2;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.Managers;
 
 namespace RequesifyCLI

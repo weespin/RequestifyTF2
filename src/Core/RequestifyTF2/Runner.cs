@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.Threads;
 
 namespace RequestifyTF2
@@ -34,22 +34,22 @@ namespace RequestifyTF2
 
             if (File.Exists(Instance.Config.GameDir + "/console.log"))
             {
-                try
-                {
-                    File.WriteAllText(Instance.Config.GameDir + "/console.log", string.Empty);
-                }
-                catch
-                {
-                    Logger.Write(
-                        Logger.Status.Error,
-                        Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
-                        ConsoleColor.Red);
-                    return false;
-                }
+                //try
+                //{
+                //    File.WriteAllText(Instance.Config.GameDir + "/console.log", string.Empty);
+                //}
+                //catch
+                //{
+                //    Logger.Write(
+                //        Logger.Status.Error,
+                //        Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
+                //        ConsoleColor.Red);
+                //    return false;
+                //}
             }
 
-            PlayerThread.Starter();
-            ReaderThread.Starter();
+            PlayerThread.StartThread();
+            ReaderThread.StartThread();
             return true;
         }
     }

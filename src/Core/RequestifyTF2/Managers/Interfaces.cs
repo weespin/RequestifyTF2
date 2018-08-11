@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
     public interface IRequestifyPlugin
     {

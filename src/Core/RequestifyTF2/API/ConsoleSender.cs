@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
     public static class ConsoleSender
     {

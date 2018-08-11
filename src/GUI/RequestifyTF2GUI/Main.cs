@@ -9,7 +9,7 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using Ookii.Dialogs;
 using RequestifyTF2;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.Managers;
 using RequestifyTF2Forms.Config;
 using RequestifyTF2GUI.Properties;

@@ -2,17 +2,26 @@
 using System.Threading.Tasks;
 using CSCore;
 using CSCore.SoundOut;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 
 namespace RequestifyTF2.Threads
 {
     
   internal static  class PlayerThread
-    {
-    
-        public static void Starter()
+  {
+
+      private static Thread thread;
+
+      public static void StopThread()
+      {
+          if (thread.IsAlive)
+          {
+              thread.Abort();
+          }
+      }
+        public static void StartThread()
         {
-            var thread = new Thread(Play) {IsBackground = true};
+            thread = new Thread(Play) {IsBackground = true};
             thread.Start();
 
             Logger.Write(Logger.Status.Info, Localization.Localization.CORE_STARTED_PLAYER_THREAD);

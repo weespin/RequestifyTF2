@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 

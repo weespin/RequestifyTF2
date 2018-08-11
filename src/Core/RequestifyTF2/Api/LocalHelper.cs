@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
    public static class LocalHelper
     {

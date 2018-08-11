@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using RequestifyTF2.Api;
+using RequestifyTF2.API;
 using RequestifyTF2Forms.JsonDataClasses;
 
 namespace RequestifyTF2Forms.Config
