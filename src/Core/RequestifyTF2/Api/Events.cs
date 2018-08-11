@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
     public class Events
     {
@@ -114,7 +114,7 @@ namespace RequestifyTF2.Api
         {
             public static event PlayerSuicideHandler OnPlayerSuicide;
 
-            public static void Invoke(string nickname)
+            internal static void Invoke(string nickname)
             {
                 var e = new PlayerSuicideArgs(nickname);
                 OnSuicide(e);
@@ -142,7 +142,7 @@ namespace RequestifyTF2.Api
         {
             public static event UndefinedMessageHandler OnUndefinedMessage;
 
-            public static void Invoke(string nickname)
+            internal static void Invoke(string nickname)
             {
                 var e = new UndefinedMessageArgs(nickname);
                 OnSuicide(e);

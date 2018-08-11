@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
     public static class ConsoleSender
     {
@@ -41,14 +41,13 @@ namespace RequestifyTF2.Api
             }
 
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
-
             Task.Run(
                 () =>
                 {
-                    Thread.Sleep(1000);
-                    keybd_event(0x69, 0x49, 0, 0);
-                    Thread.Sleep(1);
-                    keybd_event(0x69, 0x49, 0x2, 0);
+                   
+                    keybd_event(0x2E, 0x53, 0, 0);
+                    Thread.Sleep(30);
+                    keybd_event(0x2E, 0x53, 0x2, 0);
                 });
             Thread.Sleep(100);
             File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", string.Empty);

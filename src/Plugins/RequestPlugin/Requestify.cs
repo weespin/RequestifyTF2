@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using CSCore;
 using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
@@ -13,7 +14,7 @@ using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.PluginLoader;
 using YoutubeExplode;
-using YoutubeExplode.Models.MediaStreams;
+using AudioEncoding = YoutubeExplode.Models.MediaStreams.AudioEncoding;
 
 namespace RequestPlugin
 {
@@ -238,7 +239,7 @@ namespace RequestPlugin
                                     Instance.BackGroundQueue.PlayList.Enqueue(
                                         new Instance.Song(
                                             b.title,
-                                            new Mp3MediafoundationDecoder(urls.http_mp3_128_url),
+                                            new Mp3MediafoundationDecoder(urls.http_mp3_128_url).ToMono(),
                                             executor));
 
                                     return;
@@ -273,7 +274,7 @@ namespace RequestPlugin
                         ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     }
 
-                    Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
+                    Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext).ToMono(), executor));
                 }
                 else
                 {
@@ -301,7 +302,7 @@ namespace RequestPlugin
 
                             }
 
-                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),
+                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext).ToMono(),
                                 executor));
                         }
                     }
