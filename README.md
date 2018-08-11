@@ -31,7 +31,7 @@ Head over [here](https://github.com/weespin/RequestifyTF2/wiki/Commands) for wik
 | Features      | RequestifyTF2 | SourceRadio | Slam |
 | ------------- | :-------------: | :-----------: | :----: | 
 | Commands      | 	 ✅		    |    ✅        | ❌ 	 |
-| Playlist      |    ❌          |   ✅ 	      |  ❌   |
+| Playlist      |    50/50          |   ✅ 	      |  ❌   |
 | Admins/Bans   |         50/50 |   ✅ 	   	  |  ❌   |
 | TextToSpeech  |              ✅|          ❌  |   ❌  |
 | Youtube Playing | ✅           |  ✅          |✅     |   
