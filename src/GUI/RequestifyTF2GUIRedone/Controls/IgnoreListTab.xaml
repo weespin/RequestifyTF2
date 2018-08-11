@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RequestifyTF2GUIRedone.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="169*" />
-            <RowDefinition Height="271*"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <ListBox x:Name="IgnoreList" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0"
-                 VerticalAlignment="Top" Width="191" Grid.RowSpan="2" />
+                 VerticalAlignment="Top" Width="191" />
         <TextBox x:Name="IgnoreBox" HorizontalAlignment="Left" Height="23" Margin="206,10,0,0"
                  TextWrapping="Wrap" Text="{DynamicResource i_Name}" VerticalAlignment="Top" Width="120" />
         <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Add}" Click="IgnoreListButtonAdd_OnClick"
@@ -24,7 +24,7 @@
         <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
                   x:Name="RemoveCheckBox" Content="{DynamicResource i_Reversed}" HorizontalAlignment="Left" Margin="206,68,0,0"
                   VerticalAlignment="Top" />
-        <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="306,230,0,0" VerticalAlignment="Top"
-               Foreground="#99000000" Grid.Row="1" Width="512" />
+        <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="306,403,-18,0" VerticalAlignment="Top"
+               Foreground="#99000000" Width="512" />
     </Grid>
 </UserControl>

@@ -60,7 +60,7 @@ namespace RequestifyTF2GUIRedone.Controls
 
                 RequestifyTF2.API.Events.UndefinedMessage.OnUndefinedMessage += MainWindow.instance.UndefinedMessage_OnUndefinedMessage;
                 Main.instance.StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
-                Main.instance.StatusLabel.Content = Application.Current.FindResource("cs_Status_Working").ToString();
+                Main.instance.StatusLabel.Text = Application.Current.FindResource("cs_Status_Working").ToString();
             }
         }
 

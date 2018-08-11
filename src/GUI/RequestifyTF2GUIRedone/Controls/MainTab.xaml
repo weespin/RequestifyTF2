@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
      >
@@ -39,39 +40,65 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid  HorizontalAlignment="Left" Width="817.863" Margin="0,0,-17.863,-13.04">
+    <Grid  HorizontalAlignment="Left" Width="800" Margin="0,0,0,-13">
+        <materialDesign:Card
+            Background="#03a9f4"
+            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+            Padding="0" Height="137" Margin="16,13,16,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="Auto" />
 
-        <Rectangle HorizontalAlignment="Left" Height="156" Margin="10,10,0,0" VerticalAlignment="Top"
-            Width="765" Fill="#FF53CF7B" />
-        <Label x:Name="StatusLabel" Content="{DynamicResource m_Ready}" HorizontalAlignment="Left" Margin="513.834,129,0,0"
-            VerticalAlignment="Top" Height="31" Width="218.197" Grid.Column="1" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="10,6,22,45"
+                    Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource m_Welcome}">
+
+                </TextBlock>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="10,37,22,74"
+                    Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource m_Press_Start}">
+
+                </TextBlock>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="10,65,22,50"
+                    Style="{StaticResource MaterialDesignBody1TextBlock}" Text="{DynamicResource m_Dont_Forget}">
+
+                </TextBlock>
+                <Separator
+                    Style="{StaticResource MaterialDesignLightSeparator}" Margin="0,94,0,27" />
+                <TextBlock
+                    x:Name="StatusLabel"
+                    Margin="10,110,10,-1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Text="{DynamicResource m_Ready}"
+                    Style="{StaticResource MaterialDesignBody2TextBlock}" Height="25" Grid.RowSpan="2"/>
+
+
+            </Grid>
+
+        </materialDesign:Card>
+
+
         <Button x:Name="StartButton" Content="{DynamicResource m_Start}" HorizontalAlignment="Left" Margin="10,178,0,0"
             VerticalAlignment="Top" Width="95" Height="70" Click="ButtonBase_OnClick"
             BorderBrush="{x:Null}" Grid.ColumnSpan="2" />
-        <Label
-            Content="{DynamicResource m_Welcome}"
-            HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="543"
-            Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
         <Label x:Name="AdminName" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" Margin="10,265,0,0"
             VerticalAlignment="Top" Grid.ColumnSpan="2" Width="191" />
-        <TextBlock TextWrapping="Wrap" x:Name="ConsoleLabel2" Text="" HorizontalAlignment="Left"
-            Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.315,-0.613"
-            Width="798.333" Grid.ColumnSpan="2" Height="88" ScrollViewer.CanContentScroll="True" />
         <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
             Margin="20,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-        <TextBox x:Name="AdminBox" LostFocus="AdminBoxFocusLost" Grid.Column="1" HorizontalAlignment="Right"
-            Height="23" Margin="0,269,117,0" TextWrapping="Wrap" Text="{DynamicResource m_Copy_Steam}"
-            VerticalAlignment="Top" Width="495" Background="{x:Null}" BorderBrush="{x:Null}"
-            Foreground="#B2000000" />
-        <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="10,319,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Grid.ColumnSpan="2" Width="361"/>
-        <Label
-            Content="{DynamicResource m_Press_Start}"
-            HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="543"
-            Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
-        <Label
-            Content="{DynamicResource m_Dont_Forget}"
-            HorizontalAlignment="Left" Margin="10,408,0,0" VerticalAlignment="Top" Width="543"
-            Grid.ColumnSpan="2" Foreground="#99000000" Height="32" />
-
+        <TextBox x:Name="AdminBox" LostFocus="AdminBoxFocusLost" materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"
+              Height="40
+"   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="115,235,207.863,188.04"
+             Width="495" 
+             />
+        <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="20,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Width="361"/>
     </Grid>
 </UserControl>

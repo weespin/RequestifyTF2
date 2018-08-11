@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using RequestifyTF2.API;
 
 namespace RequestifyTF2GUIRedone.Controls
@@ -38,7 +39,7 @@ namespace RequestifyTF2GUIRedone.Controls
                 }
             }
         }
-
+       
         private void IgnoreListButtonRemove_OnClick(object sender, RoutedEventArgs e)
         {
             if (IgnoreList.Items.Contains(IgnoreBox.Text))

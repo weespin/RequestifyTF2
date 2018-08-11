@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RequestifyTF2GUIRedone.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -12,13 +13,47 @@
             <RowDefinition Height="92*" />
         </Grid.RowDefinitions>
         <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}" HorizontalAlignment="Left"
-                            Margin="387.041,120.998,0,0" Grid.Row="1"
-                            VerticalAlignment="Top" Width="420.822" Click="Button_Click_1" />
-        <Label x:Name="GamePath" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="543" Height="37" />
-        <Label Content="{DynamicResource s_Statistics}" HorizontalAlignment="Left" Margin="10,151,0,0" Grid.Row="1"
+                            Margin="387,121,0,0" Grid.Row="1"
+                            VerticalAlignment="Top" Width="403" Click="Button_Click_1" />
+        <materialDesign:Card
+            Background="#03a9f4"
+            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+            Padding="0" Height="65" Margin="16,13,16,0" Grid.RowSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="10,6,22,14"
+                    Style="{StaticResource MaterialDesignBody1TextBlock}">
+                    Current Game Path
+                </TextBlock>
+                <Separator
+                    Style="{StaticResource MaterialDesignLightSeparator}" Margin="0,21,0,22" />
+                <TextBlock
+                    x:Name="GamePath"
+                    Margin="10,38,0,-5"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignBody2TextBlock}" Height="27" Grid.RowSpan="2" Width="758">
+                    TEST
+                </TextBlock>
+
+
+            </Grid>
+        </materialDesign:Card>
+
+
+
+        
+            <Label Content="{DynamicResource s_Statistics}" HorizontalAlignment="Left" Margin="10,151,0,0" Grid.Row="1"
                            VerticalAlignment="Top" Width="372" />
-        <Label Content="0" x:Name="LinesParsed" Margin="10,182,286,0" Grid.Row="1"
+        <Label x:Name="LinesParsed" Margin="10,182,286,0" Grid.Row="1"
                            VerticalAlignment="Top" RenderTransformOrigin="1.889,0.452" />
         <Label Content="0" x:Name="CommandsParsed" HorizontalAlignment="Left" Margin="10,213,0,0"
                            Grid.Row="1" VerticalAlignment="Top" Width="267" />
@@ -46,16 +81,15 @@
                            VerticalAlignment="Top" RenderTransformOrigin="1.111,-1.677" Width="298" />
         <Label Content="0" x:Name="TotalSuicides" HorizontalAlignment="Left" Margin="387.041,336.999,0,0"
                            Grid.Row="1" VerticalAlignment="Top" Width="298" />
+       
         <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
                             HorizontalAlignment="Left" Margin="10,120.999,0,0" Grid.Row="1" VerticalAlignment="Top"
                             Width="372.041" />
-        <Label Content="{DynamicResource s_TF_Only}" Margin="576,394.997,0,0" Grid.Row="1" Width="241.863" Foreground="#99000000" RenderTransformOrigin="0.74,3.871" HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Menu HorizontalAlignment="Left" x:Name="Language"  Height="20" Margin="10,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="372.041" Background="{x:Null}">
-            <MenuItem x:Name="menuLanguage" Header="{DynamicResource s_UI_Lang}"  Height="20" Width="372.041" RenderTransformOrigin="0.5,0.5" />
-        </Menu>
-        <Menu HorizontalAlignment="Left" x:Name="CoreLanguage"  Height="20" Margin="387.041,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="420.822" Background="{x:Null}">
-            <MenuItem  x:Name="menuCoreLanguage" Header="{DynamicResource s_Core_Lang}" Height="20" Width="420.822" />
-        </Menu>
+        <Label Content="{DynamicResource s_TF_Only}" Margin="548,400,10,0" Grid.Row="1" Width="242" Foreground="#99000000" RenderTransformOrigin="0.74,3.871" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <ComboBox x:Name ="menuLanguage" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_UI_Lang}" Margin="13,75,415,0" Grid.Row="1" VerticalAlignment="Top" Width="372.041" />
+        <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_Core_Lang}"  x:Name="ComboBoxCoreLanguage"  Margin="390,75,10,0" Grid.Row="1" VerticalAlignment="Top"/>
+
 
     </Grid>
 </UserControl>

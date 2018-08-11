@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid >
         <TextBox x:Name="Console" IsReadOnly="True" VerticalScrollBarVisibility="Auto"
-                 HorizontalAlignment="Left" Height="410" TextWrapping="Wrap" VerticalAlignment="Top"
-                 Width="798" Margin="10,20,0,0" />
+                 HorizontalAlignment="Left" Height="440" TextWrapping="Wrap" VerticalAlignment="Top"
+                 Width="808" Margin="0,10,-8,0" />
     </Grid>
 </UserControl>

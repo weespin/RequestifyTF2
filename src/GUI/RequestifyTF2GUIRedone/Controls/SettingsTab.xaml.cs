@@ -50,7 +50,7 @@ namespace RequestifyTF2GUIRedone.Controls
                     var path = Patcher.ResolveFolder(s.SelectedPath);
                     if (path != "")
                     {
-                        GamePath.Content = Application.Current.FindResource("cs_Current_Game_Path").ToString() + path;
+                        GamePath.Text = Application.Current.FindResource("cs_Current_Game_Path").ToString() + path;
                         AppConfig.CurrentConfig.GameDirectory = path;
                         AppConfig.Save();
                        

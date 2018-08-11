@@ -34,7 +34,7 @@ namespace RequestifyTF2GUIRedone
             InitializeComponent();
             new Thread(StatsMonitor).Start();
             AppConfig.Load();
-            SettingsTab.instance.GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
+            SettingsTab.instance.GamePath.Text= AppConfig.CurrentConfig.GameDirectory;
             Main.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
             instance = this;
@@ -64,7 +64,7 @@ namespace RequestifyTF2GUIRedone
                     IsChecked = lang.Equals(Instance.GetCulture)
                 };
                 menuLang.Click += ChangeCoreLanguageClick;
-                SettingsTab.instance.menuCoreLanguage.Items.Add(menuLang);
+                SettingsTab.instance.ComboBoxCoreLanguage.Items.Add(menuLang);
             }
 
             if (AppConfig.CurrentConfig.CoreLang == null)
@@ -73,7 +73,7 @@ namespace RequestifyTF2GUIRedone
                 AppConfig.Save();
             }
            currLang = new CultureInfo(AppConfig.CurrentConfig.CoreLang);
-            foreach (MenuItem i in SettingsTab.instance.menuCoreLanguage.Items)
+            foreach (MenuItem i in SettingsTab.instance.ComboBoxCoreLanguage.Items)
             {
                 CultureInfo ci = (CultureInfo)i.Tag;
                 i.IsChecked = ci != null && ci.Name==currLang.Name;
@@ -124,7 +124,7 @@ namespace RequestifyTF2GUIRedone
             }
 
             ChangeCoreLang(lang);
-            foreach (MenuItem i in SettingsTab.instance.menuCoreLanguage.Items)
+            foreach (MenuItem i in SettingsTab.instance.ComboBoxCoreLanguage.Items)
             {
                 CultureInfo ci = (CultureInfo)i.Tag;
                 if (ci != null)
@@ -351,7 +351,7 @@ namespace RequestifyTF2GUIRedone
         
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _writer = new TextBoxStreamWriter(ConsoleTab.instance.Console, Main.instance.ConsoleLabel2);
+            _writer = new TextBoxStreamWriter(ConsoleTab.instance.Console);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
             if (plugins.Count == 0)

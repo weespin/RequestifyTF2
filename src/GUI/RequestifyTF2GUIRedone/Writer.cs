@@ -7,12 +7,12 @@ namespace RequestifyTF2GUIRedone
 {
     public class TextBoxStreamWriter : TextWriter
     {
-        private readonly TextBlock _outp2;
+      //  private readonly TextBlock _outp2;
         private readonly TextBox _output;
-        public TextBoxStreamWriter(TextBox output, TextBlock outp2)
+        public TextBoxStreamWriter(TextBox output/*,TextBlock outp2*/)
         {
             _output = output;
-            _outp2 = outp2;
+         //   _outp2 = outp2;
         }
         public override Encoding Encoding => Encoding.UTF8;
 
@@ -20,7 +20,7 @@ namespace RequestifyTF2GUIRedone
         {
             base.Write(value);
             _output.Dispatcher.BeginInvoke(new Action(delegate { _output.AppendText(value.ToString()); }));
-            _outp2.Dispatcher.BeginInvoke(new Action(delegate
+           /* _outp2.Dispatcher.BeginInvoke(new Action(delegate
             {
                 if (_outp2.Text.EndsWith(Environment.NewLine))
                 {
@@ -28,7 +28,7 @@ namespace RequestifyTF2GUIRedone
                 }
 
                 _outp2.Text += value.ToString();
-            }));
+            }));*/
         }
     }
 }
