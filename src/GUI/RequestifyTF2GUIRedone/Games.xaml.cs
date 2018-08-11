@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using RequestifyTF2.Utils;
+using RequestifyTF2GUIRedone.Controls;
 
 namespace RequestifyTF2GUIRedone
 {
@@ -90,7 +91,7 @@ namespace RequestifyTF2GUIRedone
                 AppConfig.CurrentConfig.GameDirectory = path;
                 AppConfig.Save();
                 var page1 = (MainWindow) DataContext;
-                page1.GamePath.Content = path;
+                SettingsTab.instance.GamePath.Content = path;
                 Close();
             }
             else

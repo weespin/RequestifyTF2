@@ -14,6 +14,7 @@ using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.API;
 using RequestifyTF2.Utils;
+using RequestifyTF2GUIRedone.Controls;
 
 namespace RequestifyTF2GUIRedone
 {
@@ -22,7 +23,8 @@ namespace RequestifyTF2GUIRedone
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool _started;
+        public static MainWindow instance;
+        public bool _started;
 
 
         private TextWriter _writer;
@@ -32,15 +34,15 @@ namespace RequestifyTF2GUIRedone
             InitializeComponent();
             new Thread(StatsMonitor).Start();
             AppConfig.Load();
-            GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
-            AdminBox.Text = AppConfig.CurrentConfig.Admin;
+            SettingsTab.instance.GamePath.Content = AppConfig.CurrentConfig.GameDirectory;
+            Main.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
-           
+            instance = this;
          
             CultureInfo currLang = App.Language;
-           
+
             //Заполняем меню смены языка:
-            menuLanguage.Items.Clear();
+            SettingsTab.instance.menuLanguage.Items.Clear();
             foreach (var lang in App.Languages)
             {
                 MenuItem menuLang = new MenuItem
@@ -50,7 +52,7 @@ namespace RequestifyTF2GUIRedone
                     IsChecked = lang.Equals(currLang)
                 };
                 menuLang.Click += ChangeLanguageClick;
-                menuLanguage.Items.Add(menuLang);
+                SettingsTab.instance.menuLanguage.Items.Add(menuLang);
                
             }
             foreach (var lang in App.Languages)
@@ -62,7 +64,7 @@ namespace RequestifyTF2GUIRedone
                     IsChecked = lang.Equals(Instance.GetCulture)
                 };
                 menuLang.Click += ChangeCoreLanguageClick;
-                menuCoreLanguage.Items.Add(menuLang);
+                SettingsTab.instance.menuCoreLanguage.Items.Add(menuLang);
             }
 
             if (AppConfig.CurrentConfig.CoreLang == null)
@@ -71,7 +73,7 @@ namespace RequestifyTF2GUIRedone
                 AppConfig.Save();
             }
            currLang = new CultureInfo(AppConfig.CurrentConfig.CoreLang);
-            foreach (MenuItem i in menuCoreLanguage.Items)
+            foreach (MenuItem i in SettingsTab.instance.menuCoreLanguage.Items)
             {
                 CultureInfo ci = (CultureInfo)i.Tag;
                 i.IsChecked = ci != null && ci.Name==currLang.Name;
@@ -82,7 +84,7 @@ namespace RequestifyTF2GUIRedone
         private void LanguageChanged(Object sender, EventArgs e)
         {
             CultureInfo currLang = App.Language;
-            foreach (MenuItem i in menuLanguage.Items)
+            foreach (MenuItem i in SettingsTab.instance.menuLanguage.Items)
             {
                 var ci = (CultureInfo) i.Tag;
                 if (ci != null && ci.Equals(currLang))
@@ -122,7 +124,7 @@ namespace RequestifyTF2GUIRedone
             }
 
             ChangeCoreLang(lang);
-            foreach (MenuItem i in menuCoreLanguage.Items)
+            foreach (MenuItem i in SettingsTab.instance.menuCoreLanguage.Items)
             {
                 CultureInfo ci = (CultureInfo)i.Tag;
                 if (ci != null)
@@ -258,42 +260,42 @@ namespace RequestifyTF2GUIRedone
         {
             while (true)
             {
-                LinesParsed.Dispatcher.Invoke(() => { LinesParsed.Content = Application.Current.FindResource("s_Lines_Parsed").ToString()+Statisctics.LinesParsed.ToString(); });
+                SettingsTab.instance.LinesParsed.Dispatcher.Invoke(() => { SettingsTab.instance.LinesParsed.Content = Application.Current.FindResource("s_Lines_Parsed").ToString()+Statisctics.LinesParsed.ToString(); });
 
-                CommandsParsed.Dispatcher.Invoke(() =>
+                SettingsTab.instance.CommandsParsed.Dispatcher.Invoke(() =>
                 {
-                    CommandsParsed.Content = Application.Current.FindResource("s_Commands_Parsed").ToString()+Statisctics.CommandsParsed.ToString();
+                    SettingsTab.instance.CommandsParsed.Content = Application.Current.FindResource("s_Commands_Parsed").ToString()+Statisctics.CommandsParsed.ToString();
                 });
-                GameKills.Dispatcher.Invoke(() => { GameKills.Content = Application.Current.FindResource("s_Game_Kills").ToString()+Statisctics.GameKills.ToString(); });
-                YourKills.Dispatcher.Invoke(() => { YourKills.Content = Application.Current.FindResource("s_Your_Kills").ToString()+Statisctics.YourKills.ToString(); });
-                TotalKills.Dispatcher.Invoke(() =>
+                SettingsTab.instance.GameKills.Dispatcher.Invoke(() => { SettingsTab.instance.GameKills.Content = Application.Current.FindResource("s_Game_Kills").ToString()+Statisctics.GameKills.ToString(); });
+                SettingsTab.instance.YourKills.Dispatcher.Invoke(() => { SettingsTab.instance.YourKills.Content = Application.Current.FindResource("s_Your_Kills").ToString()+Statisctics.YourKills.ToString(); });
+                SettingsTab.instance.TotalKills.Dispatcher.Invoke(() =>
                 {
-                    TotalKills.Content = Application.Current.FindResource("s_Total_Kills").ToString()+Convert.ToString(Statisctics.YourKills + Statisctics.GameKills);
+                    SettingsTab.instance.TotalKills.Content = Application.Current.FindResource("s_Total_Kills").ToString()+Convert.ToString(Statisctics.YourKills + Statisctics.GameKills);
                 });
-                YourCritKills.Dispatcher.Invoke(() =>
+                SettingsTab.instance.YourCritKills.Dispatcher.Invoke(() =>
                 {
-                    YourCritKills.Content = Application.Current.FindResource("s_Your_Crits_Kills").ToString() + Statisctics.YourCritsKill.ToString();
+                    SettingsTab.instance.YourCritKills.Content = Application.Current.FindResource("s_Your_Crits_Kills").ToString() + Statisctics.YourCritsKill.ToString();
                 });
-                GameCritKills.Dispatcher.Invoke(() => { GameCritKills.Content = Application.Current.FindResource("s_Game_Crits_Kills").ToString() + Statisctics.CritsKill.ToString(); });
-                TotalCritKills.Dispatcher.Invoke(() =>
+                SettingsTab.instance.GameCritKills.Dispatcher.Invoke(() => { SettingsTab.instance.GameCritKills.Content = Application.Current.FindResource("s_Game_Crits_Kills").ToString() + Statisctics.CritsKill.ToString(); });
+                SettingsTab.instance.TotalCritKills.Dispatcher.Invoke(() =>
                 {
-                    TotalCritKills.Content = Application.Current.FindResource("s_Total_Crits_Kills").ToString() + Convert.ToString(Statisctics.CritsKill + Statisctics.YourCritsKill);
+                    SettingsTab.instance.TotalCritKills.Content = Application.Current.FindResource("s_Total_Crits_Kills").ToString() + Convert.ToString(Statisctics.CritsKill + Statisctics.YourCritsKill);
                 });
-                YourDeaths.Dispatcher.Invoke(() => { YourDeaths.Content = Application.Current.FindResource("s_Your_Deaths").ToString() + Statisctics.YourDeaths.ToString(); });
-                GameDeaths.Dispatcher.Invoke(() => { GameDeaths.Content = Application.Current.FindResource("s_Game_Deaths").ToString() + Statisctics.Deaths.ToString(); });
-                TotalDeaths.Dispatcher.Invoke(() =>
+                SettingsTab.instance.YourDeaths.Dispatcher.Invoke(() => { SettingsTab.instance.YourDeaths.Content = Application.Current.FindResource("s_Your_Deaths").ToString() + Statisctics.YourDeaths.ToString(); });
+                SettingsTab.instance.GameDeaths.Dispatcher.Invoke(() => { SettingsTab.instance.GameDeaths.Content = Application.Current.FindResource("s_Game_Deaths").ToString() + Statisctics.Deaths.ToString(); });
+                SettingsTab.instance.TotalDeaths.Dispatcher.Invoke(() =>
                 {
-                    TotalDeaths.Content = Application.Current.FindResource("s_Total_Deaths").ToString() + Convert.ToString(Statisctics.YourDeaths + Statisctics.Deaths);
+                    SettingsTab.instance.TotalDeaths.Content = Application.Current.FindResource("s_Total_Deaths").ToString() + Convert.ToString(Statisctics.YourDeaths + Statisctics.Deaths);
                 });
-                YourSuicides.Dispatcher.Invoke(() => { YourSuicides.Content = Application.Current.FindResource("s_Your_Suicides").ToString() + Statisctics.YourSuicides.ToString(); });
-                GameSuicides.Dispatcher.Invoke(() => { GameSuicides.Content = Application.Current.FindResource("s_Game_Suicides").ToString() + Statisctics.Suicides.ToString(); });
-                TotalSuicides.Dispatcher.Invoke(() =>
+                SettingsTab.instance.YourSuicides.Dispatcher.Invoke(() => { SettingsTab.instance.YourSuicides.Content = Application.Current.FindResource("s_Your_Suicides").ToString() + Statisctics.YourSuicides.ToString(); });
+                SettingsTab.instance.GameSuicides.Dispatcher.Invoke(() => { SettingsTab.instance.GameSuicides.Content = Application.Current.FindResource("s_Game_Suicides").ToString() + Statisctics.Suicides.ToString(); });
+                SettingsTab.instance.TotalSuicides.Dispatcher.Invoke(() =>
                 {
-                    TotalSuicides.Content = Application.Current.FindResource("s_Total_Suicides").ToString() + Convert.ToString(Statisctics.Suicides + Statisctics.YourSuicides);
+                    SettingsTab.instance.TotalSuicides.Content = Application.Current.FindResource("s_Total_Suicides").ToString() + Convert.ToString(Statisctics.Suicides + Statisctics.YourSuicides);
                 });
-                Attempts.Dispatcher.Invoke(() =>
+                IgnoreListTab.instance.Attempts.Dispatcher.Invoke(() =>
                 {
-                   Attempts.Content = Application.Current.FindResource("i_Attempts").ToString() + Statisctics.IgnoreListStopped;
+                    IgnoreListTab.instance.Attempts.Content = Application.Current.FindResource("i_Attempts").ToString() + Statisctics.IgnoreListStopped;
                 });
                 Thread.Sleep(250);
             }
@@ -312,28 +314,8 @@ namespace RequestifyTF2GUIRedone
             }
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (Instance.Config.GameDir == string.Empty)
-            {
-                MessageBox.Show(
-                    Application.Current.FindResource("cs_Set_Game_Dir").ToString(),
-                        Application.Current.FindResource("cs_Error").ToString());
 
-                return;
-            }
-            _started = Runner.Start();
-            if (_started)
-            {
-                //Its easy to catch events :)
-              
-                  RequestifyTF2.API.Events.UndefinedMessage.OnUndefinedMessage += UndefinedMessage_OnUndefinedMessage;
-                StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
-                StatusLabel.Content = Application.Current.FindResource("cs_Status_Working").ToString();
-            }
-        }
-
-        private void UndefinedMessage_OnUndefinedMessage(Events.UndefinedMessageArgs e)
+        public void UndefinedMessage_OnUndefinedMessage(Events.UndefinedMessageArgs e)
         {
             var mes = e.Message.Trim();
             if (mes.StartsWith("NUMPAD"))
@@ -366,40 +348,10 @@ namespace RequestifyTF2GUIRedone
                 }
             }
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            using (var s = new VistaFolderBrowserDialog())
-            {
-                s.UseDescriptionForTitle = true;
-                s.Description = Application.Current.FindResource("cs_Select_Game_Path").ToString();
-
-                if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (s.SelectedPath == string.Empty)
-                    {
-                        return;
-                    }
-
-                    var path = Patcher.ResolveFolder(s.SelectedPath);
-                    if (path != "")
-                    {
-                        GamePath.Content = Application.Current.FindResource("cs_Current_Game_Path").ToString() + path;
-                        AppConfig.CurrentConfig.GameDirectory = path;
-                        AppConfig.Save();
-
-                        Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(Application.Current.FindResource("cs_Not_Source_Engine_Game").ToString(), Application.Current.FindResource("cs_Error").ToString(),
-                            MessageBoxButton.OK);
-                    }      
-                }
-            }
-        }
+        
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _writer = new TextBoxStreamWriter(Console, ConsoleLabel2);
+            _writer = new TextBoxStreamWriter(ConsoleTab.instance.Console, Main.instance.ConsoleLabel2);
             System.Console.SetOut(_writer);
             var plugins = Instance.Plugins.GetPlugins();
             if (plugins.Count == 0)
@@ -409,117 +361,23 @@ namespace RequestifyTF2GUIRedone
 
             foreach (var item in plugins)
             {
-                PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
+                PluginsTab.instance.PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
             }
 
             foreach (var com in Instance.Commands.GetCommands())
             {
-                CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
+                PluginsTab.instance.CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
             }
         }
 
-        private void PluginsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var a = PluginsList.SelectedItem as PluginItem;
-            var index = PluginsList.SelectedIndex;
-            if (a != null)
-            {
-                PluginsList.Items.RemoveAt(index);
-                if (a.Color == null)
-                {
-                    a.Color = (Brush) new BrushConverter().ConvertFrom("#87b91d47");
-                    Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
-                }
-                else
-                {
-                    Instance.Plugins.EnablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
-                    a.Color = null;
-                }
+       
 
-                PluginsList.Items.Insert(index, a);
-            }
-        }
+      
+       
 
-        private void CommandsBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var a = CommandsBox.SelectedItem as CommandItem;
-            var index = CommandsBox.SelectedIndex;
-            if (a != null)
-            {
-                CommandsBox.Items.RemoveAt(index);
-                if (a.Color == null)
-                {
-                    a.Color = (Brush) new BrushConverter().ConvertFrom("#87b91d47");
-                    Instance.Commands.DisableCommand(Instance.Commands.GetCommand(a.Command.Name));
-                }
-                else
-                {
-                    Instance.Commands.EnableCommand(Instance.Commands.GetCommand(a.Command.Name));
-                    a.Color = null;
-                }
-
-                CommandsBox.Items.Insert(index, a);
-            }
-        }
-
-        private void IgnoreListButtonAdd_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (!IgnoreList.Items.Contains(IgnoreBox.Text))
-            {
-                IgnoreList.Items.Add(IgnoreBox.Text);
-                if (!Instance.Config.Ignored.Contains(IgnoreBox.Text))
-                {
-                    Instance.Config.Ignored.Add(IgnoreBox.Text);
-                }
-            }
-        }
-
-        private void IgnoreListButtonRemove_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (IgnoreList.Items.Contains(IgnoreBox.Text))
-            {
-                if (Instance.Config.Ignored.Contains(IgnoreBox.Text))
-                {
-                    Instance.Config.Ignored.Remove(IgnoreBox.Text);
-                }
-
-                IgnoreList.Items.Remove(IgnoreBox.Text);
-                return;
-            }
-
-            if (IgnoreList.SelectedItem != null)
-            {
-                if (Instance.Config.Ignored.Contains(IgnoreList.SelectedItem))
-                {
-                    Instance.Config.Ignored.Remove(IgnoreList.SelectedItem.ToString());
-                }
-
-                IgnoreList.Items.Remove(IgnoreList.SelectedItem);
-            }
-        }
-
-        private void RemoveCheckBox_OnChecked(object sender, RoutedEventArgs e)
-        {
-            Instance.Config.IgnoredReversed = true;
-        }
-
-        private void RemoveCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            Instance.Config.IgnoredReversed = false;
-        }
-
-        private void GameBrowser_click(object sender, RoutedEventArgs e)
-        {
-            var a = new Games {DataContext = this};
-            a.Show();
-        }
+        
 
 
-        private void AdminBoxFocusLost(object sender, RoutedEventArgs e)
-        {
-            AppConfig.CurrentConfig.Admin = AdminBox.Text;
-            AppConfig.Save();
-        }
 
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
@@ -540,31 +398,8 @@ namespace RequestifyTF2GUIRedone
             public Brush Color { get; set; }
         }
 
-        private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
-        {
-            Instance.IsMuted = true;
-        }
+      
 
-        private void MutedCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            Instance.IsMuted = false;
-        }
-
-        private void numbutton_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            int num = Convert.ToInt32(button.CommandParameter.ToString().Replace("NUMPAD",""));
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "MP3 File (*.mp3)|*.mp3";
-
-            var s = dialog.ShowDialog();
-            if (s ==true)
-            {
-                var file = dialog.FileName;
-                AppConfig.CurrentConfig.Buttons.buttons[num] = file
-                    ;
-                AppConfig.Save();
-            }
-        }
+       
     }
 }

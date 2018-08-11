@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="RequestifyTF2GUIRedone.Controls.PluginsTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RequestifyTF2GUIRedone.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListBox MouseDoubleClick="PluginsList_OnMouseDoubleClick" x:Name="PluginsList"
+                             HorizontalAlignment="Left" Height="169" Grid.Row="1" VerticalAlignment="Top" Width="206"
+                             Margin="282,32,0,0">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding PluginName}" Background="{Binding Color}" />
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+
+        </ListBox>
+        <Label Content="{DynamicResource p_Commands}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                           Width="205" Grid.RowSpan="2" />
+        <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top"
+                           Grid.RowSpan="2" />
+        <ListBox x:Name="CommandsBox" MouseDoubleClick="CommandsBox_OnMouseDoubleClick"
+                             HorizontalAlignment="Left" Height="169" Grid.Row="1" VerticalAlignment="Top" Width="206"
+                             Margin="10,32,0,0">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding CommandName}" Background="{Binding Color}" />
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+
+        </ListBox>
+        <Label Content="{DynamicResource p_Tip}"
+                           HorizontalAlignment="Left" Height="49" Margin="10,377,0,0" Grid.Row="1"
+                           VerticalAlignment="Top" Width="486" FontStyle="Italic" FontFamily="Segoe UI Light"
+                           Foreground="#99000000" />
+
+    </Grid>
+</UserControl>
