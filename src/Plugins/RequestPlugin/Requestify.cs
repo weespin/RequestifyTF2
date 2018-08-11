@@ -253,7 +253,7 @@ namespace RequestPlugin
                     {
                         var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                         var client = new YoutubeClient();
-                        var vids = client.SearchVideosAsync(text).Result;
+                        var vids = client.SearchVideosAsync(text,1).Result;
                         if (vids.Count > 0)
                         {
                             var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);

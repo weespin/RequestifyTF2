@@ -63,6 +63,7 @@ namespace RequestifyTF2
            
             using (var sr = new StreamReader(fs, Encoding.GetEncoding("UTF-8")))
             {
+                sr.ReadToEnd();
                 var s = string.Empty;
                 while (true)
                 {
