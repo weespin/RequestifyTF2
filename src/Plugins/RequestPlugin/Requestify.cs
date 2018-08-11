@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
@@ -41,6 +42,7 @@ namespace RequestPlugin
         public void Execute(User executor, List<string> arguments)
         {
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
+            Thread.Sleep(2000);
             if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
             {
                 if (MusicId != Instance.SoundOutBackground.WaveSource.Length)
@@ -48,13 +50,20 @@ namespace RequestPlugin
                     VoteUsers.Clear();
                     MusicId = Instance.SoundOutBackground.WaveSource.Length;
                     VoteUsers.Add(executor.Name);
-                    ConsoleSender.SendCommand(
-                        $"{executor} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
-                        ConsoleSender.Command.Chat);
+                    if (!Instance.IsMuted)
+                    {
+                        ConsoleSender.SendCommand(
+                            $"{executor} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
+                            ConsoleSender.Command.Chat);
+                    }
+
                     if (VoteUsers.Count >= PlayersCount / 2)
                     {
                         Instance.SoundOutBackground.Stop();
-                        ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                        if (!Instance.IsMuted)
+                        {
+                            ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                        }
                     }
                 }
                 else
@@ -62,14 +71,20 @@ namespace RequestPlugin
                     if (VoteUsers.Count >= PlayersCount / 2)
                     {
                         Instance.SoundOutBackground.Stop();
-                        ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                        if (!Instance.IsMuted)
+                        {
+                            ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                        }
                     }
 
                     if (VoteUsers.Contains(executor.Name))
                     {
-                        ConsoleSender.SendCommand(
-                            $"{executor} already voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
-                            ConsoleSender.Command.Chat);
+                        if (!Instance.IsMuted)
+                        {
+                            ConsoleSender.SendCommand(
+                                $"{executor} already voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
+                                ConsoleSender.Command.Chat);
+                        }
                     }
                     else
                     {
@@ -79,14 +94,20 @@ namespace RequestPlugin
                         if (VoteUsers.Count >= PlayersCount)
                         {
                             Instance.SoundOutBackground.Stop();
-                            ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                            if (!Instance.IsMuted)
+                            {
+                                ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
+                            }
                         }
                     }
                 }
             }
             else
             {
-                ConsoleSender.SendCommand($"{executor}, the queue is empty.", ConsoleSender.Command.Chat);
+                if (!Instance.IsMuted)
+                {
+                    ConsoleSender.SendCommand($"{executor}, the queue is empty.", ConsoleSender.Command.Chat);
+                }
             }
         }
 
@@ -207,9 +228,13 @@ namespace RequestPlugin
                                 var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
                                 if (urls.http_mp3_128_url != null)
                                 {
-                                    ConsoleSender.SendCommand(
-                                        $"{b.title} was added to the queue",
-                                        ConsoleSender.Command.Chat);
+                                    if (!Instance.IsMuted)
+                                    {
+                                        ConsoleSender.SendCommand(
+                                            $"{b.title} was added to the queue",
+                                            ConsoleSender.Command.Chat);
+                                    }
+
                                     Instance.BackGroundQueue.PlayList.Enqueue(
                                         new Instance.Song(
                                             b.title,
@@ -243,8 +268,11 @@ namespace RequestPlugin
 
                     var ext = streamInfo.Url;
                     var title = client.GetVideoAsync(id).Result.Title;
-                    ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
-                  
+                    if (!Instance.IsMuted)
+                    {
+                        ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+                    }
+
                     Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
                 }
                 else
@@ -266,7 +294,13 @@ namespace RequestPlugin
 
                             var ext = streamInfo.Url;
                             var title = client.GetVideoAsync(vids[0].Id).Result.Title;
-                            ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+                            if (!Instance.IsMuted)
+                            {
+                                ConsoleSender.SendCommand($"{title} was added to the queue",
+                                    ConsoleSender.Command.Chat);
+
+                            }
+
                             Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),
                                 executor));
                         }

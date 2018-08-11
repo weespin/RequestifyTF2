@@ -53,50 +53,33 @@ namespace RequestifyTF2.Utils
                 Console.WriteLine(Localization.Localization.CORE_SET_DIRECTORY);
                 return;
             }
-
-            if (File.Exists(Instance.Config.GameDir + "/cfg/autoexec.cfg"))
+            var cfgpath = Instance.Config.GameDir + "/cfg/autoexec.cfg";
+            WriteToCfg(cfgpath, "con_logfile \"console.log\"");
+            WriteToCfg(cfgpath, "bind kp_del \"exec requestify\"");
+            WriteToCfg(cfgpath, "bind kp_end \"echo NUMPAD1\"");
+            WriteToCfg(cfgpath, "bind kp_downarrow \"echo NUMPAD2\"");
+            WriteToCfg(cfgpath, "bind kp_pgdn \"echo NUMPAD3\"");
+            WriteToCfg(cfgpath, "bind kp_leftarrow \"echo NUMPAD4\"");
+            WriteToCfg(cfgpath, "bind kp_5 \"echo NUMPAD5\"");
+            WriteToCfg(cfgpath, "bind kp_rightarrow \"echo NUMPAD6\"");
+            WriteToCfg(cfgpath, "bind kp_home \"echo NUMPAD7\"");
+            WriteToCfg(cfgpath, "bind kp_uparrow \"echo NUMPAD8\"");
+            WriteToCfg(cfgpath, "bind kp_pgup \"echo NUMPAD9\"");
+            WriteToCfg(cfgpath, "bind kp_ins \"echo NUMPAD0\"");
+        }
+        private static void WriteToCfg(string cfgfile ,string str)
+        {
+            if (!File.Exists(cfgfile))
             {
-                var flag1 = false;
-                var flag2 = false;
-                var lines = File.ReadAllLines(Instance.Config.GameDir + "/cfg/autoexec.cfg");
-                foreach (var line in lines)
-                {
-                    if (line.Contains("con_logfile \"console.log\""))
-                    {
-                        flag1 = true;
-                        break;
-                    }
-                }
-
-                if (!flag1)
-                {
-                    File.AppendAllText(
-                        Instance.Config.GameDir + "/cfg/autoexec.cfg",
-                        Environment.NewLine + "con_logfile \"console.log\"");
-                }
-
-                foreach (var line in lines)
-                {
-                    if (line.Contains("bind KP_PGUP \"exec requestify\""))
-                    {
-                        flag2 = true;
-                        break;
-                    }
-                }
-
-                if (!flag2)
-                {
-                    File.AppendAllText(
-                        Instance.Config.GameDir + "/cfg/autoexec.cfg",
-                        Environment.NewLine + "bind KP_PGUP \"exec requestify\"");
-                }
+                File.Create(cfgfile);
             }
-            else
+            var lines = File.ReadAllLines(cfgfile);
+            if (!lines.Contains(str))
             {
                 File.AppendAllText(
-                    Instance.Config.GameDir + "/cfg/autoexec.cfg",
-                    "con_logfile \"console.log\"" + Environment.NewLine + "bind F11 \"exec requestify\"");
+                cfgfile,Environment.NewLine+
+                   str);
             }
-        }
+        } 
     }
 }

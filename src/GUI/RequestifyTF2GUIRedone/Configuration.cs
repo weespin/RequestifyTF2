@@ -54,8 +54,13 @@ internal static class AppConfig
     internal class ConfigJsonData
     {
         [JsonProperty("Admin")] public string Admin { get; set; }
-
         [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
         [JsonProperty("CoreLang")] public string CoreLang { get; set; }
+        [JsonProperty("ButtonBinds")] public Buttons Buttons = new Buttons();
     }
+
+    internal class Buttons
+   {
+       public string[] buttons = new string[9];
+   }
 }

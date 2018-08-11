@@ -58,7 +58,7 @@ namespace RequestifyTF2.Threads
                                 () =>
                                 {
                                     ConsoleSender.SendCommand(
-                                        string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title, s.RequestedBy),
+                                        string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title, s.RequestedBy.Name),
                                         ConsoleSender.Command.Chat);
                                     Player(s.Source, Instance.SoundOutBackground);
                                     Instance.SoundOutBackground.Volume = 0.10f;

@@ -130,6 +130,7 @@ namespace RequestifyTF2.Managers
             return allTypes;
         }
 
+       
         public void loadPlugins(string path)
         {
             Libraries.Load(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
@@ -164,10 +165,9 @@ namespace RequestifyTF2.Managers
                     var plugin = Activator.CreateInstance(type);
                     if (m != null)
                     {
-                        
                                 try
                                 {
-                                    m.Invoke(plugin, new object[] { });
+                                    m.Invoke(plugin, new object[]{});
                                 }
                                 catch (Exception e)
                                 {

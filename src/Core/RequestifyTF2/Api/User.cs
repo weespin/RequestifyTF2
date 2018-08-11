@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
     [Flags]
     public enum Tag

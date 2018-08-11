@@ -12,7 +12,7 @@ using CSCore.SoundOut;
 using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 
-namespace RequestifyTF2.Api
+namespace RequestifyTF2.API
 {
     public static class Instance
     {

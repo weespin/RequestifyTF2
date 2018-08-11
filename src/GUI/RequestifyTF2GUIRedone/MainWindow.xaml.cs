@@ -7,6 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using CSCore.Codecs.MP3;
+using CSCore.SoundOut;
+using Microsoft.Win32;
 using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.API;
@@ -322,11 +325,47 @@ namespace RequestifyTF2GUIRedone
             _started = Runner.Start();
             if (_started)
             {
+                //Its easy to catch events :)
+              
+                  RequestifyTF2.API.Events.UndefinedMessage.OnUndefinedMessage += UndefinedMessage_OnUndefinedMessage;
                 StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
                 StatusLabel.Content = Application.Current.FindResource("cs_Status_Working").ToString();
             }
         }
 
+        private void UndefinedMessage_OnUndefinedMessage(Events.UndefinedMessageArgs e)
+        {
+            var mes = e.Message.Trim();
+            if (mes.StartsWith("NUMPAD"))
+            {
+                mes = mes.Replace("NUMPAD", "");
+                if (mes.Length > 0)
+                {
+                    Play(Convert.ToInt32(mes));
+                }
+            }
+        }
+        private void Play(int id)
+        {
+            if (AppConfig.CurrentConfig.Buttons.buttons.Length > id)
+            {
+                if (AppConfig.CurrentConfig.Buttons.buttons[id] != null)
+                {
+                    if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id]))
+                    {
+                        if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
+                            Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                        {
+                            Instance.SoundOutExtra.Stop();
+                        }
+
+                        Instance.SoundOutExtra.Initialize(
+                            new Mp3MediafoundationDecoder(AppConfig.CurrentConfig.Buttons.buttons[id]));
+                        Instance.SoundOutExtra.Play();
+                    }
+                }
+            }
+        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             using (var s = new VistaFolderBrowserDialog())
@@ -511,5 +550,21 @@ namespace RequestifyTF2GUIRedone
             Instance.IsMuted = false;
         }
 
+        private void numbutton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            int num = Convert.ToInt32(button.CommandParameter.ToString().Replace("NUMPAD",""));
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "MP3 File (*.mp3)|*.mp3";
+
+            var s = dialog.ShowDialog();
+            if (s ==true)
+            {
+                var file = dialog.FileName;
+                AppConfig.CurrentConfig.Buttons.buttons[num] = file
+                    ;
+                AppConfig.Save();
+            }
+        }
     }
 }
