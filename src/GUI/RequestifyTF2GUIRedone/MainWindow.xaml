@@ -17,7 +17,7 @@
     AllowsTransparency="True"
     Title="RequestifyTF2" Height="605" Width="811">
 
-    <dockablz:Layout Margin="0,0,95,0">
+    <dockablz:Layout Margin="0">
         <Grid Loaded="FrameworkElement_OnLoaded" RenderTransformOrigin="0.521,0.347" Background="White" Height="528"
               VerticalAlignment="Top" HorizontalAlignment="Left" Width="814" Margin="0,0,-98,-48">
 

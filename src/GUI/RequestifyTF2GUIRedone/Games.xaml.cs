@@ -90,7 +90,6 @@ namespace RequestifyTF2GUIRedone
             {
                 AppConfig.CurrentConfig.GameDirectory = path;
                 AppConfig.Save();
-                var page1 = (MainWindow) DataContext;
                 SettingsTab.instance.GamePath.Text = path;
                 Close();
             }

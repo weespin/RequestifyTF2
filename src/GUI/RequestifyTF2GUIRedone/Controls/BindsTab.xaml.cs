@@ -22,10 +22,29 @@ namespace RequestifyTF2GUIRedone.Controls
     public partial class BindsTab : UserControl
     {
         public static BindsTab instance;
+        public enum BindType{
+            Stop,
+            LocalMusic,
+            YoutubeMusic,
+
+
+        }
+        public class Bind
+        {
+            public string NumpadKey { get; set; }
+            public BindType BindType { get; set; }
+            public string Link { get; set; }
+            public bool Enabled { get; set; }
+        }
         public BindsTab()
         {
             InitializeComponent();
             instance = this;
+            for (int a = 0; a < 11; a++)
+            {
+                List.Items.Add(new Bind {NumpadKey="NUMPAD "+a,BindType= BindType.LocalMusic,Link = "" });
+            }
+          
         }
         private void numbutton_Click(object sender, RoutedEventArgs e)
         {

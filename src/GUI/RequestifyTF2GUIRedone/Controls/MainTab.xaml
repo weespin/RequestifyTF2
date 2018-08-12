@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" Width="787.886"
      >
     <UserControl.Resources>
 
@@ -40,11 +40,11 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid  HorizontalAlignment="Left" Width="800">
+    <Grid  HorizontalAlignment="Left" Width="787.886">
         <materialDesign:Card
             Background="#03a9f4"
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0" Height="137" Margin="16,13,16,0">
+            Padding="0" Height="137" Margin="16,13,45.613,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition
@@ -94,9 +94,9 @@
             VerticalAlignment="Top" Grid.ColumnSpan="2" Width="191" />
         <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
             Margin="20,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-        <TextBox x:Name="AdminBox" LostFocus="AdminBoxFocusLost" materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="115,230,190,175"
+        <TextBox x:Name="AdminBox" LostFocus="AdminBoxFocusLost" materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="201,241.922,91.886,163.078"
              Width="495" 
              />
-        <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="20,291,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Width="361"/>
+        <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="16,303.97,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Width="361"/>
     </Grid>
 </UserControl>

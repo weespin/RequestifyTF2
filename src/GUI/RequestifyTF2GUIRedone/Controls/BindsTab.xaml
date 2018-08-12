@@ -4,49 +4,88 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RequestifyTF2GUIRedone.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid  Grid.Row="0" Margin="504,18,216,351">
-            <Button x:Name="button5"
-                            Command="{Binding PressAndRelease}"   Style="{StaticResource MaterialDesignRaisedAccentButton}"    CommandParameter="NUMPAD7" Click="numbutton_Click" Content="7" Height="70" Width="75" />
-        </Grid>
-        <Grid Grid.Row="0" Margin="602,18,118,351">
-            <Button x:Name="button6" 
-                            Command="{Binding PressAndRelease}"  Style="{StaticResource MaterialDesignRaisedAccentButton}" CommandParameter="NUMPAD8" Click="numbutton_Click" BorderThickness="1" Content="8" Height="70" Width="75" />
-        </Grid>
-        <Grid Grid.Row="0" Margin="700,18,21,351">
-            <Button x:Name="button7" 
-                            Command="{Binding PressAndRelease}" Style="{StaticResource MaterialDesignRaisedAccentButton}"  CommandParameter="NUMPAD9" Click="numbutton_Click" Content="9"  Height="70" Width="75"/>
-        </Grid>
-        <Grid Grid.Row="1"  Margin="504,89,216,280">
-            <Button x:Name="button9" 
-                            Command="{Binding PressAndRelease}" Style="{StaticResource MaterialDesignRaisedAccentButton}"  CommandParameter="NUMPAD4" Click="numbutton_Click" Content="4"   Width="75"  Height="70" />
-        </Grid>
-        <Grid Grid.Row="1"  Margin="602,89,118,280">
-            <Button x:Name="button10" 
-                            Command="{Binding PressAndRelease}" Style="{StaticResource MaterialDesignRaisedAccentButton}"  CommandParameter="NUMPAD5" Click="numbutton_Click" Content="5" Height="70" Width="75"  />
-        </Grid>
-        <Grid Grid.Row="1"  Margin="700,89,21,280">
-            <Button x:Name="button11"
-                            Command="{Binding PressAndRelease}"  Style="{StaticResource MaterialDesignRaisedAccentButton}" CommandParameter="NUMPAD6" Click="numbutton_Click" Content="6"  Height="70" Width="75"  />
-        </Grid>
-        <Grid  Grid.Row="2" Margin="504,160,216,209">
-            <Button x:Name="button13" 
-                            Command="{Binding PressAndRelease}"  Style="{StaticResource MaterialDesignRaisedAccentButton}" CommandParameter="NUMPAD1" Click="numbutton_Click" Content="1"  Height="70" Width="75" />
-        </Grid>
-        <Grid  Grid.Row="2" Margin="602,160,118,209">
-            <Button x:Name="button14" 
-                            Command="{Binding PressAndRelease}"  Style="{StaticResource MaterialDesignRaisedAccentButton}" CommandParameter="NUMPAD2" Click="numbutton_Click" Content="2"  Height="70" Width="75" />
-        </Grid>
-        <Grid  Grid.Row="2" Margin="700,160,21,209">
-            <Button x:Name="button15" 
-                            Command="{Binding PressAndRelease}" Style="{StaticResource MaterialDesignRaisedAccentButton}"  CommandParameter="NUMPAD3" Click="numbutton_Click" Content="3"  Height="70" Width="75"  />
-        </Grid>
-        <Grid Margin="504,231,118,138">
-            <Button x:Name="button17" 
-                            Command="{Binding PressAndRelease}" Style="{StaticResource MaterialDesignRaisedAccentButton}"  CommandParameter="NUMPAD0" Click="numbutton_Click" Content="0"  Height="70" Width="175"/>
-        </Grid>
-
+        <DataGrid
+  Margin="0 8 0 0"
+  ItemsSource="{Binding Items3}"
+  CanUserSortColumns="False"
+  CanUserAddRows="False"
+  AutoGenerateColumns="False"
+  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn
+      Binding="{Binding IsSelected}"
+      ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+      EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                    <DataGridCheckBoxColumn.Header>
+                        <!--padding to allow hit test to pass thru for sorting -->
+                        <Border
+          Background="Transparent"
+          Padding="6 0 6 0"
+          HorizontalAlignment="Center">
+                            <CheckBox
+            HorizontalAlignment="Center"
+            DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"
+            IsChecked="{Binding IsAllItems3Selected}" />
+                        </Border>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+               
+                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                <materialDesign:MaterialDataGridTextColumn
+      Binding="{Binding Name}"
+      Header="Numkey Code"
+      EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <!-- set a max length to get an indicator in the editor -->
+                <materialDesign:MaterialDataGridTextColumn
+      Binding="{Binding Description}"
+      Header="Description"
+      MaxLength="255"
+      EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <materialDesign:MaterialDataGridTextColumn
+      Binding="{Binding Numeric}"
+      Header="Number with long header"
+      Width="120"
+      EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style
+          TargetType="{x:Type DataGridColumnHeader}"
+          BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter
+            Property="HorizontalAlignment"
+            Value="Right" />
+                            <Setter
+            Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock
+                  TextWrapping="Wrap"
+                  Text="{Binding}"
+                  TextAlignment="Right" />
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style
+          TargetType="{x:Type TextBlock}">
+                            <Setter
+            Property="HorizontalAlignment"
+            Value="Right" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </materialDesign:MaterialDataGridTextColumn>
+                <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
+                <materialDesign:MaterialDataGridComboBoxColumn
+      Header="Food"
+      SelectedValueBinding="{Binding Food}"
+      ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Foods}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
