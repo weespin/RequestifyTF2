@@ -28,41 +28,21 @@ namespace RequestifyTF2GUIRedone.Controls
             InitializeComponent();
             instance = this;
         }
-        private void IgnoreListButtonAdd_OnClick(object sender, RoutedEventArgs e)
+        private void Sample1_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
         {
-            if (!IgnoreList.Items.Contains(IgnoreBox.Text))
-            {
-                IgnoreList.Items.Add(IgnoreBox.Text);
-                if (!Instance.Config.Ignored.Contains(IgnoreBox.Text))
+            if (!Equals(eventArgs.Parameter, true)) return;
+            if (!string.IsNullOrWhiteSpace(FruitTextBox.Text))
+                if (!FruitListBox.Items.Contains(FruitTextBox.Text))
                 {
-                    Instance.Config.Ignored.Add(IgnoreBox.Text);
+                    FruitListBox.Items.Add(FruitTextBox.Text);
+                    if (!Instance.Config.Ignored.Contains(FruitTextBox.Text))
+                    {
+                        Instance.Config.Ignored.Add(FruitTextBox.Text);
+                    }
                 }
-            }
+          
         }
-       
-        private void IgnoreListButtonRemove_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (IgnoreList.Items.Contains(IgnoreBox.Text))
-            {
-                if (Instance.Config.Ignored.Contains(IgnoreBox.Text))
-                {
-                    Instance.Config.Ignored.Remove(IgnoreBox.Text);
-                }
-
-                IgnoreList.Items.Remove(IgnoreBox.Text);
-                return;
-            }
-
-            if (IgnoreList.SelectedItem != null)
-            {
-                if (Instance.Config.Ignored.Contains(IgnoreList.SelectedItem))
-                {
-                    Instance.Config.Ignored.Remove(IgnoreList.SelectedItem.ToString());
-                }
-
-                IgnoreList.Items.Remove(IgnoreList.SelectedItem);
-            }
-        }
+     
 
         private void RemoveCheckBox_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -72,6 +52,23 @@ namespace RequestifyTF2GUIRedone.Controls
         private void RemoveCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
         {
             Instance.Config.IgnoredReversed = false;
+        }
+
+        private void FruitListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(FruitListBox.SelectedItem!=null)
+            {
+                if (FruitListBox.Items.Contains(FruitListBox.SelectedItem))
+                {
+                    if (Instance.Config.Ignored.Contains(FruitListBox.SelectedItem))
+                    {
+                        Instance.Config.Ignored.Remove(FruitListBox.SelectedItem.ToString());
+                    }
+
+                    FruitListBox.Items.Remove(FruitListBox.SelectedItem);
+                    return;
+                }
+            }
         }
     }
 }

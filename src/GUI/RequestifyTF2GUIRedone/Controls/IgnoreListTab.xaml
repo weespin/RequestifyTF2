@@ -9,20 +9,97 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
         </Grid.RowDefinitions>
-        <ListBox x:Name="IgnoreList" HorizontalAlignment="Left" Height="420" Margin="10,10,0,0"
+        <materialDesign:DialogHost  
+            DialogClosing="Sample1_DialogHost_OnDialogClosing"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" Margin="-13,10,494,10" Width="296" Height="430">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel
+                    Margin="23">
+                    <TextBlock>
+                        Add a new name.
+                    </TextBlock>
+                    <TextBox
+                        Margin="0 8 0 0"
+                        HorizontalAlignment="Stretch"
+                        x:Name="FruitTextBox" />
+                    <StackPanel
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            IsDefault="True"
+                            Margin="0 8 8 0"
+                            Command="materialDesign:DialogHost.CloseDialogCommand">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    True
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                            ACCEPT
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            IsCancel="True"
+                            Margin="0 8 8 0"
+                            Command="materialDesign:DialogHost.CloseDialogCommand">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                    False
+                                </system:Boolean>
+                            </Button.CommandParameter>
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <Border
+                BorderThickness="2"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                MinWidth="256"
+                MinHeight="256"
+                ClipToBounds="True" Margin="10,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="*" />
+                        <RowDefinition
+                            Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListBox
+                        MouseDoubleClick="FruitListBox_MouseDoubleClick"
+                        x:Name="FruitListBox">
+
+                    </ListBox>
+                    <materialDesign:ColorZone
+                        Mode="PrimaryMid"
+                        Grid.Row="1"
+                        Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                        <TextBlock
+                            Margin="16">
+                            Ignore List
+                        </TextBlock>
+                    </materialDesign:ColorZone>
+                    <Button
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Grid.Row="0"
+                        Margin="0 0 28 -20">
+                        <materialDesign:PackIcon
+                            Kind="Plus"
+                            Height="22"
+                            Width="22" />
+                    </Button>
+                </Grid>
+            </Border>
+        </materialDesign:DialogHost>
+        <ListBox x:Name="IgnoreList" HorizontalAlignment="Left" Height="420" Margin="599,-22,0,0"
                  VerticalAlignment="Top" Width="191" />
-        <TextBox x:Name="IgnoreBox" HorizontalAlignment="Left" Height="23" Margin="206,10,0,0"
-                 TextWrapping="Wrap" Text="{DynamicResource i_Name}" VerticalAlignment="Top" Width="120" />
-        <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Add}" Click="IgnoreListButtonAdd_OnClick"
-                HorizontalAlignment="Left"
-                Margin="206,38,0,0" VerticalAlignment="Top" Width="120" />
-        <Button BorderBrush="{x:Null}" Content="{DynamicResource i_Remove}" Click="IgnoreListButtonRemove_OnClick"
-                HorizontalAlignment="Left"
-                Margin="206,93,0,0" VerticalAlignment="Top" Width="120" />
         <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
-                  x:Name="RemoveCheckBox" Content="{DynamicResource i_Reversed}" HorizontalAlignment="Left" Margin="206,68,0,0"
+                  x:Name="RemoveCheckBox" Content="{DynamicResource i_Reversed}" HorizontalAlignment="Left" Margin="306,10,0,0"
                   VerticalAlignment="Top" />
         <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="306,403,-18,0" VerticalAlignment="Top"
                Foreground="#99000000" Width="512" />

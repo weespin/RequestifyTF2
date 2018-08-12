@@ -34,16 +34,16 @@ namespace RequestifyTF2GUIRedone.Controls
             if (a != null)
             {
                 CommandsBox.Items.RemoveAt(index);
-                if (a.Color == null)
-                {
-                    a.Color = (Brush)new BrushConverter().ConvertFrom("#87b91d47");
-                    Instance.Commands.DisableCommand(Instance.Commands.GetCommand(a.Command.Name));
-                }
-                else
-                {
-                    Instance.Commands.EnableCommand(Instance.Commands.GetCommand(a.Command.Name));
-                    a.Color = null;
-                }
+                //if (a.Color == null)
+                //{
+                //    a.Color = (Brush)new BrushConverter().ConvertFrom("#87b91d47");
+                //    Instance.Commands.DisableCommand(Instance.Commands.GetCommand(a.Command.Name));
+                //}
+                //else
+                //{
+                //    Instance.Commands.EnableCommand(Instance.Commands.GetCommand(a.Command.Name));
+                //    a.Color = null;
+                //}
 
                 CommandsBox.Items.Insert(index, a);
             }
@@ -56,16 +56,16 @@ namespace RequestifyTF2GUIRedone.Controls
             if (a != null)
             {
                 PluginsList.Items.RemoveAt(index);
-                if (a.Color == null)
-                {
-                    a.Color = (Brush)new BrushConverter().ConvertFrom("#87b91d47");
-                    Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
-                }
-                else
-                {
-                    Instance.Plugins.EnablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
-                    a.Color = null;
-                }
+                //if (a.Color == null)
+                //{
+                //    a.Color = (Brush)new BrushConverter().ConvertFrom("#87b91d47");
+                //    Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
+                //}
+                //else
+                //{
+                //    Instance.Plugins.EnablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
+                //    a.Color = null;
+                //}
 
                 PluginsList.Items.Insert(index, a);
             }

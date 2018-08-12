@@ -362,6 +362,7 @@ namespace RequestifyTF2GUIRedone
             foreach (var item in plugins)
             {
                 PluginsTab.instance.PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
+               //
             }
 
             foreach (var com in Instance.Commands.GetCommands())
@@ -388,14 +389,14 @@ namespace RequestifyTF2GUIRedone
         {
             public string PluginName { get; set; }
             public IRequestifyPlugin Plugin { get; set; }
-            public Brush Color { get; set; }
+            public bool Enabled { get; set; }
         }
 
         public class CommandItem
         {
             public string CommandName { get; set; }
             public IRequestifyCommand Command { get; set; }
-            public Brush Color { get; set; }
+            public bool Enabled { get; set; }
         }
 
       
