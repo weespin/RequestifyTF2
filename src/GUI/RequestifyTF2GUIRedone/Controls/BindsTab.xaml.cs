@@ -76,6 +76,7 @@ namespace RequestifyTF2GUIRedone.Controls
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -113,6 +114,13 @@ namespace RequestifyTF2GUIRedone.Controls
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+         var l=   _items1.ToList();
+            for (int i = 0; i < l.Count; i++)
+            {
+                AppConfig.CurrentConfig.Buttons.buttons[i] = l[i];
+            }
+            AppConfig.Save();
+           
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
@@ -134,9 +142,6 @@ namespace RequestifyTF2GUIRedone.Controls
             this.DataContext = new ListsAndGridsViewModel();
            
         }
-      
-
-       
         private void CellDoubleClick(object sender, RoutedEventArgs e)
         {
             var cell = (SelectableViewModel)((DataGridCell)sender).DataContext;
@@ -188,14 +193,14 @@ namespace RequestifyTF2GUIRedone.Controls
     }
     public class SampleDialogViewModel : INotifyPropertyChanged
     {
-        private string _name;
+        private string _link;
 
-        public string Name
+        public string Link
         {
-            get { return _name; }
+            get { return _link; }
             set
             {
-                this.MutateVerbose(ref _name, value, RaisePropertyChanged());
+                this.MutateVerbose(ref _link, value, RaisePropertyChanged());
             }
         }
 

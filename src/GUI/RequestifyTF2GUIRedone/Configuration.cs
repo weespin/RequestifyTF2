@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
+using RequestifyTF2GUIRedone.Controls;
 
 internal static class AppConfig
 {
@@ -61,6 +62,6 @@ internal static class AppConfig
 
     internal class Buttons
    {
-       public string[] buttons = new string[9];
+       public SelectableViewModel[] buttons = new SelectableViewModel[10];
    }
 }

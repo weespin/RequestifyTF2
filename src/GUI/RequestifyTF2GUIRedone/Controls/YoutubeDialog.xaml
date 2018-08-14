@@ -18,11 +18,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock>Youtube Video</TextBlock>
-        <TextBox wpf:HintAssist.Hint="Youtube video link" Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
+        <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"                 
                  Margin="0 6 0 0"
                  FontSize="18" Grid.Row="1">
             <TextBox.Text>
-                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Link" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <controls:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
                     </Binding.ValidationRules>

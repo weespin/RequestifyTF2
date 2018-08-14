@@ -333,7 +333,7 @@ namespace RequestifyTF2GUIRedone
             {
                 if (AppConfig.CurrentConfig.Buttons.buttons[id] != null)
                 {
-                    if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id]))
+                    if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id].Link))
                     {
                         if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
                             Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
@@ -342,7 +342,7 @@ namespace RequestifyTF2GUIRedone
                         }
 
                         Instance.SoundOutExtra.Initialize(
-                            new Mp3MediafoundationDecoder(AppConfig.CurrentConfig.Buttons.buttons[id]));
+                            new Mp3MediafoundationDecoder(AppConfig.CurrentConfig.Buttons.buttons[id].Link));
                         Instance.SoundOutExtra.Play();
                     }
                 }
