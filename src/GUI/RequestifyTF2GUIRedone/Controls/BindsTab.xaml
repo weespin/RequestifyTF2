@@ -5,86 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RequestifyTF2GUIRedone.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DataGrid
-  Margin="0 8 0 0"
-  ItemsSource="{Binding Items3}"
-  CanUserSortColumns="False"
-  CanUserAddRows="False"
-  AutoGenerateColumns="False"
-  materialDesign:DataGridAssist.CellPadding="13 8 8 8"
-  materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+            Margin="0 8 0 0"
+            ItemsSource="{Binding BindItems}"
+            CanUserSortColumns="False"
+            CanUserAddRows="False"
+           
+            AutoGenerateColumns="False"
+            x:Name="DataGrid"
+            materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+            materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn
-      Binding="{Binding IsSelected}"
-      ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-      EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                    Binding="{Binding IsSelected}"
+                    ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                    EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
                     <DataGridCheckBoxColumn.Header>
-                        <!--padding to allow hit test to pass thru for sorting -->
-                        <Border
-          Background="Transparent"
-          Padding="6 0 6 0"
-          HorizontalAlignment="Center">
-                            <CheckBox
-            HorizontalAlignment="Center"
-            DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"
-            IsChecked="{Binding IsAllItems3Selected}" />
-                        </Border>
+                     
+                        Enabled
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
                
-                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+              
                 <materialDesign:MaterialDataGridTextColumn
-      Binding="{Binding Name}"
-      Header="Numkey Code"
-      EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <!-- set a max length to get an indicator in the editor -->
-                <materialDesign:MaterialDataGridTextColumn
-      Binding="{Binding Description}"
-      Header="Description"
-      MaxLength="255"
-      EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <materialDesign:MaterialDataGridTextColumn
-      Binding="{Binding Numeric}"
-      Header="Number with long header"
-      Width="120"
-      EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style
-          TargetType="{x:Type DataGridColumnHeader}"
-          BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
-                            <Setter
-            Property="HorizontalAlignment"
-            Value="Right" />
-                            <Setter
-            Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock
-                  TextWrapping="Wrap"
-                  Text="{Binding}"
-                  TextAlignment="Right" />
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
+                    Binding="{Binding NumpadKey}"
+                    Header="Numpad key"
+                    IsReadOnly="True"
+                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+               
+                <materialDesign:MaterialDataGridComboBoxColumn Header="Type" 
+                                                               SelectedValueBinding="{Binding BindType, UpdateSourceTrigger=PropertyChanged}"
+                                                               ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BindType}" />
+            
+                <materialDesign:MaterialDataGridTextColumn  Binding="{Binding Link}" Header="Link" IsReadOnly ="True" >
+                    <DataGridTextColumn.CellStyle>
+
+                        <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                            <EventSetter Event="MouseDoubleClick" Handler="CellDoubleClick"/>
                         </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                    <DataGridTextColumn.ElementStyle>
-                        <Style
-          TargetType="{x:Type TextBlock}">
-                            <Setter
-            Property="HorizontalAlignment"
-            Value="Right" />
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
+                           
+                      
+                    </DataGridTextColumn.CellStyle>
                 </materialDesign:MaterialDataGridTextColumn>
-                <!-- use custom combo box column to get better combos. Use ItemsSourceBinding as your binding template to be applied to each combo -->
-                <materialDesign:MaterialDataGridComboBoxColumn
-      Header="Food"
-      SelectedValueBinding="{Binding Food}"
-      ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.Foods}" />
+              
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
