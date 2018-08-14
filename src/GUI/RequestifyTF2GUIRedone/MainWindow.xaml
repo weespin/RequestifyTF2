@@ -10,6 +10,7 @@
     xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
     xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:controls="clr-namespace:RequestifyTF2GUIRedone.Controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     x:Class="RequestifyTF2GUIRedone.MainWindow"
     mc:Ignorable="d"
     WindowStyle="None"
@@ -17,8 +18,9 @@
     AllowsTransparency="True"
     Title="RequestifyTF2" Height="605" Width="811">
 
-    <dockablz:Layout Margin="0">
-        <Grid Loaded="FrameworkElement_OnLoaded" RenderTransformOrigin="0.521,0.347" Background="White" Height="528"
+    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+        <dockablz:Layout  Margin="0">
+        <Grid  Loaded="FrameworkElement_OnLoaded" RenderTransformOrigin="0.521,0.347" Background="White" Height="528"
               VerticalAlignment="Top" HorizontalAlignment="Left" Width="814" Margin="0,0,-98,-48">
 
             <Grid.RowDefinitions>
@@ -110,4 +112,5 @@
             </dragablz:TabablzControl>
         </Grid>
     </dockablz:Layout>
+        </materialDesign:DialogHost>
 </Window>

@@ -131,6 +131,9 @@
     <Compile Include="Controls\PluginsTab.xaml.cs">
       <DependentUpon>PluginsTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\YoutubeDialog.xaml.cs">
+      <DependentUpon>YoutubeDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SettingsTab.xaml.cs">
       <DependentUpon>SettingsTab.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
     <Page Include="Controls\PluginsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\YoutubeDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SettingsTab.xaml">
       <SubType>Designer</SubType>
