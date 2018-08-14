@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using CSCore;
+using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
 using Microsoft.Win32;
@@ -15,6 +17,7 @@ using RequestifyTF2;
 using RequestifyTF2.API;
 using RequestifyTF2.Utils;
 using RequestifyTF2GUIRedone.Controls;
+using AudioEncoding = YoutubeExplode.Models.MediaStreams.AudioEncoding;
 
 namespace RequestifyTF2GUIRedone
 {
@@ -31,9 +34,10 @@ namespace RequestifyTF2GUIRedone
 
         public MainWindow()
         {
+          
             InitializeComponent();
             new Thread(StatsMonitor).Start();
-            AppConfig.Load();
+         ;
             SettingsTab.instance.GamePath.Text= AppConfig.CurrentConfig.GameDirectory;
             Main.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
@@ -329,12 +333,26 @@ namespace RequestifyTF2GUIRedone
         }
         private void Play(int id)
         {
-            if (AppConfig.CurrentConfig.Buttons.buttons.Length > id)
+            if (AppConfig.CurrentConfig.Buttons.buttons.Count> id)
             {
                 if (AppConfig.CurrentConfig.Buttons.buttons[id] != null)
                 {
-                    if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id].Link))
+                    var b = AppConfig.CurrentConfig.Buttons.buttons[id];
+                    if (b.BindType == "YoutubeMusic")
                     {
+                        var cl = new YoutubeExplode.YoutubeClient();
+                        var vid = YoutubeExplode.YoutubeClient.ParseVideoId(b.Link);
+                        var streamInfoSet = cl.GetVideoMediaStreamInfosAsync(vid);
+                        if (streamInfoSet == null)
+                        {
+                            return;
+                        }
+                        var streamInfo =
+                            streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
+                        if (streamInfo == null)
+                        {
+                            return;
+                        }
                         if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
                             Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
                         {
@@ -342,9 +360,36 @@ namespace RequestifyTF2GUIRedone
                         }
 
                         Instance.SoundOutExtra.Initialize(
-                            new Mp3MediafoundationDecoder(AppConfig.CurrentConfig.Buttons.buttons[id].Link));
+                            new AacDecoder(streamInfo.Url).ToMono());
                         Instance.SoundOutExtra.Play();
+
                     }
+
+                    if (b.BindType == "LocalMusic")
+                    {
+                        if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id].Link))
+                        {
+                            if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
+                                Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                            {
+                                Instance.SoundOutExtra.Stop();
+                            }
+
+                            Instance.SoundOutExtra.Initialize(
+                                new Mp3MediafoundationDecoder(AppConfig.CurrentConfig.Buttons.buttons[id].Link).ToMono());
+                            Instance.SoundOutExtra.Play();
+                        }
+                    }
+
+                    if (b.BindType == "Stop")
+                    {
+                        if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
+                            Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                        {
+                            Instance.SoundOutExtra.Stop();
+                        }
+                    }
+
                 }
             }
         }

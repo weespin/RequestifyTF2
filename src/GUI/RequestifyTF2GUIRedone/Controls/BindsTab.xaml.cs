@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 
@@ -30,6 +32,22 @@ namespace RequestifyTF2GUIRedone.Controls
         private string _link;
         private string _numpadkey;
         private string _bindType;
+        private int _id;
+
+
+
+        public int Id
+        
+        {
+            get { return _id; }
+            set
+            {
+                if (_id == value) return;
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+        
 
         public bool IsSelected
         {
@@ -76,51 +94,37 @@ namespace RequestifyTF2GUIRedone.Controls
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (NumpadKey != null && BindType != null && Link != null && AppConfig.CurrentConfig.Buttons!=null)
+            {
+               
+                    AppConfig.CurrentConfig.Buttons.buttons[Id].BindType = BindType;
+                    AppConfig.CurrentConfig.Buttons.buttons[Id].Link = Link;
+                    AppConfig.Save();
+                
+            }
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
     public class ListsAndGridsViewModel : INotifyPropertyChanged
     {
-        private readonly ObservableCollection<SelectableViewModel> _items1;
-        private bool? _isAllItems3Selected;
-
-        public ListsAndGridsViewModel()
+        public ListsAndGridsViewModel ()
         {
-            _items1 = CreateData();
-          
+
+            AppConfig.Load();
+            BindItems = new System.Collections.ObjectModel.ObservableCollection<SelectableViewModel>(AppConfig.CurrentConfig.Buttons.buttons);
+           
         }
 
-        private static ObservableCollection<SelectableViewModel> CreateData()
-        {
-            var a = new List<SelectableViewModel>();
-            for (int i = 0; i < 10; i++)
-            {
-                a.Add(new SelectableViewModel()
-                {
-                   NumpadKey = "NUMPAD "+ i,
-                    BindType = "Stop",
-                    IsSelected = true,
-                    Link = ""
-                });
-            }
-            return new ObservableCollection<SelectableViewModel>(a);
+      
 
-        }
-        public ObservableCollection<SelectableViewModel> BindItems => _items1;
+        public ObservableCollection<SelectableViewModel> BindItems { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-         var l=   _items1.ToList();
-            for (int i = 0; i < l.Count; i++)
-            {
-                AppConfig.CurrentConfig.Buttons.buttons[i] = l[i];
-            }
-            AppConfig.Save();
-           
+        
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
@@ -166,10 +170,13 @@ namespace RequestifyTF2GUIRedone.Controls
 
             if (cell.BindType == "YoutubeMusic")
             {
-              
+
+                id = cell.Id;
                 ExecuteRunDialog(sender);
             }
         }
+
+        public static int id;
         private async void ExecuteRunDialog(object o)
         {
             //let's set up a little MVVM, cos that's what the cool kids are doing:
@@ -186,6 +193,11 @@ namespace RequestifyTF2GUIRedone.Controls
         }
         private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
+            var vid = (DialogHost) sender;
+            var con = (SampleDialog) vid.DialogContent;
+            var link = (SampleDialogViewModel)con.DataContext;
+
+            AppConfig.CurrentConfig.Buttons.buttons[id].Link = link.Link;
             Console.WriteLine("You can intercept the closing event, and cancel here.");
         }
 

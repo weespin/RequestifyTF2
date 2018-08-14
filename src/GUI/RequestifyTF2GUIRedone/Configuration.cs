@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
@@ -23,7 +25,7 @@ internal static class AppConfig
             else
             {
                 File.WriteAllText(
-                    Path.GetDirectoryName(Application.ExecutablePath) + "config/config.json",
+                    Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json",
                     emptyjson);
 
                 MessageBox.Show("Please set the game directory", "Error");
@@ -41,7 +43,26 @@ internal static class AppConfig
             MessageBox.Show("Please set the game directory", "Error");
         }
 
+        if (CurrentConfig.Buttons.buttons.Count == 0)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+
+                CurrentConfig.Buttons.buttons.Add(new SelectableViewModel()
+                {
+                    Id = i,
+                    BindType = "LocalMusic",
+                    IsSelected = true,
+                    Link = "",
+                    NumpadKey = "NUMPAD " + i
+                });
+
+
+            }
+        }
+
         Instance.Config.GameDir = CurrentConfig.GameDirectory;
+        AppConfig.Save();
     }
 
     public static void Save()
@@ -54,14 +75,19 @@ internal static class AppConfig
 
     internal class ConfigJsonData
     {
+       
         [JsonProperty("Admin")] public string Admin { get; set; }
         [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
         [JsonProperty("CoreLang")] public string CoreLang { get; set; }
-        [JsonProperty("ButtonBinds")] public Buttons Buttons = new Buttons();
+
+        [JsonProperty("ButtonBinds")]
+        public Buttons Buttons { get; set; }
+
     }
 
     internal class Buttons
-   {
-       public SelectableViewModel[] buttons = new SelectableViewModel[10];
-   }
+    {
+
+        public List<SelectableViewModel> buttons = new List<SelectableViewModel>();
+    }
 }

@@ -23,6 +23,7 @@ namespace RequestifyTF2GUIRedone
 
         public App()
         {
+        
             InitializeComponent();
             App.LanguageChanged += App_LanguageChanged;
 

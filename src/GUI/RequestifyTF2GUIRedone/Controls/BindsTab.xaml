@@ -21,7 +21,7 @@
             materialDesign:DataGridAssist.ColumnHeaderPadding="8">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn
-                    Binding="{Binding IsSelected}"
+                    Binding="{Binding IsSelected, Mode=TwoWay}"
                     ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                     EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
                     <DataGridCheckBoxColumn.Header>
@@ -38,7 +38,7 @@
                     EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                
                 <materialDesign:MaterialDataGridComboBoxColumn Header="Type" 
-                                                               SelectedValueBinding="{Binding BindType, UpdateSourceTrigger=PropertyChanged}"
+                                                               SelectedValueBinding="{Binding BindType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BindType}" />
             
                 <materialDesign:MaterialDataGridTextColumn  Binding="{Binding Link}" Header="Link" IsReadOnly ="True" >
