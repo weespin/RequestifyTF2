@@ -10,12 +10,17 @@ namespace RequestifyTF2GUI.Controls
     /// </summary>
     public partial class Main : UserControl
     {
+        public string Version
+        {
+            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+        }
         public static Main instance;
         public Main()
         {
            
             InitializeComponent();
             instance = this;
+            version.Text = Version;
         }
         private void AdminBoxFocusLost(object sender, RoutedEventArgs e)
         {
