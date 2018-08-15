@@ -44,21 +44,20 @@ namespace RequestifyTF2GUI
                 MessageBox.Show("Please set the game directory", "Error");
             }
 
-            if (CurrentConfig.Buttons.buttons.Count == 0)
+            if (CurrentConfig.Buttons == null)
             {
+                CurrentConfig.Buttons = new Buttons();
+                CurrentConfig.Buttons.buttons = new List<BindsViewModel>(10);
                 for (int i = 0; i < 10; i++)
                 {
-
                     CurrentConfig.Buttons.buttons.Add(new BindsViewModel()
                     {
                         Id = i,
                         BindType = "LocalMusic",
                         IsSelected = true,
-                        Link = "",
+                        Link = string.Empty,
                         NumpadKey = "NUMPAD " + i
                     });
-
-
                 }
             }
 

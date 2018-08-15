@@ -75,32 +75,7 @@ namespace RequestifyTF2GUI.Controls
             {
                 if (_bindType == value) return;
                 _bindType = value;
-                if (_bindType == "Stop")
-                {
-                    Link = "";
-                }
-
-                if (_bindType == "YoutubeMusic")
-                {
-                    if (Link != "")
-                    {
-                        if (!Regexes.IsYoutubeVideo(Link))
-                        {
-                            Link = "";
-                        }
-                    }
-                }
-
-                if (_bindType == "LocalMusic")
-                {
-                    if (Link != "")
-                    {
-                        if (Regexes.IsYoutubeVideo(Link))
-                        {
-                            Link = "";
-                        }
-                    }
-                }
+               
                 
                 OnPropertyChanged();
             }
@@ -110,13 +85,46 @@ namespace RequestifyTF2GUI.Controls
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (NumpadKey != null && BindType != null && Link != null && AppConfig.CurrentConfig.Buttons!=null)
+            var handler = PropertyChanged;
+            if (handler != null)
             {
-               
+
+                if (NumpadKey != null && BindType != null && Link != null && AppConfig.CurrentConfig.Buttons != null)
+                {
+                    if (propertyName == "BindType")
+                    {
+                        if (_bindType == "Stop")
+                        {
+                            Link = "";
+                        }
+
+                        if (_bindType == "YoutubeMusic")
+                        {
+                            if (Link != "")
+                            {
+                                if (!Regexes.IsYoutubeVideo(Link))
+                                {
+                                    Link = "";
+                                }
+                            }
+                        }
+
+                        if (_bindType == "LocalMusic")
+                        {
+                            if (Link != "")
+                            {
+                                if (Regexes.IsYoutubeVideo(Link))
+                                {
+                                    Link = "";
+                                }
+                            }
+                        }
+                    }
                     AppConfig.CurrentConfig.Buttons.buttons[Id].BindType = BindType;
                     AppConfig.CurrentConfig.Buttons.buttons[Id].Link = Link;
                     AppConfig.Save();
-                
+
+                }
             }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
