@@ -22,7 +22,7 @@
     <v:String x:Key="s_Core_Lang">Core (Game) Language</v:String>
     <v:String x:Key="s_GameBrowser">Select Game from Game Browser</v:String>
     <v:String x:Key="s_ManualBrowser">Manually Select Game Path</v:String>
-    <v:String x:Key="s_Statistics">Statistics:</v:String>
+    <v:String x:Key="s_Statistics">Statistics</v:String>
     <v:String x:Key="s_Lines_Parsed">Lines Parsed:</v:String>
     <v:String x:Key="s_Your_Deaths">Your Deaths:</v:String>
     <v:String x:Key="s_Commands_Parsed">Commands Parsed:</v:String>

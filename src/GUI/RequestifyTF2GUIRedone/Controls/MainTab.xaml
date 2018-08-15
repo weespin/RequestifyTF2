@@ -7,44 +7,31 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" Width="787.886"
      >
-    <UserControl.Resources>
 
-        <Style x:Key="FadeLeftRightLabel" TargetType="{x:Type Label}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Label}">
-                        <ContentPresenter>
-                            <ContentPresenter.OpacityMask>
-                                <LinearGradientBrush StartPoint="0.0,0.5" EndPoint="1.0,0.5">
-                                    <GradientStop x:Name="GradientStop1" Offset="0" Color="Black" />
-                                    <GradientStop x:Name="GradientStop2" Offset="0" Color="Transparent" />
-                                </LinearGradientBrush>
-                            </ContentPresenter.OpacityMask>
-                        </ContentPresenter>
-                        <ControlTemplate.Triggers>
-                            <EventTrigger RoutedEvent="Binding.TargetUpdated">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="GradientStop1"
-                                            Storyboard.TargetProperty="Offset" Duration="0:0:1" From="0.0"
-                                            To="1.0" BeginTime="0:0:0" />
-                                        <DoubleAnimation Storyboard.TargetName="GradientStop2"
-                                            Storyboard.TargetProperty="Offset" Duration="0:0:1" From="0.0"
-                                            To="1.0" BeginTime="0:0:0" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
-    <Grid  HorizontalAlignment="Left" Width="787.886">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="1.8*" />
+            <RowDefinition
+                Height="1*" />
+            <RowDefinition
+                Height="1*" />
+            <RowDefinition
+                Height="1*" />
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <materialDesign:Card
             Background="#03a9f4"
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0" Height="137" Margin="16,13,45.613,0">
+            Padding="0" Height="137" Grid.Row="0" Grid.ColumnSpan="5" Margin="16,16,30,16">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition
@@ -87,16 +74,10 @@
         </materialDesign:Card>
 
 
-        <Button x:Name="StartButton" Content="{DynamicResource m_Start}" HorizontalAlignment="Left" Margin="10,178,0,0"
+        <Button x:Name="StartButton" Content="{DynamicResource m_Start}" HorizontalAlignment="Left" Margin="15,8,8,10"
             VerticalAlignment="Top" Width="95" Height="70" Click="ButtonBase_OnClick"
-            BorderBrush="{x:Null}" Grid.ColumnSpan="2" />
-        <Label x:Name="AdminName" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" Margin="10,265,0,0"
-            VerticalAlignment="Top" Grid.ColumnSpan="2" Width="191" />
-        <Label Style="{StaticResource FadeLeftRightLabel}" Content="Label" HorizontalAlignment="Left"
-            Margin="20,134,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-        <TextBox x:Name="AdminBox" LostFocus="AdminBoxFocusLost" materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="201,241.922,91.886,163.078"
-             Width="495" 
-             />
-        <CheckBox Content="{DynamicResource m_Muted}" Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked"  HorizontalAlignment="Left" Margin="16,303.97,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Width="361"/>
+                Grid.Row="1"
+            Grid.ColumnSpan="2" Grid.Column="0" />
+        
     </Grid>
 </UserControl>

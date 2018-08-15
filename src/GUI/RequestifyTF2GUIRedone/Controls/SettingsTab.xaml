@@ -9,22 +9,36 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="92*" />
+            <RowDefinition Height="0.6*" />
+            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.2*" />
+            <RowDefinition Height="1.8*" />
+
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
         <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}" HorizontalAlignment="Left"
-                            Margin="387,121,0,0" Grid.Row="1"
-                            VerticalAlignment="Top" Width="403" Click="Button_Click_1" />
+                           Grid.Row="2"
+                            VerticalAlignment="Center" Width="403"
+                Click="Button_Click_1" />
+        <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
+                Grid.Row="2" VerticalAlignment="Center" Grid.Column="2"
+                Width="372.041" />
+
         <materialDesign:Card
             Background="#03a9f4"
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0" Height="65" Margin="16,13,16,0" Grid.RowSpan="2">
+            Padding="0" Height="65" Grid.Row ="0" Grid.ColumnSpan="2" Margin="16,13,16,0" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition
                         Height="Auto" />
                     <RowDefinition
                         Height="Auto" />
+
 
                 </Grid.RowDefinitions>
                 <TextBlock
@@ -49,94 +63,114 @@
         </materialDesign:Card>
 
 
+        <ComboBox Margin="0,0,4,0" x:Name ="menuLanguage"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_UI_Lang}"  Grid.Row="1"  Grid.Column="0" />
+        <ComboBox Margin="4,0,0,0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_Core_Lang}"  x:Name="ComboBoxCoreLanguage" Grid.Column="1"  Grid.Row="1"
+                  />
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.27*"/>
+
+            </Grid.ColumnDefinitions>
+            <Label x:Name="AdminName" FontSize="15" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" 
+                   Grid.Row="0" VerticalAlignment="Top" Grid.ColumnSpan="2"  />
+
+            <TextBox  Grid.Row="0" Margin="1,25,0,0" VerticalAlignment="Top" x:Name="AdminBox"  materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                      Width="495" 
+            />
+            <!-- LostFocus="AdminBoxFocusLost" -->
+
+            <CheckBox    Grid.Row="1" Content="{DynamicResource m_Muted}"  HorizontalAlignment="Left" Margin="16,303.97,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.087,0.994" Width="361"/>
+            <!--Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked" -->
 
 
-
-        <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
-                            HorizontalAlignment="Left" Margin="10,120.999,0,0" Grid.Row="1" VerticalAlignment="Top"
-                            Width="372.041" />
-
-        <ComboBox x:Name ="menuLanguage" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_UI_Lang}" Margin="13,75,415,0" Grid.Row="1" VerticalAlignment="Top" Width="372.041" />
-        <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_Core_Lang}"  x:Name="ComboBoxCoreLanguage"  Margin="390,75,10,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <materialDesign:DialogHost  
+            <materialDesign:DialogHost  
             DialogClosing="Sample1_DialogHost_OnDialogClosing"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center" Margin="-476,155,0,0" Width="296" Height="320" Grid.Row="1">
-            <materialDesign:DialogHost.DialogContent>
-                <StackPanel
-                    Margin="23">
-                    <TextBlock><Run Text="Add a new name."/></TextBlock>
-                    <TextBox
+            VerticalAlignment="Center" Margin="25,0,0,0" Grid.Column="1"  Width="250" Height="290" Grid.Row="0" Grid.RowSpan="2">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel
+                    Margin="0">
+                        <TextBlock><Run Text="Add a new name."/></TextBlock>
+                        <TextBox
                         Margin="0 8 0 0"
                         HorizontalAlignment="Stretch"
                         x:Name="FruitTextBox" />
-                    <StackPanel
+                        <StackPanel
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
-                        <Button
+                            <Button
                             Style="{StaticResource MaterialDesignFlatButton}"
                             IsDefault="True"
                             Margin="0 8 8 0"
                             Command="materialDesign:DialogHost.CloseDialogCommand" Content="ACCEPT">
-                            <Button.CommandParameter>
-                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
-                            </Button.CommandParameter>
-                        </Button>
-                        <Button
+                                <Button.CommandParameter>
+                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
+                            <Button
                             Style="{StaticResource MaterialDesignFlatButton}"
                             IsCancel="True"
                             Margin="0 8 8 0"
                             Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL">
-                            <Button.CommandParameter>
-                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
-                            </Button.CommandParameter>
-                        </Button>
+                                <Button.CommandParameter>
+                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                                </Button.CommandParameter>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </materialDesign:DialogHost.DialogContent>
-            <Border
+                </materialDesign:DialogHost.DialogContent>
+                <Border
                 BorderThickness="2"
                 BorderBrush="{DynamicResource PrimaryHueMidBrush}"
-                MinWidth="256"
-                MinHeight="256"
-                ClipToBounds="True" Margin="10,0,0,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition
+              
+                ClipToBounds="True" Margin="0,0,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
                             Height="*" />
-                        <RowDefinition
+                            <RowDefinition
                             Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <ListBox
+                        </Grid.RowDefinitions>
+                        <ListBox
                         MouseDoubleClick="FruitListBox_MouseDoubleClick"
                         x:Name="FruitListBox"/>
-                    <materialDesign:ColorZone
+                        <materialDesign:ColorZone
                         Mode="PrimaryMid"
                         Grid.Row="1"
                        >
-                        <TextBlock
+                            <TextBlock
                             Margin="16"><Run Text="Ignore List"/></TextBlock>
-                    </materialDesign:ColorZone>
-                    <Button
+                        </materialDesign:ColorZone>
+                        <Button
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Grid.Row="0"
                         Margin="0 0 28 -20">
-                        <materialDesign:PackIcon
+                            <materialDesign:PackIcon
                             Kind="Plus"
                             Height="22"
                             Width="22" />
-                    </Button>
-                </Grid>
-            </Border>
-        </materialDesign:DialogHost>
-        <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
-            x:Name="RemoveCheckBox" Content="{DynamicResource i_Reversed}" HorizontalAlignment="Left" Margin="304,160,0,0"
-            VerticalAlignment="Top" Height="20" Grid.Row="1" />
-        <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="301,440,0,0" VerticalAlignment="Top"
+                        </Button>
+                    </Grid>
+                </Border>
+            </materialDesign:DialogHost>
+            <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
+            x:Name="RemoveCheckBox" 
+            Grid.Row="0" Grid.Column="2" Margin="-20,-100,0,0" >
+                <TextBlock TextWrapping="Wrap" Text="{DynamicResource i_Reversed}"/>
+            </CheckBox>
+            <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="301,440,0,0" VerticalAlignment="Top"
                Foreground="#99000000" Width="489" Grid.Row="1" />
-
+        </Grid>
     </Grid>
+
 </UserControl>

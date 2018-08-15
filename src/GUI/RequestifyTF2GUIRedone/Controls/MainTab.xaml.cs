@@ -31,7 +31,7 @@ namespace RequestifyTF2GUIRedone.Controls
         }
         private void AdminBoxFocusLost(object sender, RoutedEventArgs e)
         {
-            AppConfig.CurrentConfig.Admin = Main.instance.AdminBox.Text;
+            //AppConfig.CurrentConfig.Admin = Main.instance.AdminBox.Text;
             AppConfig.Save();
         }
         private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
