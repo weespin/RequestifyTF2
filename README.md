@@ -44,8 +44,9 @@ Head over [here](https://github.com/weespin/RequestifyTF2/wiki/Commands) for wik
 |Works on all servers	|✅    	    | ✅   		  | ❌    |
 |Works on all languages	|✅    	    | ✅   		  | ❌    |
 # Screenshots
-![Main](https://i.imgur.com/bwDdgoH.png)
-![Plugins](https://i.imgur.com/bwDdgoH.png)
+![Main](https://i.imgur.com/9HCEdb6.png)
+![Binds](https://i.imgur.com/bwDdgoH.png)
+![Plugins](https://i.imgur.com/vlOCLb6.png)
 ![GameBrowser](https://i.imgur.com/YrwoKup.png)
 
 ## About Valve Anti-Cheat (VAC)
