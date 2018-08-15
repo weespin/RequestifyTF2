@@ -19,7 +19,7 @@
         <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="375,10,0,0"
                VerticalAlignment="Top"
                Grid.RowSpan="2" />
-        <ScrollViewer Margin="10,50,430,160" Grid.Row="0" Grid.RowSpan="2">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,50,430,160" Grid.Row="0" Grid.RowSpan="2">
             <ItemsControl
             ItemsSource="{Binding Commands}" Width="330">
                 <ItemsControl.ItemTemplate>
@@ -63,7 +63,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <ScrollViewer Margin="380,50,20,150" Grid.Row="0" Grid.RowSpan="2">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="380,50,20,150" Grid.Row="0" Grid.RowSpan="2">
             <ItemsControl
             ItemsSource="{Binding Plugins}" Width="360">
                 <ItemsControl.ItemTemplate>

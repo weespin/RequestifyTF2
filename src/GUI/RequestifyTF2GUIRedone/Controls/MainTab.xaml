@@ -78,6 +78,8 @@
             VerticalAlignment="Top" Width="95" Height="70" Click="ButtonBase_OnClick"
                 Grid.Row="1"
             Grid.ColumnSpan="2" Grid.Column="0" />
-        
+        <CheckBox    Grid.Row="1" Grid.Column="1"  Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked" Content="{DynamicResource m_Muted}"    />
+
+
     </Grid>
 </UserControl>
