@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Security.AccessControl;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using RequestifyTF2.Utils;
@@ -18,15 +20,16 @@ namespace RequestifyTF2GUIRedone
     /// </summary>
     public partial class Games : Window
     {
-        public static List<SteamGame> SteamIdList { get; set; } = new List<SteamGame>();
+     
 
         public Games()
         {
             InitializeComponent();
         }
 
-        private static void Refresh()
+        public Task Refresh()
         {
+           
             var ProgramList = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64)
                 .OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\", RegistryRights.ReadKey)
                 .GetSubKeyNames();
@@ -36,10 +39,7 @@ namespace RequestifyTF2GUIRedone
                 var a = Regex.Match(v);
                 if (a.Success)
                 {
-                    if (SteamIdList.Any(n => n.id == Convert.ToInt32(a.Groups[1].Value)))
-                    {
-                        continue;
-                    }
+
 
                     var game = new SteamGame
                     {
@@ -64,21 +64,23 @@ namespace RequestifyTF2GUIRedone
                         game.photolink = root.data.header_image;
                     }
 
-                    SteamIdList.Add(game);
+                    if (!GamesList.Items.Contains(game))
+                    {
+                        dispatcher.Invoke(() => GamesList.Items.Add(game));
+                   
+                    }
                 }
             }
+
+        
+            return Task.CompletedTask;
         }
 
+        private Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
         private void Games_OnLoaded(object sender, RoutedEventArgs e)
         {
-            Refresh();
-            foreach (var games in SteamIdList)
-            {
-                if (games.Name != null)
-                {
-                   GamesList.Items.Add(games);
-                }
-            }
+            Task.Run(Refresh);
+            
         }
 
         private void GamesList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)

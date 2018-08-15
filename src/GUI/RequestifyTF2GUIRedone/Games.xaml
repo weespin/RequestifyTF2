@@ -47,8 +47,8 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
-
-                <DataTemplate>
+                <DataTemplate 
+                    >
                     <Grid Width="332" Background="#4CFFFFFF">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -59,7 +59,7 @@
                             <RowDefinition Height="40" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Grid Grid.RowSpan="3" Margin="0,0,12,0" Background="Yellow" Width="200" Height="120"
+                        <Grid Grid.RowSpan="3" Margin="0,0,12,0" Background="{DynamicResource WindowTitleColorBrush}" Width="200" Height="120"
                               HorizontalAlignment="Left">
                             <Image Stretch="Fill"
                                    Source="{Binding photolink}" />

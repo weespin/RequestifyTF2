@@ -149,6 +149,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Writer.cs" />
     <Page Include="Controls\BindsTab.xaml">
       <SubType>Designer</SubType>

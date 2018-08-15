@@ -37,9 +37,8 @@ namespace RequestifyTF2GUIRedone
           
             InitializeComponent();
             new Thread(StatsMonitor).Start();
-         ;
             SettingsTab.instance.GamePath.Text= AppConfig.CurrentConfig.GameDirectory;
-          SettingsTab.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
+            SettingsTab.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
             instance = this;
          
@@ -317,8 +316,6 @@ namespace RequestifyTF2GUIRedone
                 DragMove();
             }
         }
-
-
         public void UndefinedMessage_OnUndefinedMessage(Events.UndefinedMessageArgs e)
         {
             var mes = e.Message.Trim();
@@ -393,7 +390,6 @@ namespace RequestifyTF2GUIRedone
                 }
             }
         }
-        
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
             _writer = new TextBoxStreamWriter(ConsoleTab.instance.Console);
@@ -403,49 +399,10 @@ namespace RequestifyTF2GUIRedone
             {
                 Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
             }
-
-            foreach (var item in plugins)
-            {
-              //  PluginsTab.instance.PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
-               //
-            }
-
-            foreach (var com in Instance.Commands.GetCommands())
-            {
-            //    PluginsTab.instance.CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
-            }
         }
-
-       
-
-      
-       
-
-        
-
-
-
         private void Minimize_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-
-        public class PluginItem
-        {
-            public string PluginName { get; set; }
-            public IRequestifyPlugin Plugin { get; set; }
-            public bool Enabled { get; set; }
-        }
-
-        public class CommandItem
-        {
-            public string CommandName { get; set; }
-            public IRequestifyCommand Command { get; set; }
-            public bool Enabled { get; set; }
-        }
-
-      
-
-       
     }
 }
