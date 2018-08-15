@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RequestifyTF2GUI.Properties {
+namespace RequestifyTF2GUIOld.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -20,18 +20,6 @@ namespace RequestifyTF2GUI.Properties {
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("en-US")]
-        public global::System.Globalization.CultureInfo DefaultLanguage {
-            get {
-                return ((global::System.Globalization.CultureInfo)(this["DefaultLanguage"]));
-            }
-            set {
-                this["DefaultLanguage"] = value;
             }
         }
     }
