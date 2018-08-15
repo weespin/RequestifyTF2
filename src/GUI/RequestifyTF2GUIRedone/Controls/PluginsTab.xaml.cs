@@ -34,51 +34,6 @@ namespace RequestifyTF2GUIRedone.Controls
             instance = this;
          
         }
-
-        private void CommandsBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var a = CommandsBox.SelectedItem as MainWindow.CommandItem;
-            var index = CommandsBox.SelectedIndex;
-            if (a != null)
-            {
-                CommandsBox.Items.RemoveAt(index);
-                //if (a.Color == null)
-                //{
-                //    a.Color = (Brush)new BrushConverter().ConvertFrom("#87b91d47");
-                //    Instance.Commands.DisableCommand(Instance.Commands.GetCommand(a.Command.Name));
-                //}
-                //else
-                //{
-                //    Instance.Commands.EnableCommand(Instance.Commands.GetCommand(a.Command.Name));
-                //    a.Color = null;
-                //}
-
-                CommandsBox.Items.Insert(index, a);
-            }
-        }
-
-        private void PluginsList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var a = PluginsList.SelectedItem as MainWindow.PluginItem;
-            var index = PluginsList.SelectedIndex;
-            if (a != null)
-            {
-                PluginsList.Items.RemoveAt(index);
-                //if (a.Color == null)
-                //{
-                //    a.Color = (Brush)new BrushConverter().ConvertFrom("#87b91d47");
-                //    Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
-                //}
-                //else
-                //{
-                //    Instance.Plugins.EnablePlugin(Instance.Plugins.GetPlugin(a.PluginName));
-                //    a.Color = null;
-                //}
-
-                PluginsList.Items.Insert(index, a);
-            }
-        }
-
     }
 
     public class PluginsViewModel : INotifyPropertyChanged
@@ -90,22 +45,29 @@ namespace RequestifyTF2GUIRedone.Controls
         public PluginsViewModel()
         {
             _plugins = new ObservableCollection<PluginsAndCommandsViewModel>();
-            Events.PluginLoaded.OnPluginLoaded += PluginLoaded_OnPluginLoaded;    
+            _commands = new ObservableCollection<PluginsAndCommandsViewModel>();
+            Events.PluginLoaded.OnPluginLoaded += PluginLoaded_OnPluginLoaded;
+            Events.CommandRegistered.OnCommandRegistered += CommandRegistered_OnCommandRegistered;
             //Plugins = CreateData();
             //Commands = CreateData();
 
         }
 
+        private void CommandRegistered_OnCommandRegistered(Events.CommandRegisteredArgs e)
+        {
+            dispatcher.Invoke(() => Commands.Add(new PluginsAndCommandsViewModel() { IsSelected = true, Type = PluginsAndCommandsViewModel.MType.Command, Name = e.Command.Name, Description = e.Command.Help }));
+        }
+
         private void PluginLoaded_OnPluginLoaded(Events.PluginLoadedArgs e)
         {
-            dispatcher.Invoke(() => Plugins.Add(new PluginsAndCommandsViewModel(){Name = e.Plugin.Name}));
-            Plugins.Add(new PluginsAndCommandsViewModel(){Name = e.Plugin.Name});
+            dispatcher.Invoke(() => Plugins.Add(new PluginsAndCommandsViewModel(){IsSelected = true,Type = PluginsAndCommandsViewModel.MType.Plugin,Name = e.Plugin.Name, Description = e.Plugin.Desc}));
+           
         }
 
         private Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
 
         public ObservableCollection<PluginsAndCommandsViewModel> Plugins => _plugins;
-        public ObservableCollection<PluginsAndCommandsViewModel> Commands { get; set; }
+        public ObservableCollection<PluginsAndCommandsViewModel> Commands => _commands;
 
      
 
@@ -123,7 +85,7 @@ namespace RequestifyTF2GUIRedone.Controls
         private bool _isSelected;
         private string _name;
         private string _description;
-    
+        private MType _mtype;
 
         public bool IsSelected
         {
@@ -155,11 +117,66 @@ namespace RequestifyTF2GUIRedone.Controls
                 OnPropertyChanged();
             }
         }
+
+        public MType Type
+        {
+            get { return _mtype; }
+            set
+            {
+                if (_mtype == value) return;
+                _mtype = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public enum MType
+        {
+            Plugin,Command
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (handler != null)
+            {
+                if (this.Type == MType.Plugin)
+                {
+                    if (!IsSelected)
+                    {
+                        //PLUGIN GOING TO DISABLE
+                        if (Instance.Plugins.GetPlugin(this.Name) != null)
+                        {
+                            Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(this.Name));
+                        }
+                    }
+                    else
+                    {
+                        if (Instance.Plugins.GetPlugin(this.Name) != null)
+                        {
+                            Instance.Plugins.EnablePlugin(Instance.Plugins.GetPlugin(this.Name));
+                        }
+                    }
+                }
+                else
+                {
+                    if (!IsSelected)
+                    {
+                        //PLUGIN GOING TO DISABLE
+                        if (Instance.Commands.GetCommand(this.Name) != null)
+                        {
+                            Instance.Commands.DisableCommand(Instance.Commands.GetCommand(this.Name));
+                        }
+                    }
+                    else
+                    {
+                        if (Instance.Commands.GetCommand(this.Name) != null)
+                        {
+                            Instance.Commands.EnableCommand(Instance.Commands.GetCommand(this.Name));
+                        }
+                    }
+                }
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace RequestifyTF2.API
 
         public delegate void UndefinedMessageHandler(UndefinedMessageArgs e);
 
-       // public delegate void PluginsLoaded();
+        public delegate void CommandRegisteredHandler(CommandRegisteredArgs e);
 
         public delegate void PluginLoadedHandler(PluginLoadedArgs e);
 
@@ -196,6 +196,34 @@ namespace RequestifyTF2.API
 
             // Properties. 
             public IRequestifyPlugin Plugin { get; set; } 
+        }
+        public static class CommandRegistered
+        {
+            public static event CommandRegisteredHandler OnCommandRegistered;
+
+            internal static void Invoke(IRequestifyCommand Command)
+            {
+                var e = new CommandRegisteredArgs(Command);
+                OnCommandRegister(e);
+
+            }
+
+            private static void OnCommandRegister(CommandRegisteredArgs e)
+            {
+                OnCommandRegistered?.Invoke(e);
+            }
+        }
+
+        public class CommandRegisteredArgs : EventArgs
+        {
+            // Constructor. 
+            public CommandRegisteredArgs(IRequestifyCommand command)
+            {
+                Command = command;
+            }
+
+            // Properties. 
+            public IRequestifyCommand Command { get; set; }
         }
     }
 }

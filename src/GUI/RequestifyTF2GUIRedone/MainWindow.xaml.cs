@@ -406,13 +406,13 @@ namespace RequestifyTF2GUIRedone
 
             foreach (var item in plugins)
             {
-                PluginsTab.instance.PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
+              //  PluginsTab.instance.PluginsList.Items.Add(new PluginItem {Plugin = item.plugin, PluginName = item.plugin.Name});
                //
             }
 
             foreach (var com in Instance.Commands.GetCommands())
             {
-                PluginsTab.instance.CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
+            //    PluginsTab.instance.CommandsBox.Items.Add(new CommandItem {Command = com.ICommand, CommandName = com.Name});
             }
         }
 

@@ -13,98 +13,101 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <!-- piece together your own items control to create some nice stuff that will make everyone think you are cool. and rightly so, because you are cool.  you might even be a hipster for all I know -->
-   
-        <ListBox MouseDoubleClick="PluginsList_OnMouseDoubleClick" x:Name="PluginsList"
-                 HorizontalAlignment="Left" Height="169" Grid.Row="1" VerticalAlignment="Top" Width="206"
-                 Margin="282,32,0,0">
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding PluginName}" Background="{Binding Color}" />
-
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-
-        </ListBox>
         <Label Content="{DynamicResource p_Commands}" HorizontalAlignment="Left" Margin="10,10,0,0"
                VerticalAlignment="Top"
                Width="205" Grid.RowSpan="2" />
-        <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="282,10,0,0"
+        <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="375,10,0,0"
                VerticalAlignment="Top"
                Grid.RowSpan="2" />
-        <ListBox x:Name="CommandsBox" MouseDoubleClick="CommandsBox_OnMouseDoubleClick"
-                 HorizontalAlignment="Left" Height="169" Grid.Row="1" VerticalAlignment="Top" Width="206"
-                 Margin="10,32,0,0">
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding CommandName}" Background="{Binding Color}" />
-
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-
-        </ListBox>
-        <ItemsControl
-            ItemsSource="{Binding Plugins}"
-            Grid.IsSharedSizeScope="True"
-            Margin="0,206,24,65" Grid.Row="1">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate
+        <ScrollViewer Margin="10,50,430,160" Grid.Row="0" Grid.RowSpan="2">
+            <ItemsControl
+            ItemsSource="{Binding Commands}" Width="330">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate
                     DataType="{x:Type local:PluginsAndCommandsViewModel}">
-                    <Border
+                        <Border
                         x:Name="Border"
                         Padding="8">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
                                     SharedSizeGroup="Checkerz" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <CheckBox
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox
                                 VerticalAlignment="Center"
                                 IsChecked="{Binding IsSelected}" />
-                            <StackPanel
-                                Margin="8 0 0 0"
+                                <StackPanel
+                                Margin="-110 0 0 0"
                                 Grid.Column="1">
-                                <TextBlock
+                                    <TextBlock
                                     FontWeight="Bold"
                                     Text="{Binding Name}" />
-                                <TextBlock
+                                    <TextBlock
+                                        TextWrapping="Wrap"
                                     Text="{Binding Description}" />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <DataTemplate.Triggers>
-                        <DataTrigger
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger
                             Binding="{Binding IsSelected}"
-                            Value="True">
-                            <Setter
+                            Value="False">
+                                <Setter
                                 TargetName="Border"
                                 Property="Background"
                                 Value="{DynamicResource MaterialDesignSelection}" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <Label Content="{DynamicResource p_Tip}"
-               HorizontalAlignment="Left" Height="49" Margin="10,377,0,0" Grid.Row="1"
-               VerticalAlignment="Top" Width="486" FontStyle="Italic" FontFamily="Segoe UI Light"
-               Foreground="#99000000" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <ScrollViewer Margin="380,50,20,150" Grid.Row="0" Grid.RowSpan="2">
+            <ItemsControl
+            ItemsSource="{Binding Plugins}" Width="360">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate
+                    DataType="{x:Type local:PluginsAndCommandsViewModel}">
+                        <Border
+                        x:Name="Border"
+                        Padding="8">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                    SharedSizeGroup="Checkerz" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox
+                                VerticalAlignment="Center"
+                                IsChecked="{Binding IsSelected}" />
+                                <StackPanel
+                                Margin="-110 0 0 0"
+                                Grid.Column="1">
+                                    <TextBlock
+                                    FontWeight="Bold"
+                                    Text="{Binding Name}" />
+                                    <TextBlock
+                                        TextWrapping="Wrap"
+                                    Text="{Binding Description}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <DataTemplate.Triggers>
+                            <DataTrigger
+                            Binding="{Binding IsSelected}"
+                            Value="False">
+                                <Setter
+                                TargetName="Border"
+                                Property="Background"
+                                Value="{DynamicResource MaterialDesignSelection}" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    
 
     </Grid>
 </UserControl>
