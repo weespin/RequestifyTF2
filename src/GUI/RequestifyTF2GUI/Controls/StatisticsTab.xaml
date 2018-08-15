@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="RequestifyTF2GUI.Controls.StatisticsTab" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="700">
+    <materialDesign:Card    materialDesign:ShadowAssist.ShadowDepth="Depth2" Background="#03a9f4" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Padding="8,8,0,0" Height="450" Margin="25,25,25,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{DynamicResource s_Statistics}" TextWrapping="Wrap" Grid.Column="0" Grid.Row="0" Height="50" />
+            <TextBlock x:Name="LinesParsed" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" Text="0" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="CommandsParsed" Grid.Column="0" Grid.Row="2" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="GameKills" Grid.Column="0" Grid.Row="3" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="YourKills" Grid.Column="0" Grid.Row="4" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="TotalKills" Grid.Column="0" Grid.Row="5" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="YourCritKills" Grid.Column="0" Grid.Row="6" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="GameCritKills" Grid.Column="0" Grid.Row="7" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="TotalCritKills" Grid.Column="1" Grid.Row="1" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="YourDeaths" Grid.Column="1" Grid.Row="2" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="GameDeaths" Grid.Column="1" Grid.Row="3" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="TotalDeaths" Grid.Column="1" Grid.Row="4" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="YourSuicides" Grid.Column="1" Grid.Row="5" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="GameSuicides" Grid.Column="1" Grid.Row="6" />
+            <TextBlock Text="0" TextWrapping="Wrap" x:Name="TotalSuicides" Grid.Column="1" Grid.Row="7" />
+            <TextBlock Text="{DynamicResource s_TF_Only}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0" />
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
