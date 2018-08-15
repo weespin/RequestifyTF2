@@ -4,6 +4,7 @@
 
 RequesifyTF2 is a simple program for Source Engine based games, which supports plugins, micspam, and alot of custom things.
 ## New Version
+I know, im bad at design but UI Framework from WinForms (MaterialUI) was too complex.
 I made a new WPF version which includes 🥁:
  1. Game Browser! No need to Manually Select Path!
  2. AutoDevicePicker! No need to Manually select Virtual Device!
@@ -44,10 +45,9 @@ Head over [here](https://github.com/weespin/RequestifyTF2/wiki/Commands) for wik
 |Works on all servers	|✅    	    | ✅   		  | ❌    |
 |Works on all languages	|✅    	    | ✅   		  | ❌    |
 # Screenshots
-![Main](https://i.imgur.com/9HCEdb6.png)
-![Binds](https://i.imgur.com/bwDdgoH.png)
-![Plugins](https://i.imgur.com/vlOCLb6.png)
-![GameBrowser](https://i.imgur.com/YrwoKup.png)
+![Main](https://i.imgur.com/8KAvnT2.png)
+![Plugins](https://i.imgur.com/OruxLSR.png)
+![GameBrowser](https://i.imgur.com/eqnrbj8.png)
 
 ## About Valve Anti-Cheat (VAC)
 #### This programm is not a hack, not a cheat, not modifying game files, not injecting into game processes, not reading and writing into games memory.
@@ -66,10 +66,7 @@ Requestify can do everything:
  6. Do config commands (with generated code)
 # Development
 Use [development guide](https://github.com/weespin/RequestifyTF2/wiki/Developing)
-### Screenshots (Old WPF)
-![Main](https://i.imgur.com/8KAvnT2.png)
-![Plugins](https://i.imgur.com/OruxLSR.png)
-![GameBrowser](https://i.imgur.com/eqnrbj8.png)
+
 ### Screenshots (Old WinForms)
 
 ![OldPlugins](http://i.imgur.com/ccoM7Dy.png)

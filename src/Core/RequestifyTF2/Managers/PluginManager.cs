@@ -72,11 +72,8 @@ namespace RequestifyTF2.Managers
                     {
                         Console.WriteLine(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location);
                         assemblies.Add(assembly);
-                    
                         Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
                             Status.Enabled));
-                        
-                        Events.PluginLoaded.Invoke(GetPlugin(assembly).plugin);
                     }
                     else if (types.Count > 1)
                     {
@@ -157,7 +154,6 @@ namespace RequestifyTF2.Managers
             foreach (var pluginType in pluginImplemenations)
             {
                 Plugintypes.Add(pluginType);
-
             }
 
             foreach (var Assembly in PluginAssemblies)
@@ -182,7 +178,6 @@ namespace RequestifyTF2.Managers
                     }
                 }
             }
-            
         }
 
 
@@ -196,7 +191,7 @@ namespace RequestifyTF2.Managers
             return Plugins;
         }
 
-        public static Plugin GetPlugin(Assembly assembly)
+        public Plugin GetPlugin(Assembly assembly)
         {
             foreach (var p in Plugins)
             {

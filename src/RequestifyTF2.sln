@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2AAB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2", "Core\RequestifyTF2\RequestifyTF2.csproj", "{6A852064-D79A-457E-ADC8-F6A3D34E51E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2GUIOld(unsupported)", "GUI\RequestifyTF2GUIOld\RequestifyTF2GUIOld(unsupported).csproj", "{131E76E7-D939-4FC0-A6A6-11AF2E85E4B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2GUI", "GUI\RequestifyTF2GUI\RequestifyTF2GUI.csproj", "{131E76E7-D939-4FC0-A6A6-11AF2E85E4B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequesifyCLI", "CLI\RequesifyCLI\RequesifyCLI.csproj", "{43CBC27B-FDFF-429A-97A6-E248F2C924DB}"
 EndProject
@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTests", "Tests\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OofPlugin", "Plugins\OofPlugin\OofPlugin.csproj", "{5819E718-7A43-4D44-8899-50EF414CF4A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2GUI", "GUI\RequestifyTF2GUI\RequestifyTF2GUI.csproj", "{A46E8893-2DB7-4680-8204-8E31A15F7A66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestifyTF2GUIRedone", "GUI\RequestifyTF2GUIRedone\RequestifyTF2GUIRedone.csproj", "{A46E8893-2DB7-4680-8204-8E31A15F7A66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIPlugin", "Plugins\APIPlugin\APIPlugin.csproj", "{1EEEBEB0-2387-4AAB-AAD2-D05E87FE0F06}"
 EndProject

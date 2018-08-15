@@ -28,8 +28,8 @@ namespace RequestifyTF2.Managers
                         Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled);
                     if (Commands.Count(n => n.Name == NewCommand.Name) == 0)
                     {
-                        Commands.Add(NewCommand);
-                        Events.CommandRegistered.Invoke(NewCommand);
+                        Commands.Add(new RequestifyCommand(Plugin,
+                            Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled));
                     }
                 }
             }

@@ -25,7 +25,7 @@ namespace RequesifyCLI
                 else
                 {
                     File.WriteAllText(
-                       Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "config/config.json",
+                        Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "config/config.json",
                         emptyjson);
 
                     Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");

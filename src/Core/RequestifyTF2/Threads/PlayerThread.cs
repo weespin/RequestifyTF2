@@ -104,7 +104,7 @@ namespace RequestifyTF2.Threads
                 device.Stop();
             }
 
-            device.Initialize(decoder.ToMono()); //Mono > Stereo in micspams
+            device.Initialize(decoder);
             device.Play();
             return Task.FromResult<object>(null);
         }
