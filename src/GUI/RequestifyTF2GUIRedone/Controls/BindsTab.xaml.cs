@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace RequestifyTF2GUIRedone.Controls
     /// <summary>
     /// Логика взаимодействия для BindsTab.xaml
     /// </summary>
-    public class SelectableViewModel : INotifyPropertyChanged
+    public class BindsViewModel : INotifyPropertyChanged
     {
         private bool _isSelected;
 
@@ -86,6 +87,33 @@ namespace RequestifyTF2GUIRedone.Controls
             {
                 if (_bindType == value) return;
                 _bindType = value;
+                if (_bindType == "Stop")
+                {
+                    Link = "";
+                }
+
+                if (_bindType == "YoutubeMusic")
+                {
+                    if (Link != "")
+                    {
+                        if (!Regexes.IsYoutubeVideo(Link))
+                        {
+                            Link = "";
+                        }
+                    }
+                }
+
+                if (_bindType == "LocalMusic")
+                {
+                    if (Link != "")
+                    {
+                        if (Regexes.IsYoutubeVideo(Link))
+                        {
+                            Link = "";
+                        }
+                    }
+                }
+                
                 OnPropertyChanged();
             }
         }
@@ -106,19 +134,32 @@ namespace RequestifyTF2GUIRedone.Controls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+    public static class Regexes
+    {
+    static    Regex youtube = new Regex(@"youtube\..+?/watch.*?v=(.*?)(?:&|/|$)");
+        static Regex shortregex = new Regex(@"youtu\.be/(.*?)(?:\?|&|/|$)");
+
+        public static bool IsYoutubeVideo(string link)
+        {
+            return false || youtube.Match(link.ToString()).Success || shortregex.Match(link.ToString()).Success;
+        }
+    }
+
     public class ListsAndGridsViewModel : INotifyPropertyChanged
     {
+    
         public ListsAndGridsViewModel ()
         {
 
             AppConfig.Load();
-            BindItems = new System.Collections.ObjectModel.ObservableCollection<SelectableViewModel>(AppConfig.CurrentConfig.Buttons.buttons);
+            BindItems = new System.Collections.ObjectModel.ObservableCollection<BindsViewModel>(AppConfig.CurrentConfig.Buttons.buttons);
            
         }
 
       
 
-        public ObservableCollection<SelectableViewModel> BindItems { get; set; }
+        public ObservableCollection<BindsViewModel> BindItems { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -130,6 +171,7 @@ namespace RequestifyTF2GUIRedone.Controls
 
         public IEnumerable<string> BindType => Enum.GetNames(typeof(BindsTab.BindType));
     }
+    
     public partial class BindsTab : UserControl
     {
         public static BindsTab instance;
@@ -148,7 +190,7 @@ namespace RequestifyTF2GUIRedone.Controls
         }
         private void CellDoubleClick(object sender, RoutedEventArgs e)
         {
-            var cell = (SelectableViewModel)((DataGridCell)sender).DataContext;
+            var cell = (BindsViewModel)((DataGridCell)sender).DataContext;
 
             if (cell.BindType == "Stop")
             {
@@ -180,7 +222,7 @@ namespace RequestifyTF2GUIRedone.Controls
         private async void ExecuteRunDialog(object o)
         {
             //let's set up a little MVVM, cos that's what the cool kids are doing:
-            var view = new SampleDialog
+            var view = new YoutubeDialog
             {
                 DataContext = new SampleDialogViewModel()
             };
@@ -188,17 +230,15 @@ namespace RequestifyTF2GUIRedone.Controls
             //show the dialog
             var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
 
-            //check the result...
-            Console.WriteLine("Dialog was closed, the CommandParameter used to close it was: " + (result ?? "NULL"));
+        
         }
         private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
         {
             var vid = (DialogHost) sender;
-            var con = (SampleDialog) vid.DialogContent;
+            var con = (YoutubeDialog) vid.DialogContent;
             var link = (SampleDialogViewModel)con.DataContext;
 
             AppConfig.CurrentConfig.Buttons.buttons[id].Link = link.Link;
-            Console.WriteLine("You can intercept the closing event, and cancel here.");
         }
 
 

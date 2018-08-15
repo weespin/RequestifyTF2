@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using Ookii.Dialogs;
+using RequestifyTF2.API;
 using RequestifyTF2.Utils;
 
 namespace RequestifyTF2GUIRedone.Controls
@@ -32,6 +34,48 @@ namespace RequestifyTF2GUIRedone.Controls
         {
             var a = new Games { DataContext = this };
             a.Show();
+        }
+        private void Sample1_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+            if (!Equals(eventArgs.Parameter, true)) return;
+            if (!string.IsNullOrWhiteSpace(FruitTextBox.Text))
+                if (!FruitListBox.Items.Contains(FruitTextBox.Text))
+                {
+                    FruitListBox.Items.Add(FruitTextBox.Text);
+                    if (!Instance.Config.Ignored.Contains(FruitTextBox.Text))
+                    {
+                        Instance.Config.Ignored.Add(FruitTextBox.Text);
+                    }
+                }
+
+        }
+
+
+        private void RemoveCheckBox_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Instance.Config.IgnoredReversed = true;
+        }
+
+        private void RemoveCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            Instance.Config.IgnoredReversed = false;
+        }
+
+        private void FruitListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (FruitListBox.SelectedItem != null)
+            {
+                if (FruitListBox.Items.Contains(FruitListBox.SelectedItem))
+                {
+                    if (Instance.Config.Ignored.Contains(FruitListBox.SelectedItem))
+                    {
+                        Instance.Config.Ignored.Remove(FruitListBox.SelectedItem.ToString());
+                    }
+
+                    FruitListBox.Items.Remove(FruitListBox.SelectedItem);
+                    return;
+                }
+            }
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {

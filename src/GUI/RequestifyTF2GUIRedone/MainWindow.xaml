@@ -92,24 +92,26 @@
                          VerticalAlignment="Top">
                     <controls:SettingsTab Margin="16" />
                 </TabItem>
-                <TabItem Header="{DynamicResource m_Ignore_List}" BorderBrush="{x:Null}" Foreground="Black"
-                         Background="White"
-                         Margin="0,-10,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="72" MinWidth="12"
-                         VerticalAlignment="Bottom">
-                    <controls:IgnoreListTab Margin="16" />
-                </TabItem>
+                
                 <TabItem Header="{DynamicResource m_Console}" BorderBrush="{x:Null}" Foreground="Black"
                          Background="White"
                          Margin="0,-13,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="69" MinWidth="12"
                          VerticalAlignment="Bottom">
                     <controls:ConsoleTab Margin="16" />
                 </TabItem>
+
                 <TabItem Header="Bind" BorderBrush="{x:Null}" Foreground="Black" Background="White"
                          Margin="0,-12,-1,4" FontFamily="Segoe UI Light" FontSize="16" Height="84" MinWidth="12"
                          VerticalAlignment="Bottom">
                     <controls:BindsTab Margin="16" />
                 </TabItem>
-            </dragablz:TabablzControl>
+                <TabItem Header="{DynamicResource s_Statistics}" BorderBrush="{x:Null}" Foreground="Black"
+                         Background="White"
+                         Margin="0,-13,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="69" MinWidth="12"
+                         VerticalAlignment="Bottom">
+                    <controls:StatisticsTab Margin="16" />
+                </TabItem>
+                </dragablz:TabablzControl>
         </Grid>
     </dockablz:Layout>
         </materialDesign:DialogHost>

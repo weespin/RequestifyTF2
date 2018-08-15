@@ -4,11 +4,11 @@ using System.Text.RegularExpressions;
 namespace RequestifyTF2GUIRedone.Controls
 {
     /// <summary>
-    /// Interaction logic for SampleDialog.xaml
+    /// Interaction logic for YoutubeDialog.xaml
     /// </summary>
-    public partial class SampleDialog : UserControl
+    public partial class YoutubeDialog : UserControl
     {
-        public SampleDialog()
+        public YoutubeDialog()
         {
             InitializeComponent();
         }

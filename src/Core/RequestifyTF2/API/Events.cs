@@ -14,7 +14,11 @@ namespace RequestifyTF2.API
 
         public delegate void UndefinedMessageHandler(UndefinedMessageArgs e);
 
-       public static class PlayerChat
+       // public delegate void PluginsLoaded();
+
+        public delegate void PluginLoadedHandler(PluginLoadedArgs e);
+
+        public static class PlayerChat
         {
             public static event PlayerChatHandler OnPlayerChat;
 
@@ -164,6 +168,34 @@ namespace RequestifyTF2.API
 
             // Properties. 
             public string Message { get; set; } = string.Empty;
+        }
+        public static class PluginLoaded
+        {
+            public static event PluginLoadedHandler OnPluginLoaded;
+
+            internal static void Invoke(IRequestifyPlugin Plugin)
+            {
+                var e = new PluginLoadedArgs(Plugin);
+                OnPluginLoad(e);
+
+            }
+
+            private static void OnPluginLoad(PluginLoadedArgs e)
+            {
+               OnPluginLoaded?.Invoke(e);
+            }
+        }
+
+        public class PluginLoadedArgs : EventArgs
+        {
+            // Constructor. 
+            public PluginLoadedArgs(IRequestifyPlugin plugin)
+            {
+                Plugin =plugin;
+            }
+
+            // Properties. 
+            public IRequestifyPlugin Plugin { get; set; } 
         }
     }
 }

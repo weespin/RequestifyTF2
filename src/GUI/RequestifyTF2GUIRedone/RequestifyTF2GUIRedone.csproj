@@ -128,14 +128,14 @@
     <Compile Include="Controls\ConsoleTab.xaml.cs">
       <DependentUpon>ConsoleTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\IgnoreListTab.xaml.cs">
-      <DependentUpon>IgnoreListTab.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MainTab.xaml.cs">
       <DependentUpon>MainTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PluginsTab.xaml.cs">
       <DependentUpon>PluginsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatisticsTab.xaml.cs">
+      <DependentUpon>StatisticsTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\YoutubeDialog.xaml.cs">
       <DependentUpon>YoutubeDialog.xaml</DependentUpon>
@@ -158,15 +158,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\IgnoreListTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\MainTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PluginsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\StatisticsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

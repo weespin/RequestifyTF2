@@ -41,7 +41,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignBody2TextBlock}" Height="27" Grid.RowSpan="2" Width="758">
-                    TEST
+                   Path PlaceHolder
                 </TextBlock>
 
 
@@ -50,46 +50,93 @@
 
 
 
-        
-            <Label Content="{DynamicResource s_Statistics}" HorizontalAlignment="Left" Margin="10,151,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="372" />
-        <Label x:Name="LinesParsed" Margin="10,182,286,0" Grid.Row="1"
-                           VerticalAlignment="Top" RenderTransformOrigin="1.889,0.452" />
-        <Label Content="0" x:Name="CommandsParsed" HorizontalAlignment="Left" Margin="10,213,0,0"
-                           Grid.Row="1" VerticalAlignment="Top" Width="267" />
-        <Label Content="0" x:Name="GameKills" HorizontalAlignment="Left" Margin="10,244,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="267" />
-        <Label Content="0" x:Name="YourKills" HorizontalAlignment="Left" Margin="10,275,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="267" />
-        <Label Content="0" x:Name="TotalKills" HorizontalAlignment="Left" Margin="10,306,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="267" />
-        <Label Content="0" x:Name="YourCritKills" HorizontalAlignment="Left" Margin="10,337,0,0"
-                           Grid.Row="1" VerticalAlignment="Top" Width="267" />
-        <Label Content="0" x:Name="GameCritKills" HorizontalAlignment="Left" Margin="10,368,0,0"
-                           Grid.Row="1" VerticalAlignment="Top" Width="267" />
-        <Label Content="0" x:Name="TotalCritKills" HorizontalAlignment="Left" Margin="387.041,367.999,0,0"
-                           Grid.Row="1" VerticalAlignment="Top" Width="298" />
-        <Label Content="0" x:Name="YourDeaths" HorizontalAlignment="Left" Margin="387.041,181.999,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="298" />
-        <Label Content="0" x:Name="GameDeaths" HorizontalAlignment="Left" Margin="387.041,212.719,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" RenderTransformOrigin="0,0.548" Width="298" />
-        <Label Content="0" x:Name="TotalDeaths" HorizontalAlignment="Left" Margin="387.041,243.719,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="298" />
-        <Label Content="0" x:Name="YourSuicides" HorizontalAlignment="Left" Margin="387.041,274.998,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" Width="298" />
-        <Label Content="0" x:Name="GameSuicides" HorizontalAlignment="Left" Margin="387.041,305.999,0,0" Grid.Row="1"
-                           VerticalAlignment="Top" RenderTransformOrigin="1.111,-1.677" Width="298" />
-        <Label Content="0" x:Name="TotalSuicides" HorizontalAlignment="Left" Margin="387.041,336.999,0,0"
-                           Grid.Row="1" VerticalAlignment="Top" Width="298" />
-       
+
+
         <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
                             HorizontalAlignment="Left" Margin="10,120.999,0,0" Grid.Row="1" VerticalAlignment="Top"
                             Width="372.041" />
-        <Label Content="{DynamicResource s_TF_Only}" Margin="548,400,10,0" Grid.Row="1" Width="242" Foreground="#99000000" RenderTransformOrigin="0.74,3.871" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
         <ComboBox x:Name ="menuLanguage" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_UI_Lang}" Margin="13,75,415,0" Grid.Row="1" VerticalAlignment="Top" Width="372.041" />
         <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_Core_Lang}"  x:Name="ComboBoxCoreLanguage"  Margin="390,75,10,0" Grid.Row="1" VerticalAlignment="Top"/>
-
+        <materialDesign:DialogHost  
+            DialogClosing="Sample1_DialogHost_OnDialogClosing"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" Margin="-476,155,0,0" Width="296" Height="320" Grid.Row="1">
+            <materialDesign:DialogHost.DialogContent>
+                <StackPanel
+                    Margin="23">
+                    <TextBlock><Run Text="Add a new name."/></TextBlock>
+                    <TextBox
+                        Margin="0 8 0 0"
+                        HorizontalAlignment="Stretch"
+                        x:Name="FruitTextBox" />
+                    <StackPanel
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <Button
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            IsDefault="True"
+                            Margin="0 8 8 0"
+                            Command="materialDesign:DialogHost.CloseDialogCommand" Content="ACCEPT">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            IsCancel="True"
+                            Margin="0 8 8 0"
+                            Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL">
+                            <Button.CommandParameter>
+                                <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>
+                            </Button.CommandParameter>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </materialDesign:DialogHost.DialogContent>
+            <Border
+                BorderThickness="2"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                MinWidth="256"
+                MinHeight="256"
+                ClipToBounds="True" Margin="10,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="*" />
+                        <RowDefinition
+                            Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <ListBox
+                        MouseDoubleClick="FruitListBox_MouseDoubleClick"
+                        x:Name="FruitListBox"/>
+                    <materialDesign:ColorZone
+                        Mode="PrimaryMid"
+                        Grid.Row="1"
+                       >
+                        <TextBlock
+                            Margin="16"><Run Text="Ignore List"/></TextBlock>
+                    </materialDesign:ColorZone>
+                    <Button
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Grid.Row="0"
+                        Margin="0 0 28 -20">
+                        <materialDesign:PackIcon
+                            Kind="Plus"
+                            Height="22"
+                            Width="22" />
+                    </Button>
+                </Grid>
+            </Border>
+        </materialDesign:DialogHost>
+        <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
+            x:Name="RemoveCheckBox" Content="{DynamicResource i_Reversed}" HorizontalAlignment="Left" Margin="304,160,0,0"
+            VerticalAlignment="Top" Height="20" Grid.Row="1" />
+        <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="301,440,0,0" VerticalAlignment="Top"
+               Foreground="#99000000" Width="489" Grid.Row="1" />
 
     </Grid>
 </UserControl>

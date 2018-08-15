@@ -48,7 +48,7 @@ internal static class AppConfig
             for (int i = 0; i < 10; i++)
             {
 
-                CurrentConfig.Buttons.buttons.Add(new SelectableViewModel()
+                CurrentConfig.Buttons.buttons.Add(new BindsViewModel()
                 {
                     Id = i,
                     BindType = "LocalMusic",
@@ -88,6 +88,6 @@ internal static class AppConfig
     internal class Buttons
     {
 
-        public List<SelectableViewModel> buttons = new List<SelectableViewModel>();
+        public List<BindsViewModel> buttons = new List<BindsViewModel>();
     }
 }
