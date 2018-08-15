@@ -14,11 +14,14 @@ namespace RequestifyTF2.API
 
         public delegate void UndefinedMessageHandler(UndefinedMessageArgs e);
 
-       public static class PlayerChat
+        public delegate void CommandRegisteredHandler(CommandRegisteredArgs e);
+
+        public delegate void PluginLoadedHandler(PluginLoadedArgs e);
+
+        public static class PlayerChat
         {
             public static event PlayerChatHandler OnPlayerChat;
 
-            // ReSharper disable once RedundantNameQualifier
             public static void Invoke(RequestifyTF2.API.User caller, string text)
             {
                 var e = new PlayerChatArgs(caller, text);
@@ -34,7 +37,6 @@ namespace RequestifyTF2.API
         public  class PlayerChatArgs : EventArgs
         {
             // Constructor. 
-            // ReSharper disable once RedundantNameQualifier
             public PlayerChatArgs(RequestifyTF2.API.User caller, string text)
             {
                 User = caller;
@@ -44,7 +46,6 @@ namespace RequestifyTF2.API
             public string Chat { get; set; } = string.Empty;
 
             // Properties. 
-            // ReSharper disable once RedundantNameQualifier
             public RequestifyTF2.API.User User { get; set; }
         }
 
@@ -167,6 +168,62 @@ namespace RequestifyTF2.API
 
             // Properties. 
             public string Message { get; set; } = string.Empty;
+        }
+        public static class PluginLoaded
+        {
+            public static event PluginLoadedHandler OnPluginLoaded;
+
+            internal static void Invoke(IRequestifyPlugin Plugin)
+            {
+                var e = new PluginLoadedArgs(Plugin);
+                OnPluginLoad(e);
+
+            }
+
+            private static void OnPluginLoad(PluginLoadedArgs e)
+            {
+               OnPluginLoaded?.Invoke(e);
+            }
+        }
+
+        public class PluginLoadedArgs : EventArgs
+        {
+            // Constructor. 
+            public PluginLoadedArgs(IRequestifyPlugin plugin)
+            {
+                Plugin =plugin;
+            }
+
+            // Properties. 
+            public IRequestifyPlugin Plugin { get; set; } 
+        }
+        public static class CommandRegistered
+        {
+            public static event CommandRegisteredHandler OnCommandRegistered;
+
+            internal static void Invoke(IRequestifyCommand Command)
+            {
+                var e = new CommandRegisteredArgs(Command);
+                OnCommandRegister(e);
+
+            }
+
+            private static void OnCommandRegister(CommandRegisteredArgs e)
+            {
+                OnCommandRegistered?.Invoke(e);
+            }
+        }
+
+        public class CommandRegisteredArgs : EventArgs
+        {
+            // Constructor. 
+            public CommandRegisteredArgs(IRequestifyCommand command)
+            {
+                Command = command;
+            }
+
+            // Properties. 
+            public IRequestifyCommand Command { get; set; }
         }
     }
 }

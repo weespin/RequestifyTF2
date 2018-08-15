@@ -32,21 +32,22 @@ namespace RequestifyTF2
                 return false;
             }
 
-            if (File.Exists(Instance.Config.GameDir + "/console.log"))
-            {
-                //try
-                //{
-                //    File.WriteAllText(Instance.Config.GameDir + "/console.log", string.Empty);
-                //}
-                //catch
-                //{
-                //    Logger.Write(
-                //        Logger.Status.Error,
-                //        Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
-                //        ConsoleColor.Red);
-                //    return false;
-                //}
-            }
+            //if (!File.Exists(Instance.Config.GameDir + "/console.log"))
+            //{
+            //    //try
+            //    //{
+            //    //    File.WriteAllText(Instance.Config.GameDir + "/console.log", string.Empty);
+            //    //}
+            //    //catch
+            //    //{
+            //    //    Logger.Write(
+            //    //        Logger.Status.Error,
+            //    //        Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
+            //    //        ConsoleColor.Red);
+            //    //    return false;
+            //    //}
+            //}
+            
 
             PlayerThread.StartThread();
             ReaderThread.StartThread();

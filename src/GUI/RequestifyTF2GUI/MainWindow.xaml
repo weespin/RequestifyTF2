@@ -1,0 +1,84 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:Managers="clr-namespace:RequestifyTF2.Managers;assembly=RequestifyTF2" xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz" xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz" xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:controls="clr-namespace:RequestifyTF2GUI.Controls"
+        x:Class="RequestifyTF2GUI.MainWindow" mc:Ignorable="d" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Title="RequestifyTF2" Height="600" Width="810">
+    <materialDesign:DialogHost Identifier="RootDialog" SnackbarMessageQueue="{Binding ElementName=MainSnackbar, Path=MessageQueue}">
+       
+            <Grid Loaded="FrameworkElement_OnLoaded"  Background="White"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="16*" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                       
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Fill="{DynamicResource WindowTitleColorBrush}" Width="810" HorizontalAlignment="Left" Grid.ColumnSpan="2"  MouseDown="UIElement_OnMouseDown" Grid.Row="0" />
+                <Button Margin="0,4,8,0" Grid.Row="0" Grid.Column="1" RenderTransformOrigin="0.5,0.5" Click="Button_Click" HorizontalAlignment="Right" Width="30" Height="25" VerticalAlignment="Top">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="icons8-multiply-50.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                    <Button Margin="0,4,34,0" Grid.Column="1" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Click="Minimize_Click" HorizontalAlignment="Right" Width="30" Height="25" VerticalAlignment="Top">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="-1" />
+                            <SkewTransform />
+                            <RotateTransform />
+                            <TranslateTransform />
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="icons8-minimize-window-50.png" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Label Content="RequestifyTF2" HorizontalAlignment="Left" Grid.Column="0" 
+                       VerticalAlignment="Center"  Height="35" Width="242" Background="{x:Null}" FontSize="16" Margin="0,3,0,0" />
+                </Grid>
+                <dockablz:Layout Grid.Row="1" AllowDrop="False" IsFloatDropZoneEnabled="False">
+                <dragablz:TabablzControl dragablz:TabablzControl.AllowDrop="False"   Grid.Row="1" Margin="0,-1,0,0">
+                    <dragablz:TabablzControl.InterTabController>
+                        <dragablz:InterTabController />
+                    </dragablz:TabablzControl.InterTabController>
+                    <TabItem Header="{DynamicResource m_Main}" BorderBrush="{x:Null}" Foreground="Black" Background="{x:Null}" FontFamily="Segoe UI Light" FontSize="16" Height="68" MinWidth="12" Margin="0,0,-1,0" VerticalAlignment="Top">
+                        <controls:Main Margin="16" />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource m_Plugins}" BorderBrush="{x:Null}" Foreground="Black" Background="White" FontFamily="Segoe UI Light" FontSize="16" Height="75" MinWidth="12" Margin="0,2,-1,-12" VerticalAlignment="Top">
+                        <controls:PluginsTab Margin="16" />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource m_Settings}" BorderBrush="{x:Null}" Foreground="Black" Background="White" Margin="0,2,-1,-26" FontFamily="Segoe UI Light" FontSize="16" Height="90" MinWidth="12" VerticalAlignment="Top">
+                        <controls:SettingsTab Margin="16" />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource m_Console}" BorderBrush="{x:Null}" Foreground="Black" Background="White" Margin="0,-13,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="69" MinWidth="12" VerticalAlignment="Bottom">
+                        <controls:ConsoleTab Margin="16" />
+                    </TabItem>
+                    <TabItem Header="Bind" BorderBrush="{x:Null}" Foreground="Black" Background="White" Margin="0,-12,-1,4" FontFamily="Segoe UI Light" FontSize="16" Height="84" MinWidth="12" VerticalAlignment="Bottom">
+                        <controls:BindsTab Margin="16" />
+                    </TabItem>
+                    <TabItem Header="{DynamicResource s_Statistics}" BorderBrush="{x:Null}" Foreground="Black" Background="White" Margin="0,-13,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="69" MinWidth="12" VerticalAlignment="Bottom">
+                        <controls:StatisticsTab Margin="16" />
+                    </TabItem>
+                </dragablz:TabablzControl>
+                </dockablz:Layout>
+        </Grid>
+     
+    </materialDesign:DialogHost>
+</Window>
