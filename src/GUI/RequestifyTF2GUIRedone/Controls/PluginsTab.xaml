@@ -9,19 +9,23 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition  Width="1*" />
+        </Grid.ColumnDefinitions>
         <!-- piece together your own items control to create some nice stuff that will make everyone think you are cool. and rightly so, because you are cool.  you might even be a hipster for all I know -->
-        <Label Content="{DynamicResource p_Commands}" HorizontalAlignment="Left" Margin="10,10,0,0"
-               VerticalAlignment="Top"
-               Width="205" Grid.RowSpan="2" />
-        <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left" Margin="375,10,0,0"
-               VerticalAlignment="Top"
-               Grid.RowSpan="2" />
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,50,430,160" Grid.Row="0" Grid.RowSpan="2">
+        <Label Content="{DynamicResource p_Commands}" HorizontalAlignment="Left"  VerticalAlignment="Center"
+               Grid.Column="0" Grid.Row="0" />
+        <Label Content="{DynamicResource p_Plugins}" HorizontalAlignment="Left"
+               VerticalAlignment="Center"
+               Grid.Row="0" Grid.Column="1"
+             />
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,100" Grid.Row="1" Grid.Column="0">
             <ItemsControl
-            ItemsSource="{Binding Commands}" Width="330">
+            ItemsSource="{Binding Commands}"  Width="350">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate
                     DataType="{x:Type local:PluginsAndCommandsViewModel}">
@@ -63,7 +67,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="380,50,20,150" Grid.Row="0" Grid.RowSpan="2">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,100" Grid.Row="1" Grid.Column="1">
             <ItemsControl
             ItemsSource="{Binding Plugins}" Width="360">
                 <ItemsControl.ItemTemplate>

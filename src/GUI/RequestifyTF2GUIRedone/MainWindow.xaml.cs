@@ -39,7 +39,7 @@ namespace RequestifyTF2GUIRedone
             new Thread(StatsMonitor).Start();
          ;
             SettingsTab.instance.GamePath.Text= AppConfig.CurrentConfig.GameDirectory;
-          //  Main.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
+          SettingsTab.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
             instance = this;
          
