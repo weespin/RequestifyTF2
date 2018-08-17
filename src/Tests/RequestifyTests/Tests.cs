@@ -6,6 +6,7 @@ namespace RequestifyTF2.Tests
     [TestFixture]
     public static class RequestifyTest
     {
+        [Test]
         public static void TestKill()
         {
             var sut = ReaderThread.TextChecker("BoyPussi killed dat boi 28 with sniperrifle. (crit)");
