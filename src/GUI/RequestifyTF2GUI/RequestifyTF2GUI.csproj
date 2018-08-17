@@ -351,4 +351,13 @@
   <Import Project="..\..\packages\Fody.3.1.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.3\build\Fody.targets')" />
   <Import Project="..\..\packages\Costura.Fody.3.1.0\build\Costura.Fody.targets" Condition="Exists('..\..\packages\Costura.Fody.3.1.0\build\Costura.Fody.targets')" />
   <Import Project="..\..\packages\Fody.3.1.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.1.4\build\Fody.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir plugins
+cd ../../../../
+copy .\Plugins\RequestPlugin\bin\Debug\RequestPlugin.dll .\GUI\RequestifyTF2GUI\bin\Debug\plugins\RequestPlugin.dll
+copy .\Plugins\RequestPlugin\bin\Debug\RequestPlugin.pdb .\GUI\RequestifyTF2GUI\bin\Debug\plugins\RequestPlugin.pdb
+copy .\Plugins\TTSPlugin\bin\Debug\TTSPlugin.dll .\GUI\RequestifyTF2GUI\bin\Debug\plugins\TTSPlugin.dll
+copy .\Plugins\TTSPlugin\bin\Debug\TTSPlugin.pdb .\GUI\RequestifyTF2GUI\bin\Debug\plugins\TTSPlugin.pdb
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -28,11 +28,11 @@ namespace RequestifyTF2.Managers
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
             }
-            if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/libs/"))
+            if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/"))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/libs/");
+                Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
             }
-            LoadLibs(Path.GetDirectoryName(Application.ExecutablePath) + "/libs/");
+            LoadLibs(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
             LoadPluginsFromDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
         }
 
