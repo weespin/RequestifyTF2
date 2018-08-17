@@ -4,19 +4,16 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RequestifyTF2.API
+namespace RequestifyTF2.API.ConsoleAPI
 {
     public static class ConsoleSender
     {
         public enum Command
         {
             Chat,
-
             Echo,
-
             Raw
         }
-
         public static void SendCommand(string cmnd, Command cmd)
         {
             var text = string.Empty;
@@ -40,17 +37,16 @@ namespace RequestifyTF2.API
                   
             }
 
-            File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", text);
+            File.WriteAllText(Instance.GameDir + "/cfg/requestify.cfg", text);
             Task.Run(
                 () =>
                 {
-                   
                     keybd_event(0x2E, 0x53, 0, 0);
                     Thread.Sleep(30);
                     keybd_event(0x2E, 0x53, 0x2, 0);
                 });
             Thread.Sleep(100);
-            File.WriteAllText(Instance.Config.GameDir + "/cfg/requestify.cfg", string.Empty);
+            File.WriteAllText(Instance.GameDir + "/cfg/requestify.cfg", string.Empty);
         }
 
         [DllImport("user32.dll")]

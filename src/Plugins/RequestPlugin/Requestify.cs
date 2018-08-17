@@ -6,13 +6,17 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using CSCore;
 using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
-using RequestifyTF2.PluginLoader;
+using RequestifyTF2.API.ConsoleAPI;
+using RequestifyTF2.API.Events;
+using RequestifyTF2.Audio;
+using RequestifyTF2.DependencyLoader;
 using YoutubeExplode;
 using AudioEncoding = YoutubeExplode.Models.MediaStreams.AudioEncoding;
 
@@ -24,19 +28,13 @@ namespace RequestPlugin
         public string Name => "Requestify";
         public string Desc => "!request \"link\"";
     }
-
     public class VoteCommand : IRequestifyCommand
     {
         private readonly List<string> VoteUsers = new List<string>();
         private long MusicId;
-
         private int PlayersCount;
-
-
         public string Help => "Vote for skip!";
         public string Name => "voteskip";
-
-
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
@@ -44,12 +42,12 @@ namespace RequestPlugin
         {
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
             Thread.Sleep(2000);
-            if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
+            if (AudioManager.BackGround.SoundOut.PlaybackState == PlaybackState.Playing)
             {
-                if (MusicId != Instance.SoundOutBackground.WaveSource.Length)
+                if (MusicId != AudioManager.BackGround.SoundOut.WaveSource.Length)
                 {
                     VoteUsers.Clear();
-                    MusicId = Instance.SoundOutBackground.WaveSource.Length;
+                    MusicId = AudioManager.BackGround.SoundOut.WaveSource.Length;
                     VoteUsers.Add(executor.Name);
                     if (!Instance.IsMuted)
                     {
@@ -60,7 +58,7 @@ namespace RequestPlugin
 
                     if (VoteUsers.Count >= PlayersCount / 2)
                     {
-                        Instance.SoundOutBackground.Stop();
+                        AudioManager.BackGround.SoundOut.Stop();
                         if (!Instance.IsMuted)
                         {
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
@@ -71,7 +69,7 @@ namespace RequestPlugin
                 {
                     if (VoteUsers.Count >= PlayersCount / 2)
                     {
-                        Instance.SoundOutBackground.Stop();
+                        AudioManager.BackGround.SoundOut.Stop();
                         if (!Instance.IsMuted)
                         {
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
@@ -94,7 +92,7 @@ namespace RequestPlugin
                             ConsoleSender.Command.Chat);
                         if (VoteUsers.Count >= PlayersCount)
                         {
-                            Instance.SoundOutBackground.Stop();
+                            AudioManager.BackGround.SoundOut.Stop();
                             if (!Instance.IsMuted)
                             {
                                 ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
@@ -118,13 +116,14 @@ namespace RequestPlugin
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
                                                        SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                // I want to check libs
+
+              
                 if (!File.Exists("./lib/YoutubeExplode.dll"))
                 {
                     web.DownloadFile(
                         "https://github.com/weespin/reqdeps/blob/master/YoutubeExplode.dll?raw=true",
                         "./lib/YoutubeExplode.dll");
-                    Libraries.LoadFile("./lib/YoutubeExplode.dll");
+                    DependencyLoader.LoadFile("./lib/YoutubeExplode.dll");
                 }
 
                 if (!File.Exists("./lib/AngleSharp.dll"))
@@ -132,14 +131,14 @@ namespace RequestPlugin
                     web.DownloadFile(
                         "https://github.com/weespin/reqdeps/blob/master/AngleSharp.dll?raw=true",
                         "./lib/AngleSharp.dll");
-                    Libraries.LoadFile("./lib/AngleSharp.dll");
+                    DependencyLoader.LoadFile("./lib/AngleSharp.dll");
                 }
             }
 
-            Events.UndefinedMessage.OnUndefinedMessage += OnUndef;
+            Events.OnUndefinedMessage += OnUndef;
         }
 
-        private void OnUndef(Events.UndefinedMessageArgs e)
+        private void OnUndef(RequestifyEventArgs.UndefinedMessageArgs e)
         {
             var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
             if (reg.Success)
@@ -165,25 +164,25 @@ namespace RequestPlugin
 
             public void Execute(User executor, List<string> arguments)
             {
-                if (executor.Name != Instance.Config.Admin)
+                if (executor.Name != Instance.Admin)
                 {
                     return;
                 }
 
                 if (arguments[0] == "cur")
                 {
-                    Instance.SoundOutBackground.Stop();
+                    AudioManager.BackGround.SoundOut.Stop();
                     return;
                 }
 
                 if (arguments[0] == "que")
                 {
-                    Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                    AudioManager.BackGround.PlayList = new ConcurrentQueue<AudioManager.Song>();
                     return;
                 }
 
-                Instance.SoundOutBackground.Stop();
-                Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                AudioManager.BackGround.SoundOut.Stop();
+                AudioManager.BackGround.PlayList = new ConcurrentQueue<AudioManager.Song>();
             }
         }
 
@@ -236,8 +235,8 @@ namespace RequestPlugin
                                             ConsoleSender.Command.Chat);
                                     }
 
-                                    Instance.BackGroundQueue.PlayList.Enqueue(
-                                        new Instance.Song(
+                                    AudioManager.BackGround.PlayList.Enqueue(
+                                        new AudioManager.Song(
                                             b.title,
                                             new Mp3MediafoundationDecoder(urls.http_mp3_128_url).ToMono(),
                                             executor));
@@ -274,7 +273,7 @@ namespace RequestPlugin
                         ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     }
 
-                    Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext).ToMono(), executor));
+              AudioManager.BackGround.PlayList.Enqueue(new AudioManager.Song(title, new AacDecoder(ext), executor));
                 }
                 else
                 {
@@ -302,7 +301,7 @@ namespace RequestPlugin
 
                             }
 
-                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext).ToMono(),
+                            AudioManager.BackGround.PlayList.Enqueue(new AudioManager.Song(title, new AacDecoder(ext).ToMono(),
                                 executor));
                         }
                     }

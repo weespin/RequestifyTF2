@@ -11,6 +11,9 @@ using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Events;
+using RequestifyTF2.Audio;
+using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 using RequestifyTF2GUI.Controls;
 using AudioEncoding = YoutubeExplode.Models.MediaStreams.AudioEncoding;
@@ -312,7 +315,7 @@ namespace RequestifyTF2GUI
                 DragMove();
             }
         }
-        public void UndefinedMessage_OnUndefinedMessage(Events.UndefinedMessageArgs e)
+        public void UndefinedMessage_OnUndefinedMessage(RequestifyEventArgs.UndefinedMessageArgs e)
         {
             var mes = e.Message.Trim();
             if (mes.StartsWith("NUMPAD"))
@@ -346,15 +349,15 @@ namespace RequestifyTF2GUI
                         {
                             return;
                         }
-                        if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
-                            Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                        if ( AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Paused ||
+                             AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Playing)
                         {
-                            Instance.SoundOutExtra.Stop();
+                             AudioManager.Extra.SoundOut.Stop();
                         }
 
-                        Instance.SoundOutExtra.Initialize(
+                         AudioManager.Extra.SoundOut.Initialize(
                             new AacDecoder(streamInfo.Url).ToMono());
-                        Instance.SoundOutExtra.Play();
+                         AudioManager.Extra.SoundOut.Play();
 
                     }
 
@@ -362,24 +365,24 @@ namespace RequestifyTF2GUI
                     {
                         if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id].Link))
                         {
-                            if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
-                                Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                            if ( AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Paused ||
+                                 AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Playing)
                             {
-                                Instance.SoundOutExtra.Stop();
+                                 AudioManager.Extra.SoundOut.Stop();
                             }
 
-                            Instance.SoundOutExtra.Initialize(
+                             AudioManager.Extra.SoundOut.Initialize(
                                 new Mp3MediafoundationDecoder(AppConfig.CurrentConfig.Buttons.buttons[id].Link).ToMono());
-                            Instance.SoundOutExtra.Play();
+                             AudioManager.Extra.SoundOut.Play();
                         }
                     }
 
                     if (b.BindType == "Stop")
                     {
-                        if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
-                            Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                        if ( AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Paused ||
+                             AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Playing)
                         {
-                            Instance.SoundOutExtra.Stop();
+                             AudioManager.Extra.SoundOut.Stop();
                         }
                     }
 
@@ -390,7 +393,7 @@ namespace RequestifyTF2GUI
         {
             _writer = new TextBoxStreamWriter(ConsoleTab.instance.Console);
             System.Console.SetOut(_writer);
-            var plugins = Instance.Plugins.GetPlugins();
+            var plugins = PluginManager.GetPlugins();
             if (plugins.Count == 0)
             {
                 Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());

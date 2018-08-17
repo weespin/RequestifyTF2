@@ -36,7 +36,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label Content="RequestifyTF2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35"
+        <Label Foreground="AliceBlue" Content="RequestifyTF2" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35"
                Width="242" Background="{x:Null}" FontSize="16" Margin="0,-2,0,0" />
         <ListBox MouseDoubleClick="GamesList_OnMouseDoubleClick" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  Name="GamesList" Margin="0,33,0,0">

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using CSCore;
 using CSCore.SoundOut;
 using RequestifyTF2.API;
+using RequestifyTF2.API.ConsoleAPI;
+using RequestifyTF2.Audio;
 
 namespace RequestifyTF2.Threads
 {
@@ -21,10 +23,12 @@ namespace RequestifyTF2.Threads
       }
         public static void StartThread()
         {
+            AudioManager.Init();
             thread = new Thread(Play) {IsBackground = true};
             thread.Start();
 
             Logger.Write(Logger.Status.Info, Localization.Localization.CORE_STARTED_PLAYER_THREAD);
+            
         }
 
         private static void Play()
@@ -32,27 +36,27 @@ namespace RequestifyTF2.Threads
             while (true)
             {
                 // BackGround
-                if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Playing)
+                if (AudioManager.BackGround.SoundOut.PlaybackState == PlaybackState.Playing)
                 {
-                    Instance.SoundOutBackground.Volume =
-                        Instance.SoundOutForeground.PlaybackState == PlaybackState.Playing ? 0.25f : 0.5f;
-                    if (Instance.SoundOutBackground.WaveSource != null)
+                    AudioManager.BackGround.SoundOut.Volume =
+                        AudioManager.ForeGround.SoundOut.PlaybackState == PlaybackState.Playing ? 0.25f : 0.5f;
+                    if (AudioManager.BackGround.SoundOut.WaveSource != null)
                     {
-                        if (Instance.SoundOutBackground.WaveSource.Length
-                            - Instance.SoundOutBackground.WaveSource.Position
-                            < Instance.SoundOutBackground.WaveSource.WaveFormat.BytesPerSecond / 100)
+                        if (AudioManager.BackGround.SoundOut.WaveSource.Length
+                            - AudioManager.BackGround.SoundOut.WaveSource.Position
+                            < AudioManager.BackGround.SoundOut.WaveSource.WaveFormat.BytesPerSecond / 100)
                         {
-                            Instance.SoundOutBackground.Stop();
+                            AudioManager.BackGround.SoundOut.Stop();
                         }
                     }
                 }
 
-                if (Instance.BackGroundQueue.GetQueueLenght() > 0)
+                if (AudioManager.BackGround.GetQueueCount() > 0)
                 {
-                    if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Stopped)
+                    if (AudioManager.BackGround.SoundOut.PlaybackState == PlaybackState.Stopped)
                     {
-                        Instance.Song s;
-                        if (Instance.BackGroundQueue.PlayList.TryDequeue(out s))
+                       AudioManager.Song s;
+                        if (AudioManager.BackGround.PlayList.TryDequeue(out s))
                         {
                             Task.Run(
                                 () =>
@@ -60,35 +64,35 @@ namespace RequestifyTF2.Threads
                                     ConsoleSender.SendCommand(
                                         string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title, s.RequestedBy.Name),
                                         ConsoleSender.Command.Chat);
-                                    Player(s.Source, Instance.SoundOutBackground);
-                                    Instance.SoundOutBackground.Volume = 0.10f;
+                                    Player(s.Source, AudioManager.BackGround.SoundOut);
+                                   AudioManager.BackGround.SoundOut.Volume = 0.10f;
                                 });
                         }
                     }
                 }
 
                 // First Placed!
-                if (Instance.SoundOutForeground.PlaybackState == PlaybackState.Playing)
+                if (AudioManager.ForeGround.SoundOut.PlaybackState == PlaybackState.Playing)
                 {
-                    if (Instance.SoundOutForeground.WaveSource != null)
+                    if (AudioManager.ForeGround.SoundOut.WaveSource != null)
                     {
-                        if (Instance.SoundOutForeground.WaveSource.Length
-                            - Instance.SoundOutForeground.WaveSource.Position
-                            < Instance.SoundOutForeground.WaveSource.WaveFormat.BytesPerSecond / 100)
+                        if (AudioManager.ForeGround.SoundOut.WaveSource.Length
+                            - AudioManager.ForeGround.SoundOut.WaveSource.Position
+                            < AudioManager.ForeGround.SoundOut.WaveSource.WaveFormat.BytesPerSecond / 100)
                         {
-                            Instance.SoundOutForeground.Stop();
+                            AudioManager.ForeGround.SoundOut.Stop();
                         }
                     }
                 }
 
-                if (Instance.QueueForeGround.Count > 0)
+                if (AudioManager.ForeGround.PlayList.Count > 0)
                 {
-                    if (Instance.SoundOutForeground.PlaybackState == PlaybackState.Stopped)
+                    if (AudioManager.ForeGround.SoundOut.PlaybackState == PlaybackState.Stopped)
                     {
                         IWaveSource s;
-                        if (Instance.QueueForeGround.TryDequeue(out s))
+                        if (AudioManager.ForeGround.PlayList.TryDequeue(out s))
                         {
-                            Task.Run(() => { Player(s, Instance.SoundOutForeground); });
+                            Task.Run(() => { Player(s, AudioManager.ForeGround.SoundOut); });
                         }
                     }
                 }

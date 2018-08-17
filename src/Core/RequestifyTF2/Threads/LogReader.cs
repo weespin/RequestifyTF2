@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Events;
 using RequestifyTF2.Commands;
 using RequestifyTF2.Utils;
 
@@ -43,20 +44,20 @@ namespace RequestifyTF2
             var wh = new AutoResetEvent(false);
             var fsw = new FileSystemWatcher(".")
             {
-                Filter = Instance.Config.GameDir + "/console.log",
+                Filter = Instance.GameDir + "/console.log",
                 EnableRaisingEvents = true
             };
             fsw.Changed += (s, e) => wh.Set();
-            if (!File.Exists(Instance.Config.GameDir + "/console.log"))
+            if (!File.Exists(Instance.GameDir + "/console.log"))
             {
-                File.Create(Instance.Config.GameDir + "/console.log");
+                File.Create(Instance.GameDir + "/console.log");
             }
 
             Thread.Sleep(30);
 
 
             var fs = new FileStream(
-                Instance.Config.GameDir + "/console.log",
+                Instance.GameDir + "/console.log",
                 FileMode.Open,
                 FileAccess.Read,
                 FileShare.ReadWrite);
@@ -144,7 +145,7 @@ namespace RequestifyTF2
                 if (!crit)
                 {
                     // THIS IS NOT A CRIT
-                    if (killer == Instance.Config.Admin)
+                    if (killer == Instance.Admin)
                     {
                         Statisctics.YourKills++;
                     }
@@ -153,7 +154,7 @@ namespace RequestifyTF2
                         Statisctics.GameKills++;
                     }
 
-                    if (killed == Instance.Config.Admin)
+                    if (killed == Instance.Admin)
                     {
                         Statisctics.YourDeaths++;
                     }
@@ -166,7 +167,7 @@ namespace RequestifyTF2
                     return Result.Kill;
                 }
 
-                if (killer == Instance.Config.Admin)
+                if (killer == Instance.Admin)
                 {
                     Statisctics.YourCritsKill++;
                 }
@@ -175,7 +176,7 @@ namespace RequestifyTF2
                     Statisctics.CritsKill++;
                 }
 
-                if (killed == Instance.Config.Admin)
+                if (killed == Instance.Admin)
                 {
                     Statisctics.YourDeaths++;
                 }
@@ -199,7 +200,7 @@ namespace RequestifyTF2
             if (SuicideRegex.Match(s).Success && !s.Contains(":"))
             {
                 var reg = SuicideRegex.Match(s);
-                if (reg.Groups[1].Value == Instance.Config.Admin)
+                if (reg.Groups[1].Value == Instance.Admin)
                 {
                     Statisctics.YourSuicides++;
                 }

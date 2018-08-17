@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
+using RequestifyTF2.API.IgnoreList;
+using RequestifyTF2.Audio;
 using RequestifyTF2.Managers;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Constants;
@@ -57,7 +59,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Plugins.GetPlugins()));
+                    context.JsonResponse(JsonConvert.SerializeObject(PluginManager.GetPlugins()));
                     return true;
 
                 }
@@ -72,7 +74,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.BackGroundQueue.PlayList));
+                    context.JsonResponse(JsonConvert.SerializeObject(AudioManager.BackGround.PlayList));
                     return true;
 
                 }
@@ -102,7 +104,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Commands.GetCommands()));
+                    context.JsonResponse(JsonConvert.SerializeObject(CommandManager.GetCommands()));
                     return true;
 
                 }
@@ -117,7 +119,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Config.Admin));
+                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Admin));
                     return true;
 
                 }
@@ -132,7 +134,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Config.Ignored));
+                    context.JsonResponse(JsonConvert.SerializeObject( IgnoreList.GetList));
                     return true;
 
                 }
@@ -147,7 +149,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Config.IgnoredReversed));
+                    context.JsonResponse(JsonConvert.SerializeObject( IgnoreList.Reversed));
                     return true;
 
                 }
@@ -168,9 +170,9 @@ namespace APIPlugin
                     switch (type)
                     {
                         case "AAC":
-                            return Instance.AddEqueue(Instance.SongType.AAC, link, requester, title);
+                            return AudioManager.BackGround.AddEqueue(AudioManager.SongType.AAC, link, requester, title);
                         case "MP3":
-                            return Instance.AddEqueue(Instance.SongType.MP3, link, requester, title);
+                            return AudioManager.BackGround.AddEqueue(AudioManager.SongType.MP3, link, requester, title);
                         default:
                             return false;
                     }
@@ -187,7 +189,7 @@ namespace APIPlugin
                 title = context.Request.Url.Segments[5];
                 try
                 {
-                    var a = Instance.BackGroundQueue.PlayList
+                    var a = AudioManager.BackGround.PlayList
                         .FirstOrDefault(n => n.Title == title && n.RequestedBy.Name == requester);
                     if (a != null)
                     {
@@ -209,7 +211,7 @@ namespace APIPlugin
                 {
 
                     name = context.Request.Url.Segments[4];
-                    Instance.Config.Ignored.Add(name);
+                   IgnoreList.Add(name);
                     return true;
                 }
                 catch (Exception ex)
@@ -224,9 +226,9 @@ namespace APIPlugin
                 try
                 {
                     
-                    if (Instance.Config.Ignored.Contains(name))
+                    if ( IgnoreList.Contains(name))
                     {
-                        Instance.Config.Ignored.Remove(name);
+                         IgnoreList.Remove(name);
                     }
                     return true;
                 }
@@ -241,7 +243,7 @@ namespace APIPlugin
                 value = Convert.ToBoolean(context.Request.Url.Segments[4]);
                 try
                 {
-                    Instance.Config.IgnoredReversed = value;
+                     IgnoreList.Reversed = value;
                     return true;
                 }
                 catch (Exception ex)
@@ -255,13 +257,13 @@ namespace APIPlugin
                 value = context.Request.Url.Segments[4];
                 try
                 {
-                    var a = Instance.Plugins.GetPlugin(value);
+                    var a = PluginManager.GetPlugin(value);
                     if (a != null)
                     {
                         if (a.Status == PluginManager.Status.Disabled)
                         {
-                            Instance.Plugins.EnablePlugin(a);
-                            return true;
+                             a.Enable();
+                               return true;
                         }
                     }
                     return false;
@@ -277,12 +279,12 @@ namespace APIPlugin
                 value = context.Request.Url.Segments[4];
                 try
                 {
-                    var a = Instance.Plugins.GetPlugin(value);
+                    var a = PluginManager.GetPlugin(value);
                     if (a != null)
                     {
                         if (a.Status == PluginManager.Status.Enabled)
                         {
-                            Instance.Plugins.DisablePlugin(a);
+                          a.Disable();
                             return true;
                         }
                     }
@@ -299,12 +301,12 @@ namespace APIPlugin
                 value = context.Request.Url.Segments[4];
                 try
                 {
-                    var a = Instance.Commands.GetCommand(value);
+                    var a = CommandManager.GetCommand(value);
                     if (a != null)
                     {
                         if (a.Status == CommandManager.Status.Enabled)
                         {
-                            Instance.Commands.DisableCommand(a);
+                            a.Disable();
                             return true;
                         }
                     }
@@ -321,12 +323,12 @@ namespace APIPlugin
                 value = context.Request.Url.Segments[4];
                 try
                 {
-                    var a = Instance.Commands.GetCommand(value);
+                    var a = CommandManager.GetCommand(value);
                     if (a != null)
                     {
                         if (a.Status == CommandManager.Status.Disabled)
                         {
-                            Instance.Commands.EnableCommand(a);
+                           a.Enable();
                             return true;
                         }
                     }

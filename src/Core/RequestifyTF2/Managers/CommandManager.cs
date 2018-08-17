@@ -4,10 +4,11 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Events;
 
 namespace RequestifyTF2.Managers
 {
-    public class CommandManager
+    public static class CommandManager
     {
         public enum Status
         {
@@ -15,22 +16,25 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private readonly List<RequestifyCommand> Commands  = new List<RequestifyCommand>();
+        private static readonly List<RequestifyCommand> Commands  = new List<RequestifyCommand>();
 
-        public CommandManager()
+        static CommandManager()
         {
-            foreach (var Plugin in PluginManager.PluginAssemblies)
+            Events.OnPluginLoaded += Events_OnPluginLoaded;
+        }
+
+        private static void Events_OnPluginLoaded(RequestifyEventArgs.PluginLoadedArgs e)
+        {
+            var assembly = PluginManager.GetAssembly(e.Plugin);
+            var CommTypes = GetTypesFromInterface(assembly, "IRequestifyCommand");
+            foreach (var type in CommTypes)
             {
-                var CommTypes = GetTypesFromInterface(Plugin, "IRequestifyCommand");
-                foreach (var type in CommTypes)
+                var NewCommand = new RequestifyCommand(assembly,
+                    Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled);
+                if (Commands.Count(n => n.Name == NewCommand.Name) == 0)
                 {
-                    var NewCommand = new RequestifyCommand(Plugin,
-                        Activator.CreateInstance(type) as IRequestifyCommand, Status.Enabled);
-                    if (Commands.Count(n => n.Name == NewCommand.Name) == 0)
-                    {
-                        Commands.Add(NewCommand);
-                        Events.CommandRegistered.Invoke(NewCommand);
-                    }
+                    Commands.Add(NewCommand);
+                    Events.CommandRegistered.Invoke(NewCommand);
                 }
             }
         }
@@ -46,6 +50,10 @@ namespace RequestifyTF2.Managers
             return allTypes;
         }
 
+        public static void Init()
+        {
+            Logger.Write(Logger.Status.Info,"CommandManager Init");
+        }
         public static List<Type> GetTypesFromInterface(Assembly assembly, string interfaceName)
         {
             var allTypes = new List<Type>();
@@ -70,22 +78,22 @@ namespace RequestifyTF2.Managers
             return allTypes;
         }
 
-        public void DisableCommand(RequestifyCommand command)
+        public static void Disable(this RequestifyCommand command)
         {
             command.Status = Status.Disabled;
         }
 
-        public void EnableCommand(RequestifyCommand command)
+        public static void Enable(this RequestifyCommand command)
         {
             command.Status = Status.Disabled;
         }
 
-        public List<RequestifyCommand> GetCommands()
+        public static List<RequestifyCommand> GetCommands()
         {
             return Commands;
         }
 
-        public RequestifyCommand GetCommand(string name)
+        public static RequestifyCommand GetCommand(string name)
         {
             foreach (var p in Commands)
             {
@@ -98,7 +106,7 @@ namespace RequestifyTF2.Managers
             return null;
         }
 
-        public RequestifyCommand GetCommand(RequestifyCommand command)
+        public static RequestifyCommand GetCommand(RequestifyCommand command)
         {
             return GetCommands().FirstOrDefault(n => n.Name == command.Name && n.Alias == command.Alias);
         }

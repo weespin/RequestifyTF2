@@ -100,9 +100,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\Events.cs" />
+    <Compile Include="API\Events\Events.cs" />
+    <Compile Include="API\IgnoreList\IgnoreList.cs" />
     <Compile Include="API\User.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Localization\Localization.uk.Designer.cs">
       <DependentUpon>Localization.uk.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -234,7 +235,7 @@
     <Compile Include="Managers\PluginManager.cs" />
     <Compile Include="Commands\Executer.cs" />
     <Compile Include="Logger\Logger.cs" />
-    <Compile Include="PluginLoader\Libraries.cs" />
+    <Compile Include="DependencyLoader\DependencyLoader.cs" />
     <Compile Include="Localization\Localization.ru.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -244,10 +245,10 @@
     <Compile Include="Runner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threads\LogReader.cs" />
-    <Compile Include="API\ConsoleSender.cs" />
-    <Compile Include="Utils\AudioDeviceChanger.cs" />
-    <Compile Include="Utils\IPolicy.cs" />
-    <Compile Include="API\LocalHelper.cs" />
+    <Compile Include="API\ConsoleAPI\ConsoleSender.cs" />
+    <Compile Include="Audio\Utils\AudioDeviceChanger.cs" />
+    <Compile Include="Audio\Utils\IPolicy.cs" />
+    <Compile Include="Utils\LocalHelper.cs" />
     <Compile Include="Utils\Patcher.cs" />
     <Compile Include="Utils\Statistics.cs" />
   </ItemGroup>

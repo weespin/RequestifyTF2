@@ -6,7 +6,7 @@ using MaterialDesignThemes.Wpf;
 using Ookii.Dialogs;
 using RequestifyTF2.API;
 using RequestifyTF2.Utils;
-
+using RequestifyTF2.API.IgnoreList;
 namespace RequestifyTF2GUI.Controls
 {
     /// <summary>
@@ -32,9 +32,9 @@ namespace RequestifyTF2GUI.Controls
                 if (!IgnoreList.Items.Contains(FruitTextBox.Text))
                 {
                     IgnoreList.Items.Add(FruitTextBox.Text);
-                    if (!Instance.Config.Ignored.Contains(FruitTextBox.Text))
+                    if (!RequestifyTF2.API.IgnoreList.IgnoreList.Contains(FruitTextBox.Text))
                     {
-                        Instance.Config.Ignored.Add(FruitTextBox.Text);
+                        RequestifyTF2.API.IgnoreList.IgnoreList.Add(FruitTextBox.Text);
                     }
                 }
 
@@ -43,12 +43,12 @@ namespace RequestifyTF2GUI.Controls
 
         private void RemoveCheckBox_OnChecked(object sender, RoutedEventArgs e)
         {
-            Instance.Config.IgnoredReversed = true;
+            RequestifyTF2.API.IgnoreList.IgnoreList.Reversed = true;
         }
 
         private void RemoveCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            Instance.Config.IgnoredReversed = false;
+            RequestifyTF2.API.IgnoreList.IgnoreList.Reversed = false;
         }
 
         private void IgnoreList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -57,9 +57,9 @@ namespace RequestifyTF2GUI.Controls
             {
                 if (IgnoreList.Items.Contains(IgnoreList.SelectedItem))
                 {
-                    if (Instance.Config.Ignored.Contains(IgnoreList.SelectedItem))
+                    if (RequestifyTF2.API.IgnoreList.IgnoreList.Contains(IgnoreList.SelectedItem.ToString()))
                     {
-                        Instance.Config.Ignored.Remove(IgnoreList.SelectedItem.ToString());
+                        RequestifyTF2.API.IgnoreList.IgnoreList.Remove(IgnoreList.SelectedItem.ToString());
                     }
 
                     IgnoreList.Items.Remove(IgnoreList.SelectedItem);

@@ -10,6 +10,7 @@ using MaterialSkin.Controls;
 using Ookii.Dialogs;
 using RequestifyTF2;
 using RequestifyTF2.API;
+using RequestifyTF2.API.IgnoreList;
 using RequestifyTF2.Managers;
 using RequestifyTF2Forms.Config;
 using RequestifyTF2GUIOld.Properties;
@@ -53,23 +54,22 @@ namespace RequestifyTF2Forms
 
             MaximizeBox = false;
             field_ignored.Enter += lbx_IgnoreList_Enter;
-            Instance.Plugins.loadPlugins(
-                Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
-            var plugins = Instance.Plugins.GetPlugins();
+         
+            var plugins = PluginManager.GetPlugins();
             foreach (var item in plugins)
             {
                 _plugins.Add(item.plugin.Name, item);
             } 
             seedListView(plugins);
             AppConfig.Load();
-            materialSingleLineTextField1.Text = Instance.Config.Admin;
+            materialSingleLineTextField1.Text = Instance.Admin;
         }
 
         private void btn_add_Click(object sender, EventArgs e)
         {
             var toignorenick = field_ignored.Text;
 
-            if (toignorenick == string.Empty || Instance.Config.Ignored.Contains(toignorenick))
+            if (toignorenick == string.Empty ||  IgnoreList.Contains(toignorenick))
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace RequestifyTF2Forms
             var namencommand = new[] {toignorenick};
             var items = new ListViewItem(namencommand);
             list_ignored.Items.Add(items);
-            Instance.Config.Ignored.Add(toignorenick);
+             IgnoreList.Add(toignorenick);
         }
 
         private void btn_consoleshow_Click_1(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace RequestifyTF2Forms
 
             if (selected != null)
             {
-                Instance.Config.Ignored.Remove(selected.ToString());
+                 IgnoreList.Remove(selected.ToString());
                 list_ignored.Items.Remove(selected);
             }
         }
@@ -179,7 +179,7 @@ namespace RequestifyTF2Forms
 
         private void btn_start_Click_1(object sender, EventArgs e)
         {
-            if (Instance.Config.GameDir == string.Empty)
+            if (Instance.GameDir == string.Empty)
             {
                 new RequestifyTF2GUI.MessageBox.MessageBox().Show(
                     "Please set the game directory",
@@ -240,7 +240,7 @@ namespace RequestifyTF2Forms
 
         private void materialCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Instance.Config.IgnoredReversed = chkbox_reverse.Checked;
+             IgnoreList.Reversed = chkbox_reverse.Checked;
         }
 
         private void materialLabel1_Click(object sender, EventArgs e)
@@ -250,7 +250,7 @@ namespace RequestifyTF2Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            Instance.Config.Admin=materialSingleLineTextField1.Text;
+            Instance.Admin=materialSingleLineTextField1.Text;
             AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
             AppConfig.Save();
         }

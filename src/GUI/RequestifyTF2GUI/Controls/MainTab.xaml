@@ -79,7 +79,7 @@
                 Grid.Row="1"
             Grid.ColumnSpan="2" Grid.Column="0" />
         <CheckBox    Grid.Row="1" Grid.Column="1"  Checked="MutedCheckBox_OnChecked" Unchecked="MutedCheckBox_OnUnchecked" Content="{DynamicResource m_Muted}"    />
-        <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom">
+        <TextBlock Grid.ColumnSpan="3" Grid.Row="3" Grid.Column="0" VerticalAlignment="Bottom">
             Version
             <TextBlock x:Name="version" Text="" />
         </TextBlock>

@@ -20,7 +20,7 @@ namespace RequesifyCLI
                     CurrentConfig = JsonConvert.DeserializeObject<ConfigJsonData>(
                         File.ReadAllText(
                             Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json"));
-                    Instance.Config.Admin = CurrentConfig.Admin;
+                    Instance.Admin = CurrentConfig.Admin;
                 }
                 else
                 {
@@ -45,12 +45,12 @@ namespace RequesifyCLI
                 Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");
             }
 
-            Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            Instance.GameDir = CurrentConfig.GameDirectory;
         }
 
         public static void Save()
         {
-            Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            Instance.GameDir = CurrentConfig.GameDirectory;
             var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
             File.WriteAllText(
                 Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json",

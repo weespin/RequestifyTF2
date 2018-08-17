@@ -4,18 +4,19 @@ using System.IO;
 using System.Linq;
 using RequestifyTF2;
 using RequestifyTF2.API;
+using RequestifyTF2.API.IgnoreList;
 using RequestifyTF2.Managers;
 
 namespace RequesifyCLI
 {
     internal class Program
     {
-        private static bool started;
+    
 
         public static List<PluginManager.Plugin> GetAllPlugins()
         {
             var Plugins = new List<PluginManager.Plugin>();
-            foreach (var pl in Instance.Plugins.GetPlugins())
+            foreach (var pl in PluginManager.GetPlugins())
             {
                 Plugins.Add(pl);
             }
@@ -50,7 +51,7 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("reverse"))
                 {
-                    if (!Instance.Config.IgnoredReversed)
+                    if (! IgnoreList.Reversed)
                     {
                         Logger.Write(Logger.Status.Info, "WhiteList activated");
                     }
@@ -59,7 +60,7 @@ namespace RequesifyCLI
                         Logger.Write(Logger.Status.Info, "BlackList activated");
                     }
 
-                    Instance.Config.IgnoredReversed = !Instance.Config.IgnoredReversed;
+                     IgnoreList.Reversed = ! IgnoreList.Reversed;
                 }
 
                 if (key.StartsWith("help"))
@@ -74,7 +75,7 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("admin") && key.Split(null).Length > 1)
                 {
-                    Instance.Config.Admin = key.Replace("admin", null);
+                    Instance.Admin = key.Replace("admin", null);
                     AppConfig.CurrentConfig.Admin = key.Replace("admin", null);
                     AppConfig.Save();
                 }
@@ -92,7 +93,7 @@ namespace RequesifyCLI
                         var i = 0;
                         if (int.TryParse(key.Split()[1], out i))
                         {
-                            var allplg = Instance.Config.Ignored;
+                            var allplg =  IgnoreList.GetList;
                             if (i >= 0 && i < allplg.Count)
                             {
                                 var plz = allplg[i];
@@ -101,7 +102,7 @@ namespace RequesifyCLI
                                     continue;
                                 }
 
-                                Instance.Config.Ignored.Remove(plz);
+                                IgnoreList.Remove(plz);
                                 PrintBlackList();
                             }
                             else
@@ -121,7 +122,7 @@ namespace RequesifyCLI
                     var temp = key.Split(null).ToList();
                     temp.RemoveAt(0);
                     var res = string.Join<string>(string.Empty, temp);
-                    Instance.Config.Ignored.Add(res);
+                     IgnoreList.Add(res);
                     PrintBlackList();
                 }
 
@@ -160,16 +161,16 @@ namespace RequesifyCLI
                                     continue;
                                 }
 
-                                var pl = Instance.Plugins.GetPlugins().FirstOrDefault(n => n == plz);
+                                var pl = PluginManager.GetPlugins().FirstOrDefault(n => n == plz);
                                 if (pl != null)
                                 {
                                     if (pl.Status == PluginManager.Status.Enabled)
                                     {
-                                        Instance.Plugins.DisablePlugin(pl);
+                                       pl.Disable();
                                     }
                                     else
                                     {
-                                        Instance.Plugins.EnablePlugin(pl);
+                                       pl.Enable();
                                     }
                                 }
                             }
@@ -189,13 +190,13 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("start"))
                 {
-                    if (Instance.Config.GameDir == string.Empty)
+                    if (Instance.GameDir == string.Empty)
                     {
                         Logger.Write(Logger.Status.Info, "Please set the game directory");
                         return;
                     }
                     Runner.Start();
-                    started = true;
+                 
 
                   
                 }
@@ -205,7 +206,7 @@ namespace RequesifyCLI
         private static void PrintBlackList()
         {
             var i = 0;
-            var blacklisted = Instance.Config.Ignored.OrderBy(n => n).ToList();
+            var blacklisted =  IgnoreList.GetList.OrderBy(n => n).ToList();
             Logger.Write(Logger.Status.Info, "===================BLACKLIST===================");
             foreach (var blocked in blacklisted)
             {

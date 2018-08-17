@@ -21,7 +21,7 @@ namespace RequestifyTF2GUI
                 {
                     CurrentConfig = JsonConvert.DeserializeObject<ConfigJsonData>(
                         File.ReadAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json"));
-                    Instance.Config.Admin = CurrentConfig.Admin;
+                    Instance.Admin = CurrentConfig.Admin;
                 }
                 else
                 {
@@ -61,15 +61,15 @@ namespace RequestifyTF2GUI
                 }
             }
 
-            Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            Instance.GameDir = CurrentConfig.GameDirectory;
             AppConfig.Save();
         }
 
         public static void Save()
         {
-            Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            Instance.GameDir = CurrentConfig.GameDirectory;
             var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
-            CurrentConfig.Admin = Instance.Config.Admin;
+            CurrentConfig.Admin = Instance.Admin;
             File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json", currentconfig);
         }
 

@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CSCore.Codecs.MP3;
 using RequestifyTF2.API;
+using RequestifyTF2.Audio;
 
 namespace TTSPlugin
 {
@@ -38,7 +39,7 @@ namespace TTSPlugin
                     "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text="
                     + text + "&useUTF8=1";
                 d = d.Replace(" ", "%20");
-                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
+                AudioManager.ForeGround.PlayList.Enqueue(new Mp3MediafoundationDecoder(d));
             }
         }
     }
@@ -63,7 +64,7 @@ namespace TTSPlugin
                     return;
                 }
 
-                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(link));
+              AudioManager.ForeGround.PlayList.Enqueue(new Mp3MediafoundationDecoder(link));
             }
         }
 
@@ -148,7 +149,7 @@ namespace TTSPlugin
                         + text + "&tl=Ru-ru";
                     f = f.Replace(" ", "%20");
 
-                    Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(f));
+                    AudioManager.ForeGround.PlayList.Enqueue(new Mp3MediafoundationDecoder(f));
                     return;
                 }
 
@@ -156,7 +157,7 @@ namespace TTSPlugin
                 var d = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
                         + text + "&tl=En-gb";
                 d = d.Replace(" ", "%20");
-                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
+                AudioManager.ForeGround.PlayList.Enqueue(new Mp3MediafoundationDecoder(d));
             }
         }
     }

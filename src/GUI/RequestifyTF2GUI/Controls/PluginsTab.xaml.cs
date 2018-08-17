@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Events;
+using RequestifyTF2.Managers;
 
 namespace RequestifyTF2GUI.Controls
 {
@@ -33,19 +35,21 @@ namespace RequestifyTF2GUI.Controls
         {
             _plugins = new ObservableCollection<PluginsAndCommandsViewModel>();
             _commands = new ObservableCollection<PluginsAndCommandsViewModel>();
-            Events.PluginLoaded.OnPluginLoaded += PluginLoaded_OnPluginLoaded;
-            Events.CommandRegistered.OnCommandRegistered += CommandRegistered_OnCommandRegistered;
+            Events.OnPluginLoaded += PluginLoaded_OnPluginLoaded;
+            Events.OnCommandRegistered += CommandRegistered_OnCommandRegistered;
+        
             //Plugins = CreateData();
             //Commands = CreateData();
 
         }
 
-        private void CommandRegistered_OnCommandRegistered(Events.CommandRegisteredArgs e)
+    
+        private void CommandRegistered_OnCommandRegistered(RequestifyEventArgs.CommandRegisteredArgs e)
         {
             dispatcher.Invoke(() => Commands.Add(new PluginsAndCommandsViewModel() { IsSelected = true, Type = PluginsAndCommandsViewModel.MType.Command, Name = e.Command.Name, Description = e.Command.Help }));
         }
 
-        private void PluginLoaded_OnPluginLoaded(Events.PluginLoadedArgs e)
+        private void PluginLoaded_OnPluginLoaded(RequestifyEventArgs.PluginLoadedArgs e)
         {
             dispatcher.Invoke(() => Plugins.Add(new PluginsAndCommandsViewModel(){IsSelected = true,Type = PluginsAndCommandsViewModel.MType.Plugin,Name = e.Plugin.Name, Description = e.Plugin.Desc}));
            
@@ -131,16 +135,16 @@ namespace RequestifyTF2GUI.Controls
                     if (!IsSelected)
                     {
                         //PLUGIN GOING TO DISABLE
-                        if (Instance.Plugins.GetPlugin(this.Name) != null)
+                        if (PluginManager.GetPlugin(this.Name) != null)
                         {
-                            Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(this.Name));
+                           PluginManager.GetPlugin(this.Name).Disable();
                         }
                     }
                     else
                     {
-                        if (Instance.Plugins.GetPlugin(this.Name) != null)
+                        if (PluginManager.GetPlugin(this.Name) != null)
                         {
-                            Instance.Plugins.EnablePlugin(Instance.Plugins.GetPlugin(this.Name));
+                            PluginManager.GetPlugin(this.Name).Enable();
                         }
                     }
                 }
@@ -149,16 +153,16 @@ namespace RequestifyTF2GUI.Controls
                     if (!IsSelected)
                     {
                         //PLUGIN GOING TO DISABLE
-                        if (Instance.Commands.GetCommand(this.Name) != null)
+                        if (CommandManager.GetCommand(this.Name) != null)
                         {
-                            Instance.Commands.DisableCommand(Instance.Commands.GetCommand(this.Name));
+                          CommandManager.GetCommand(this.Name).Disable();
                         }
                     }
                     else
                     {
-                        if (Instance.Commands.GetCommand(this.Name) != null)
+                        if (CommandManager.GetCommand(this.Name) != null)
                         {
-                            Instance.Commands.EnableCommand(Instance.Commands.GetCommand(this.Name));
+                          CommandManager.GetCommand(this.Name).Enable();
                         }
                     }
                 }

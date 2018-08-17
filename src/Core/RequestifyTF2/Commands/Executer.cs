@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Events;
+using RequestifyTF2.API.IgnoreList;
 using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 
@@ -13,7 +15,7 @@ namespace RequestifyTF2.Commands
         public static void Execute(User caller, string command, List<string> arguments)
         {
             CommandManager.RequestifyCommand calledcommand = null;
-            foreach (var n in Instance.Commands.GetCommands())
+            foreach (var n in CommandManager.GetCommands())
             {
                 if (command == "!" + n.Name)
                 {
@@ -45,15 +47,15 @@ namespace RequestifyTF2.Commands
             }
             else
             {
-                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled ||
+                if (PluginManager.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled ||
                     calledcommand.Status == CommandManager.Status.Disabled)
                 {
                     return;
                 }
 
-                if (!Instance.Config.Ignored.Contains(caller.Name))
+                if (!IgnoreList.Contains(caller.Name))
                 {
-                    if (!Instance.Config.IgnoredReversed)
+                    if (! IgnoreList.Reversed)
                     {
                         Task.Run(
                             () =>
@@ -77,7 +79,7 @@ namespace RequestifyTF2.Commands
                 }
                 else
                 {
-                    if (Instance.Config.IgnoredReversed)
+                    if ( IgnoreList.Reversed)
                     {
                         Task.Run(
                             () =>

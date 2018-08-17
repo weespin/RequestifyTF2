@@ -5,6 +5,8 @@ using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Events;
+using RequestifyTF2.Audio;
 
 namespace OofPlugin
 {
@@ -36,7 +38,8 @@ namespace OofPlugin
 
         public void OnLoad()
         {
-            Events.PlayerKill.OnPlayerKill += PlayerKill_OnPlayerKill;
+         
+            Events.OnPlayerKill += PlayerKill_OnPlayerKill;
             if (Directory.Exists("./oof/"))
             {
                 if (File.Exists("./oof/conf.json"))
@@ -75,20 +78,30 @@ namespace OofPlugin
             }
         }
 
-        private void PlayerKill_OnPlayerKill(Events.PlayerKillArgs e)
+        private void PlayerKill_OnPlayerKill(RequestifyEventArgs.PlayerKillArgs e)
         {
+            if (config.Name == string.Empty)
+            {
+                if (Instance.Admin != String.Empty)
+                {
+                    config.Name = Instance.Admin;
+                }
+            }
+
             if (config.Name != string.Empty)
             {
+
                 if (e.Killer == config.Name)
                 {
                     Stream s = new MemoryStream(Convert.FromBase64String(of[new Random().Next(0, of.Count)]));
-                    if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)
+                    if ( AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Playing)
                     {
-                        Instance.SoundOutExtra.Stop();
+                         AudioManager.Extra.SoundOut.Stop();
                     }
 
-                    Instance.SoundOutExtra.Initialize(new DmoMp3Decoder(s));
-                    Instance.SoundOutExtra.Play();
+                   AudioManager.Extra.SoundOut.Initialize(new DmoMp3Decoder(s));
+                     AudioManager.Extra.SoundOut.Play();
+                   
                 }
             }
         }

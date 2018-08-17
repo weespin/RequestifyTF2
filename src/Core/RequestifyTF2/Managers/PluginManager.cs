@@ -6,11 +6,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RequestifyTF2.API;
-using RequestifyTF2.PluginLoader;
+using RequestifyTF2.API.Events;
+using RequestifyTF2.DependencyLoader;
 
 namespace RequestifyTF2.Managers
 {
-    public class PluginManager
+    public static class PluginManager
     {
         public enum Status
         {
@@ -18,23 +19,24 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private static readonly List<Type> Plugintypes  = new List<Type>();
-        public static readonly List<Assembly> PluginAssemblies = new List<Assembly>();
-        private static readonly List<Plugin> Plugins = new List<Plugin>();
 
-        public PluginManager()
+        public static readonly List<Plugin> Plugins = new List<Plugin>();
+        static PluginManager()
         {
+            CommandManager.Init();
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/"))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
             }
-
-         
-            loadPlugins(
-                Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
+            if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/libs/"))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/libs/");
+            }
+            LoadLibs(Path.GetDirectoryName(Application.ExecutablePath) + "/libs/");
+            LoadPluginsFromDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
         }
 
-        public static Dictionary<string, string> FindAllPlugins(string directory, string extension = "*.dll")
+        public static Dictionary<string, string> FindAllAssembly(string directory, string extension = "*.dll")
         {
             var dict = new Dictionary<string, string>();
             IEnumerable<FileInfo> dlls = new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
@@ -54,9 +56,9 @@ namespace RequestifyTF2.Managers
             return dict;
         }
 
-        public static List<Assembly> LoadAssembliesFromDirectory(string directory, string extension = "*.dll")
+        public static void LoadPluginsFromDirectory(string directory, string extension = "*.dll")
         {
-            var assemblies = new List<Assembly>();
+         
             IEnumerable<FileInfo> pluginsLibraries =
                 new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
 
@@ -70,12 +72,29 @@ namespace RequestifyTF2.Managers
 
                     if (types.Count == 1)
                     {
+                      
                         Console.WriteLine(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location);
-                        assemblies.Add(assembly);
-                    
                         Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
                             Status.Enabled));
-                        
+                        var onload = assembly.GetTypes();
+                        foreach (var type in types)
+                        {
+                            var m = type.GetMethod("OnLoad");
+                            var plugin = Activator.CreateInstance(type);
+                            if (m != null)
+                            {
+                                try
+                                {
+                                    m.Invoke(plugin, new object[] { });
+                                }
+                                catch (Exception e)
+                                {
+                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                }
+
+                                Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
+                            }
+                        }
                         Events.PluginLoaded.Invoke(GetPlugin(assembly).plugin);
                     }
                     else if (types.Count > 1)
@@ -94,8 +113,6 @@ namespace RequestifyTF2.Managers
                     Console.WriteLine(ex);
                 }
             }
-
-            return assemblies;
         }
 
         public static List<Type> GetTypesFromInterface(List<Assembly> assemblies, string interfaceName)
@@ -134,12 +151,10 @@ namespace RequestifyTF2.Managers
         }
 
        
-        public void loadPlugins(string path)
+        public static void LoadLibs(string path)
         {
-            Libraries.Load(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
-            var libraries = FindAllPlugins(path);
-           
-
+            DependencyLoader.DependencyLoader.Load(path);
+            var libraries = FindAllAssembly(path);
             foreach (var pair in libraries)
             {
                 if (!libraries.ContainsKey(pair.Key))
@@ -148,54 +163,16 @@ namespace RequestifyTF2.Managers
                 }
             }
 
-            var asseblylist = LoadAssembliesFromDirectory(path);
-            foreach (var assebly in asseblylist)
-            {
-                PluginAssemblies.Add(assebly);
-            }
-            var pluginImplemenations = GetTypesFromInterface(PluginAssemblies, "IRequestifyPlugin");
-            foreach (var pluginType in pluginImplemenations)
-            {
-                Plugintypes.Add(pluginType);
-
-            }
-
-            foreach (var Assembly in PluginAssemblies)
-            {
-                var types = Assembly.GetTypes();
-                foreach (var type in types)
-                {
-                    var m = type.GetMethod("OnLoad");
-                    var plugin = Activator.CreateInstance(type);
-                    if (m != null)
-                    {
-                                try
-                                {
-                                    m.Invoke(plugin, new object[]{});
-                                }
-                                catch (Exception e)
-                                {
-                                    Logger.Write(Logger.Status.Error, e.ToString());
-                                }
-                          
-                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
-                    }
-                }
-            }
-            
         }
-
-
-        public Assembly GetAssembly(IRequestifyPlugin plugin)
+   
+        public static Assembly GetAssembly(this IRequestifyPlugin plugin)
         {
             return plugin.GetType().Assembly;
         }
-
-        public List<Plugin> GetPlugins()
+        public static List<Plugin> GetPlugins()
         {
             return Plugins;
         }
-
         public static Plugin GetPlugin(Assembly assembly)
         {
             foreach (var p in Plugins)
@@ -205,26 +182,24 @@ namespace RequestifyTF2.Managers
                     return p;
                 }
             }
-
             return null;
         }
-
-        public void DisablePlugin(Plugin plg)
+        public static void Disable(this Plugin plg)
         {
             plg.Status = Status.Disabled;
         }
 
-        public void EnablePlugin(Plugin plg)
+        public static void Enable(this Plugin plg)
         {
             plg.Status = Status.Enabled;
         }
 
-        public Plugin GetPluginFromCommand(CommandManager.RequestifyCommand command)
+        public static Plugin GetPluginFromCommand(CommandManager.RequestifyCommand command)
         {
             return GetPlugin(command.Father);
         }
 
-        public Plugin GetPlugin(string name)
+        public static Plugin GetPlugin(string name)
         {
             return Plugins.FirstOrDefault(p => p != null && p.plugin.Name == name);
         }

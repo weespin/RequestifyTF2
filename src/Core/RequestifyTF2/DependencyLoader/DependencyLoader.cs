@@ -2,9 +2,9 @@
 using System.IO;
 using System.Reflection;
 
-namespace RequestifyTF2.PluginLoader
+namespace RequestifyTF2.DependencyLoader
 {
-    public class Libraries
+    public class DependencyLoader
     {
         public static void Load(string path)
         {
