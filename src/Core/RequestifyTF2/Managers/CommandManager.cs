@@ -52,7 +52,7 @@ namespace RequestifyTF2.Managers
 
         public static void Init()
         {
-            Logger.Write(Logger.Status.Info,"CommandManager Init");
+            Logger.Write(Logger.LogStatus.Info,"CommandManager Init");
         }
         public static List<Type> GetTypesFromInterface(Assembly assembly, string interfaceName)
         {

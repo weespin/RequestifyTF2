@@ -17,10 +17,6 @@ namespace RequestifyTF2.Audio
     public static class AudioManager
     {
         
-    
-       
-
-
         public static class Extra
         {
             /// <summary>
@@ -140,8 +136,5 @@ namespace RequestifyTF2.Audio
             MP3,
             AAC
         }
-
-
-
     }
 }

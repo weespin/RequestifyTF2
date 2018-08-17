@@ -49,7 +49,7 @@ namespace RequestifyTF2.Managers
                 }
                 catch (Exception e)
                 {
-                    Logger.Write(Logger.Status.Error,e.ToString());
+                    Logger.Write(Logger.LogStatus.Error,e.ToString());
                 }
             }
 
@@ -89,10 +89,10 @@ namespace RequestifyTF2.Managers
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                    Logger.Write(Logger.LogStatus.Error, e.ToString());
                                 }
 
-                                Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
+                                Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
                             }
                         }
                         Events.PluginLoaded.Invoke(GetPlugin(assembly).plugin);

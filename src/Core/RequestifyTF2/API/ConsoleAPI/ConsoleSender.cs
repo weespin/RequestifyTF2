@@ -20,7 +20,7 @@ namespace RequestifyTF2.API.ConsoleAPI
             switch (cmd)
             {
                 case Command.Chat:
-                    if (!Instance.IsMuted)
+                    if (!Requestify.IsMuted)
                     {
                         text = "say " + cmnd;
                     }
@@ -37,7 +37,7 @@ namespace RequestifyTF2.API.ConsoleAPI
                   
             }
 
-            File.WriteAllText(Instance.GameDir + "/cfg/requestify.cfg", text);
+            File.WriteAllText(Requestify.GameDir + "/cfg/requestify.cfg", text);
             Task.Run(
                 () =>
                 {
@@ -46,7 +46,7 @@ namespace RequestifyTF2.API.ConsoleAPI
                     keybd_event(0x2E, 0x53, 0x2, 0);
                 });
             Thread.Sleep(100);
-            File.WriteAllText(Instance.GameDir + "/cfg/requestify.cfg", string.Empty);
+            File.WriteAllText(Requestify.GameDir + "/cfg/requestify.cfg", string.Empty);
         }
 
         [DllImport("user32.dll")]

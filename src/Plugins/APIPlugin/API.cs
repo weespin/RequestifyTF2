@@ -33,9 +33,6 @@ namespace APIPlugin
 
             Console.WriteLine("APIPlugin Loaded");
             new Thread(StartServer).Start();
-            Console.WriteLine("OK");
-            Logger.Write(Logger.Status.STATUS, "OK");
-
         }
 
         public void StartServer()
@@ -73,7 +70,7 @@ namespace APIPlugin
             {
                 try
                 {
-
+                   
                     context.JsonResponse(JsonConvert.SerializeObject(AudioManager.BackGround.PlayList));
                     return true;
 
@@ -89,7 +86,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Language.ToString()));
+                    context.JsonResponse(JsonConvert.SerializeObject(Requestify.Language.ToString()));
                     return true;
 
                 }
@@ -119,7 +116,7 @@ namespace APIPlugin
                 try
                 {
 
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Admin));
+                    context.JsonResponse(JsonConvert.SerializeObject(Requestify.Admin));
                     return true;
 
                 }

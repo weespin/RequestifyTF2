@@ -49,7 +49,7 @@ namespace RequestPlugin
                     VoteUsers.Clear();
                     MusicId = AudioManager.BackGround.SoundOut.WaveSource.Length;
                     VoteUsers.Add(executor.Name);
-                    if (!Instance.IsMuted)
+                    if (!Requestify.IsMuted)
                     {
                         ConsoleSender.SendCommand(
                             $"{executor} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
@@ -59,7 +59,7 @@ namespace RequestPlugin
                     if (VoteUsers.Count >= PlayersCount / 2)
                     {
                         AudioManager.BackGround.SoundOut.Stop();
-                        if (!Instance.IsMuted)
+                        if (!Requestify.IsMuted)
                         {
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
                         }
@@ -70,7 +70,7 @@ namespace RequestPlugin
                     if (VoteUsers.Count >= PlayersCount / 2)
                     {
                         AudioManager.BackGround.SoundOut.Stop();
-                        if (!Instance.IsMuted)
+                        if (!Requestify.IsMuted)
                         {
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
                         }
@@ -78,7 +78,7 @@ namespace RequestPlugin
 
                     if (VoteUsers.Contains(executor.Name))
                     {
-                        if (!Instance.IsMuted)
+                        if (!Requestify.IsMuted)
                         {
                             ConsoleSender.SendCommand(
                                 $"{executor} already voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
@@ -93,7 +93,7 @@ namespace RequestPlugin
                         if (VoteUsers.Count >= PlayersCount)
                         {
                             AudioManager.BackGround.SoundOut.Stop();
-                            if (!Instance.IsMuted)
+                            if (!Requestify.IsMuted)
                             {
                                 ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
                             }
@@ -103,7 +103,7 @@ namespace RequestPlugin
             }
             else
             {
-                if (!Instance.IsMuted)
+                if (!Requestify.IsMuted)
                 {
                     ConsoleSender.SendCommand($"{executor}, the queue is empty.", ConsoleSender.Command.Chat);
                 }
@@ -164,7 +164,7 @@ namespace RequestPlugin
 
             public void Execute(User executor, List<string> arguments)
             {
-                if (executor.Name != Instance.Admin)
+                if (executor.Name != Requestify.Admin)
                 {
                     return;
                 }
@@ -228,7 +228,7 @@ namespace RequestPlugin
                                 var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
                                 if (urls.http_mp3_128_url != null)
                                 {
-                                    if (!Instance.IsMuted)
+                                    if (!Requestify.IsMuted)
                                     {
                                         ConsoleSender.SendCommand(
                                             $"{b.title} was added to the queue",
@@ -268,7 +268,7 @@ namespace RequestPlugin
 
                     var ext = streamInfo.Url;
                     var title = client.GetVideoAsync(id).Result.Title;
-                    if (!Instance.IsMuted)
+                    if (!Requestify.IsMuted)
                     {
                         ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     }
@@ -294,7 +294,7 @@ namespace RequestPlugin
 
                             var ext = streamInfo.Url;
                             var title = client.GetVideoAsync(vids[0].Id).Result.Title;
-                            if (!Instance.IsMuted)
+                            if (!Requestify.IsMuted)
                             {
                                 ConsoleSender.SendCommand($"{title} was added to the queue",
                                     ConsoleSender.Command.Chat);

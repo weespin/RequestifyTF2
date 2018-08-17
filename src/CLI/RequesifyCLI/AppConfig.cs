@@ -20,7 +20,7 @@ namespace RequesifyCLI
                     CurrentConfig = JsonConvert.DeserializeObject<ConfigJsonData>(
                         File.ReadAllText(
                             Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json"));
-                    Instance.Admin = CurrentConfig.Admin;
+                    Requestify.Admin = CurrentConfig.Admin;
                 }
                 else
                 {
@@ -28,7 +28,7 @@ namespace RequesifyCLI
                        Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "config/config.json",
                         emptyjson);
 
-                    Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");
+                    Logger.Write(Logger.LogStatus.Info, "Type dir {directory} to set directory");
                 }
             }
             else
@@ -37,20 +37,20 @@ namespace RequesifyCLI
                 File.WriteAllText(
                     Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json",
                     emptyjson);
-                Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");
+                Logger.Write(Logger.LogStatus.Info, "Type dir {directory} to set directory");
             }
 
             if (CurrentConfig.GameDirectory == string.Empty)
             {
-                Logger.Write(Logger.Status.Info, "Type dir {directory} to set directory");
+                Logger.Write(Logger.LogStatus.Info, "Type dir {directory} to set directory");
             }
 
-            Instance.GameDir = CurrentConfig.GameDirectory;
+            Requestify.GameDir = CurrentConfig.GameDirectory;
         }
 
         public static void Save()
         {
-            Instance.GameDir = CurrentConfig.GameDirectory;
+            Requestify.GameDir = CurrentConfig.GameDirectory;
             var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
             File.WriteAllText(
                 Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json",

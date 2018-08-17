@@ -26,19 +26,19 @@ namespace RequesifyCLI
 
         public static void GetHelp()
         {
-            Logger.Write(Logger.Status.Info, "RequestifyTF2 CLI");
-            Logger.Write(Logger.Status.Info, "dir {path} - set directory");
-            Logger.Write(Logger.Status.Info, "code - return code");
-            Logger.Write(Logger.Status.Info, "blacklist - Print BlackLists");
-            Logger.Write(Logger.Status.Info, "remove {id} - delete from blacklist");
-            Logger.Write(Logger.Status.Info, "add {text} - add text to blacklist");
-            Logger.Write(Logger.Status.Info, "list - return plugin list");
-            Logger.Write(Logger.Status.Info, "switch {id} - disable/enable plugin");
-            Logger.Write(Logger.Status.Info, "start - start RequestifyTF2");
-            Logger.Write(Logger.Status.Info, "reverse - revert blacklist to whitelist");
-            Logger.Write(Logger.Status.Info, "help - get this info.");
-            Logger.Write(Logger.Status.Info, "admin {nick} - set admin name");
-            Logger.Write(Logger.Status.Info, "mute - mute or unmute chat");
+            Logger.Write(Logger.LogStatus.Info, "RequestifyTF2 CLI");
+            Logger.Write(Logger.LogStatus.Info, "dir {path} - set directory");
+            Logger.Write(Logger.LogStatus.Info, "code - return code");
+            Logger.Write(Logger.LogStatus.Info, "blacklist - Print BlackLists");
+            Logger.Write(Logger.LogStatus.Info, "remove {id} - delete from blacklist");
+            Logger.Write(Logger.LogStatus.Info, "add {text} - add text to blacklist");
+            Logger.Write(Logger.LogStatus.Info, "list - return plugin list");
+            Logger.Write(Logger.LogStatus.Info, "switch {id} - disable/enable plugin");
+            Logger.Write(Logger.LogStatus.Info, "start - start RequestifyTF2");
+            Logger.Write(Logger.LogStatus.Info, "reverse - revert blacklist to whitelist");
+            Logger.Write(Logger.LogStatus.Info, "help - get this info.");
+            Logger.Write(Logger.LogStatus.Info, "admin {nick} - set admin name");
+            Logger.Write(Logger.LogStatus.Info, "mute - mute or unmute chat");
         }
 
         private static void Main(string[] args)
@@ -53,11 +53,11 @@ namespace RequesifyCLI
                 {
                     if (! IgnoreList.Reversed)
                     {
-                        Logger.Write(Logger.Status.Info, "WhiteList activated");
+                        Logger.Write(Logger.LogStatus.Info, "WhiteList activated");
                     }
                     else
                     {
-                        Logger.Write(Logger.Status.Info, "BlackList activated");
+                        Logger.Write(Logger.LogStatus.Info, "BlackList activated");
                     }
 
                      IgnoreList.Reversed = ! IgnoreList.Reversed;
@@ -75,7 +75,7 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("admin") && key.Split(null).Length > 1)
                 {
-                    Instance.Admin = key.Replace("admin", null);
+                    Requestify.Admin = key.Replace("admin", null);
                     AppConfig.CurrentConfig.Admin = key.Replace("admin", null);
                     AppConfig.Save();
                 }
@@ -107,12 +107,12 @@ namespace RequesifyCLI
                             }
                             else
                             {
-                                Logger.Write(Logger.Status.Error, $"Error. You dont have {i} blacklisted words");
+                                Logger.Write(Logger.LogStatus.Error, $"Error. You dont have {i} blacklisted words");
                             }
                         }
                         else
                         {
-                            Logger.Write(Logger.Status.Error, $"Cant find any number");
+                            Logger.Write(Logger.LogStatus.Error, $"Cant find any number");
                         }
                     }
                 }
@@ -133,15 +133,15 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("mute"))
                 {
-                    if (Instance.IsMuted)
+                    if (Requestify.IsMuted)
                     {
-                        Logger.Write(Logger.Status.Info, $"RequestifyTF2 is now unmuted");
-                        Instance.IsMuted = false;
+                        Logger.Write(Logger.LogStatus.Info, $"RequestifyTF2 is now unmuted");
+                        Requestify.IsMuted = false;
                     }
                     else
                     {
-                        Logger.Write(Logger.Status.Info, $"RequestifyTF2 is now muted");
-                        Instance.IsMuted = true;
+                        Logger.Write(Logger.LogStatus.Info, $"RequestifyTF2 is now muted");
+                        Requestify.IsMuted = true;
                     }
                 }
 
@@ -177,22 +177,22 @@ namespace RequesifyCLI
                             else
                             {
                                 Logger.Write(
-                                    Logger.Status.Error,
+                                    Logger.LogStatus.Error,
                                     $"Error. You have only {GetAllPlugins().Count} plugins. Not {i}");
                             }
                         }
                         else
                         {
-                            Logger.Write(Logger.Status.Error, $"Cant find any number");
+                            Logger.Write(Logger.LogStatus.Error, $"Cant find any number");
                         }
                     }
                 }
 
                 if (key.StartsWith("start"))
                 {
-                    if (Instance.GameDir == string.Empty)
+                    if (Requestify.GameDir == string.Empty)
                     {
-                        Logger.Write(Logger.Status.Info, "Please set the game directory");
+                        Logger.Write(Logger.LogStatus.Info, "Please set the game directory");
                         return;
                     }
                     Runner.Start();
@@ -207,21 +207,21 @@ namespace RequesifyCLI
         {
             var i = 0;
             var blacklisted =  IgnoreList.GetList.OrderBy(n => n).ToList();
-            Logger.Write(Logger.Status.Info, "===================BLACKLIST===================");
+            Logger.Write(Logger.LogStatus.Info, "===================BLACKLIST===================");
             foreach (var blocked in blacklisted)
             {
                 Console.WriteLine($@"{{{i}}} {blocked}");
                 i++;
             }
 
-            Logger.Write(Logger.Status.Info, "===================BLACKLIST END===================");
+            Logger.Write(Logger.LogStatus.Info, "===================BLACKLIST END===================");
         }
 
         private static void PrintPlugins()
         {
             var i = 0;
             var Plugins = GetAllPlugins();
-            Logger.Write(Logger.Status.Info, "===================PLUGINS===================");
+            Logger.Write(Logger.LogStatus.Info, "===================PLUGINS===================");
             foreach (var pl in Plugins)
             {
                 if (pl.Status == PluginManager.Status.Disabled)
@@ -239,14 +239,14 @@ namespace RequesifyCLI
             }
 
             Console.ForegroundColor = ConsoleColor.Gray;
-            Logger.Write(Logger.Status.Info, "===================PLUGINS END===================");
+            Logger.Write(Logger.LogStatus.Info, "===================PLUGINS END===================");
         }
 
         private static void SetDirectory(string v)
         {
             if (!Directory.Exists(v))
             {
-                Logger.Write(Logger.Status.Error,"This is not a directory");
+                Logger.Write(Logger.LogStatus.Error,"This is not a directory");
                 return;
             }
             var dirs = Directory.GetDirectories(v);
@@ -254,7 +254,7 @@ namespace RequesifyCLI
             if (dirs.Any(n => n.Contains("cfg")))
             {
                 AppConfig.CurrentConfig.GameDirectory = v;
-                Logger.Write(Logger.Status.Info, "Current game path: " + v);
+                Logger.Write(Logger.LogStatus.Info, "Current game path: " + v);
                 AppConfig.Save();
             }
             else
@@ -283,9 +283,9 @@ namespace RequesifyCLI
                         {
                             AppConfig.CurrentConfig.GameDirectory = dir;
                             Logger.Write(
-                                Logger.Status.Info,
+                                Logger.LogStatus.Info,
                                 $"Game path was automatically corrected from \n{v}\nto\n{dir}");
-                            Logger.Write(Logger.Status.Info, "Current game path: " + dir);
+                            Logger.Write(Logger.LogStatus.Info, "Current game path: " + dir);
                             AppConfig.Save();
                             return;
                         }
@@ -293,7 +293,7 @@ namespace RequesifyCLI
                 }
 
                 Logger.Write(
-                    Logger.Status.Error,
+                    Logger.LogStatus.Error,
                     "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect.",
                     ConsoleColor.Red);
             }

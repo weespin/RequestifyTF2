@@ -18,15 +18,16 @@ namespace RequestifyTF2.DependencyLoader
             {
                 try
                 {
+                    
                     var proxy = new Proxy();
                     var assemblyz = proxy.GetAssembly(assembly);
-                    Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
+                    Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
 
 
                 }
                 catch (Exception e)
                 {
-                    Logger.Write(Logger.Status.Error, e.ToString());
+                    Logger.Write(Logger.LogStatus.Error, e.ToString());
                 }
             }
         }
@@ -37,11 +38,11 @@ namespace RequestifyTF2.DependencyLoader
             {
                 var pd = new Proxy();
                 var assemblyz = pd.GetAssembly(path);
-                Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
+                Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
             }
             catch (Exception e)
             {
-                Logger.Write(Logger.Status.Error, e.ToString());
+                Logger.Write(Logger.LogStatus.Error, e.ToString());
             }
         }
 

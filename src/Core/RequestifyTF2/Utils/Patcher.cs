@@ -48,12 +48,12 @@ namespace RequestifyTF2.Utils
 
         public static void PatchAutoExec()
         {
-            if (Instance.GameDir == string.Empty || !Directory.Exists(Instance.GameDir))
+            if (Requestify.GameDir == string.Empty || !Directory.Exists(Requestify.GameDir))
             {
                 Console.WriteLine(Localization.Localization.CORE_SET_DIRECTORY);
                 return;
             }
-            var cfgpath = Instance.GameDir + "/cfg/autoexec.cfg";
+            var cfgpath = Requestify.GameDir + "/cfg/autoexec.cfg";
             WriteToCfg(cfgpath, "con_logfile \"console.log\"");
             WriteToCfg(cfgpath, "bind kp_del \"exec requestify\"");
             WriteToCfg(cfgpath, "bind kp_end \"echo NUMPAD1\"");

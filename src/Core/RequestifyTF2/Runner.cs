@@ -9,16 +9,16 @@ namespace RequestifyTF2
     {
         public static bool Start()
         {
-            if (Instance.GameDir == string.Empty)
+            if (Requestify.GameDir == string.Empty)
             {
-                Logger.Write(Logger.Status.Error, Localization.Localization.CORE_SET_DIRECTORY);
+                Logger.Write(Logger.LogStatus.Error, Localization.Localization.CORE_SET_DIRECTORY);
 
                 return false;
             }
 
-            if (!Directory.Exists(Instance.GameDir))
+            if (!Directory.Exists(Requestify.GameDir))
             {
-                Logger.Write(Logger.Status.Error, Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Instance.GameDir);
+                Logger.Write(Logger.LogStatus.Error, Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Requestify.GameDir);
 
                 return false; 
             }
@@ -26,7 +26,7 @@ namespace RequestifyTF2
             //if (!Instance.Load())
             //{
             //    Logger.Write(
-            //        Logger.Status.Error,
+            //        Logger.LogStatus.Error,
             //        Localization.Localization.CORE_ERRORS_FOUND_CLOSE_PROGRAM,
             //        ConsoleColor.Red);
             //    return false;
@@ -41,7 +41,7 @@ namespace RequestifyTF2
             //    //catch
             //    //{
             //    //    Logger.Write(
-            //    //        Logger.Status.Error,
+            //    //        Logger.LogStatus.Error,
             //    //        Localization.Localization.CORE_ERROR_CANT_PREPARE_CONSOLE_LOG,
             //    //        ConsoleColor.Red);
             //    //    return false;

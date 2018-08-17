@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using RequestifyTF2.API;
 using RequestifyTF2.API.Events;
@@ -66,15 +65,15 @@ namespace RequestifyTF2.Commands
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                    Logger.Write(Logger.LogStatus.Error, e.ToString());
                                 }
                             });
-                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_EXECUTED_COMMAND, caller.Name, command));
+                        Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_EXECUTED_COMMAND, caller.Name, command));
                     }
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command));
+                        Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command));
                     }
                 }
                 else
@@ -90,15 +89,15 @@ namespace RequestifyTF2.Commands
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write(Logger.Status.Error, e.ToString());
+                                    Logger.Write(Logger.LogStatus.Error, e.ToString());
                                 }
                             });
-                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_USER_INVOKED, caller.Name, command));
+                        Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_USER_INVOKED, caller.Name, command));
                     }
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Write(Logger.Status.Info,
+                        Logger.Write(Logger.LogStatus.Info,
                             string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command));
                     }
                 }

@@ -63,7 +63,7 @@ namespace RequestifyTF2GUI
                 {
                     Header = lang.DisplayName,
                     Tag = lang,
-                    IsChecked = lang.Equals(Instance.GetCulture)
+                    IsChecked = lang.Equals(Requestify.GetCulture)
                 };
                 menuLang.Click += ChangeCoreLanguageClick;
                 SettingsTab.instance.ComboBoxCoreLanguage.Items.Add(menuLang);
@@ -149,113 +149,113 @@ namespace RequestifyTF2GUI
         {
             if (lang.Name.Contains("bg"))
             {
-                Instance.Language = Instance.ELanguage.BG;
+                Requestify.Language = Requestify.ELanguage.BG;
             }
             else if (lang.Name.Contains( "cs"))
             {
-                Instance.Language = Instance.ELanguage.CS;
+                Requestify.Language = Requestify.ELanguage.CS;
             }
             else if (lang.Name.Contains( "da"))
             {
-                Instance.Language = Instance.ELanguage.DA;
+                Requestify.Language = Requestify.ELanguage.DA;
             }
             else if (lang.Name.Contains( "de"))
             {
-                Instance.Language = Instance.ELanguage.DE;
+                Requestify.Language = Requestify.ELanguage.DE;
             }
             else if (lang.Name.Contains( "el"))
             {
-                Instance.Language = Instance.ELanguage.EL;
+                Requestify.Language = Requestify.ELanguage.EL;
             }
             else if (lang.Name.Contains( "es"))
             {
-                Instance.Language = Instance.ELanguage.ES;
+                Requestify.Language = Requestify.ELanguage.ES;
             }
             else if (lang.Name.Contains( "fi"))
             {
-                Instance.Language = Instance.ELanguage.FI;
+                Requestify.Language = Requestify.ELanguage.FI;
             }
             else if (lang.Name.Contains( "fr"))
             {
-                Instance.Language = Instance.ELanguage.FR;
+                Requestify.Language = Requestify.ELanguage.FR;
             }
             else if (lang.Name.Contains( "hu"))
             {
-                Instance.Language = Instance.ELanguage.HU;
+                Requestify.Language = Requestify.ELanguage.HU;
             }
             else if (lang.Name.Contains( "it"))
             {
-                Instance.Language = Instance.ELanguage.IT;
+                Requestify.Language = Requestify.ELanguage.IT;
             }
             else if (lang.Name.Contains( "ja"))
             {
-                Instance.Language = Instance.ELanguage.JA;
+                Requestify.Language = Requestify.ELanguage.JA;
             }
             else if (lang.Name.Contains( "ko"))
             {
-                Instance.Language = Instance.ELanguage.KO;
+                Requestify.Language = Requestify.ELanguage.KO;
             }
             else if (lang.Name.Contains( "nl"))
             {
-                Instance.Language = Instance.ELanguage.NL;
+                Requestify.Language = Requestify.ELanguage.NL;
             }
             else if (lang.Name.Contains( "nn"))
             {
-                Instance.Language = Instance.ELanguage.NN;
+                Requestify.Language = Requestify.ELanguage.NN;
             }
             else if (lang.Name.Contains( "pt"))
             {
                 if (lang.Name.Contains("BR"))
                 {
-                    Instance.Language = Instance.ELanguage.BR;
+                    Requestify.Language = Requestify.ELanguage.BR;
                 }
                 else
                 {
-                    Instance.Language = Instance.ELanguage.PT;
+                    Requestify.Language = Requestify.ELanguage.PT;
                 }
             }
             else if (lang.Name.Contains("en"))
             {
-                Instance.Language = Instance.ELanguage.EN;
+                Requestify.Language = Requestify.ELanguage.EN;
             }
             else if (lang.Name.Contains("ro"))
             {
-                Instance.Language = Instance.ELanguage.RO;
+                Requestify.Language = Requestify.ELanguage.RO;
             }
             else if (lang.Name.Contains("ru"))
             {
-                Instance.Language = Instance.ELanguage.RU;
+                Requestify.Language = Requestify.ELanguage.RU;
             }
             else if (lang.Name.Contains("sv"))
             {
-                Instance.Language = Instance.ELanguage.SV;
+                Requestify.Language = Requestify.ELanguage.SV;
             }
             else if (lang.Name.Contains("th"))
             {
-                Instance.Language = Instance.ELanguage.TH;
+                Requestify.Language = Requestify.ELanguage.TH;
             }
             else if (lang.Name.Contains("tr"))
             {
-                Instance.Language = Instance.ELanguage.TR;
+                Requestify.Language = Requestify.ELanguage.TR;
             }
             else if (lang.Name.Contains("uk"))
             {
-                Instance.Language = Instance.ELanguage.UK;
+                Requestify.Language = Requestify.ELanguage.UK;
             }
             else if (lang.Name.Contains("zh"))
             {
                 if (lang.Name.Contains("CN"))
                 {
-                    Instance.Language = Instance.ELanguage.SZN;
+                    Requestify.Language = Requestify.ELanguage.SZN;
                 }
                 else
                 {
-                    Instance.Language = Instance.ELanguage.TZN;
+                    Requestify.Language = Requestify.ELanguage.TZN;
                 }
             }
             else
             {
-                Instance.Language = Instance.ELanguage.EN;
+                Requestify.Language = Requestify.ELanguage.EN;
             }
         }
         private void StatsMonitor()
@@ -396,7 +396,7 @@ namespace RequestifyTF2GUI
             var plugins = PluginManager.GetPlugins();
             if (plugins.Count == 0)
             {
-                Logger.Write(Logger.Status.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
+                Logger.Write(Logger.LogStatus.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
             }
         }
         private void Minimize_Click(object sender, RoutedEventArgs e)

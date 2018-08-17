@@ -34,7 +34,7 @@ namespace RequestifyTF2.Audio.Utils
             if (devices == null)
             {
                 Logger.Write(
-                    Logger.Status.Error,
+                    Logger.LogStatus.Error,
                     Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                     ConsoleColor.Red);
                 return false;
@@ -47,7 +47,7 @@ namespace RequestifyTF2.Audio.Utils
             catch (Exception e)
             {
                 Logger.Write(
-                    Logger.Status.Error,
+                    Logger.LogStatus.Error,
                     string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, devices[0].FriendlyName,
                         e));
             }
@@ -56,7 +56,7 @@ namespace RequestifyTF2.Audio.Utils
             AudioManager.BackGround.SoundOut.Device = devices[1];
             AudioManager.ForeGround.SoundOut.Device = devices[1];
             Logger.Write(
-                Logger.Status.STATUS,
+                Logger.LogStatus.Info,
                 string.Format(Localization.Localization.CORE_USED_DEVICES, devices[1].FriendlyName,
                     devices[1].FriendlyName));
             return true;
@@ -110,7 +110,7 @@ namespace RequestifyTF2.Audio.Utils
                 }
 
                 Logger.Write(
-                    Logger.Status.Error,
+                    Logger.LogStatus.Error,
                     Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                     ConsoleColor.Red);
                 return null;

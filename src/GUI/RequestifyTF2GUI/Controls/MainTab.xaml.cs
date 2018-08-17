@@ -58,16 +58,16 @@ namespace RequestifyTF2GUI.Controls
         }
         private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
         {
-            Instance.IsMuted = true;
+            Requestify.IsMuted = true;
         }
 
         private void MutedCheckBox_OnUnchecked(object sender, RoutedEventArgs e)
         {
-            Instance.IsMuted = false;
+            Requestify.IsMuted = false;
         }
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Instance.GameDir == string.Empty)
+            if (Requestify.GameDir == string.Empty)
             {
                 MessageBox.Show(
                     Application.Current.FindResource("cs_Set_Game_Dir").ToString(),

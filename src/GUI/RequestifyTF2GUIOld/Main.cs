@@ -62,7 +62,7 @@ namespace RequestifyTF2Forms
             } 
             seedListView(plugins);
             AppConfig.Load();
-            materialSingleLineTextField1.Text = Instance.Admin;
+            materialSingleLineTextField1.Text = Requestify.Admin;
         }
 
         private void btn_add_Click(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace RequestifyTF2Forms
 
         private void btn_start_Click_1(object sender, EventArgs e)
         {
-            if (Instance.GameDir == string.Empty)
+            if (Requestify.GameDir == string.Empty)
             {
                 new RequestifyTF2GUI.MessageBox.MessageBox().Show(
                     "Please set the game directory",
@@ -250,7 +250,7 @@ namespace RequestifyTF2Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            Instance.Admin=materialSingleLineTextField1.Text;
+            Requestify.Admin=materialSingleLineTextField1.Text;
             AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
             AppConfig.Save();
         }
@@ -270,7 +270,7 @@ namespace RequestifyTF2Forms
 
         private void materialCheckBox1_CheckedChanged_1(object sender, EventArgs e)
         {
-            Instance.IsMuted = materialCheckBox1.Checked;
+            Requestify.IsMuted = materialCheckBox1.Checked;
         }
     }
 

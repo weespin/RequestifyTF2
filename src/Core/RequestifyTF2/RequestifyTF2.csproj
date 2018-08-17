@@ -230,7 +230,7 @@
       <DependentUpon>Localization.hu.resx</DependentUpon>
     </Compile>
     <Compile Include="Managers\Interfaces.cs" />
-    <Compile Include="API\Instance.cs" />
+    <Compile Include="API\Requestify.cs" />
     <Compile Include="Managers\CommandManager.cs" />
     <Compile Include="Managers\PluginManager.cs" />
     <Compile Include="Commands\Executer.cs" />

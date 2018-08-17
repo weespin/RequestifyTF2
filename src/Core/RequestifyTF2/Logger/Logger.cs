@@ -2,44 +2,39 @@
 using System.IO;
 using RequestifyTF2.API;
 
-public class Logger
+public static class Logger
 {
-    public enum Status
+    public enum LogStatus
     {
-        Code,
-
         Error,
-
-        Info,
-
-        STATUS
+        Info
     }
 
-    private static string _mExePath = string.Empty;
+    private static string logpath => AppDomain.CurrentDomain.BaseDirectory + "\\" + "log.txt";
 
     public static void Log(IRequestifyPlugin plugin, string message)
     {
-        Write(Status.Info, $"{plugin.Name} => {message}");
+        Write(LogStatus.Info, $"{plugin.Name} => {message}");
     }
 
     public static void LogError(IRequestifyPlugin plugin, string message)
     {
-        Write(Status.Error, $"{plugin.Name} => {message}");
+        Write(LogStatus.Error, $"{plugin.Name} => {message}");
     }
 
-    public static void Write(Status status, string text, ConsoleColor color = ConsoleColor.White)
+    public static void Write(LogStatus status, string text, ConsoleColor color = ConsoleColor.White)
     {
         Console.ForegroundColor = color;
         LogWrite("[" + status + "][" + DateTime.Now + "] " + text);
         Console.ForegroundColor = ConsoleColor.White;
     }
 
-    public static void Write(Status status, string text)
+    public static void Write(LogStatus status, string text)
     {
         LogWrite("[" + status + "][" + DateTime.Now + "] " + text);
     }
 
-    public void Write(string text)
+    public static void Write(string text)
     {
         LogWrite("[" + DateTime.Now + "] " + text);
     }
@@ -49,7 +44,7 @@ public class Logger
         try
         {
             txtWriter.WriteLine($"{logMessage}");
-            Console.WriteLine(logMessage);
+         
         }
         catch (Exception)
         {
@@ -60,19 +55,15 @@ public class Logger
     private static void LogWrite(string logMessage)
     {
        
-        if (_mExePath == string.Empty)
-        {
-            _mExePath = AppDomain.CurrentDomain.BaseDirectory;
-        }
-
         try
         {
-            using (var w = File.AppendText(_mExePath + "\\" + "log.txt"))
+            using (var w = File.AppendText(logpath))
             {
+                Console.WriteLine(logMessage);
                 Log(logMessage, w);
             }
         }
-        catch (Exception)
+        catch (Exception )
         {
             // Never used
         }

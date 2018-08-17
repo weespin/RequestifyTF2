@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Threading;
-using CSCore;
-using CSCore.Codecs.AAC;
-using CSCore.Codecs.MP3;
-using CSCore.CoreAudioAPI;
-using CSCore.SoundOut;
-using RequestifyTF2.Audio.Utils;
-using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.API
 {
-    public static class Instance
+    public static class Requestify
     {
-        /// <summary>
-        ///     Stores all Windows audio devices.
-        /// </summary>
+       
         public static bool IsMuted { get; set; }
         private static string _gameDir;
         public static string Admin { get; set; }
@@ -30,13 +17,11 @@ namespace RequestifyTF2.API
             set
             {
                 _gameDir = value;
-                Logger.Write(Logger.Status.Info, Localization.Localization.CORE_PATCHING_AUTOEXEC);
+                Logger.Write(Logger.LogStatus.Info, Localization.Localization.CORE_PATCHING_AUTOEXEC);
                 Patcher.PatchAutoExec();
             }
         }
-
         private static ELanguage _language = ELanguage.EN;
-        //todo: make this garbage shorter
         public static CultureInfo GetCulture => Thread.CurrentThread.CurrentUICulture;
         public static ELanguage Language
         {
@@ -48,13 +33,6 @@ namespace RequestifyTF2.API
                 System.Threading.Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
             }
         }
-
-      
-        /// <summary>
-        ///     Patching autoexec.cfg, setting audio devices
-        /// </summary>
-      
-       
         public enum ELanguage
         {
             BG = 0,

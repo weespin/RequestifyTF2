@@ -64,7 +64,7 @@ namespace OofPlugin
                 {
                     File.WriteAllText("./oof/conf.json", JsonConvert.SerializeObject(new Config()));
                     Logger.Write(
-                        Logger.Status.Info,
+                        Logger.LogStatus.Info,
                         $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
                 }
             }
@@ -73,7 +73,7 @@ namespace OofPlugin
                 Directory.CreateDirectory("./oof/");
                 File.WriteAllText("./oof/conf.json", JsonConvert.SerializeObject(new Config()));
                 Logger.Write(
-                    Logger.Status.Info,
+                    Logger.LogStatus.Info,
                     $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
             }
         }
@@ -82,9 +82,9 @@ namespace OofPlugin
         {
             if (config.Name == string.Empty)
             {
-                if (Instance.Admin != String.Empty)
+                if (Requestify.Admin != String.Empty)
                 {
-                    config.Name = Instance.Admin;
+                    config.Name = Requestify.Admin;
                 }
             }
 
