@@ -10,7 +10,7 @@ namespace RequestifyTF2.API.IgnoreList
         {
             
             var a= _list.Contains(name);
-            Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Contains {name}. Result = {a}");
+            Logger.Nlogger.Debug($"IgnoreList. Contains {name}. Result = {a}");
             return a;
         }
 
@@ -19,12 +19,8 @@ namespace RequestifyTF2.API.IgnoreList
          
             if (!_list.Contains(name))
             {
-                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Adding {name}. Result = true");
+                Logger.Nlogger.Debug($"IgnoreList. Adding {name}.");
                 _list.Add(name); 
-            }
-            else
-            {
-                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Adding {name}. Result = false");
             }
         }
 
@@ -32,14 +28,10 @@ namespace RequestifyTF2.API.IgnoreList
         {
             if (_list.Contains(name))
             {
-                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Removing {name}. Result = true");
+                Logger.Nlogger.Debug($"IgnoreList. Removing {name}.");
                 _list.Remove(name);
             }
-            else
-            {
-                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Removing {name}. Result = false");
-
-            }
+           
         }
 
         public static List<string> GetList => _list;

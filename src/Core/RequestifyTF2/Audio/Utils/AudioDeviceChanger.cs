@@ -35,10 +35,9 @@ namespace RequestifyTF2.Audio.Utils
             var devices = GetBestAudioDevices();
             if (devices == null)
             {
-                Logger.Write(
-                    Logger.LogStatus.Error,
-                    Localization.Localization.CORE_CANNOT_FIND_DEVICES,
-                    ConsoleColor.Red);
+                Logger.Nlogger.Error(
+                    Localization.Localization.CORE_CANNOT_FIND_DEVICES
+                  );
                 return false;
 
             }
@@ -48,18 +47,14 @@ namespace RequestifyTF2.Audio.Utils
             }
             catch (Exception e)
             {
-                Logger.Write(
-                    Logger.LogStatus.Error,
-                    string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, devices[0].FriendlyName,
-                        e));
+                Logger.Nlogger.Error(e,Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, devices[0].FriendlyName
+                        );
             }
             AudioManager.Extra.SoundOut.Device = devices[1];
             AudioManager.BackGround.SoundOut.Device = devices[1];
             AudioManager.ForeGround.SoundOut.Device = devices[1];
-            Logger.Write(
-                Logger.LogStatus.Info,
-                string.Format(Localization.Localization.CORE_USED_DEVICES, devices[1].FriendlyName,
-                    devices[1].FriendlyName));
+            Logger.Nlogger.Info(Localization.Localization.CORE_USED_DEVICES, devices[1].FriendlyName,
+                    devices[1].FriendlyName);
             return true;
         }
 
@@ -110,10 +105,9 @@ namespace RequestifyTF2.Audio.Utils
                     };
                 }
 
-                Logger.Write(
-                    Logger.LogStatus.Error,
-                    Localization.Localization.CORE_CANNOT_FIND_DEVICES,
-                    ConsoleColor.Red);
+              
+                Logger.Nlogger.Error(
+                    Localization.Localization.CORE_CANNOT_FIND_DEVICES);
                 return null;
             }
         }

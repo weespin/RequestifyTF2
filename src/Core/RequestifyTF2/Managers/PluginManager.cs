@@ -49,7 +49,7 @@ namespace RequestifyTF2.Managers
                 }
                 catch (Exception e)
                 {
-                    Logger.Write(Logger.LogStatus.Error,e.ToString());
+                    Logger.Nlogger.Error(e,"Can't resolve Assembly");
                 }
             }
 
@@ -72,8 +72,8 @@ namespace RequestifyTF2.Managers
 
                     if (types.Count == 1)
                     {
-                      
-                       Logger.Write(Logger.LogStatus.Info,string.Format(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location));
+
+                        Logger.Nlogger.Debug(string.Format(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location));
                         Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
                             Status.Enabled));
                         var onload = assembly.GetTypes();
@@ -89,28 +89,28 @@ namespace RequestifyTF2.Managers
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write(Logger.LogStatus.Error, e.ToString());
+                                    Logger.Nlogger.Error(e);
                                 }
 
-                                Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
+                                Logger.Nlogger.Debug(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName);
                             }
                         }
                         Events.PluginLoaded.Invoke(GetPlugin(assembly).plugin);
                     }
                     else if (types.Count > 1)
                     {
-                        Logger.Write(Logger.LogStatus.Error,string.Format(Localization.Localization.CORE_INVALID_PLUGIN_MORE_THAN_ONE_INTERFACE, assembly.GetName().Name));
+                        Logger.Nlogger.Error(Localization.Localization.CORE_INVALID_PLUGIN_MORE_THAN_ONE_INTERFACE, assembly.GetName().Name);
                     }
                     else
 
                     {
-                        Logger.Write(Logger.LogStatus.Error, string.Format(Localization.Localization.CORE_INVALID_PLUGIN + assembly.GetName().Name));
+                        Logger.Nlogger.Error(Localization.Localization.CORE_INVALID_PLUGIN + assembly.GetName().Name);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Write(Logger.LogStatus.Error, string.Format(Localization.Localization.CORE_CANT_LOAD_PLUGIN + library.Name));
-                    Logger.Write(Logger.LogStatus.Info, ex.ToString());
+                    Logger.Nlogger.Error(ex,Localization.Localization.CORE_CANT_LOAD_PLUGIN + library.Name);
+                 
                 }
             }
         }

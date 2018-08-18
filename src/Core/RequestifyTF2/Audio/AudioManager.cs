@@ -44,7 +44,7 @@ namespace RequestifyTF2.Audio
                 }
                 catch (Exception e)
                 {
-                    Logger.Write(Logger.LogStatus.Error,e.ToString());
+                   Logger.Nlogger.Error(e);
                     return false;
                 }
             }

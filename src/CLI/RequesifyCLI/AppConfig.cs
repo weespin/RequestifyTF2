@@ -28,7 +28,7 @@ namespace RequesifyCLI
                        Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "config/config.json",
                         emptyjson);
 
-                    Logger.Write(Logger.LogStatus.Info, "Type dir {directory} to set directory");
+                    Logger.Nlogger.Info("Type dir {directory} to set directory");
                 }
             }
             else
@@ -37,12 +37,12 @@ namespace RequesifyCLI
                 File.WriteAllText(
                     Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "/config/config.json",
                     emptyjson);
-                Logger.Write(Logger.LogStatus.Info, "Type dir {directory} to set directory");
+                Logger.Nlogger.Info("Type dir {directory} to set directory");
             }
 
             if (CurrentConfig.GameDirectory == string.Empty)
             {
-                Logger.Write(Logger.LogStatus.Info, "Type dir {directory} to set directory");
+                Logger.Nlogger.Info("Type dir {directory} to set directory");
             }
 
             Requestify.GameDir = CurrentConfig.GameDirectory;

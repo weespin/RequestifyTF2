@@ -27,7 +27,7 @@ namespace RequestifyTF2.Threads
             thread = new Thread(Play) {IsBackground = true};
             thread.Start();
 
-            Logger.Write(Logger.LogStatus.Info, Localization.Localization.CORE_STARTED_PLAYER_THREAD);
+            Logger.Nlogger.Debug(Localization.Localization.CORE_STARTED_PLAYER_THREAD);
             
         }
 

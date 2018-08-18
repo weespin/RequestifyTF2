@@ -33,14 +33,13 @@ namespace RequestifyTF2GUI
 
         public MainWindow()
         {
-          
+            Logger.Nlogger.Info("RequestifyTF2GUI Started");
             InitializeComponent();
             new Thread(StatsMonitor).Start();
             SettingsTab.instance.GamePath.Text= AppConfig.CurrentConfig.GameDirectory;
             SettingsTab.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
             App.LanguageChanged += LanguageChanged;
             instance = this;
-         
             CultureInfo currLang = App.Language;
 
             //Заполняем меню смены языка:
@@ -396,7 +395,7 @@ namespace RequestifyTF2GUI
             var plugins = PluginManager.GetPlugins();
             if (plugins.Count == 0)
             {
-                Logger.Write(Logger.LogStatus.Error, Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
+                Logger.Nlogger.Error(Application.Current.FindResource("cs_Cant_Find_Plugins").ToString());
             }
         }
         private void Minimize_Click(object sender, RoutedEventArgs e)

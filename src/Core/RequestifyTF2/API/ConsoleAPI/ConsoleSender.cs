@@ -47,7 +47,7 @@ namespace RequestifyTF2.API.ConsoleAPI
                 });
             Thread.Sleep(100);
             File.WriteAllText(Requestify.GameDir + "/cfg/requestify.cfg", string.Empty);
-            Logger.Write(Logger.LogStatus.Debug,$"Sent {text} using ConsoleSender");
+            Logger.Nlogger.Debug($"Sent {text} using ConsoleSender");
         }
 
         [DllImport("user32.dll")]

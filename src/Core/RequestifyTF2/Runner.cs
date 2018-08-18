@@ -11,14 +11,14 @@ namespace RequestifyTF2
         {
             if (Requestify.GameDir == string.Empty)
             {
-                Logger.Write(Logger.LogStatus.Error, Localization.Localization.CORE_SET_DIRECTORY);
+                Logger.Nlogger.Error( Localization.Localization.CORE_SET_DIRECTORY);
 
                 return false;
             }
 
             if (!Directory.Exists(Requestify.GameDir))
             {
-                Logger.Write(Logger.LogStatus.Error, Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Requestify.GameDir);
+                Logger.Nlogger.Error(Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Requestify.GameDir);
 
                 return false; 
             }

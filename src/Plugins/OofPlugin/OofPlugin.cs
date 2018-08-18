@@ -63,18 +63,15 @@ namespace OofPlugin
                 else
                 {
                     File.WriteAllText("./oof/conf.json", JsonConvert.SerializeObject(new Config()));
-                    Logger.Write(
-                        Logger.LogStatus.Info,
-                        $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
+                    Logger.Nlogger.Warn($"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
                 }
             }
             else
             {
                 Directory.CreateDirectory("./oof/");
                 File.WriteAllText("./oof/conf.json", JsonConvert.SerializeObject(new Config()));
-                Logger.Write(
-                    Logger.LogStatus.Info,
-                    $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
+                Logger.Nlogger.Warn(
+                       $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
             }
         }
 

@@ -65,15 +65,15 @@ namespace RequestifyTF2.Commands
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write(Logger.LogStatus.Error, e.ToString());
+                                    Logger.Nlogger.Error(e,"Can't run command?");
                                 }
                             });
-                        Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_EXECUTED_COMMAND, caller.Name, command));
+                        Logger.Nlogger.Info(Localization.Localization.CORE_EXECUTED_COMMAND, caller.Name, command);
                     }
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command));
+                        Logger.Nlogger.Error(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command);
                     }
                 }
                 else
@@ -89,16 +89,15 @@ namespace RequestifyTF2.Commands
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Write(Logger.LogStatus.Error, e.ToString());
+                                    Logger.Nlogger.Error( e,"Can't run command?");
                                 }
                             });
-                        Logger.Write(Logger.LogStatus.Info, string.Format(Localization.Localization.CORE_USER_INVOKED, caller.Name, command));
+                        Logger.Nlogger.Info(Localization.Localization.CORE_USER_INVOKED, caller.Name, command);
                     }
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Write(Logger.LogStatus.Info,
-                            string.Format(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command));
+                        Logger.Nlogger.Info(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command);
                     }
                 }
             }

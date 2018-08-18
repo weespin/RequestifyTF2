@@ -42,7 +42,7 @@ namespace RequestifyTF2.API.Events
 
             private static void OnChat(RequestifyEventArgs.PlayerChatArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked PlayerChat. User: {e.User.Name} Message: {e.Chat}");
+                Logger.Nlogger.Debug($"Invoked PlayerChat. User: {e.User.Name} Message: {e.Chat}");
                 if (OnPlayerChat != null)
                 { OnPlayerChat(e);}
             }
@@ -61,7 +61,7 @@ namespace RequestifyTF2.API.Events
 
             private static void OnConnect(RequestifyEventArgs.PlayerConnectArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked PlayerConnect. User: {e.NickName}");
+                Logger.Nlogger.Debug($"Invoked PlayerConnect. User: {e.NickName}");
                 OnPlayerConnect?.Invoke(e);
             }
         }
@@ -79,7 +79,7 @@ namespace RequestifyTF2.API.Events
 
            private static void OnKill(RequestifyEventArgs.PlayerKillArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked PlayerKill. Killer: {e.Killer} Weapon: {e.Weapon} Killed: {e.Killed} Crit: {e.Crit}");
+                Logger.Nlogger.Debug($"Invoked PlayerKill. Killer: {e.Killer} Weapon: {e.Weapon} Killed: {e.Killed} Crit: {e.Crit}");
                 OnPlayerKill?.Invoke(e);
             }
         }
@@ -95,7 +95,7 @@ namespace RequestifyTF2.API.Events
 
             private static void OnSuicide(RequestifyEventArgs.PlayerSuicideArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked PlayerSuicide. User: {e.NickName}");
+                Logger.Nlogger.Debug($"Invoked PlayerSuicide. User: {e.NickName}");
                 OnPlayerSuicide?.Invoke(e);
             }
         }
@@ -113,7 +113,7 @@ namespace RequestifyTF2.API.Events
 
             private static void OnUndef(RequestifyEventArgs.UndefinedMessageArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked Undefined Message. Message: {e.Message}");
+                Logger.Nlogger.Debug($"Invoked Undefined Message. Message: {e.Message}");
                 OnUndefinedMessage?.Invoke(e);
             }
         }
@@ -131,7 +131,7 @@ namespace RequestifyTF2.API.Events
 
             private static void OnPluginLoad(RequestifyEventArgs.PluginLoadedArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked PluginLoaded. Plugin: {e.Plugin.Name}");
+                Logger.Nlogger.Debug($"Invoked PluginLoaded. Plugin: {e.Plugin.Name}");
                 OnPluginLoaded?.Invoke(e);
             }
         }
@@ -150,7 +150,7 @@ namespace RequestifyTF2.API.Events
 
             private static void OnCommandRegister(RequestifyEventArgs.CommandRegisteredArgs e)
             {
-                Logger.Write(Logger.LogStatus.Debug, $"Invoked CommandRegistered. Command: {e.Command.Name}");
+                Logger.Nlogger.Debug($"Invoked CommandRegistered. Command: {e.Command.Name}");
                 OnCommandRegistered?.Invoke(e);
             }
         }

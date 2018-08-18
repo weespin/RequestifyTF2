@@ -12,8 +12,8 @@ namespace RequestifyTF2.API
         {
             System.Console.SetOut(_writer);
             System.Console.SetError(_writer);
-            Logger.Write(Logger.LogStatus.Info, "=========REQUESTIFYTF2 STARTED========");
-            Logger.Write(Logger.LogStatus.Info, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+              Logger.Nlogger.Debug( "RequestifyTF2 Core started "+ Assembly.GetExecutingAssembly().GetName().Version.ToString());
+         
 
         }
         public static bool Debug { get; set; }
@@ -27,7 +27,7 @@ namespace RequestifyTF2.API
             set
             {
                 _gameDir = value;
-                Logger.Write(Logger.LogStatus.Info, Localization.Localization.CORE_PATCHING_AUTOEXEC);
+              Logger.Nlogger.Debug(Localization.Localization.CORE_PATCHING_AUTOEXEC);
                 Patcher.PatchAutoExec();
             }
         }

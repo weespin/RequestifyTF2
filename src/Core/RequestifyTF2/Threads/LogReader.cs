@@ -93,7 +93,7 @@ namespace RequestifyTF2
         {
             thread = new Thread(Read) {IsBackground = true};
             thread.Start();
-            Logger.Write(Logger.LogStatus.Info, Localization.Localization.CORE_STARTED_LOGREADER_THREAD);
+            Logger.Nlogger.Debug(Localization.Localization.CORE_STARTED_LOGREADER_THREAD);
         }
 
         public static Result TextChecker(string s)
