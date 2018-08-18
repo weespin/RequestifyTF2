@@ -50,7 +50,7 @@ namespace RequestifyTF2.Utils
         {
             if (Requestify.GameDir == string.Empty || !Directory.Exists(Requestify.GameDir))
             {
-                Console.WriteLine(Localization.Localization.CORE_SET_DIRECTORY);
+                Logger.Write(Logger.LogStatus.Info, Localization.Localization.CORE_SET_DIRECTORY);
                 return;
             }
             var cfgpath = Requestify.GameDir + "/cfg/autoexec.cfg";

@@ -8,14 +8,23 @@ namespace RequestifyTF2.API.IgnoreList
         public static bool Reversed { get; set; }
         public static bool Contains(string name)
         {
-            return _list.Contains(name);
+            
+            var a= _list.Contains(name);
+            Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Contains {name}. Result = {a}");
+            return a;
         }
 
         public static void Add(string name)
         {
+         
             if (!_list.Contains(name))
             {
-                _list.Add(name);
+                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Adding {name}. Result = true");
+                _list.Add(name); 
+            }
+            else
+            {
+                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Adding {name}. Result = false");
             }
         }
 
@@ -23,7 +32,13 @@ namespace RequestifyTF2.API.IgnoreList
         {
             if (_list.Contains(name))
             {
+                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Removing {name}. Result = true");
                 _list.Remove(name);
+            }
+            else
+            {
+                Logger.Write(Logger.LogStatus.Debug, $"IgnoreList. Removing {name}. Result = false");
+
             }
         }
 

@@ -7,7 +7,8 @@ public static class Logger
     public enum LogStatus
     {
         Error,
-        Info
+        Info,
+        Debug
     }
 
     private static string logpath => AppDomain.CurrentDomain.BaseDirectory + "\\" + "log.txt";
@@ -24,6 +25,7 @@ public static class Logger
 
     public static void Write(LogStatus status, string text, ConsoleColor color = ConsoleColor.White)
     {
+        if (status == LogStatus.Debug && !Requestify.Debug) return;
         Console.ForegroundColor = color;
         LogWrite("[" + status + "][" + DateTime.Now + "] " + text);
         Console.ForegroundColor = ConsoleColor.White;
@@ -31,11 +33,13 @@ public static class Logger
 
     public static void Write(LogStatus status, string text)
     {
+        if (status == LogStatus.Debug && !Requestify.Debug) return;
         LogWrite("[" + status + "][" + DateTime.Now + "] " + text);
     }
 
     public static void Write(string text)
     {
+
         LogWrite("[" + DateTime.Now + "] " + text);
     }
 

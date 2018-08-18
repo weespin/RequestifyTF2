@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Reflection;
 using System.Threading;
 using RequestifyTF2.Utils;
 
@@ -6,7 +7,16 @@ namespace RequestifyTF2.API
 {
     public static class Requestify
     {
-       
+        public static RequestifyConsoleHook _writer = new RequestifyConsoleHook();
+        static Requestify()
+        {
+            System.Console.SetOut(_writer);
+            System.Console.SetError(_writer);
+            Logger.Write(Logger.LogStatus.Info, "=========REQUESTIFYTF2 STARTED========");
+            Logger.Write(Logger.LogStatus.Info, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
+        }
+        public static bool Debug { get; set; }
         public static bool IsMuted { get; set; }
         private static string _gameDir;
         public static string Admin { get; set; }
@@ -30,7 +40,7 @@ namespace RequestifyTF2.API
             set
             {
                 _language = value;
-                System.Threading.Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
+                Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
             }
         }
         public enum ELanguage

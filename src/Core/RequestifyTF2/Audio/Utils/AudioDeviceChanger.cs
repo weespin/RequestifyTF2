@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CSCore.CoreAudioAPI;
 
@@ -30,6 +31,7 @@ namespace RequestifyTF2.Audio.Utils
         // 0 <- Input; 1 <- Output
         public static bool AutoSetDevice()
         {
+
             var devices = GetBestAudioDevices();
             if (devices == null)
             {
@@ -51,8 +53,7 @@ namespace RequestifyTF2.Audio.Utils
                     string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, devices[0].FriendlyName,
                         e));
             }
-
-             AudioManager.Extra.SoundOut.Device = devices[1];
+            AudioManager.Extra.SoundOut.Device = devices[1];
             AudioManager.BackGround.SoundOut.Device = devices[1];
             AudioManager.ForeGround.SoundOut.Device = devices[1];
             Logger.Write(

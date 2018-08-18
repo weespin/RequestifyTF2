@@ -391,8 +391,8 @@ namespace RequestifyTF2GUI
         }
         private void FrameworkElement_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _writer = new TextBoxStreamWriter(ConsoleTab.instance.Console);
-            System.Console.SetOut(_writer);
+            
+
             var plugins = PluginManager.GetPlugins();
             if (plugins.Count == 0)
             {

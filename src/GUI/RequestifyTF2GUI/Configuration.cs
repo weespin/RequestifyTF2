@@ -44,6 +44,9 @@ namespace RequestifyTF2GUI
                 MessageBox.Show("Please set the game directory", "Error");
             }
 
+            CurrentConfig.Debug = Requestify.Debug;
+            ConsoleTab.instance.debugchk.IsChecked = CurrentConfig.Debug;
+            
             if (CurrentConfig.Buttons == null)
             {
                 CurrentConfig.Buttons = new Buttons();
@@ -79,7 +82,7 @@ namespace RequestifyTF2GUI
             [JsonProperty("Admin")] public string Admin { get; set; }
             [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
             [JsonProperty("CoreLang")] public string CoreLang { get; set; }
-
+            [JsonProperty("DebugMode")] public bool Debug { get; set; }
             [JsonProperty("ButtonBinds")]
             public Buttons Buttons { get; set; }
 
