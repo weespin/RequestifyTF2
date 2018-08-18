@@ -79,8 +79,25 @@ namespace RequestifyTF2.Audio.Utils
                     }
                 }
 
-                if (goodOutputDevices.Count == 0 || goodInputDevices.Count == 0) return null;
+                if (goodOutputDevices.Count == 0 || goodInputDevices.Count == 0)
+                {
+                    Logger.Nlogger.Error(
+                        Localization.Localization.CORE_CANNOT_FIND_DEVICES,
+                        ConsoleColor.Red);
+                    return null;
 
+                }
+
+                foreach (var a in goodInputDevices)
+                {
+                    Logger.Nlogger.Debug("GoodInputDev " +a.FriendlyName
+                      );
+                }
+                foreach (var a in goodOutputDevices)
+                {
+                    Logger.Nlogger.Debug("GoodOutputDev " + a.FriendlyName
+                    );
+                }
                 if (goodOutputDevices.Count(n => n.FriendlyName.Contains("VB-Audio")) != 0 &&
                     goodInputDevices.Count(n => n.FriendlyName.Contains("VB-Audio")) != 0)
                 {
@@ -107,7 +124,8 @@ namespace RequestifyTF2.Audio.Utils
 
               
                 Logger.Nlogger.Error(
-                    Localization.Localization.CORE_CANNOT_FIND_DEVICES);
+                    Localization.Localization.CORE_CANNOT_FIND_DEVICES,
+                    ConsoleColor.Red);
                 return null;
             }
         }
