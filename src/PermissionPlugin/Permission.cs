@@ -19,7 +19,7 @@ namespace PermissionPlugin
         {
             public string Help => "Command to get permission level from group";
             public string Name => "permission";
-            public bool OnlyAdmin => true;
+            public Rules Permission => Rules.Assign;
             public List<string> Alias => new List<string>(){"per"};
             public void Execute(User executor, List<string> arguments)
             {
@@ -44,7 +44,7 @@ namespace PermissionPlugin
         {
             public string Help => "Managing users";
             public string Name => "group";
-            public bool OnlyAdmin => true;
+            public Rules Permission => Rules.Assign;
             public List<string> Alias => new List<string>() { "per" };
             public void Execute(User executor, List<string> arguments)
             {

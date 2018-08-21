@@ -11,8 +11,8 @@ namespace RequestifyTF2.API
         Team = 1 << 1,
         Dead = 1 << 2
     }
- 
 
+   
 
     public class User
     {

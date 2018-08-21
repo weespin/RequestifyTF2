@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CSCore.Codecs.MP3;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Permission;
 using RequestifyTF2.Audio;
 
 namespace TTSPlugin
@@ -23,12 +24,9 @@ namespace TTSPlugin
     public class MttsPlugin : IRequestifyCommand
     {
         public string Help => "Playing a David UK (MLG) voice";
-
+        public Rules Permission => Rules.Execute;
         public string Name => "mtts";
-
-        public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
-
         public void Execute(User executor, List<string> arguments)
         {
             if (arguments.Count > 0)
@@ -46,11 +44,9 @@ namespace TTSPlugin
 
     public class GTTSCommand : IRequestifyCommand
     {
+        public Rules Permission => Rules.Execute;
         public string Help => "Playing a WillFromAfar (purple sheep) voice";
-
-
         public string Name => "gtts";
-        public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
         public void Execute(User executor, List<string> arguments)
@@ -132,7 +128,7 @@ namespace TTSPlugin
         public string Help => "Playing a Google voice";
 
         public string Name => "tts";
-        public bool OnlyAdmin => false;
+        public Rules Permission => Rules.Execute;
         public List<string> Alias => new List<string>();
 
         public void Execute(User executor, List<string> arguments)

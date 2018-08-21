@@ -18,7 +18,7 @@ namespace RequestifyTF2.Utils
         public override void WriteLine(string value)
         {
             if (WriteEvent == null) return;
-            WriteLineEvent(this, new RequestifyConsoleHookArgs(value));
+            WriteLineEvent?.Invoke(this, new RequestifyConsoleHookArgs(value));
             base.WriteLine(value);
         }
 

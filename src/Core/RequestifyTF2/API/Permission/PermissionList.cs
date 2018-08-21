@@ -14,15 +14,16 @@ namespace RequestifyTF2.API.Permission
         Equeue = 1<<1,
         Skip = 1<<2,
         Assign = 1 <<3
+        ,All = 1<<4 
     }
 
     public enum Group
     {
         None,
-        User,
-        DJ,
-        Moderator,
-        Admin
+        User = Rules.Execute | Rules.Equeue,
+        DJ = User | Rules.Skip,
+        Moderator = DJ | Rules.Assign,
+        Admin = Moderator | Rules.All
     }
 
     public static class Permissions

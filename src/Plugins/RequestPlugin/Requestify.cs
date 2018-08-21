@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.API.ConsoleAPI;
 using RequestifyTF2.API.Events;
+using RequestifyTF2.API.Permission;
 using RequestifyTF2.Audio;
 using RequestifyTF2.DependencyLoader;
 using YoutubeExplode;
@@ -33,13 +34,14 @@ namespace RequestPlugin
         private readonly List<string> VoteUsers = new List<string>();
         private long MusicId;
         private int PlayersCount;
+        public Rules Permission => Rules.Execute;
         public string Help => "Vote for skip!";
         public string Name => "voteskip";
-        public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
         public void Execute(User executor, List<string> arguments)
         {
+         
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
             Thread.Sleep(2000);
             if (AudioManager.BackGround.SoundOut.PlaybackState == PlaybackState.Playing)
@@ -159,8 +161,7 @@ namespace RequestPlugin
 
             public List<string> Alias => new List<string>();
 
-
-            public bool OnlyAdmin => true;
+            public Rules Permission => Rules.Execute;
 
             public void Execute(User executor, List<string> arguments)
             {
@@ -188,20 +189,22 @@ namespace RequestPlugin
 
         public class RequestCommand : IRequestifyCommand
         {
+             
+
             private static readonly int AppID = 1505226596;
 
             private static readonly string clientID = "WKcQQdEZw7Oi01KqtHWxeVSxNyRzgT8M";
-
 
             public string Help => "Play music. Supports soundcloud and youtube!";
 
             public string Name => "request";
             public List<string> Alias => new List<string>();
 
-            public bool OnlyAdmin => false;
+            public Rules Permission => Rules.Execute;
 
             public void Execute(User executor, List<string> arguments)
             {
+               
                 if (arguments.Count <= 0)
                 {
                     return;

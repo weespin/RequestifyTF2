@@ -5,6 +5,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.API.Events;
+using RequestifyTF2.API.Permission;
 
 namespace RequestifyTF2.Managers
 {
@@ -132,12 +133,12 @@ namespace RequestifyTF2.Managers
                 ICommand.Execute(executor, arguments);
             }
 
+            public Rules Permission => ICommand.Permission;
             public string Help => ICommand.Help;
 
             public string Name => ICommand.Name;
 
-            public bool OnlyAdmin => ICommand.OnlyAdmin;
-
+          
             public List<string> Alias => ICommand.Alias;
         }
     }
