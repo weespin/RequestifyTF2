@@ -110,7 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Events\Events.cs" />
-    <Compile Include="API\IgnoreList\IgnoreList.cs" />
+    <Compile Include="API\Permission\IgnoreList.cs" />
+    <Compile Include="API\Permission\PermissionList.cs" />
     <Compile Include="API\User.cs" />
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Localization\Localization.uk.Designer.cs">
