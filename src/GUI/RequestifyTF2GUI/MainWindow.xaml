@@ -76,6 +76,9 @@
                     <TabItem Header="{DynamicResource s_Statistics}" BorderBrush="{x:Null}" Foreground="Black" Background="White" Margin="0,-13,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="69" MinWidth="12" VerticalAlignment="Bottom">
                         <controls:StatisticsTab Margin="16" />
                     </TabItem>
+                    <TabItem Header="Permissions" BorderBrush="{x:Null}" Foreground="Black" Background="White" Margin="0,-13,-1,13" FontFamily="Segoe UI Light" FontSize="16" Height="69" MinWidth="12" VerticalAlignment="Bottom">
+                        <controls:PermissionList Margin="16" />
+                    </TabItem>
                 </dragablz:TabablzControl>
                 </dockablz:Layout>
         </Grid>

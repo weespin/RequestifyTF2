@@ -136,6 +136,9 @@
     <Compile Include="Controls\MainTab.xaml.cs">
       <DependentUpon>MainTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PermissionList.xaml.cs">
+      <DependentUpon>PermissionList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PluginsTab.xaml.cs">
       <DependentUpon>PluginsTab.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MainTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PermissionList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
