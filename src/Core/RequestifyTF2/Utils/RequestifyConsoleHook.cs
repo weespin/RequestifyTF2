@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using System.Text;
@@ -22,11 +23,11 @@ namespace RequestifyTF2.Utils
     public class RequestifyConsoleHook : TextWriter
     {
         public override Encoding Encoding => Encoding.UTF8;
-        
+
         public override void Write(string value)
         {
             if (WriteEvent == null) return;
-            WriteEvent(this,new RequestifyConsoleHookArgs(value));
+            WriteEvent(this, new RequestifyConsoleHookArgs(value));
             base.Write(value);
         }
 
@@ -50,6 +51,4 @@ namespace RequestifyTF2.Utils
             Value = value;
         }
     }
-        
-    
 }

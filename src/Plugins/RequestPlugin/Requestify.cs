@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using CSCore;
 using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
@@ -44,6 +44,7 @@ namespace RequestPlugin
         public string Name => "Requestify";
         public string Desc => "!request \"link\"";
     }
+
     public class VoteCommand : IRequestifyCommand
     {
         private readonly List<string> VoteUsers = new List<string>();
@@ -56,7 +57,6 @@ namespace RequestPlugin
 
         public void Execute(User executor, List<string> arguments)
         {
-         
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
             Thread.Sleep(2000);
             if (AudioManager.BackGround.SoundOut.PlaybackState == PlaybackState.Playing)
@@ -134,7 +134,7 @@ namespace RequestPlugin
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
                                                        SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
-              
+
                 if (!File.Exists("./lib/YoutubeExplode.dll"))
                 {
                     web.DownloadFile(
@@ -204,8 +204,6 @@ namespace RequestPlugin
 
         public class RequestCommand : IRequestifyCommand
         {
-             
-
             private static readonly int AppID = 1505226596;
 
             private static readonly string clientID = "WKcQQdEZw7Oi01KqtHWxeVSxNyRzgT8M";
@@ -219,7 +217,6 @@ namespace RequestPlugin
 
             public void Execute(User executor, List<string> arguments)
             {
-               
                 if (arguments.Count <= 0)
                 {
                     return;
@@ -291,7 +288,8 @@ namespace RequestPlugin
                         ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     }
 
-              AudioManager.BackGround.PlayList.Enqueue(new AudioManager.Song(title, new AacDecoder(ext), executor));
+                    AudioManager.BackGround.PlayList.Enqueue(
+                        new AudioManager.Song(title, new AacDecoder(ext), executor));
                 }
                 else
                 {
@@ -299,7 +297,7 @@ namespace RequestPlugin
                     {
                         var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                         var client = new YoutubeClient();
-                        var vids = client.SearchVideosAsync(text,1).Result;
+                        var vids = client.SearchVideosAsync(text, 1).Result;
                         if (vids.Count > 0)
                         {
                             var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);
@@ -316,10 +314,10 @@ namespace RequestPlugin
                             {
                                 ConsoleSender.SendCommand($"{title} was added to the queue",
                                     ConsoleSender.Command.Chat);
-
                             }
 
-                            AudioManager.BackGround.PlayList.Enqueue(new AudioManager.Song(title, new AacDecoder(ext).ToMono(),
+                            AudioManager.BackGround.PlayList.Enqueue(new AudioManager.Song(title,
+                                new AacDecoder(ext).ToMono(),
                                 executor));
                         }
                     }

@@ -13,15 +13,17 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System.Linq;
+
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using Ookii.Dialogs;
-using RequestifyTF2.API;
 using RequestifyTF2.Utils;
-using RequestifyTF2.API.IgnoreList;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
+
 namespace RequestifyTF2GUI.Controls
 {
     /// <summary>
@@ -30,16 +32,19 @@ namespace RequestifyTF2GUI.Controls
     public partial class SettingsTab : UserControl
     {
         public static SettingsTab instance;
+
         public SettingsTab()
         {
             InitializeComponent();
             instance = this;
         }
+
         private void GameBrowser_click(object sender, RoutedEventArgs e)
         {
-            var a = new Games { DataContext = this };
+            var a = new Games {DataContext = this};
             a.Show();
         }
+
         private void Sample1_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
         {
             if (!Equals(eventArgs.Parameter, true)) return;
@@ -52,7 +57,6 @@ namespace RequestifyTF2GUI.Controls
                         RequestifyTF2.API.IgnoreList.IgnoreList.Add(FruitTextBox.Text);
                     }
                 }
-
         }
 
 
@@ -78,10 +82,10 @@ namespace RequestifyTF2GUI.Controls
                     }
 
                     IgnoreList.Items.Remove(IgnoreList.SelectedItem);
-                    return;
                 }
             }
         }
+
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             using (var s = new VistaFolderBrowserDialog())
@@ -89,7 +93,7 @@ namespace RequestifyTF2GUI.Controls
                 s.UseDescriptionForTitle = true;
                 s.Description = Application.Current.FindResource("cs_Select_Game_Path").ToString();
 
-                if (s.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (s.ShowDialog() == DialogResult.OK)
                 {
                     if (s.SelectedPath == string.Empty)
                     {
@@ -99,15 +103,14 @@ namespace RequestifyTF2GUI.Controls
                     var path = Patcher.ResolveFolder(s.SelectedPath);
                     if (path != "")
                     {
-                        GamePath.Text = Application.Current.FindResource("cs_Current_Game_Path").ToString() + path;
+                        GamePath.Text = Application.Current.FindResource("cs_Current_Game_Path") + path;
                         AppConfig.CurrentConfig.GameDirectory = path;
                         AppConfig.Save();
-                       
-                       
                     }
                     else
                     {
-                        MessageBox.Show(Application.Current.FindResource("cs_Not_Source_Engine_Game").ToString(), Application.Current.FindResource("cs_Error").ToString(),
+                        MessageBox.Show(Application.Current.FindResource("cs_Not_Source_Engine_Game").ToString(),
+                            Application.Current.FindResource("cs_Error").ToString(),
                             MessageBoxButton.OK);
                     }
                 }

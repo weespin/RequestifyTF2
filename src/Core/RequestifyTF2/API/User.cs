@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using RequestifyTF2.API.Permission;
 
@@ -27,7 +28,6 @@ namespace RequestifyTF2.API
         Dead = 1 << 2
     }
 
-   
 
     public class User
     {

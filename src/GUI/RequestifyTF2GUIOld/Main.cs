@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -69,12 +70,13 @@ namespace RequestifyTF2Forms
 
             MaximizeBox = false;
             field_ignored.Enter += lbx_IgnoreList_Enter;
-         
+
             var plugins = PluginManager.GetPlugins();
             foreach (var item in plugins)
             {
                 _plugins.Add(item.plugin.Name, item);
-            } 
+            }
+
             seedListView(plugins);
             AppConfig.Load();
             materialSingleLineTextField1.Text = Requestify.Admin;
@@ -84,7 +86,7 @@ namespace RequestifyTF2Forms
         {
             var toignorenick = field_ignored.Text;
 
-            if (toignorenick == string.Empty ||  IgnoreList.Contains(toignorenick))
+            if (toignorenick == string.Empty || IgnoreList.Contains(toignorenick))
             {
                 return;
             }
@@ -92,7 +94,7 @@ namespace RequestifyTF2Forms
             var namencommand = new[] {toignorenick};
             var items = new ListViewItem(namencommand);
             list_ignored.Items.Add(items);
-             IgnoreList.Add(toignorenick);
+            IgnoreList.Add(toignorenick);
         }
 
         private void btn_consoleshow_Click_1(object sender, EventArgs e)
@@ -120,7 +122,7 @@ namespace RequestifyTF2Forms
 
             if (selected != null)
             {
-                 IgnoreList.Remove(selected.ToString());
+                IgnoreList.Remove(selected.ToString());
                 list_ignored.Items.Remove(selected);
             }
         }
@@ -239,9 +241,9 @@ namespace RequestifyTF2Forms
                     msgbox.Text = list_plugins.SelectedItems[0].SubItems[0].Text;
                     msgbox.Show();
                 }
-
             }
         }
+
         private void Main_Load(object sender, EventArgs e)
         {
             txtbx_GamePath.Text = "Current game path: " + AppConfig.CurrentConfig.GameDirectory;
@@ -255,7 +257,7 @@ namespace RequestifyTF2Forms
 
         private void materialCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-             IgnoreList.Reversed = chkbox_reverse.Checked;
+            IgnoreList.Reversed = chkbox_reverse.Checked;
         }
 
         private void materialLabel1_Click(object sender, EventArgs e)
@@ -265,11 +267,10 @@ namespace RequestifyTF2Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            Requestify.Admin=materialSingleLineTextField1.Text;
+            Requestify.Admin = materialSingleLineTextField1.Text;
             AppConfig.CurrentConfig.Admin = materialSingleLineTextField1.Text;
             AppConfig.Save();
         }
-
 
 
         private void seedListView(ICollection<PluginManager.Plugin> plugins)

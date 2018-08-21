@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,8 +27,6 @@ namespace RequesifyCLI
 {
     internal class Program
     {
-    
-
         public static List<PluginManager.Plugin> GetAllPlugins()
         {
             var Plugins = new List<PluginManager.Plugin>();
@@ -35,6 +34,7 @@ namespace RequesifyCLI
             {
                 Plugins.Add(pl);
             }
+
             Plugins.Sort((a, b) => string.Compare(a.plugin.Name, b.plugin.Name, StringComparison.Ordinal));
             return Plugins;
         }
@@ -66,7 +66,7 @@ namespace RequesifyCLI
 
                 if (key.StartsWith("reverse"))
                 {
-                    if (! IgnoreList.Reversed)
+                    if (!IgnoreList.Reversed)
                     {
                         Logger.Nlogger.Info("WhiteList activated");
                     }
@@ -75,7 +75,7 @@ namespace RequesifyCLI
                         Logger.Nlogger.Info("BlackList activated");
                     }
 
-                     IgnoreList.Reversed = ! IgnoreList.Reversed;
+                    IgnoreList.Reversed = !IgnoreList.Reversed;
                 }
 
                 if (key.StartsWith("help"))
@@ -108,7 +108,7 @@ namespace RequesifyCLI
                         var i = 0;
                         if (int.TryParse(key.Split()[1], out i))
                         {
-                            var allplg =  IgnoreList.GetList;
+                            var allplg = IgnoreList.GetList;
                             if (i >= 0 && i < allplg.Count)
                             {
                                 var plz = allplg[i];
@@ -137,11 +137,11 @@ namespace RequesifyCLI
                     var temp = key.Split(null).ToList();
                     temp.RemoveAt(0);
                     var res = string.Join<string>(string.Empty, temp);
-                     IgnoreList.Add(res);
+                    IgnoreList.Add(res);
                     PrintBlackList();
                 }
 
-             if (key.StartsWith("list"))
+                if (key.StartsWith("list"))
                 {
                     PrintPlugins();
                 }
@@ -181,18 +181,18 @@ namespace RequesifyCLI
                                 {
                                     if (pl.Status == PluginManager.Status.Enabled)
                                     {
-                                       pl.Disable();
+                                        pl.Disable();
                                     }
                                     else
                                     {
-                                       pl.Enable();
+                                        pl.Enable();
                                     }
                                 }
                             }
                             else
                             {
                                 Logger.Nlogger.Error(
-                                     $"Error. You have only {GetAllPlugins().Count} plugins. Not {i}");
+                                    $"Error. You have only {GetAllPlugins().Count} plugins. Not {i}");
                             }
                         }
                         else
@@ -209,10 +209,8 @@ namespace RequesifyCLI
                         Logger.Nlogger.Info("Please set the game directory");
                         return;
                     }
-                    Runner.Start();
-                 
 
-                  
+                    Runner.Start();
                 }
             }
         }
@@ -220,7 +218,7 @@ namespace RequesifyCLI
         private static void PrintBlackList()
         {
             var i = 0;
-            var blacklisted =  IgnoreList.GetList.OrderBy(n => n).ToList();
+            var blacklisted = IgnoreList.GetList.OrderBy(n => n).ToList();
             Logger.Nlogger.Info("===================BLACKLIST===================");
             foreach (var blocked in blacklisted)
             {
@@ -263,6 +261,7 @@ namespace RequesifyCLI
                 Logger.Nlogger.Error("This is not a directory");
                 return;
             }
+
             var dirs = Directory.GetDirectories(v);
 
             if (dirs.Any(n => n.Contains("cfg")))
@@ -297,7 +296,7 @@ namespace RequesifyCLI
                         {
                             AppConfig.CurrentConfig.GameDirectory = dir;
                             Logger.Nlogger.Info(
-                                  $"Game path was automatically corrected from \n{v}\nto\n{dir}");
+                                $"Game path was automatically corrected from \n{v}\nto\n{dir}");
                             Logger.Nlogger.Info("Current game path: " + dir);
                             AppConfig.Save();
                             return;
@@ -305,10 +304,10 @@ namespace RequesifyCLI
                     }
                 }
 
-          
+
                 Logger.Nlogger.Error(
                     "Cant find cfg folder.. \nMaybe its not a game folder? \nIf its CSGO pick 'csgo' folder, if TF2 pick 'tf2' folder, ect."
-                    );
+                );
             }
         }
     }

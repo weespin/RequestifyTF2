@@ -13,32 +13,30 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.IO;
-using System.Linq;
+
 using NLog;
-using RequestifyTF2.API;
+using NLog.Config;
+using NLog.Targets;
 
 public static class Logger
 {
     static Logger()
     {
+        var config = new LoggingConfiguration();
 
-        var config = new NLog.Config.LoggingConfiguration();
+        var logfile = new FileTarget("logfile")
+        {
+            FileName = "log.txt",
 
-        var logfile = new NLog.Targets.FileTarget("logfile") { FileName = "log.txt",
-            
-            Layout = @"[${date:format=yyyy-MM-dd HH\:mm\:ss.fff}] | ${callsite:className=true:includeSourcePath=false:methodName=true} | ${level:uppercase=true} | ${message} | ${exception}"
+            Layout =
+                @"[${date:format=yyyy-MM-dd HH\:mm\:ss.fff}] | ${callsite:className=true:includeSourcePath=false:methodName=true} | ${level:uppercase=true} | ${message} | ${exception}"
         };
-        var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
-        config.AddRule(LogLevel.Info, LogLevel.Fatal,logconsole);
+        var logconsole = new ConsoleTarget("logconsole");
+        config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
         config.AddRuleForAllLevels(logfile);
         LogManager.Configuration = config;
-
     }
 
-  
-    public static NLog.Logger Nlogger = LogManager.GetCurrentClassLogger();
-   
-}
 
+    public static NLog.Logger Nlogger = LogManager.GetCurrentClassLogger();
+}

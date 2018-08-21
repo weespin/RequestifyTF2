@@ -13,7 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using System.IO;
 using RequestifyTF2.API;
 using RequestifyTF2.Threads;
@@ -26,7 +26,7 @@ namespace RequestifyTF2
         {
             if (Requestify.GameDir == string.Empty)
             {
-                Logger.Nlogger.Error( Localization.Localization.CORE_SET_DIRECTORY);
+                Logger.Nlogger.Error(Localization.Localization.CORE_SET_DIRECTORY);
 
                 return false;
             }
@@ -35,7 +35,7 @@ namespace RequestifyTF2
             {
                 Logger.Nlogger.Error(Localization.Localization.CORE_ERROR_CANT_FIND_DIR + Requestify.GameDir);
 
-                return false; 
+                return false;
             }
 
             //if (!Instance.Load())
@@ -62,7 +62,7 @@ namespace RequestifyTF2
             //    //    return false;
             //    //}
             //}
-            
+
 
             PlayerThread.StartThread();
             ReaderThread.StartThread();

@@ -13,11 +13,10 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RequestifyTF2.API.Permission
 {
@@ -25,11 +24,11 @@ namespace RequestifyTF2.API.Permission
     public enum Rules
     {
         None = 0,
-        Execute = 1<<0,
-        Equeue = 1<<1,
-        Skip = 1<<2,
-        Assign = 1 <<3
-        ,All = 1<<4 
+        Execute = 1 << 0,
+        Equeue = 1 << 1,
+        Skip = 1 << 2,
+        Assign = 1 << 3,
+        All = 1 << 4
     }
 
     public enum Group
@@ -43,12 +42,13 @@ namespace RequestifyTF2.API.Permission
 
     public static class Permissions
     {
-        private static Dictionary<string,Group> _users = new Dictionary<string, Group>();
+        private static Dictionary<string, Group> _users = new Dictionary<string, Group>();
 
         public static bool Exists(string name)
         {
             return _users.ContainsKey(name);
         }
+
         public static bool Add(string str, Group gr)
         {
             if (!_users.ContainsKey(str))
@@ -62,12 +62,9 @@ namespace RequestifyTF2.API.Permission
 
         public static Group GetGroup(string name)
         {
-
             return _users[name];
-
-
-
         }
+
         public static bool Modify(string name, Group gr)
         {
             if (_users.ContainsKey(name))
@@ -94,9 +91,10 @@ namespace RequestifyTF2.API.Permission
                 _users.Add(name, Group.DJ);
                 return true;
             }
-          
+
             return false;
         }
+
         public static bool RnkDn(string name)
         {
             if (_users.ContainsKey(name))
@@ -106,15 +104,16 @@ namespace RequestifyTF2.API.Permission
                     _users[name]--;
                     return true;
                 }
-
             }
             else
             {
-                _users.Add(name,Group.None);
+                _users.Add(name, Group.None);
                 return true;
             }
+
             return false;
         }
+
         public static bool Remove(string name)
         {
             if (_users.ContainsKey(name))
@@ -132,6 +131,5 @@ namespace RequestifyTF2.API.Permission
                 .Select(kv => Tuple.Create(kv.Key, kv.Value))
                 .ToList();
         }
-
     }
 }

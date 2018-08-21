@@ -13,16 +13,15 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using RequestifyTF2.API;
 using RequestifyTF2.API.Events;
-using RequestifyTF2.DependencyLoader;
 
 namespace RequestifyTF2.Managers
 {
@@ -36,6 +35,7 @@ namespace RequestifyTF2.Managers
 
 
         public static readonly List<Plugin> Plugins = new List<Plugin>();
+
         static PluginManager()
         {
             CommandManager.Init();
@@ -43,10 +43,12 @@ namespace RequestifyTF2.Managers
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
             }
+
             if (!Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/"))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
             }
+
             LoadLibs(Path.GetDirectoryName(Application.ExecutablePath) + "/lib/");
             LoadPluginsFromDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/plugins/");
         }
@@ -64,7 +66,7 @@ namespace RequestifyTF2.Managers
                 }
                 catch (Exception e)
                 {
-                    Logger.Nlogger.Error(e,"Can't resolve Assembly");
+                    Logger.Nlogger.Error(e, "Can't resolve Assembly");
                 }
             }
 
@@ -73,7 +75,6 @@ namespace RequestifyTF2.Managers
 
         public static void LoadPluginsFromDirectory(string directory, string extension = "*.dll")
         {
-         
             IEnumerable<FileInfo> pluginsLibraries =
                 new DirectoryInfo(directory).GetFiles(extension, SearchOption.AllDirectories);
 
@@ -87,8 +88,8 @@ namespace RequestifyTF2.Managers
 
                     if (types.Count == 1)
                     {
-
-                        Logger.Nlogger.Debug(string.Format(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location));
+                        Logger.Nlogger.Debug(string.Format(Localization.Localization.CORE_PLUGIN_LOADING_FROM,
+                            assembly.GetName().Name, assembly.Location));
                         Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
                             Status.Enabled));
                         var onload = assembly.GetTypes();
@@ -107,14 +108,17 @@ namespace RequestifyTF2.Managers
                                     Logger.Nlogger.Error(e);
                                 }
 
-                                Logger.Nlogger.Debug(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName);
+                                Logger.Nlogger.Debug(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD,
+                                    type.Assembly.FullName);
                             }
                         }
+
                         Events.PluginLoaded.Invoke(GetPlugin(assembly).plugin);
                     }
                     else if (types.Count > 1)
                     {
-                        Logger.Nlogger.Error(Localization.Localization.CORE_INVALID_PLUGIN_MORE_THAN_ONE_INTERFACE, assembly.GetName().Name);
+                        Logger.Nlogger.Error(Localization.Localization.CORE_INVALID_PLUGIN_MORE_THAN_ONE_INTERFACE,
+                            assembly.GetName().Name);
                     }
                     else
 
@@ -124,8 +128,7 @@ namespace RequestifyTF2.Managers
                 }
                 catch (Exception ex)
                 {
-                    Logger.Nlogger.Error(ex,Localization.Localization.CORE_CANT_LOAD_PLUGIN + library.Name);
-                 
+                    Logger.Nlogger.Error(ex, Localization.Localization.CORE_CANT_LOAD_PLUGIN + library.Name);
                 }
             }
         }
@@ -165,7 +168,7 @@ namespace RequestifyTF2.Managers
             return allTypes;
         }
 
-       
+
         public static void LoadLibs(string path)
         {
             DependencyLoader.DependencyLoader.Load(path);
@@ -177,17 +180,18 @@ namespace RequestifyTF2.Managers
                     libraries.Add(pair.Key, pair.Value);
                 }
             }
-
         }
-   
+
         public static Assembly GetAssembly(this IRequestifyPlugin plugin)
         {
             return plugin.GetType().Assembly;
         }
+
         public static List<Plugin> GetPlugins()
         {
             return Plugins;
         }
+
         public static Plugin GetPlugin(Assembly assembly)
         {
             foreach (var p in Plugins)
@@ -197,8 +201,10 @@ namespace RequestifyTF2.Managers
                     return p;
                 }
             }
+
             return null;
         }
+
         public static void Disable(this Plugin plg)
         {
             plg.Status = Status.Disabled;

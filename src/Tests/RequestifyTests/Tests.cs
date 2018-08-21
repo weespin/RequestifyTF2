@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using NUnit.Framework;
 
 namespace RequestifyTF2.Tests
@@ -38,6 +39,7 @@ namespace RequestifyTF2.Tests
                 "nickname test lyl:) : !request https://www.youtube.com/watch?v=DZV3Xtp-BK0");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.CommandExecute));
         }
+
         [Test]
         public static void TestChat()
         {

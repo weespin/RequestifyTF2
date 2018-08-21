@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -61,14 +62,14 @@ namespace RequestifyTF2GUI
 
             CurrentConfig.Debug = Requestify.Debug;
             ConsoleTab.instance.debugchk.IsChecked = CurrentConfig.Debug;
-            
+
             if (CurrentConfig.Buttons == null)
             {
                 CurrentConfig.Buttons = new Buttons();
                 CurrentConfig.Buttons.buttons = new List<BindsViewModel>(10);
-                for (int i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
-                    CurrentConfig.Buttons.buttons.Add(new BindsViewModel()
+                    CurrentConfig.Buttons.buttons.Add(new BindsViewModel
                     {
                         Id = i,
                         BindType = "LocalMusic",
@@ -80,7 +81,7 @@ namespace RequestifyTF2GUI
             }
 
             Requestify.GameDir = CurrentConfig.GameDirectory;
-            AppConfig.Save();
+            Save();
         }
 
         public static void Save()
@@ -93,19 +94,15 @@ namespace RequestifyTF2GUI
 
         internal class ConfigJsonData
         {
-       
             [JsonProperty("Admin")] public string Admin { get; set; }
             [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
             [JsonProperty("CoreLang")] public string CoreLang { get; set; }
             [JsonProperty("DebugMode")] public bool Debug { get; set; }
-            [JsonProperty("ButtonBinds")]
-            public Buttons Buttons { get; set; }
-
+            [JsonProperty("ButtonBinds")] public Buttons Buttons { get; set; }
         }
 
         internal class Buttons
         {
-
             public List<BindsViewModel> buttons = new List<BindsViewModel>();
         }
     }

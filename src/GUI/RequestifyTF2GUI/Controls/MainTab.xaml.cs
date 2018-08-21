@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using System.Reflection;
@@ -43,34 +44,36 @@ namespace RequestifyTF2GUI.Controls
             var linktimeutc = epoch.AddSeconds(secoundsSince1970);
             var tz = target ?? TimeZoneInfo.Local;
             return TimeZoneInfo.ConvertTimeFromUtc(linktimeutc, tz);
-
         }
     }
+
     public partial class Main : UserControl
     {
         public string Version
         {
-            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
-       
+
         public static Main instance;
+
         public Main()
         {
-           
             InitializeComponent();
             instance = this;
 #if DEBUG
-            version.Text =  "DEV: Built at "+System.Reflection.Assembly.GetExecutingAssembly().GetLinkerTime();
+            version.Text = "DEV: Built at " + Assembly.GetExecutingAssembly().GetLinkerTime();
 #else
             version.Text = Version;
 #endif
         }
+
         private void AdminBoxFocusLost(object sender, RoutedEventArgs e)
         {
             //AppConfig.CurrentConfig.Admin = Main.instance.AdminBox.Text;
             AppConfig.Save();
         }
+
         private void MutedCheckBox_OnChecked(object sender, RoutedEventArgs e)
         {
             Requestify.IsMuted = true;
@@ -80,6 +83,7 @@ namespace RequestifyTF2GUI.Controls
         {
             Requestify.IsMuted = false;
         }
+
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             if (Requestify.GameDir == string.Empty)
@@ -90,17 +94,16 @@ namespace RequestifyTF2GUI.Controls
 
                 return;
             }
+
             MainWindow.instance._started = Runner.Start();
             if (MainWindow.instance._started)
             {
                 //Its easy to catch events :)
 
                 Events.OnUndefinedMessage += MainWindow.instance.UndefinedMessage_OnUndefinedMessage;
-                Main.instance.StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
-                Main.instance.StatusLabel.Text = Application.Current.FindResource("cs_Status_Working").ToString();
+                instance.StartButton.Content = Application.Current.FindResource("cs_Stop").ToString();
+                instance.StatusLabel.Text = Application.Current.FindResource("cs_Status_Working").ToString();
             }
         }
-
     }
-
 }

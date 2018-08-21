@@ -13,13 +13,13 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using RequestifyTF2.API;
 using RequestifyTF2.API.Events;
 using RequestifyTF2.API.IgnoreList;
-using RequestifyTF2.API.Permission;
 using RequestifyTF2.Managers;
 using RequestifyTF2.Utils;
 
@@ -29,7 +29,6 @@ namespace RequestifyTF2.Commands
     {
         public static void Execute(User caller, string command, List<string> arguments)
         {
-          
             CommandManager.RequestifyCommand calledcommand = null;
             foreach (var n in CommandManager.GetCommands())
             {
@@ -59,6 +58,7 @@ namespace RequestifyTF2.Commands
                 {
                     argstostring = string.Join(" ", arguments.ToArray());
                 }
+
                 Events.PlayerChat.Invoke(caller, command + " " + argstostring);
             }
             else
@@ -67,6 +67,7 @@ namespace RequestifyTF2.Commands
                 {
                     return;
                 }
+
                 if (PluginManager.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled ||
                     calledcommand.Status == CommandManager.Status.Disabled)
                 {
@@ -75,7 +76,7 @@ namespace RequestifyTF2.Commands
 
                 if (!IgnoreList.Contains(caller.Name))
                 {
-                    if (! IgnoreList.Reversed)
+                    if (!IgnoreList.Reversed)
                     {
                         Task.Run(
                             () =>
@@ -86,7 +87,7 @@ namespace RequestifyTF2.Commands
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Nlogger.Error(e,"Can't run command?");
+                                    Logger.Nlogger.Error(e, "Can't run command?");
                                 }
                             });
                         Logger.Nlogger.Info(Localization.Localization.CORE_EXECUTED_COMMAND, caller.Name, command);
@@ -94,12 +95,13 @@ namespace RequestifyTF2.Commands
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Nlogger.Error(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command);
+                        Logger.Nlogger.Error(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name,
+                            command);
                     }
                 }
                 else
                 {
-                    if ( IgnoreList.Reversed)
+                    if (IgnoreList.Reversed)
                     {
                         Task.Run(
                             () =>
@@ -110,7 +112,7 @@ namespace RequestifyTF2.Commands
                                 }
                                 catch (Exception e)
                                 {
-                                    Logger.Nlogger.Error( e,"Can't run command?");
+                                    Logger.Nlogger.Error(e, "Can't run command?");
                                 }
                             });
                         Logger.Nlogger.Info(Localization.Localization.CORE_USER_INVOKED, caller.Name, command);
@@ -118,7 +120,8 @@ namespace RequestifyTF2.Commands
                     else
                     {
                         Statisctics.IgnoreListStopped++;
-                        Logger.Nlogger.Info(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name, command);
+                        Logger.Nlogger.Info(Localization.Localization.CORE_USER_BLACKLISTED_FOR_EXECUTING, caller.Name,
+                            command);
                     }
                 }
             }

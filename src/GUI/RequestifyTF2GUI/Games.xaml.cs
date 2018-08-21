@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Net;
 using System.Security.AccessControl;
@@ -33,8 +34,6 @@ namespace RequestifyTF2GUI
     /// </summary>
     public partial class Games : Window
     {
-     
-
         public Games()
         {
             InitializeComponent();
@@ -42,7 +41,6 @@ namespace RequestifyTF2GUI
 
         public Task Refresh()
         {
-           
             var ProgramList = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64)
                 .OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\", RegistryRights.ReadKey)
                 .GetSubKeyNames();
@@ -52,8 +50,6 @@ namespace RequestifyTF2GUI
                 var a = Regex.Match(v);
                 if (a.Success)
                 {
-
-
                     var game = new SteamGame
                     {
                         id = Convert.ToInt32(a.Groups[1].Value),
@@ -80,20 +76,19 @@ namespace RequestifyTF2GUI
                     if (!GamesList.Items.Contains(game))
                     {
                         dispatcher.Invoke(() => GamesList.Items.Add(game));
-                   
                     }
                 }
             }
 
-        
+
             return Task.CompletedTask;
         }
 
         private Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
+
         private void Games_OnLoaded(object sender, RoutedEventArgs e)
         {
             Task.Run(Refresh);
-            
         }
 
         private void GamesList_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -110,7 +105,8 @@ namespace RequestifyTF2GUI
             }
             else
             {
-                MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(), Application.Current.Resources["cs_Error"].ToString(),
+                MessageBox.Show(Application.Current.Resources["cs_Not_Source_Engine_Game"].ToString(),
+                    Application.Current.Resources["cs_Error"].ToString(),
                     MessageBoxButton.OK);
             }
         }

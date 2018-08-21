@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using Newtonsoft.Json;
@@ -40,7 +41,7 @@ namespace RequesifyCLI
                 else
                 {
                     File.WriteAllText(
-                       Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "config/config.json",
+                        Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "config/config.json",
                         emptyjson);
 
                     Logger.Nlogger.Info("Type dir {directory} to set directory");

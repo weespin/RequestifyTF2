@@ -13,24 +13,21 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using RequestifyTF2GUIOld.Properties;
 
 namespace RequestifyTF2Forms
 {
     using System;
     using System.Drawing;
-
     using MaterialSkin.Controls;
-
     using RequestifyTF2GUIOld.Properties;
 
     public partial class MessageBox : MaterialForm
     {
         public MessageBox()
         {
-            this.InitializeComponent();
-            this.lbl_text.Font = this.SkinManager.ROBOTO_REGULAR_11;
-            this.Icon = Resources.Icon;
+            InitializeComponent();
+            lbl_text.Font = SkinManager.ROBOTO_REGULAR_11;
+            Icon = Resources.Icon;
         }
 
         public string Color
@@ -55,7 +52,7 @@ namespace RequestifyTF2Forms
 
         private void materialRaisedButton1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

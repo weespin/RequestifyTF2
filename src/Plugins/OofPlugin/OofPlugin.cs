@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,7 +54,6 @@ namespace OofPlugin
 
         public void OnLoad()
         {
-         
             Events.OnPlayerKill += PlayerKill_OnPlayerKill;
             if (Directory.Exists("./oof/"))
             {
@@ -78,7 +78,8 @@ namespace OofPlugin
                 else
                 {
                     File.WriteAllText("./oof/conf.json", JsonConvert.SerializeObject(new Config()));
-                    Logger.Nlogger.Warn($"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
+                    Logger.Nlogger.Warn(
+                        $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
                 }
             }
             else
@@ -86,7 +87,7 @@ namespace OofPlugin
                 Directory.CreateDirectory("./oof/");
                 File.WriteAllText("./oof/conf.json", JsonConvert.SerializeObject(new Config()));
                 Logger.Nlogger.Warn(
-                       $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
+                    $"PLEASE EDIT {AppDomain.CurrentDomain.BaseDirectory}/oof/conf.json to make this working!");
             }
         }
 
@@ -102,18 +103,16 @@ namespace OofPlugin
 
             if (config.Name != string.Empty)
             {
-
                 if (e.Killer == config.Name)
                 {
                     Stream s = new MemoryStream(Convert.FromBase64String(of[new Random().Next(0, of.Count)]));
-                    if ( AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Playing)
+                    if (AudioManager.Extra.SoundOut.PlaybackState == PlaybackState.Playing)
                     {
-                         AudioManager.Extra.SoundOut.Stop();
+                        AudioManager.Extra.SoundOut.Stop();
                     }
 
-                   AudioManager.Extra.SoundOut.Initialize(new DmoMp3Decoder(s));
-                     AudioManager.Extra.SoundOut.Play();
-                   
+                    AudioManager.Extra.SoundOut.Initialize(new DmoMp3Decoder(s));
+                    AudioManager.Extra.SoundOut.Play();
                 }
             }
         }

@@ -13,7 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -28,7 +28,6 @@ namespace RequestifyTF2
 {
     public class ReaderThread
     {
-       
         public enum Result
         {
             CommandExecute,
@@ -51,9 +50,9 @@ namespace RequestifyTF2
         public static readonly Regex ConnectRegex = new Regex(@"^(.+)(connected)$"); //todo: localize this
 
         public static readonly Regex KillRegex = new Regex(@"^(.+) killed (.+) with (.+)\.( \(crit\))?$");
-         
+
         public static readonly Regex SuicideRegex = new Regex(@"^(.+) (suicided)\.$");
- 
+
         public static void Read()
         {
             var wh = new AutoResetEvent(false);
@@ -76,7 +75,7 @@ namespace RequestifyTF2
                 FileMode.Open,
                 FileAccess.Read,
                 FileShare.ReadWrite);
-           
+
             using (var sr = new StreamReader(fs, Encoding.GetEncoding("UTF-8")))
             {
                 sr.ReadToEnd();
@@ -94,9 +93,10 @@ namespace RequestifyTF2
                     }
                 }
             }
-           
         }
+
         private static Thread thread;
+
         public static void StopThread()
         {
             if (thread.IsAlive)
@@ -104,6 +104,7 @@ namespace RequestifyTF2
                 thread.Abort();
             }
         }
+
         public static void StartThread()
         {
             thread = new Thread(Read) {IsBackground = true};
@@ -116,10 +117,9 @@ namespace RequestifyTF2
             if (CommandRegex.Match(s).Success && s.Split(null).Length > 3)
             {
                 var reg = CommandRegex.Match(s);
-              
+
                 var arguments = new List<string>();
                 var split = reg.Groups[2].Value.Trim(null).Split(null);
-
 
 
                 if (split.Length > 0)
@@ -138,16 +138,10 @@ namespace RequestifyTF2
                         Statisctics.CommandsParsed++;
                         return Result.CommandExecute;
                     }
-                    else
-                    {
-                    
-                        
-                        Events.PlayerChat.Invoke(ProcessUser(reg.Groups[1].Value), reg.Groups[2].Value.Trim(null));
-                        return Result.Chatted;
-                    }
+
+                    Events.PlayerChat.Invoke(ProcessUser(reg.Groups[1].Value), reg.Groups[2].Value.Trim(null));
+                    return Result.Chatted;
                 }
-
-
             }
 
             if (KillRegex.Match(s).Success)

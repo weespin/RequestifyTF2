@@ -13,11 +13,14 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows;
+using RequestifyTF2GUI.Properties;
 
 namespace RequestifyTF2GUI
 {
@@ -30,17 +33,13 @@ namespace RequestifyTF2GUI
 
         public static List<CultureInfo> Languages
         {
-            get
-            {
-                return m_Languages;
-            }
+            get { return m_Languages; }
         }
 
         public App()
         {
-        
             InitializeComponent();
-            App.LanguageChanged += App_LanguageChanged;
+            LanguageChanged += App_LanguageChanged;
 
             m_Languages.Clear();
             m_Languages.Add(new CultureInfo("en-US")); //Нейтральная культура для этого проекта
@@ -70,8 +69,7 @@ namespace RequestifyTF2GUI
             m_Languages.Add(new CultureInfo("zh-CN"));
             m_Languages.Add(new CultureInfo("zh-TW"));
 
-Language = RequestifyTF2GUI.Properties.Settings.Default.DefaultLanguage;
-           
+            Language = Settings.Default.DefaultLanguage;
         }
 
         //Евент для оповещения всех окон приложения
@@ -79,10 +77,7 @@ Language = RequestifyTF2GUI.Properties.Settings.Default.DefaultLanguage;
 
         public static CultureInfo Language
         {
-            get
-            {
-                return System.Threading.Thread.CurrentThread.CurrentUICulture;
-            }
+            get { return Thread.CurrentThread.CurrentUICulture; }
             set
             {
                 if (value == null)
@@ -90,16 +85,16 @@ Language = RequestifyTF2GUI.Properties.Settings.Default.DefaultLanguage;
                     throw new ArgumentNullException("value");
                 }
 
-                if (Equals(value, System.Threading.Thread.CurrentThread.CurrentUICulture))
+                if (Equals(value, Thread.CurrentThread.CurrentUICulture))
                 {
                     return;
                 }
 
                 //1. Меняем язык приложения:
-                System.Threading.Thread.CurrentThread.CurrentUICulture = value;
+                Thread.CurrentThread.CurrentUICulture = value;
 
                 //2. Создаём ResourceDictionary для новой культуры
-                ResourceDictionary dict = new ResourceDictionary();
+                var dict = new ResourceDictionary();
                 switch (value.Name)
                 {
                     case "bg-BG":
@@ -183,27 +178,28 @@ Language = RequestifyTF2GUI.Properties.Settings.Default.DefaultLanguage;
                 }
 
                 //3. Находим старую ResourceDictionary и удаляем его и добавляем новую ResourceDictionary
-                var oldDict = Current.Resources.MergedDictionaries.First(d => d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang."));
+                var oldDict = Current.Resources.MergedDictionaries.First(d =>
+                    d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang."));
                 if (oldDict != null)
                 {
-                    int ind = Application.Current.Resources.MergedDictionaries.IndexOf(oldDict);
-                    Application.Current.Resources.MergedDictionaries.Remove(oldDict);
-                    Application.Current.Resources.MergedDictionaries.Insert(ind, dict);
+                    var ind = Current.Resources.MergedDictionaries.IndexOf(oldDict);
+                    Current.Resources.MergedDictionaries.Remove(oldDict);
+                    Current.Resources.MergedDictionaries.Insert(ind, dict);
                 }
                 else
                 {
-                    Application.Current.Resources.MergedDictionaries.Add(dict);
+                    Current.Resources.MergedDictionaries.Add(dict);
                 }
 
                 //4. Вызываем евент для оповещения всех окон.
-                LanguageChanged(Application.Current, new EventArgs());
+                LanguageChanged(Current, new EventArgs());
             }
         }
 
         private void App_LanguageChanged(Object sender, EventArgs e)
         {
-           RequestifyTF2GUI.Properties.Settings.Default.DefaultLanguage = Language;
-           RequestifyTF2GUI.Properties.Settings.Default.Save();
+            Settings.Default.DefaultLanguage = Language;
+            Settings.Default.Save();
         }
     }
 }

@@ -13,23 +13,17 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
+
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RequestifyTF2.API;
 
 namespace RequestifyTF2.API
 {
-   public static class LocalHelper
+    public static class LocalHelper
     {
         public static CultureInfo GetCoreLocalization()
         {
             switch (Requestify.Language)
             {
-
                 case Requestify.ELanguage.BG:
                     return new CultureInfo("bg");
                 case Requestify.ELanguage.CS:

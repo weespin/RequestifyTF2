@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using System.Reflection;
@@ -33,12 +34,9 @@ namespace RequestifyTF2.DependencyLoader
             {
                 try
                 {
-                    
                     var proxy = new Proxy();
                     var assemblyz = proxy.GetAssembly(assembly);
                     Logger.Nlogger.Info(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName().Name);
-
-
                 }
                 catch (Exception e)
                 {
@@ -76,4 +74,4 @@ namespace RequestifyTF2.DependencyLoader
             }
         }
     }
-}  
+}

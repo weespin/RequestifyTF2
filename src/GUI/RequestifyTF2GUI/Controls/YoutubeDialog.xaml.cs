@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
@@ -30,7 +31,7 @@ namespace RequestifyTF2GUI.Controls
         }
     }
 
-  
+
     public class NotEmptyValidationRule : ValidationRule
     {
         Regex youtube = new Regex(@"youtube\..+?/watch.*?v=(.*?)(?:&|/|$)");
@@ -43,13 +44,11 @@ namespace RequestifyTF2GUI.Controls
                 return new ValidationResult(false, "Field is required.");
             }
 
-        var ret = false || youtube.Match(value.ToString()).Success || shortregex.Match(value.ToString()).Success;
+            var ret = false || youtube.Match(value.ToString()).Success || shortregex.Match(value.ToString()).Success;
 
             if (ret)
                 return ValidationResult.ValidResult;
-            else
             return new ValidationResult(false, "Field is required.");
-           
         }
     }
 }

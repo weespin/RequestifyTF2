@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace RequestifyTF2.Managers
             Disabled
         }
 
-        private static readonly List<RequestifyCommand> Commands  = new List<RequestifyCommand>();
+        private static readonly List<RequestifyCommand> Commands = new List<RequestifyCommand>();
 
         static CommandManager()
         {
@@ -41,7 +42,7 @@ namespace RequestifyTF2.Managers
 
         private static void Events_OnPluginLoaded(RequestifyEventArgs.PluginLoadedArgs e)
         {
-            var assembly = PluginManager.GetAssembly(e.Plugin);
+            var assembly = e.Plugin.GetAssembly();
             var CommTypes = GetTypesFromInterface(assembly, "IRequestifyCommand");
             foreach (var type in CommTypes)
             {
@@ -70,6 +71,7 @@ namespace RequestifyTF2.Managers
         {
             Logger.Nlogger.Debug("CommandManager Init");
         }
+
         public static List<Type> GetTypesFromInterface(Assembly assembly, string interfaceName)
         {
             var allTypes = new List<Type>();
@@ -131,8 +133,7 @@ namespace RequestifyTF2.Managers
         {
             [JsonIgnore] public Assembly Father { get; set; }
 
-            [JsonIgnoreAttribute]
-            public IRequestifyCommand ICommand { get; set; }
+            [JsonIgnore] public IRequestifyCommand ICommand { get; set; }
 
             public Status Status { get; set; }
 
@@ -153,7 +154,7 @@ namespace RequestifyTF2.Managers
 
             public string Name => ICommand.Name;
 
-          
+
             public List<string> Alias => ICommand.Alias;
         }
     }

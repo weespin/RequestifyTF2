@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,6 +43,7 @@ namespace TTSPlugin
         public Rules Permission => Rules.Execute;
         public string Name => "mtts";
         public List<string> Alias => new List<string>();
+
         public void Execute(User executor, List<string> arguments)
         {
             if (arguments.Count > 0)
@@ -75,7 +77,7 @@ namespace TTSPlugin
                     return;
                 }
 
-              AudioManager.ForeGround.PlayList.Enqueue(new Mp3MediafoundationDecoder(link));
+                AudioManager.ForeGround.PlayList.Enqueue(new Mp3MediafoundationDecoder(link));
             }
         }
 
@@ -86,7 +88,7 @@ namespace TTSPlugin
             var rnd = new Random();
             var length = 20;
             var str = "{\"googleid\":\"";
-            StringBuilder email = new StringBuilder();
+            var email = new StringBuilder();
             for (var i = 0; i < length; i++)
             {
                 email.Append(((char) (rnd.Next(1, 26) + 64)).ToString());

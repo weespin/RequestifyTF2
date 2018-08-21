@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -29,6 +30,7 @@ namespace RequestifyTF2.API.ConsoleAPI
             Echo,
             Raw
         }
+
         public static void SendCommand(string cmnd, Command cmd)
         {
             var text = string.Empty;
@@ -49,7 +51,6 @@ namespace RequestifyTF2.API.ConsoleAPI
                     break;
                 default:
                     throw new InvalidOperationException();
-                  
             }
 
             File.WriteAllText(Requestify.GameDir + "/cfg/requestify.cfg", text);

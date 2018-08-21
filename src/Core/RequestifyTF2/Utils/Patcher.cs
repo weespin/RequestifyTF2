@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.IO;
 using System.Linq;
@@ -68,6 +69,7 @@ namespace RequestifyTF2.Utils
                 Logger.Nlogger.Error(Localization.Localization.CORE_SET_DIRECTORY);
                 return;
             }
+
             var cfgpath = Requestify.GameDir + "/cfg/autoexec.cfg";
             WriteToCfg(cfgpath, "con_logfile \"console.log\"");
             WriteToCfg(cfgpath, "bind kp_del \"exec requestify\"");
@@ -82,19 +84,21 @@ namespace RequestifyTF2.Utils
             WriteToCfg(cfgpath, "bind kp_pgup \"echo NUMPAD9\"");
             WriteToCfg(cfgpath, "bind kp_ins \"echo NUMPAD0\"");
         }
-        private static void WriteToCfg(string cfgfile ,string str)
+
+        private static void WriteToCfg(string cfgfile, string str)
         {
             if (!File.Exists(cfgfile))
             {
                 File.Create(cfgfile);
             }
+
             var lines = File.ReadAllLines(cfgfile);
             if (!lines.Contains(str))
             {
                 File.AppendAllText(
-                cfgfile,Environment.NewLine+
-                   str);
+                    cfgfile, Environment.NewLine +
+                             str);
             }
-        } 
+        }
     }
 }

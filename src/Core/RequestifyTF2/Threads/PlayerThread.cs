@@ -13,29 +13,28 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System.Threading;
 using System.Threading.Tasks;
 using CSCore;
 using CSCore.SoundOut;
-using RequestifyTF2.API;
 using RequestifyTF2.API.ConsoleAPI;
 using RequestifyTF2.Audio;
 
 namespace RequestifyTF2.Threads
 {
-    
-  internal static  class PlayerThread
-  {
+    internal static class PlayerThread
+    {
+        private static Thread thread;
 
-      private static Thread thread;
+        public static void StopThread()
+        {
+            if (thread.IsAlive)
+            {
+                thread.Abort();
+            }
+        }
 
-      public static void StopThread()
-      {
-          if (thread.IsAlive)
-          {
-              thread.Abort();
-          }
-      }
         public static void StartThread()
         {
             AudioManager.Init();
@@ -43,7 +42,6 @@ namespace RequestifyTF2.Threads
             thread.Start();
 
             Logger.Nlogger.Debug(Localization.Localization.CORE_STARTED_PLAYER_THREAD);
-            
         }
 
         private static void Play()
@@ -70,17 +68,18 @@ namespace RequestifyTF2.Threads
                 {
                     if (AudioManager.BackGround.SoundOut.PlaybackState == PlaybackState.Stopped)
                     {
-                       AudioManager.Song s;
+                        AudioManager.Song s;
                         if (AudioManager.BackGround.PlayList.TryDequeue(out s))
                         {
                             Task.Run(
                                 () =>
                                 {
                                     ConsoleSender.SendCommand(
-                                        string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title, s.RequestedBy.Name),
+                                        string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title,
+                                            s.RequestedBy.Name),
                                         ConsoleSender.Command.Chat);
                                     Player(s.Source, AudioManager.BackGround.SoundOut);
-                                   AudioManager.BackGround.SoundOut.Volume = 0.10f;
+                                    AudioManager.BackGround.SoundOut.Volume = 0.10f;
                                 });
                         }
                     }

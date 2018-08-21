@@ -13,6 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 
 namespace RequestifyTF2.API.Events
@@ -20,6 +21,7 @@ namespace RequestifyTF2.API.Events
     public class Events
     {
         #region Deletgates
+
         public delegate void PlayerChatHandler(RequestifyEventArgs.PlayerChatArgs e);
 
         public delegate void PlayerConnectHandler(RequestifyEventArgs.PlayerConnectArgs e);
@@ -33,9 +35,11 @@ namespace RequestifyTF2.API.Events
         public delegate void CommandRegisteredHandler(RequestifyEventArgs.CommandRegisteredArgs e);
 
         public delegate void PluginLoadedHandler(RequestifyEventArgs.PluginLoadedArgs e);
+
         #endregion
 
         #region Events
+
         public static event PlayerChatHandler OnPlayerChat;
         public static event PlayerConnectHandler OnPlayerConnect;
         public static event PlayerKillHandler OnPlayerKill;
@@ -43,13 +47,12 @@ namespace RequestifyTF2.API.Events
         public static event UndefinedMessageHandler OnUndefinedMessage;
         public static event PluginLoadedHandler OnPluginLoaded;
         public static event CommandRegisteredHandler OnCommandRegistered;
+
         #endregion
 
         public static class PlayerChat
         {
-          
-
-            public static void Invoke(RequestifyTF2.API.User caller, string text)
+            public static void Invoke(User caller, string text)
             {
                 var e = new RequestifyEventArgs.PlayerChatArgs(caller, text);
                 OnChat(e);
@@ -59,15 +62,15 @@ namespace RequestifyTF2.API.Events
             {
                 Logger.Nlogger.Debug($"Invoked PlayerChat. User: {e.User.Name} Message: {e.Chat}");
                 if (OnPlayerChat != null)
-                { OnPlayerChat(e);}
+                {
+                    OnPlayerChat(e);
+                }
             }
         }
 
-       
 
         public static class PlayerConnect
         {
-    
             public static void Invoke(string nickname)
             {
                 var e = new RequestifyEventArgs.PlayerConnectArgs(nickname);
@@ -81,27 +84,25 @@ namespace RequestifyTF2.API.Events
             }
         }
 
-      
 
         public static class PlayerKill
         {
-       
             public static void Invoke(string killer, string killed, string weapon, bool crit = false)
             {
                 var e = new RequestifyEventArgs.PlayerKillArgs(killer, killed, weapon, crit);
                 OnKill(e);
             }
 
-           private static void OnKill(RequestifyEventArgs.PlayerKillArgs e)
+            private static void OnKill(RequestifyEventArgs.PlayerKillArgs e)
             {
-                Logger.Nlogger.Debug($"Invoked PlayerKill. Killer: {e.Killer} Weapon: {e.Weapon} Killed: {e.Killed} Crit: {e.Crit}");
+                Logger.Nlogger.Debug(
+                    $"Invoked PlayerKill. Killer: {e.Killer} Weapon: {e.Weapon} Killed: {e.Killed} Crit: {e.Crit}");
                 OnPlayerKill?.Invoke(e);
             }
         }
 
         public static class PlayerSuicide
         {
-        
             internal static void Invoke(string nickname)
             {
                 var e = new RequestifyEventArgs.PlayerSuicideArgs(nickname);
@@ -115,11 +116,9 @@ namespace RequestifyTF2.API.Events
             }
         }
 
-      
 
         public static class UndefinedMessage
         {
-         
             internal static void Invoke(string nickname)
             {
                 var e = new RequestifyEventArgs.UndefinedMessageArgs(nickname);
@@ -133,15 +132,13 @@ namespace RequestifyTF2.API.Events
             }
         }
 
-      
+
         public static class PluginLoaded
         {
-          
             internal static void Invoke(IRequestifyPlugin Plugin)
             {
                 var e = new RequestifyEventArgs.PluginLoadedArgs(Plugin);
                 OnPluginLoad(e);
-
             }
 
             private static void OnPluginLoad(RequestifyEventArgs.PluginLoadedArgs e)
@@ -151,16 +148,13 @@ namespace RequestifyTF2.API.Events
             }
         }
 
-        
 
         public static class CommandRegistered
         {
-          
             internal static void Invoke(IRequestifyCommand Command)
             {
                 var e = new RequestifyEventArgs.CommandRegisteredArgs(Command);
                 OnCommandRegister(e);
-
             }
 
             private static void OnCommandRegister(RequestifyEventArgs.CommandRegisteredArgs e)
@@ -169,17 +163,14 @@ namespace RequestifyTF2.API.Events
                 OnCommandRegistered?.Invoke(e);
             }
         }
-
-     
     }
 
     public class RequestifyEventArgs
     {
-
         public class PlayerKillArgs : EventArgs
         {
             // Constructor. 
-           public PlayerKillArgs(string killer, string killed, string weapon, bool crit = false)
+            public PlayerKillArgs(string killer, string killed, string weapon, bool crit = false)
             {
                 Killer = killer;
                 Crit = crit;
@@ -208,6 +199,7 @@ namespace RequestifyTF2.API.Events
             // Properties. 
             public string NickName { get; set; } = string.Empty;
         }
+
         public class UndefinedMessageArgs : EventArgs
         {
             // Constructor. 
@@ -219,6 +211,7 @@ namespace RequestifyTF2.API.Events
             // Properties. 
             public string Message { get; set; } = string.Empty;
         }
+
         public class PluginLoadedArgs : EventArgs
         {
             // Constructor. 
@@ -230,6 +223,7 @@ namespace RequestifyTF2.API.Events
             // Properties. 
             public IRequestifyPlugin Plugin { get; set; }
         }
+
         public class PlayerConnectArgs : EventArgs
         {
             // Constructor. 
@@ -241,10 +235,11 @@ namespace RequestifyTF2.API.Events
             // Properties. 
             public string NickName { get; set; } = string.Empty;
         }
+
         public class PlayerChatArgs : EventArgs
         {
             // Constructor. 
-            public PlayerChatArgs(RequestifyTF2.API.User caller, string text)
+            public PlayerChatArgs(User caller, string text)
             {
                 User = caller;
                 Chat = text;
@@ -253,8 +248,9 @@ namespace RequestifyTF2.API.Events
             public string Chat { get; set; } = string.Empty;
 
             // Properties. 
-            public RequestifyTF2.API.User User { get; set; }
+            public User User { get; set; }
         }
+
         public class CommandRegisteredArgs : EventArgs
         {
             // Constructor. 

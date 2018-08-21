@@ -13,6 +13,8 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
@@ -23,14 +25,15 @@ namespace RequestifyTF2.API
     public static class Requestify
     {
         public static RequestifyConsoleHook _writer = new RequestifyConsoleHook();
+
         static Requestify()
         {
-            System.Console.SetOut(_writer);
-            System.Console.SetError(_writer);
-              Logger.Nlogger.Debug( "RequestifyTF2 Core started "+ Assembly.GetExecutingAssembly().GetName().Version.ToString());
-         
-
+            Console.SetOut(_writer);
+            Console.SetError(_writer);
+            Logger.Nlogger.Debug("RequestifyTF2 Core started " +
+                                 Assembly.GetExecutingAssembly().GetName().Version);
         }
+
         public static bool Debug { get; set; }
         public static bool IsMuted { get; set; }
         private static string _gameDir;
@@ -42,12 +45,14 @@ namespace RequestifyTF2.API
             set
             {
                 _gameDir = value;
-              Logger.Nlogger.Debug(Localization.Localization.CORE_PATCHING_AUTOEXEC);
+                Logger.Nlogger.Debug(Localization.Localization.CORE_PATCHING_AUTOEXEC);
                 Patcher.PatchAutoExec();
             }
         }
+
         private static ELanguage _language = ELanguage.EN;
         public static CultureInfo GetCulture => Thread.CurrentThread.CurrentUICulture;
+
         public static ELanguage Language
         {
             get => _language;
@@ -58,6 +63,7 @@ namespace RequestifyTF2.API
                 Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
             }
         }
+
         public enum ELanguage
         {
             BG = 0,

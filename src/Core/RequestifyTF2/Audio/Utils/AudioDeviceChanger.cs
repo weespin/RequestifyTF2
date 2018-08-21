@@ -13,9 +13,9 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using CSCore.CoreAudioAPI;
 
@@ -46,30 +46,31 @@ namespace RequestifyTF2.Audio.Utils
         // 0 <- Input; 1 <- Output
         public static bool AutoSetDevice()
         {
-
             var devices = GetBestAudioDevices();
             if (devices == null)
             {
                 Logger.Nlogger.Error(
                     Localization.Localization.CORE_CANNOT_FIND_DEVICES
-                  );
+                );
                 return false;
-
             }
+
             try
             {
                 AudioDeviceChanger.SetDefaultInputDevice(devices[0].DeviceID);
             }
             catch (Exception e)
             {
-                Logger.Nlogger.Error(e,Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, devices[0].FriendlyName
-                        );
+                Logger.Nlogger.Error(e, Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT,
+                    devices[0].FriendlyName
+                );
             }
+
             AudioManager.Extra.SoundOut.Device = devices[1];
             AudioManager.BackGround.SoundOut.Device = devices[1];
             AudioManager.ForeGround.SoundOut.Device = devices[1];
             Logger.Nlogger.Info(Localization.Localization.CORE_USED_DEVICES, devices[1].FriendlyName,
-                    devices[1].FriendlyName);
+                devices[1].FriendlyName);
             return true;
         }
 
@@ -100,19 +101,20 @@ namespace RequestifyTF2.Audio.Utils
                         Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                         ConsoleColor.Red);
                     return null;
-
                 }
 
                 foreach (var a in goodInputDevices)
                 {
-                    Logger.Nlogger.Debug("GoodInputDev " +a.FriendlyName
-                      );
+                    Logger.Nlogger.Debug("GoodInputDev " + a.FriendlyName
+                    );
                 }
+
                 foreach (var a in goodOutputDevices)
                 {
                     Logger.Nlogger.Debug("GoodOutputDev " + a.FriendlyName
                     );
                 }
+
                 if (goodOutputDevices.Count(n => n.FriendlyName.Contains("VB-Audio")) != 0 &&
                     goodInputDevices.Count(n => n.FriendlyName.Contains("VB-Audio")) != 0)
                 {
@@ -137,7 +139,7 @@ namespace RequestifyTF2.Audio.Utils
                     };
                 }
 
-              
+
                 Logger.Nlogger.Error(
                     Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                     ConsoleColor.Red);
