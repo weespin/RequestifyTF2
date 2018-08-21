@@ -42,7 +42,11 @@ namespace RequestifyTF2.API.Permission
 
     public static class Permissions
     {
-        private static Dictionary<string, Group> _users = new Dictionary<string, Group>();
+       static Permissions()
+        {
+            PermissionCfg.Load();
+        }
+        public static Dictionary<string, Group> _users = new Dictionary<string, Group>();
 
         public static bool Exists(string name)
         {
@@ -54,7 +58,9 @@ namespace RequestifyTF2.API.Permission
             if (!_users.ContainsKey(str))
             {
                 _users.Add(str, gr);
+                PermissionCfg.Save();
                 return true;
+
             }
 
             return false;
@@ -70,6 +76,7 @@ namespace RequestifyTF2.API.Permission
             if (_users.ContainsKey(name))
             {
                 _users[name] = gr;
+                PermissionCfg.Save();
                 return true;
             }
 
@@ -83,12 +90,14 @@ namespace RequestifyTF2.API.Permission
                 if (_users[name] != Group.Admin)
                 {
                     _users[name]++;
+                    PermissionCfg.Save();
                     return true;
                 }
             }
             else
             {
                 _users.Add(name, Group.DJ);
+                PermissionCfg.Save();
                 return true;
             }
 
@@ -102,12 +111,14 @@ namespace RequestifyTF2.API.Permission
                 if (_users[name] != Group.None)
                 {
                     _users[name]--;
+                    PermissionCfg.Save();
                     return true;
                 }
             }
             else
             {
                 _users.Add(name, Group.None);
+                PermissionCfg.Save();
                 return true;
             }
 
@@ -119,6 +130,7 @@ namespace RequestifyTF2.API.Permission
             if (_users.ContainsKey(name))
             {
                 _users.Remove(name);
+                PermissionCfg.Save();
                 return true;
             }
 

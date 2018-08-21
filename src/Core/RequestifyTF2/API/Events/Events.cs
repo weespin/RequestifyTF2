@@ -61,10 +61,7 @@ namespace RequestifyTF2.API.Events
             private static void OnChat(RequestifyEventArgs.PlayerChatArgs e)
             {
                 Logger.Nlogger.Debug($"Invoked PlayerChat. User: {e.User.Name} Message: {e.Chat}");
-                if (OnPlayerChat != null)
-                {
-                    OnPlayerChat(e);
-                }
+                OnPlayerChat?.Invoke(e);
             }
         }
 

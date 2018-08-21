@@ -19,6 +19,7 @@ using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
+using RequestifyTF2.API.Permission;
 using RequestifyTF2GUI.Controls;
 
 namespace RequestifyTF2GUI
