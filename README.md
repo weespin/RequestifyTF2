@@ -1,6 +1,7 @@
 # RequestifyTF2
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ce1b58babd174d2db3e1f8b658089dcd)](https://app.codacy.com/app/weespin/RequestifyTF2?utm_source=github.com&utm_medium=referral&utm_content=weespin/RequestifyTF2&utm_campaign=badger)
 [![Build](https://ci.appveyor.com/api/projects/status/github/weespin/Requestifytf2)](https://ci.appveyor.com/project/weespin26279/requestifytf2/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fweespin%2FRequestifyTF2.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fweespin%2FRequestifyTF2?ref=badge_shield)
 
 RequesifyTF2 is a simple program for Source Engine based games, which supports plugins, micspam, and alot of custom things.
 ## New Version
@@ -84,3 +85,7 @@ Use [development guide](https://github.com/weespin/RequestifyTF2/wiki/Developing
 
 ### Questions?
 Make a issue or add me on [Steam](http://steamcommunity.com/id/wspin/)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fweespin%2FRequestifyTF2.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fweespin%2FRequestifyTF2?ref=badge_large)
