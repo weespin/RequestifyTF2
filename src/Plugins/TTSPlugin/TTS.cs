@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -21,10 +22,16 @@ namespace TTSPlugin
 
     public class MttsPlugin : IRequestifyCommand
     {
+        private const int engine = 4;
+        private const int lang = 1;
+        private const int level1 = 0;
+        private const int level2 = 0;
+        private const int voice = 5;
+        private const int accid = 5883747;
+        private const string secret = "uetivb9tb8108wfj";
         public string Help => "Playing a David UK (MLG) voice";
 
         public string Name => "mtts";
-
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
 
@@ -33,12 +40,13 @@ namespace TTSPlugin
             if (arguments.Count > 0)
             {
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                var magic = $"{engine}{lang}{voice}{text}1mp3{accid}{secret}";
+                var checksum = MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(magic));
+                var stringchecksum = string.Concat(Array.ConvertAll(checksum, x => x.ToString("X2")));
+                var url =
+                    $"http://cache-a.oddcast.com/tts/gen.php?EID={engine}&LID={lang}&VID={voice}&TXT={text}&IS_UTF8=1&EXT=mp3&FNAME=&ACC={accid}&API=&SESSION=&CS={checksum}&cache_flag=3";
 
-                var d =
-                    "http://cache-a.oddcast.com/c_fs/9587dd8632431aaff8bf03cfae0ff.mp3?engine=4&language=1&voice=5&text="
-                    + text + "&useUTF8=1";
-                d = d.Replace(" ", "%20");
-                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
+                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(url));
             }
         }
     }
@@ -74,7 +82,7 @@ namespace TTSPlugin
             var rnd = new Random();
             var length = 20;
             var str = "{\"googleid\":\"";
-            StringBuilder email = new StringBuilder();
+            var email = new StringBuilder();
             for (var i = 0; i < length; i++)
             {
                 email.Append(((char) (rnd.Next(1, 26) + 64)).ToString());
