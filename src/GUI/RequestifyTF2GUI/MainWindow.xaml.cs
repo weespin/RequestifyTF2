@@ -320,7 +320,11 @@ namespace RequestifyTF2GUI
                 mes = mes.Replace("NUMPAD", "");
                 if (mes.Length > 0)
                 {
-                    Play(Convert.ToInt32(mes));
+                    int s;
+                    if (int.TryParse(mes, out s))
+                    {
+                        Play(s);
+                    }
                 }
             }
         }
@@ -331,7 +335,7 @@ namespace RequestifyTF2GUI
                 if (AppConfig.CurrentConfig.Buttons.buttons[id] != null)
                 {
                     var b = AppConfig.CurrentConfig.Buttons.buttons[id];
-                    if (b.BindType == "YoutubeMusic")
+                    if (b.BindType == "YoutubeMusic"&&b.Link!=null)
                     {
                         var cl = new YoutubeExplode.YoutubeClient();
                         var vid = YoutubeExplode.YoutubeClient.ParseVideoId(b.Link);
@@ -358,7 +362,7 @@ namespace RequestifyTF2GUI
 
                     }
 
-                    if (b.BindType == "LocalMusic")
+                    if (b.BindType == "LocalMusic"&&b.Link!=null)
                     {
                         if (File.Exists(AppConfig.CurrentConfig.Buttons.buttons[id].Link))
                         {

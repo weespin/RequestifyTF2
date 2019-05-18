@@ -8,12 +8,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Nancy.Responses;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.Managers;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Constants;
 using Unosquare.Labs.EmbedIO.Modules;
+using Unosquare.Swan;
 
 
 namespace APIPlugin
@@ -56,8 +58,8 @@ namespace APIPlugin
             {
                 try
                 {
-
-                    context.JsonResponse(JsonConvert.SerializeObject(Instance.Plugins.GetPlugins()));
+                  
+                    context.JsonResponseAsync(JsonConvert.SerializeObject(Instance.Plugins.GetPlugins()));
                     return true;
 
                 }
@@ -71,7 +73,7 @@ namespace APIPlugin
             {
                 try
                 {
-
+                 
                     context.JsonResponse(JsonConvert.SerializeObject(Instance.BackGroundQueue.PlayList));
                     return true;
 

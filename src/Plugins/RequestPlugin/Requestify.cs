@@ -170,16 +170,19 @@ namespace RequestPlugin
                     return;
                 }
 
-                if (arguments[0] == "cur")
+                if (arguments.Count > 0)
                 {
-                    Instance.SoundOutBackground.Stop();
-                    return;
-                }
+                    if (arguments[0] == "cur")
+                    {
+                        Instance.SoundOutBackground.Stop();
+                        return;
+                    }
 
-                if (arguments[0] == "que")
-                {
-                    Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
-                    return;
+                    if (arguments[0] == "que")
+                    {
+                        Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                        return;
+                    }
                 }
 
                 Instance.SoundOutBackground.Stop();
@@ -189,9 +192,9 @@ namespace RequestPlugin
 
         public class RequestCommand : IRequestifyCommand
         {
-            private static readonly int AppID = 1505226596;
+            private static readonly int AppID = 1553518929;
 
-            private static readonly string clientID = "WKcQQdEZw7Oi01KqtHWxeVSxNyRzgT8M";
+            private static readonly string clientID = "NxDq1GKZ5tLDRohQGfJ7lYVKiephsF3G";
 
 
             public string Help => "Play music. Supports soundcloud and youtube!";
@@ -210,8 +213,8 @@ namespace RequestPlugin
 
                 var url = arguments[0];
 
-                var regex = new Regex(@"^(https?:\/\/)?(www.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$");
-                if (regex.Match(url).Success)
+                var soundcloudregex = new Regex(@"^(https?:\/\/)?(www.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$");
+                if (soundcloudregex.Match(url).Success)
                 {
                     try
                     {
@@ -239,7 +242,7 @@ namespace RequestPlugin
                                     Instance.BackGroundQueue.PlayList.Enqueue(
                                         new Instance.Song(
                                             b.title,
-                                            new Mp3MediafoundationDecoder(urls.http_mp3_128_url).ToMono(),
+                                            new Mp3MediafoundationDecoder(urls.http_mp3_128_url),
                                             executor));
 
                                     return;
@@ -274,27 +277,27 @@ namespace RequestPlugin
                         ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     }
 
-                    Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext).ToMono(), executor));
+                    Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
                 }
                 else
                 {
-                    if (arguments.Count >= 1)
+                    var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                    var client = new YoutubeClient();
+                    var vids = client.SearchVideosAsync(text, 1).Result;
+                    if (vids.Count > 0)
                     {
-                        var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
-                        var client = new YoutubeClient();
-                        var vids = client.SearchVideosAsync(text,1).Result;
-                        if (vids.Count > 0)
+                        for (int i = 0; i < vids.Count; i++)
                         {
-                            var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[0].Id);
+                            var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[i].Id);
                             var streamInfo =
                                 streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
                             if (streamInfo == null)
                             {
-                                return;
+                                continue;
                             }
-
+                            
                             var ext = streamInfo.Url;
-                            var title = client.GetVideoAsync(vids[0].Id).Result.Title;
+                            var title = client.GetVideoAsync(vids[i].Id).Result.Title;
                             if (!Instance.IsMuted)
                             {
                                 ConsoleSender.SendCommand($"{title} was added to the queue",
@@ -302,10 +305,14 @@ namespace RequestPlugin
 
                             }
 
-                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext).ToMono(),
+                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),
                                 executor));
+                            break;
                         }
+                       
+
                     }
+
                 }
             }
 

@@ -54,8 +54,8 @@
       <HintPath>..\..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,6 +86,14 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>@echo off
+echo Copying all plugins with (debugging) pdb files for $(TargetName)
+MKDIR "$(SolutionDir)\GUI\RequestifyTF2GUI\bin\Debug\plugins"
+%25WINDIR%25\System32\ROBOCOPY $(TargetDir) "$(SolutionDir)\GUI\RequestifyTF2GUI\bin\Debug\plugins" $(TargetFileName) /is /it
+%25WINDIR%25\System32\ROBOCOPY $(TargetDir) "$(SolutionDir)\GUI\RequestifyTF2GUI\bin\Debug\plugins" $(TargetName).pdb /is /it
+exit 0</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

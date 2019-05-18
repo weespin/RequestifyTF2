@@ -124,8 +124,6 @@ namespace RequestifyTF2
                     }
                     else
                     {
-                    
-                        
                         Events.PlayerChat.Invoke(ProcessUser(reg.Groups[1].Value), reg.Groups[2].Value.Trim(null));
                         return Result.Chatted;
                     }
