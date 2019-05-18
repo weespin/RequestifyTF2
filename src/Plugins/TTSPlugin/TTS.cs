@@ -42,7 +42,7 @@ namespace TTSPlugin
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                 var magic = $"{engine}{lang}{voice}{text}1mp3{accid}{secret}";
                 var checksum = MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(magic));
-                var stringchecksum = string.Concat(Array.ConvertAll(checksum, x => x.ToString("X2")));
+                var stringchecksum = string.Concat(Array.ConvertAll(checksum, x => x.ToString("X2"))).ToLower();
                 var url =
                     $"http://cache-a.oddcast.com/tts/gen.php?EID={engine}&LID={lang}&VID={voice}&TXT={text}&IS_UTF8=1&EXT=mp3&FNAME=&ACC={accid}&API=&SESSION=&CS={stringchecksum}&cache_flag=3";
 
