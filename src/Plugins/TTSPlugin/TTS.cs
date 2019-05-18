@@ -44,7 +44,7 @@ namespace TTSPlugin
                 var checksum = MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(magic));
                 var stringchecksum = string.Concat(Array.ConvertAll(checksum, x => x.ToString("X2")));
                 var url =
-                    $"http://cache-a.oddcast.com/tts/gen.php?EID={engine}&LID={lang}&VID={voice}&TXT={text}&IS_UTF8=1&EXT=mp3&FNAME=&ACC={accid}&API=&SESSION=&CS={checksum}&cache_flag=3";
+                    $"http://cache-a.oddcast.com/tts/gen.php?EID={engine}&LID={lang}&VID={voice}&TXT={text}&IS_UTF8=1&EXT=mp3&FNAME=&ACC={accid}&API=&SESSION=&CS={stringchecksum}&cache_flag=3";
 
                 Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(url));
             }
