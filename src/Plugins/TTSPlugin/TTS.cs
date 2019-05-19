@@ -10,8 +10,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using CSCore.Codecs.MP3;
-using RequestifyTF2.API;
 using Newtonsoft.Json;
+using RequestifyTF2.API;
+
 namespace TTSPlugin
 {
     public class TTSPlugin : IRequestifyPlugin
@@ -67,10 +68,7 @@ namespace TTSPlugin
             {
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
                 var link = Parse(text, "willfromafar22k_hq");
-                if (link == "")
-                {
-                    return;
-                }
+                if (link == "") return;
 
                 Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(link));
             }
@@ -84,10 +82,7 @@ namespace TTSPlugin
             var length = 20;
             var str = "{\"googleid\":\"";
             var email = new StringBuilder();
-            for (var i = 0; i < length; i++)
-            {
-                email.Append(((char) (rnd.Next(1, 26) + 64)).ToString());
-            }
+            for (var i = 0; i < length; i++) email.Append(((char) (rnd.Next(1, 26) + 64)).ToString());
 
             email.Append("@gmail.com");
             var values = new Dictionary<string, string>
@@ -123,10 +118,7 @@ namespace TTSPlugin
                 var responseString = new StreamReader(responses.GetResponseStream()).ReadToEnd();
                 var reg = new Regex("snd_url=(.+)&snd_size");
                 var regs = reg.Match(responseString);
-                if (regs.Success)
-                {
-                    return regs.Groups[1].Value;
-                }
+                if (regs.Success) return regs.Groups[1].Value;
 
                 return "";
             }
@@ -137,7 +129,56 @@ namespace TTSPlugin
 
     public class TTSCommand : IRequestifyCommand
     {
+        private readonly HttpClient client = new HttpClient();
         public string Help => "Playing a Google voice";
+        public string Name => "tts";
+        public bool OnlyAdmin => false;
+        public List<string> Alias => new List<string>();
+
+        public void Execute(User executor, List<string> arguments)
+        {
+            if (arguments.Count > 0)
+            {
+                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                var endpoint = "https://ws.detectlanguage.com/0.2/detect";
+                var values = new Dictionary<string, string>
+                {
+                    {"key", "demo"},
+                    {"q", text}
+                };
+
+                var content = new FormUrlEncodedContent(values);
+
+                var response = client.PostAsync(endpoint, content).Result;
+
+                var responseString = response.Content.ReadAsStringAsync().Result;
+
+                var responsedata = JsonConvert.DeserializeObject<RootObject>(responseString);
+                var lang = "";
+                if (responsedata.data.detections != null)
+                    if (responsedata.data.detections.Count > 0)
+                        lang = responsedata.data.detections[0].language;
+                var specName = "";
+                try
+                {
+                    specName = CultureInfo.CreateSpecificCulture(new CultureInfo(lang).Name).Name;
+                }
+                catch
+                {
+                    specName = "En-gb";
+                }
+                finally
+                {
+                    text = HttpUtility.UrlEncode(text);
+                    var f =
+                        "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
+                        + text + $"&tl={specName}";
+                    f = f.Replace(" ", "%20");
+                    Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(f));
+                }
+            }
+        }
+
         public class Detection
         {
             public string language { get; set; }
@@ -153,60 +194,6 @@ namespace TTSPlugin
         public class RootObject
         {
             public Data data { get; set; }
-        }
-        public string Name => "tts";
-        public bool OnlyAdmin => false;
-        public List<string> Alias => new List<string>();
-        private readonly HttpClient client = new HttpClient();
-        public void Execute(User executor, List<string> arguments)
-        {
-            if (arguments.Count > 0)
-            {
-                var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
-                var endpoint = "https://ws.detectlanguage.com/0.2/detect";
-                var values = new Dictionary<string, string>
-{
-   { "key", "demo" },
-   { "q", text }
-};
-
-                var content = new FormUrlEncodedContent(values);
-
-                var response =  client.PostAsync(endpoint, content).Result;
-
-                var responseString = response.Content.ReadAsStringAsync().Result;
-
-                var responsedata = JsonConvert.DeserializeObject<RootObject>(responseString);
-                if (responsedata.data.detections != null)
-                {
-                    if (responsedata.data.detections.Count > 0)
-                    {
-                        var lang = responsedata.data.detections[0].language;
-                        string specName = "";
-                        try { specName = CultureInfo.CreateSpecificCulture(new CultureInfo(lang).Name).Name; } catch { }
-
-                        if (specName == ""||specName== "fy-NL")
-                        {
-                            text = HttpUtility.UrlEncode(text);
-                            var a = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
-                                    + text + "&tl=En-gb";
-                            a = a.Replace(" ", "%20");
-                            Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(a));
-                            return;
-                        }
-                        else
-                        {
-                            text = HttpUtility.UrlEncode(text);
-                            var f =
-                                "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
-                                + text + $"&tl={specName}";
-                            f = f.Replace(" ", "%20");
-                            Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(f));
-                            return;
-                        }
-                    }
-                }
-            }
         }
     }
 }
