@@ -175,18 +175,22 @@ namespace RequestPlugin
                     if (arguments[0] == "cur")
                     {
                         Instance.SoundOutBackground.Stop();
+                        ConsoleSender.SendCommand("Stopped current music",ConsoleSender.Command.Chat);
                         return;
                     }
 
                     if (arguments[0] == "que")
                     {
                         Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                        ConsoleSender.SendCommand("Done, now playlist is clear", ConsoleSender.Command.Chat);
                         return;
                     }
+
                 }
 
                 Instance.SoundOutBackground.Stop();
                 Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                ConsoleSender.SendCommand("Stopped current sound and wiped playlist", ConsoleSender.Command.Chat);
             }
         }
 
@@ -272,11 +276,7 @@ namespace RequestPlugin
 
                     var ext = streamInfo.Url;
                     var title = client.GetVideoAsync(id).Result.Title;
-                    if (!Instance.IsMuted)
-                    {
-                        ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
-                    }
-
+                    ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
                     Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
                 }
                 else
@@ -288,22 +288,28 @@ namespace RequestPlugin
                     {
                         for (int i = 0; i < vids.Count; i++)
                         {
-                            var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[i].Id);
-                            var streamInfo =
-                                streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
-                            if (streamInfo == null)
+                            var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[i].Id).ConfigureAwait(false).GetAwaiter().GetResult();
+                            var ext = "";
+                           
+                            foreach (var ad in streamInfoSet.Audio)
+                            {
+                                if (Enum.GetName(typeof(AudioEncoding),ad.AudioEncoding)=="Aac") //Msbuild fuck upped this moment. I cant compare different enums. MSBUILD 16 VS19 RC3
+                                {
+                                    ext = ad.Url;
+                                    break;
+                                }
+                            }
+                            if (ext == string.Empty)
                             {
                                 continue;
                             }
                             
-                            var ext = streamInfo.Url;
+                         
                             var title = client.GetVideoAsync(vids[i].Id).Result.Title;
-                            if (!Instance.IsMuted)
-                            {
+                            
                                 ConsoleSender.SendCommand($"{title} was added to the queue",
                                     ConsoleSender.Command.Chat);
 
-                            }
 
                             Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),
                                 executor));

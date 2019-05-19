@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
+using RequestifyTF2.Commands;
 
 namespace RequestifyTF2.Managers
 {
@@ -19,6 +20,11 @@ namespace RequestifyTF2.Managers
 
         public CommandManager()
         {
+      
+            var aboutCommand = new RequestifyCommand(null,
+                Activator.CreateInstance(typeof(AboutCommand)) as IRequestifyCommand, Status.Enabled);
+            Commands.Add(aboutCommand);
+            Events.CommandRegistered.Invoke(aboutCommand);
             foreach (var Plugin in PluginManager.PluginAssemblies)
             {
                 var CommTypes = GetTypesFromInterface(Plugin, "IRequestifyCommand");

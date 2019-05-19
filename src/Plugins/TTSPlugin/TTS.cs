@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using CSCore.Codecs.MP3;
 using RequestifyTF2.API;
-
+using Newtonsoft.Json;
 namespace TTSPlugin
 {
     public class TTSPlugin : IRequestifyPlugin
@@ -137,34 +138,74 @@ namespace TTSPlugin
     public class TTSCommand : IRequestifyCommand
     {
         public string Help => "Playing a Google voice";
+        public class Detection
+        {
+            public string language { get; set; }
+            public bool isReliable { get; set; }
+            public double confidence { get; set; }
+        }
 
+        public class Data
+        {
+            public List<Detection> detections { get; set; }
+        }
+
+        public class RootObject
+        {
+            public Data data { get; set; }
+        }
         public string Name => "tts";
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
-
+        private readonly HttpClient client = new HttpClient();
         public void Execute(User executor, List<string> arguments)
         {
             if (arguments.Count > 0)
             {
                 var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+                var endpoint = "https://ws.detectlanguage.com/0.2/detect";
+                var values = new Dictionary<string, string>
+{
+   { "key", "demo" },
+   { "q", text }
+};
 
-                if (Regex.IsMatch(text, @"\p{IsCyrillic}"))
+                var content = new FormUrlEncodedContent(values);
+
+                var response =  client.PostAsync(endpoint, content).Result;
+
+                var responseString = response.Content.ReadAsStringAsync().Result;
+
+                var responsedata = JsonConvert.DeserializeObject<RootObject>(responseString);
+                if (responsedata.data.detections != null)
                 {
-                    text = HttpUtility.UrlEncode(text);
-                    var f =
-                        "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
-                        + text + "&tl=Ru-ru";
-                    f = f.Replace(" ", "%20");
+                    if (responsedata.data.detections.Count > 0)
+                    {
+                        var lang = responsedata.data.detections[0].language;
+                        string specName = "";
+                        try { specName = CultureInfo.CreateSpecificCulture(new CultureInfo(lang).Name).Name; } catch { }
 
-                    Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(f));
-                    return;
+                        if (specName == ""||specName== "fy-NL")
+                        {
+                            text = HttpUtility.UrlEncode(text);
+                            var a = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
+                                    + text + "&tl=En-gb";
+                            a = a.Replace(" ", "%20");
+                            Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(a));
+                            return;
+                        }
+                        else
+                        {
+                            text = HttpUtility.UrlEncode(text);
+                            var f =
+                                "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
+                                + text + $"&tl={specName}";
+                            f = f.Replace(" ", "%20");
+                            Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(f));
+                            return;
+                        }
+                    }
                 }
-
-                text = HttpUtility.UrlEncode(text);
-                var d = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
-                        + text + "&tl=En-gb";
-                d = d.Replace(" ", "%20");
-                Instance.QueueForeGround.Enqueue(new Mp3MediafoundationDecoder(d));
             }
         }
     }

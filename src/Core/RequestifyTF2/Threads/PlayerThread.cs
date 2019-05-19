@@ -57,6 +57,7 @@ namespace RequestifyTF2.Threads
                             Task.Run(
                                 () =>
                                 {
+                                    Thread.Sleep(800);
                                     ConsoleSender.SendCommand(
                                         string.Format(Localization.Localization.CORE_PLAYING_TITLE_FROM, s.Title, s.RequestedBy.Name),
                                         ConsoleSender.Command.Chat);
@@ -74,7 +75,7 @@ namespace RequestifyTF2.Threads
                     {
                         if (Instance.SoundOutForeground.WaveSource.Length
                             - Instance.SoundOutForeground.WaveSource.Position
-                            < Instance.SoundOutForeground.WaveSource.WaveFormat.BytesPerSecond / 100)
+                            < Instance.SoundOutForeground.WaveSource.WaveFormat.BytesPerSecond / 1000)
                         {
                             Instance.SoundOutForeground.Stop();
                         }

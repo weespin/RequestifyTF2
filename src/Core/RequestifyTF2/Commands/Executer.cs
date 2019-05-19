@@ -45,11 +45,19 @@ namespace RequestifyTF2.Commands
             }
             else
             {
-                if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled ||
-                    calledcommand.Status == CommandManager.Status.Disabled)
+                if (calledcommand.Status == CommandManager.Status.Disabled)
                 {
                     return;
                 }
+                if (Instance.Plugins.GetPluginFromCommand(calledcommand) != null)
+                {
+                    if (Instance.Plugins.GetPluginFromCommand(calledcommand).Status == PluginManager.Status.Disabled
+                        )
+                    {
+                        return;
+                    }
+                }
+
 
                 if (!Instance.Config.Ignored.Contains(caller.Name))
                 {

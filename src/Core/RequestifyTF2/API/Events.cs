@@ -149,10 +149,10 @@ namespace RequestifyTF2.API
             internal static void Invoke(string nickname)
             {
                 var e = new UndefinedMessageArgs(nickname);
-                OnSuicide(e);
+                OnUndefined(e);
             }
 
-            private static void OnSuicide(UndefinedMessageArgs e)
+            private static void OnUndefined(UndefinedMessageArgs e)
             {
                 OnUndefinedMessage?.Invoke(e);
             }
