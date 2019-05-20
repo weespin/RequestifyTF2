@@ -169,16 +169,15 @@ namespace RequestifyTF2.Managers
                     var plugin = Activator.CreateInstance(type);
                     if (m != null)
                     {
-                                try
-                                {
-                                    m.Invoke(plugin, new object[]{});
-                                }
-                                catch (Exception e)
-                                {
-                                    Logger.Write(Logger.Status.Error, e.ToString());
-                                }
-                          
-                        Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
+                         try
+                         {
+                             m.Invoke(plugin, new object[]{});
+                         }
+                         catch (Exception e)
+                         {
+                             Logger.Write(Logger.Status.Error, e.ToString());
+                         }
+                         Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
                     }
                 }
             }

@@ -18,13 +18,30 @@ namespace RequestifyTF2.Managers
 
         private readonly List<RequestifyCommand> Commands  = new List<RequestifyCommand>();
 
+        private void LoadDefaultPlugins()
+        {
+            var type = typeof(IRequestifyCommand);
+            var tlist = System.Reflection.Assembly.GetCallingAssembly().GetTypes()
+                .Where(mytype => mytype.GetInterfaces().Contains(type)&&mytype.IsNotPublic==true);
+            foreach (Type mytype in System.Reflection.Assembly.GetCallingAssembly().GetTypes()
+                .Where(mytype => mytype .GetInterfaces().Contains(type)&&mytype.IsNotPublic==true)) {
+                var defaultcommand = new RequestifyCommand(null,
+                    Activator.CreateInstance(mytype) as IRequestifyCommand, Status.Enabled);
+                Commands.Add(defaultcommand);
+                Events.CommandRegistered.Invoke(defaultcommand);
+            }
+            var commands =  AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p)).ToList();
+            foreach (var cmd in commands)
+            {
+
+
+            }
+        }
         public CommandManager()
         {
       
-            var aboutCommand = new RequestifyCommand(null,
-                Activator.CreateInstance(typeof(AboutCommand)) as IRequestifyCommand, Status.Enabled);
-            Commands.Add(aboutCommand);
-            Events.CommandRegistered.Invoke(aboutCommand);
+           LoadDefaultPlugins();
             foreach (var Plugin in PluginManager.PluginAssemblies)
             {
                 var CommTypes = GetTypesFromInterface(Plugin, "IRequestifyCommand");
@@ -83,7 +100,7 @@ namespace RequestifyTF2.Managers
 
         public void EnableCommand(RequestifyCommand command)
         {
-            command.Status = Status.Disabled;
+            command.Status = Status.Enabled;
         }
 
         public List<RequestifyCommand> GetCommands()

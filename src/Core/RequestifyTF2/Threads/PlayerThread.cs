@@ -100,6 +100,7 @@ namespace RequestifyTF2.Threads
 
         private static Task Player(IWaveSource decoder, WasapiOut device)
         {
+            //todo: this shit can fuck up!
             if (device.PlaybackState != PlaybackState.Stopped)
             {
                 device.Stop();

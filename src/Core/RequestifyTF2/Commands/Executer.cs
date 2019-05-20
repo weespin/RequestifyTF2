@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using RequestifyTF2.API;
 using RequestifyTF2.Managers;
@@ -12,6 +13,14 @@ namespace RequestifyTF2.Commands
     {
         public static void Execute(User caller, string command, List<string> arguments)
         {
+            if (Instance.Config.Admin != null)
+            {
+                if (caller.Name == Instance.Config.Admin)
+                {
+                    Thread.Sleep(800);
+                }
+            }
+        
             CommandManager.RequestifyCommand calledcommand = null;
             foreach (var n in Instance.Commands.GetCommands())
             {
@@ -85,7 +94,7 @@ namespace RequestifyTF2.Commands
                 }
                 else
                 {
-                    if (Instance.Config.IgnoredReversed)
+                    if (!Instance.Config.IgnoredReversed)
                     {
                         Task.Run(
                             () =>
