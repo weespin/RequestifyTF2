@@ -68,12 +68,12 @@ namespace RequestifyTF2.API
 
             try
             {
-           
+                
                 IWaveSource source = songtype == SongType.MP3
                     ? (IWaveSource) new Mp3MediafoundationDecoder(Link)
                     : new AacDecoder(Link);
 
-                if (source.GetLength().Minutes > Config.MaximumBackgroundInMin)
+                if (source.GetLength().Minutes > Config.MaximumBackgroundInMin || Config.Admin == RequestedBy)
                 {
                     BackGroundQueue.PlayList.Enqueue(new Song(title, source, new User {Name = RequestedBy, Tag = 0}));
                     return true;

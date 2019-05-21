@@ -21,22 +21,14 @@ namespace RequestifyTF2.Managers
         private void LoadDefaultPlugins()
         {
             var type = typeof(IRequestifyCommand);
-            var tlist = System.Reflection.Assembly.GetCallingAssembly().GetTypes()
-                .Where(mytype => mytype.GetInterfaces().Contains(type)&&mytype.IsNotPublic==true);
             foreach (Type mytype in System.Reflection.Assembly.GetCallingAssembly().GetTypes()
-                .Where(mytype => mytype .GetInterfaces().Contains(type)&&mytype.IsNotPublic==true)) {
+                .Where(mytype => mytype.GetInterfaces().Contains(type)&&mytype.IsNotPublic)) {
                 var defaultcommand = new RequestifyCommand(null,
                     Activator.CreateInstance(mytype) as IRequestifyCommand, Status.Enabled);
                 Commands.Add(defaultcommand);
                 Events.CommandRegistered.Invoke(defaultcommand);
             }
-            var commands =  AppDomain.CurrentDomain.GetAssemblies().SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p)).ToList();
-            foreach (var cmd in commands)
-            {
-
-
-            }
+           
         }
         public CommandManager()
         {
