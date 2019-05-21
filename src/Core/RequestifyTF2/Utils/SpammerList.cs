@@ -11,7 +11,7 @@ namespace RequestifyTF2.Utils
   public static class SpammerList
     {
       
-        private static List<SpamUser> _spammerlist;
+        private static List<SpamUser> _spammerlist => new List<SpamUser>();
 
         public static bool IsBlocked(string user)
         {
