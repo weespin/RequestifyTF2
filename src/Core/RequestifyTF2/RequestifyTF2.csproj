@@ -254,6 +254,7 @@
     <Compile Include="Utils\IPolicy.cs" />
     <Compile Include="API\LocalHelper.cs" />
     <Compile Include="Utils\Patcher.cs" />
+    <Compile Include="Utils\SpammerList.cs" />
     <Compile Include="Utils\Statistics.cs" />
   </ItemGroup>
   <ItemGroup>

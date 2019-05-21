@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Nancy.Responses;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.Managers;
 using Unosquare.Labs.EmbedIO;
 using Unosquare.Labs.EmbedIO.Constants;
 using Unosquare.Labs.EmbedIO.Modules;
-using Unosquare.Swan;
 
 
 namespace APIPlugin
@@ -45,9 +37,9 @@ namespace APIPlugin
 
             server.RegisterModule(new WebApiModule());
             server.Module<WebApiModule>().RegisterController<InstanceController>();
+#pragma warning disable 4014
             server.RunAsync();
-
-
+#pragma warning restore 4014
 
         }
 
@@ -170,9 +162,9 @@ namespace APIPlugin
                     switch (type)
                     {
                         case "AAC":
-                            return Instance.AddEqueue(Instance.SongType.AAC, link, requester, title);
+                            return Instance.BackgroundEnqueue(Instance.SongType.AAC, link, requester, title);
                         case "MP3":
-                            return Instance.AddEqueue(Instance.SongType.MP3, link, requester, title);
+                            return Instance.BackgroundEnqueue(Instance.SongType.MP3, link, requester, title);
                         default:
                             return false;
                     }

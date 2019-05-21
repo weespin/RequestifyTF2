@@ -100,6 +100,7 @@ namespace TTSPlugin
                 var request =
                     (HttpWebRequest) WebRequest.Create(
                         "http://www.acapela-group.com:8080/webservices/1-34-01-Mobility/Synthesizer");
+                //yes you can copypaste this method, but better copy it from https://github.com/weespin/WillFromAfarDownloader
                 var enc =
                     $"req_voice=enu_{voiceid}&cl_pwd=&cl_vers=1-30&req_echo=ON&cl_login=AcapelaGroup&req_comment=%7B%22nonce%22%3A%22{m.Groups[1]}%22%2C%22user%22%3A%22{email}%22%7D&req_text={Uri.EscapeDataString(text)}&cl_env=ACAPELA_VOICES&prot_vers=2&cl_app=AcapelaGroup_WebDemo_Android";
 
@@ -169,6 +170,7 @@ namespace TTSPlugin
                 }
                 finally
                 {
+                    //first time i've used 'finally' in 5 years
                     text = HttpUtility.UrlEncode(text);
                     var f =
                         "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="
@@ -182,8 +184,8 @@ namespace TTSPlugin
         public class Detection
         {
             public string language { get; set; }
-            public bool isReliable { get; set; }
-            public double confidence { get; set; }
+            // public bool isReliable { get; set; } unused
+            // public double confidence { get; set; } unused
         }
 
         public class Data

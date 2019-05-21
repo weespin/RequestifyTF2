@@ -27,7 +27,9 @@ namespace RequestifyTF2
 
             Undefined,
 
-            KillCrit
+            KillCrit,
+
+            Blocked
         }
 
         public static readonly Regex CommandRegex = new Regex(@"^(.+) : (.+)$");
@@ -108,6 +110,12 @@ namespace RequestifyTF2
 
                 if (split.Length > 0)
                 {
+                    //Spamhelper
+                    if (SpammerList.IsBlocked(reg.Groups[1].Value))
+                    {
+                        return Result.Blocked;
+                    }
+                    SpammerList.Messaged(reg.Groups[1].Value);
                     if (split[0].StartsWith("!"))
                     {
                         if (split.Length > 1)
