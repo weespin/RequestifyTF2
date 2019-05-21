@@ -15,6 +15,10 @@ namespace RequestifyTF2.Utils
 
         public static bool IsBlocked(string user)
         {
+            if (user == Instance.Config.Admin)
+            {
+                return false;
+            }
             if (_spammerlist.Any(n => n.nickname==user))
             {
                 var spamuser = _spammerlist.First(n => n.nickname == user);

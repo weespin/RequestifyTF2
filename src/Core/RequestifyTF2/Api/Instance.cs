@@ -63,21 +63,29 @@ namespace RequestifyTF2.API
             MP3,
             AAC
         }
-        public static bool AddEqueue(SongType songtype, string Link, string RequestedBy,string title)
+        public static bool BackgroundEnqueue(SongType songtype, string Link, string RequestedBy,string title)
         {
 
             try
             {
-            if(songtype == SongType.MP3)
-            { 
-              BackGroundQueue.PlayList.Enqueue(new Song(title, new Mp3MediafoundationDecoder(Link),new User{Name = RequestedBy,Tag=0}));
-            }
-            else
-            {
-                BackGroundQueue.PlayList.Enqueue(new Song(title, new AacDecoder(Link), new User{ Name = RequestedBy, Tag = 0 }));
-            }
+                
+                IWaveSource source = songtype == SongType.MP3
+                    ? (IWaveSource) new Mp3MediafoundationDecoder(Link)
+                    : new AacDecoder(Link);
 
-                return true;
+                if (source.GetLength().Minutes > Config.MaximumBackgroundInMin || Config.Admin == RequestedBy)
+                {
+                    BackGroundQueue.PlayList.Enqueue(new Song(title, source, new User {Name = RequestedBy, Tag = 0}));
+                    return true;
+                }
+                else
+                {
+                    ConsoleSender.SendCommand("UwU sowwy but its nyot possibwe to pway this song",ConsoleSender.Command.Chat);
+                    ConsoleSender.SendCommand($"I can't handwe things that awe longer than {Instance.Config.MaximumBackgroundInMin} minyutes (inches) OwO", ConsoleSender.Command.Chat);
+                    return false;
+                }
+
+              
             }
             catch (Exception e)
             {
@@ -167,13 +175,12 @@ namespace RequestifyTF2.API
                     {
                         Logger.Write(
                             Logger.Status.Error,
-                            string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName, e));
+                            string.Format(Localization.Localization.CORE_ERROR_WHILE_SETTING_INPUT, inp.FriendlyName,
+                                e));
                         return false;
                     }
 
-                    SoundOutForeground.Device = outp;
-                    SoundOutBackground.Device = outp;
-                    SoundOutExtra.Device = outp;
+                    SetVirtualMicrophone(outp);
                     Logger.Write(
                         Logger.Status.STATUS,
                         string.Format(Localization.Localization.CORE_USED_DEVICES, outp.FriendlyName, inp.FriendlyName),
@@ -191,6 +198,12 @@ namespace RequestifyTF2.API
           
         }
 
+        static void SetVirtualMicrophone(MMDevice outp)
+        {
+            SoundOutForeground.Device = outp;
+            SoundOutBackground.Device = outp;
+            SoundOutExtra.Device = outp;
+        }
        
         public enum ELanguage
         {
@@ -269,6 +282,10 @@ namespace RequestifyTF2.API
             public List<string> Ignored { get; set; } = new List<string>();
 
             public bool IgnoredReversed { get; set; }
+
+            public int MaximumParsesPerMin { get; set; } = 30;
+
+            public int MaximumBackgroundInMin { get; set; } = 5;
         }
 
         public class Song
