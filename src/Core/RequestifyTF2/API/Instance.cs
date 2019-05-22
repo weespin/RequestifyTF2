@@ -76,6 +76,8 @@ namespace RequestifyTF2.API
                 var lenght = source.GetLength().TotalMinutes;
                 if (source.GetLength().TotalMinutes < Config.MaximumBackgroundInMin || Config.Admin == RequestedBy)
                 {
+                    ConsoleSender.SendCommand($"{title} was added to the queue",
+                        ConsoleSender.Command.Chat);
                     BackGroundQueue.PlayList.Enqueue(new Song(title, source, new User { Name = RequestedBy, Tag = 0 }));
                     return true;
                 }
@@ -286,7 +288,7 @@ namespace RequestifyTF2.API
 
             public bool IgnoredReversed { get; set; }
 
-            public int MaximumParsesPerMin { get; set; } = 12;
+            public int MaximumParsesPerMin { get; set; } = 30;
 
             public int MaximumBackgroundInMin { get; set; } = 5;
         }

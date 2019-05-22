@@ -5,6 +5,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.Commands;
+using RequestifyTF2.Utils;
 
 namespace RequestifyTF2.Managers
 {
@@ -136,6 +137,7 @@ namespace RequestifyTF2.Managers
 
             public void Execute(User executor, List<string> arguments)
             {
+                SpammerList.Messaged(executor.Name);
                 ICommand.Execute(executor, arguments);
             }
 

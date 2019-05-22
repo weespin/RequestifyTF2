@@ -121,7 +121,7 @@ namespace RequestifyTF2
                         Events.UndefinedMessage.Invoke(s);
                         return Result.Undefined;
                     }
-                    SpammerList.Messaged(reg.Groups[1].Value);
+                  
                     if (split[0].StartsWith("!"))
                     {
                         if (split.Length > 1)

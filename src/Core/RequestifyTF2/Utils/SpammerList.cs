@@ -89,8 +89,10 @@ namespace RequestifyTF2.Utils
             var max = this.Max();
             var min = this.Min();
             //calculate messages in total
-            var overflow =  (max - min)/this.Count ;
-            if ((overflow*(60-(max - min)) > requestspermin))
+           
+            var clamp = 60- (max - min);
+           
+            if (clamp > requestspermin)
             {
                 //avg messages overflow
                 

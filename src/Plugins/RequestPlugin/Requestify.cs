@@ -304,8 +304,6 @@ namespace RequestPlugin
                          
                             var title = client.GetVideoAsync(vids[i].Id).Result.Title;
                             
-                                ConsoleSender.SendCommand($"{title} was added to the queue",
-                                    ConsoleSender.Command.Chat);
                          
                                 Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
                                     executor.Name, title);
