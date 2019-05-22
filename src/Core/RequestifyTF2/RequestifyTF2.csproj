@@ -251,6 +251,7 @@
     <Compile Include="Threads\LogReader.cs" />
     <Compile Include="API\ConsoleSender.cs" />
     <Compile Include="Utils\AudioDeviceChanger.cs" />
+    <Compile Include="Utils\FakeUsers.cs" />
     <Compile Include="Utils\IPolicy.cs" />
     <Compile Include="API\LocalHelper.cs" />
     <Compile Include="Utils\Patcher.cs" />

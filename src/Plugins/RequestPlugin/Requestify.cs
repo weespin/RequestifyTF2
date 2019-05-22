@@ -19,22 +19,24 @@ namespace RequestPlugin
 {
     public class RequestPlugin : IRequestifyPlugin
     {
+       
+        public static RequestPlugin instance;
         public string Author => "Weespin";
         public string Name => "Requestify";
         public string Desc => "!request \"link\"";
+        
+
     }
 
     public class VoteCommand : IRequestifyCommand
     {
-        private readonly List<string> VoteUsers = new List<string>();
-        private long MusicId;
 
-        private int PlayersCount;
-
-
+      
         public string Help => "Vote for skip!";
         public string Name => "voteskip";
-
+        public  static int PlayersCount = 0;
+        public readonly List<string> VoteUsers = new List<string>();
+        public  static long MusicId;
 
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
@@ -50,64 +52,59 @@ namespace RequestPlugin
                     VoteUsers.Clear();
                     MusicId = Instance.SoundOutBackground.WaveSource.Length;
                     VoteUsers.Add(executor.Name);
-                    if (!Instance.IsMuted)
-                    {
-                        ConsoleSender.SendCommand(
-                            $"{executor} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
-                            ConsoleSender.Command.Chat);
-                    }
 
-                    if (VoteUsers.Count >= PlayersCount / 2)
+                    var pl = PlayersCount < 4 ?  1 : PlayersCount / 2 ;
+                    ConsoleSender.SendCommand(
+                            $"{executor.Name} voted to skip this song. { VoteUsers.Count}/{pl}",
+                            ConsoleSender.Command.Chat);
+                    
+
+                    if (VoteUsers.Count >= PlayersCount / 4)
                     {
                         Instance.SoundOutBackground.Stop();
-                        if (!Instance.IsMuted)
-                        {
+                       
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
-                        }
+                        
                     }
                 }
                 else
                 {
-                    if (VoteUsers.Count >= PlayersCount / 2)
+                    if (VoteUsers.Count >= PlayersCount / 4)
                     {
                         Instance.SoundOutBackground.Stop();
-                        if (!Instance.IsMuted)
-                        {
+                       
                             ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
-                        }
+                        
                     }
 
                     if (VoteUsers.Contains(executor.Name))
                     {
-                        if (!Instance.IsMuted)
-                        {
+                        
                             ConsoleSender.SendCommand(
-                                $"{executor} already voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
+                                $"{executor.Name} already voted to skip this song. { VoteUsers.Count}/{PlayersCount}",
                                 ConsoleSender.Command.Chat);
-                        }
+                        
                     }
                     else
                     {
                         ConsoleSender.SendCommand(
-                            $"{executor} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
+                            $"{executor.Name} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
                             ConsoleSender.Command.Chat);
                         if (VoteUsers.Count >= PlayersCount)
                         {
                             Instance.SoundOutBackground.Stop();
-                            if (!Instance.IsMuted)
-                            {
+                            
                                 ConsoleSender.SendCommand($"This song has been skipped", ConsoleSender.Command.Chat);
-                            }
+                            
                         }
                     }
                 }
             }
             else
             {
-                if (!Instance.IsMuted)
-                {
-                    ConsoleSender.SendCommand($"{executor}, the queue is empty.", ConsoleSender.Command.Chat);
-                }
+               
+                    ConsoleSender.SendCommand($"{executor.Name}, the queue is empty.", ConsoleSender.Command.Chat);
+                
             }
         }
 
@@ -143,7 +140,7 @@ namespace RequestPlugin
             var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
             if (reg.Success)
             {
-                PlayersCount = int.Parse(reg.Groups[1].Value);
+               PlayersCount = int.Parse(reg.Groups[1].Value);
             }
         }
 
@@ -168,13 +165,13 @@ namespace RequestPlugin
                 {
                     return;
                 }
-
+                Thread.Sleep(800);
                 if (arguments.Count > 0)
                 {
                     if (arguments[0] == "cur")
                     {
                         Instance.SoundOutBackground.Stop();
-                        ConsoleSender.SendCommand("Stopped current music",ConsoleSender.Command.Chat);
+                        ConsoleSender.SendCommand($"Skipped a song, {Instance.BackGroundQueue.PlayList.Count} in queue",ConsoleSender.Command.Chat);
                         return;
                     }
 
@@ -189,7 +186,7 @@ namespace RequestPlugin
 
                 Instance.SoundOutBackground.Stop();
                 Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
-                ConsoleSender.SendCommand("Stopped current sound and wiped playlist", ConsoleSender.Command.Chat);
+                ConsoleSender.SendCommand("BackGroundQueue is now clear", ConsoleSender.Command.Chat);
             }
         }
 

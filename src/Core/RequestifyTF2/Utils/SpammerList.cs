@@ -11,7 +11,7 @@ namespace RequestifyTF2.Utils
   public static class SpammerList
     {
       
-        private static List<SpamUser> _spammerlist => new List<SpamUser>();
+        private static List<SpamUser> _spammerlist = new List<SpamUser>();
 
         public static bool IsBlocked(string user)
         {
@@ -37,14 +37,16 @@ namespace RequestifyTF2.Utils
         }
 
         public static void Messaged(string user)
-        {
+        {   
             if (_spammerlist.Any(n => n.nickname == user))
             {
               _spammerlist.First(n => n.nickname == user).requests.RegisterFlood();
             }
             else
             {
-                _spammerlist.Add(new SpamUser(){nickname = user});
+                var objt = new SpamUser() {nickname = user};
+                objt.requests.RegisterFlood();
+                _spammerlist.Add(objt);
             }
         }
         
@@ -62,30 +64,33 @@ namespace RequestifyTF2.Utils
 
     class RequestStamps : Queue<long>
     {
-        private const int historylimit = 20;
+        private const int historylimit = 60;
         private long Timestamp => (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
         public void RegisterFlood()
         {
             if (this.Count > historylimit)
             {
                 this.Dequeue();
-                base.Enqueue(Timestamp);
+               
             }
+            base.Enqueue(Timestamp);
         }
 
         public bool IsOverflowed(int requestspermin)
         {
             var max = this.Max();
+            var min = this.Min();
             //calculate messages in total
-            var overflow = (this.Max() - this.Min()) / this.Count;
+            var overflow = (max - min) - this.Count;
             if (overflow > requestspermin)
             {
                 //avg messages overflow
                 return true;
             }
-            else { 
-
-              return this.Count(n => Between(n, n - 60, max, true)) >= requestspermin;
+            else
+            {
+                var reqpm = this.Count(n => Between(n, n - 60, max, true));
+              return reqpm >= requestspermin;
             }
         }
 

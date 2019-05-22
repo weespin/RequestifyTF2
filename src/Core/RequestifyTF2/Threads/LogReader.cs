@@ -115,6 +115,12 @@ namespace RequestifyTF2
                     {
                         return Result.Blocked;
                     }
+
+                    if (FakeUsers.UserList.Contains(reg.Groups[1].Value))
+                    {
+                        Events.UndefinedMessage.Invoke(s);
+                        return Result.Undefined;
+                    }
                     SpammerList.Messaged(reg.Groups[1].Value);
                     if (split[0].StartsWith("!"))
                     {

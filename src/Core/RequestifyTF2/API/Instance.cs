@@ -275,7 +275,7 @@ namespace RequestifyTF2.API
         /// </summary>
         public class config
         {
-            public string Admin { get; set; }
+            public string Admin { get; set; } = "";
 
             public string GameDir { get; set; }
 
@@ -283,7 +283,7 @@ namespace RequestifyTF2.API
 
             public bool IgnoredReversed { get; set; }
 
-            public int MaximumParsesPerMin { get; set; } = 30;
+            public int MaximumParsesPerMin { get; set; } = 12;
 
             public int MaximumBackgroundInMin { get; set; } = 5;
         }

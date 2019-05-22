@@ -16,4 +16,5 @@ namespace RequestifyTF2.API
         public string Name { get; set; } = "";
         public Tag Tag { get; set; } = Tag.None;
     }
+
 }
