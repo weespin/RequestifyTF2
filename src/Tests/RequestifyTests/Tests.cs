@@ -11,7 +11,7 @@ namespace RequestifyTF2.Tests
             var sut = ReaderThread.TextChecker("BoyPussi killed dat boi 28 with sniperrifle. (crit)");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.KillCrit));
             sut = ReaderThread.TextChecker(
-                "DllMain | aimware killed One-Man Cheeseburger Apocalypse with tf_projectile_rocket.");
+                "[NCC] DllMain killed $20 users with tf_projectile_rocket.");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.Kill));
         }
 
@@ -33,7 +33,7 @@ namespace RequestifyTF2.Tests
         [Test]
         public static void TestConnect()
         {
-            var sut = ReaderThread.TextChecker("DllMain | aimware connected");
+            var sut = ReaderThread.TextChecker("[NCC]Effie connected");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.Connected));
         }
 
@@ -41,14 +41,14 @@ namespace RequestifyTF2.Tests
         public static void TestKillCrit()
         {
             var sut = ReaderThread.TextChecker(
-                "DllMain | aimware killed One-Man Cheeseburger Apocalypse with sniperrifle. (crit)");
+                "[RLS]V952 killed Tom with sniperrifle. (crit)");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.KillCrit));
         }
 
         [Test]
         public static void TestSuicide()
         {
-            var sut = ReaderThread.TextChecker("DllMain | aimware suicided.");
+            var sut = ReaderThread.TextChecker("DurRud suicided.");
             Assert.That(sut, Is.EqualTo(ReaderThread.Result.Suicide));
         }
     }
