@@ -22,14 +22,21 @@ namespace RequestifyTF2.Utils
             if (_spammerlist.Any(n => n.nickname==user))
             {
                 var spamuser = _spammerlist.First(n => n.nickname == user);
-                if (spamuser.blocked)
+                if ((DateTime.Now-spamuser.bannedtime).TotalMinutes<(5*spamuser.bantimes))
                 {
                     return true;
                 }
+
                 if(spamuser.requests.IsOverflowed(Instance.Config.MaximumParsesPerMin))
                 {
+                    spamuser.bannedtime = DateTime.Now;
+                    spamuser.bantimes++;
+
+                    var bantime = (spamuser.bannedtime.AddMinutes(5 * spamuser.bantimes) - DateTime.Now).TotalMinutes
+                        .ToString("###");
+                    ConsoleSender.SendCommand($"Now {user} is banned for fllod. Wait {bantime}", ConsoleSender.Command.Chat);
                     Logger.Write(Logger.Status.Info,$"User {user} got blocked for too frequent messages.");
-                    spamuser.blocked = true;
+                   
                     return true;
                 }
             }
@@ -55,11 +62,12 @@ namespace RequestifyTF2.Utils
     internal class SpamUser
     {
         //CustomList<DateTime> requests
-        public bool blocked;
+        
         public string nickname;
         public RequestStamps requests = new RequestStamps();
+        public DateTime bannedtime;
+        public int bantimes;
 
-       
     }
 
     class RequestStamps : Queue<long>
@@ -81,10 +89,11 @@ namespace RequestifyTF2.Utils
             var max = this.Max();
             var min = this.Min();
             //calculate messages in total
-            var overflow = (max - min) - this.Count;
-            if (overflow > requestspermin)
+            var overflow =  (max - min)/this.Count ;
+            if ((overflow*(60-(max - min)) > requestspermin))
             {
                 //avg messages overflow
+                
                 return true;
             }
             else

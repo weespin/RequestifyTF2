@@ -239,11 +239,9 @@ namespace RequestPlugin
                                             ConsoleSender.Command.Chat);
                                     }
 
-                                    Instance.BackGroundQueue.PlayList.Enqueue(
-                                        new Instance.Song(
-                                            b.title,
-                                            new Mp3MediafoundationDecoder(urls.http_mp3_128_url),
-                                            executor));
+                                    Instance.BackgroundEnqueue(Instance.SongType.MP3, urls.http_mp3_128_url,
+                                        executor.Name, b.title);
+                                   
 
                                     return;
                                 }
@@ -273,7 +271,10 @@ namespace RequestPlugin
                     var ext = streamInfo.Url;
                     var title = client.GetVideoAsync(id).Result.Title;
                     ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
-                    Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext), executor));
+
+                    Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
+                        executor.Name, title);
+                    
                 }
                 else
                 {
@@ -305,11 +306,10 @@ namespace RequestPlugin
                             
                                 ConsoleSender.SendCommand($"{title} was added to the queue",
                                     ConsoleSender.Command.Chat);
-
-
-                            Instance.BackGroundQueue.PlayList.Enqueue(new Instance.Song(title, new AacDecoder(ext),
-                                executor));
-                            break;
+                         
+                                Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
+                                    executor.Name, title);
+                                break;
                         }
                        
 
