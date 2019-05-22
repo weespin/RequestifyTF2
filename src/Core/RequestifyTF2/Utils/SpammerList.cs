@@ -60,7 +60,7 @@ namespace RequestifyTF2.Utils
        
     }
 
-    class RequestStamps : List<long>
+    class RequestStamps : Queue<long>
     {
         private const int historylimit = 20;
         private long Timestamp => (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
@@ -68,8 +68,8 @@ namespace RequestifyTF2.Utils
         {
             if (this.Count > historylimit)
             {
-                this.RemoveAt(this.Count-1);
-                base.Add(Timestamp);
+                this.Dequeue();
+                base.Enqueue(Timestamp);
             }
         }
 
