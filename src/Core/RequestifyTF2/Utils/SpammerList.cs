@@ -31,7 +31,7 @@ namespace RequestifyTF2.Utils
 
                     var bantime = (spamuser.bannedtime.AddMinutes(5 * spamuser.bantimes) - DateTime.Now).TotalMinutes
                         .ToString("###");
-                    ConsoleSender.SendCommand($"Now {user} is banned for fllod. Wait {bantime}",
+                    ConsoleSender.SendCommand($"Now {user} is banned for flood. Wait {bantime}",
                         ConsoleSender.Command.Chat);
                     Logger.Write(Logger.Status.Info, $"User {user} got blocked for too frequent messages.");
 
