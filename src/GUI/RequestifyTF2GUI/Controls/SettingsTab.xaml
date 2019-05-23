@@ -21,9 +21,9 @@
         </Grid.ColumnDefinitions>
         <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}"
                            Grid.Row="2"
-                Click="Button_Click_1" Margin="0,6,-3,5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                Click="Button_Click_1" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
         <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
-                Grid.Row="2" Grid.Column="1" Margin="14,6,14,5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                Grid.Row="2" Grid.Column="1"  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
 
         <materialDesign:Card
             Background="#03a9f4"
@@ -68,6 +68,8 @@
 
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -78,8 +80,8 @@
             <Label x:Name="AdminName" FontSize="15" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" 
                    Grid.Row="0" VerticalAlignment="Top" Grid.ColumnSpan="2"  />
 
-            <TextBox  Grid.Row="0" Margin="1,25,0,0" VerticalAlignment="Top" x:Name="AdminBox"  materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                      Width="495" 
+            <TextBox  Grid.Row="0" Margin="3,30,0,0" VerticalAlignment="Top" x:Name="AdminBox"  materialDesign:HintAssist.Hint="{DynamicResource m_Copy_Steam}"   Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                      Width="495" LostFocus="AdminBox_TextChanged"
             />
             <!-- LostFocus="AdminBoxFocusLost" -->
 
@@ -90,7 +92,7 @@
             <materialDesign:DialogHost  
             DialogClosing="Sample1_DialogHost_OnDialogClosing"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center" Margin="25,0,0,0" Grid.Column="1"  Width="250" Height="290" Grid.Row="0" Grid.RowSpan="2">
+            VerticalAlignment="Center" Margin="25,0,0,0" Grid.Column="1"  Width="250" Height="290" Grid.Row="0" Grid.RowSpan="4">
                 <materialDesign:DialogHost.DialogContent>
                     <StackPanel
                     Margin="0">
@@ -134,6 +136,7 @@
                             Height="*" />
                             <RowDefinition
                             Height="Auto" />
+
                         </Grid.RowDefinitions>
                         <ListBox
                         MouseDoubleClick="IgnoreList_MouseDoubleClick"
@@ -162,25 +165,37 @@
             </materialDesign:DialogHost>
             <CheckBox Checked="RemoveCheckBox_OnChecked" Unchecked="RemoveCheckBox_OnUnchecked"
             x:Name="RemoveCheckBox" 
-            Grid.Row="0" Grid.Column="2" Margin="-20,-100,0,0" >
+            Grid.Row="0" Grid.Column="2" Margin="-20,5,0,0" >
                 <TextBlock TextWrapping="Wrap" Text="{DynamicResource i_Reversed}"/>
             </CheckBox>
             <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="301,440,0,0" VerticalAlignment="Top"
                Foreground="#99000000" Width="489" Grid.Row="1" />
             <Label x:Name="AdminName_Copy" FontSize="15" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" 
                 Grid.Row="0" Margin="0,67,0,43" d:LayoutOverrides="Height"  />
-            <Grid>
-                <StackPanel Orientation="Horizontal" Margin="0,0,23,0" Height="38" VerticalAlignment="Bottom">
-                    <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="txtNum_TextChanged" />
-                    <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
-                    <Button x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
-                </StackPanel>
+            <Grid Height="100" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Maximum background music lenght (min)" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,23,0" Height="50" VerticalAlignment="Center">
+                       <TextBox x:Name="txtNum" x:FieldModifier="public" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="musiclenght_changed" />
+                     <Button  Margin="5,5,0,5" Content="˄" Padding="10,0,10,0" Click="cmdUp_Click" />
+                     <Button  Margin="0,5,0,5"  Content="˅" Padding="10,0,10,0" Click="cmdDown_Click" />
+                    </StackPanel>
             </Grid>
-            <Grid Margin="10,5,-10,5" Grid.Row="1">
-                <StackPanel Orientation="Horizontal" Margin="0,0,23,0" Height="38" VerticalAlignment="Bottom">
-                    <TextBox x:Name="txtNum2" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="txtNum_TextChanged" />
-                    <Button x:Name="cmdUp2" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
-                    <Button x:Name="cmdDown2" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+            <Grid Height="100"  Grid.Row="2">
+                 <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="AntiSpam threshold (req/min)" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,23,0" Height="50" VerticalAlignment="Center">
+                    <TextBox x:Name="txtNum2" x:FieldModifier="public" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="antispamthreshold_changed" />
+                    <Button Margin="5,5,0,5" Content="˄" Padding="10,0,10,0" Click="cmdUp2_Click" />
+                    <Button Margin="0,5,0,5"  Content="˅"  Padding="10,0,10,0"  Click="cmdDown2_Click" />
                 </StackPanel>
             </Grid>
         </Grid>
