@@ -73,19 +73,24 @@ namespace RequestifyTF2.API
                     ? (IWaveSource) new Mp3MediafoundationDecoder(Link)
                     : new AacDecoder(Link);
 
-                if (source.GetLength().Minutes > Config.MaximumBackgroundInMin || Config.Admin == RequestedBy)
+                var lenght = source.GetLength().TotalMinutes;
+                if (source.GetLength().TotalMinutes < Config.MaximumBackgroundInMin || Config.Admin == RequestedBy)
                 {
-                    BackGroundQueue.PlayList.Enqueue(new Song(title, source, new User {Name = RequestedBy, Tag = 0}));
+                    ConsoleSender.SendCommand($"{title} was added to the queue",
+                        ConsoleSender.Command.Chat);
+                    BackGroundQueue.PlayList.Enqueue(new Song(title, source, new User { Name = RequestedBy, Tag = 0 }));
                     return true;
                 }
                 else
                 {
-                    ConsoleSender.SendCommand("UwU sowwy but its nyot possibwe to pway this song",ConsoleSender.Command.Chat);
+                    Thread.Sleep(800);
+                    ConsoleSender.SendCommand("UwU sowwy butt its nyot possibwe to pway this swong", ConsoleSender.Command.Chat);
                     ConsoleSender.SendCommand($"I can't handwe things that awe longer than {Instance.Config.MaximumBackgroundInMin} minyutes (inches) OwO", ConsoleSender.Command.Chat);
-                    return false;
+                    return true;
                 }
 
-              
+
+
             }
             catch (Exception e)
             {
@@ -275,7 +280,7 @@ namespace RequestifyTF2.API
         /// </summary>
         public class config
         {
-            public string Admin { get; set; }
+            public string Admin { get; set; } = "";
 
             public string GameDir { get; set; }
 

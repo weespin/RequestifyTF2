@@ -25,6 +25,40 @@ namespace RequestifyTF2GUI.Controls
             var a = new Games { DataContext = this };
             a.Show();
         }
+        private int _numValue = 0;
+
+        public int NumValue
+        {
+            get { return _numValue; }
+            set
+            {
+                _numValue = value;
+                txtNum.Text = value.ToString();
+            }
+        }
+
+     
+
+        private void cmdUp_Click(object sender, RoutedEventArgs e)
+        {
+            NumValue++;
+        }
+
+        private void cmdDown_Click(object sender, RoutedEventArgs e)
+        {
+            NumValue--;
+        }
+
+        private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtNum == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(txtNum.Text, out _numValue))
+                txtNum.Text = _numValue.ToString();
+        }
         private void Sample1_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
         {
             if (!Equals(eventArgs.Parameter, true)) return;

@@ -8,10 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.6*" />
-            <RowDefinition Height="0.3*" />
-            <RowDefinition Height="0.2*" />
-            <RowDefinition Height="1.8*" />
+            <RowDefinition Height="93*" />
+            <RowDefinition Height="47*" />
+            <RowDefinition Height="31*" />
+            <RowDefinition Height="279*" />
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -19,18 +19,16 @@
             <ColumnDefinition/>
 
         </Grid.ColumnDefinitions>
-        <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}" HorizontalAlignment="Left"
+        <Button BorderBrush="{x:Null}" Content="{DynamicResource s_ManualBrowser}"
                            Grid.Row="2"
-                            VerticalAlignment="Center" Width="403"
-                Click="Button_Click_1" />
+                Click="Button_Click_1" Margin="0,6,-3,5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
         <Button BorderBrush="{x:Null}" Click="GameBrowser_click" Content="{DynamicResource s_GameBrowser}"
-                Grid.Row="2" VerticalAlignment="Center" Grid.Column="2"
-                Width="372.041" />
+                Grid.Row="2" Grid.Column="1" Margin="14,6,14,5" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
 
         <materialDesign:Card
             Background="#03a9f4"
             Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-            Padding="0" Height="65" Grid.Row ="0" Grid.ColumnSpan="2" Margin="16,13,16,0" >
+            Padding="0" Grid.Row ="0" Grid.ColumnSpan="2" Margin="16,13,16,15" VerticalAlignment="Stretch" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition
@@ -62,10 +60,10 @@
         </materialDesign:Card>
 
 
-        <ComboBox Margin="0,0,4,0" x:Name ="menuLanguage"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_UI_Lang}"  Grid.Row="1"  Grid.Column="0" />
-        <ComboBox Margin="4,0,0,0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_Core_Lang}"  x:Name="ComboBoxCoreLanguage" Grid.Column="1"  Grid.Row="1"
+        <ComboBox Margin="0,3,4,4" x:Name ="menuLanguage"  Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_UI_Lang}"  Grid.Row="1"  Grid.Column="0" VerticalAlignment="Stretch" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+        <ComboBox Margin="4,3,0,4" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="{DynamicResource s_Core_Lang}"  x:Name="ComboBoxCoreLanguage" Grid.Column="1"  Grid.Row="1" VerticalAlignment="Stretch" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
                   />
-        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" Grid.RowSpan="2">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
             <Grid.RowDefinitions>
 
                 <RowDefinition Height="1*" />
@@ -169,6 +167,13 @@
             </CheckBox>
             <Label Content="0" HorizontalAlignment="Left" x:Name="Attempts" Margin="301,440,0,0" VerticalAlignment="Top"
                Foreground="#99000000" Width="489" Grid.Row="1" />
+            <Label x:Name="AdminName_Copy" FontSize="15" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" 
+                Grid.Row="0" Margin="0,67,0,43" d:LayoutOverrides="Height"  />
+            <StackPanel Orientation="Horizontal" Margin="0,0,23,0" Height="38" VerticalAlignment="Bottom">
+                <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="txtNum_TextChanged" />
+                <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
+                <Button x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+            </StackPanel>
         </Grid>
     </Grid>
 
