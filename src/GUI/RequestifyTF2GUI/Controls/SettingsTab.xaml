@@ -169,11 +169,20 @@
                Foreground="#99000000" Width="489" Grid.Row="1" />
             <Label x:Name="AdminName_Copy" FontSize="15" Content="{DynamicResource m_Admin_Name}" HorizontalAlignment="Left" 
                 Grid.Row="0" Margin="0,67,0,43" d:LayoutOverrides="Height"  />
-            <StackPanel Orientation="Horizontal" Margin="0,0,23,0" Height="38" VerticalAlignment="Bottom">
-                <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="txtNum_TextChanged" />
-                <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
-                <Button x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
-            </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Horizontal" Margin="0,0,23,0" Height="38" VerticalAlignment="Bottom">
+                    <TextBox x:Name="txtNum" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="txtNum_TextChanged" />
+                    <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
+                    <Button x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+                </StackPanel>
+            </Grid>
+            <Grid Margin="10,5,-10,5" Grid.Row="1">
+                <StackPanel Orientation="Horizontal" Margin="0,0,23,0" Height="38" VerticalAlignment="Bottom">
+                    <TextBox x:Name="txtNum2" x:FieldModifier="private" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="txtNum_TextChanged" />
+                    <Button x:Name="cmdUp2" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
+                    <Button x:Name="cmdDown2" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 
