@@ -144,24 +144,30 @@ namespace TTSPlugin
                 var endpoint = "https://ws.detectlanguage.com/0.2/detect";
                 var values = new Dictionary<string, string>
                 {
-                    {"key", "demo"},
+                    {"key", "19f3ad997ca51415c8ef9972af23b8db"},
                     {"q", text}
                 };
 
-                var content = new FormUrlEncodedContent(values);
+           
 
-                var response = client.PostAsync(endpoint, content).Result;
+            
 
-                var responseString = response.Content.ReadAsStringAsync().Result;
-
-                var responsedata = JsonConvert.DeserializeObject<RootObject>(responseString);
-                var lang = "";
-                if (responsedata.data.detections != null)
-                    if (responsedata.data.detections.Count > 0)
-                        lang = responsedata.data.detections[0].language;
                 var specName = "";
                 try
                 {
+                    var content = new FormUrlEncodedContent(values);
+
+                    var response = client.PostAsync(endpoint, content).Result;
+
+                    var responseString = response.Content.ReadAsStringAsync().Result;
+                    var responsedata = JsonConvert.DeserializeObject<RootObject>(responseString);
+                    var lang = "";
+                    if (responsedata == null)
+                    {
+                        if (responsedata.data.detections != null)
+                            if (responsedata.data.detections.Count > 0)
+                                lang = responsedata.data.detections[0].language;
+                    }
                     specName = CultureInfo.CreateSpecificCulture(new CultureInfo(lang).Name).Name;
                 }
                 catch
@@ -170,7 +176,12 @@ namespace TTSPlugin
                 }
                 finally
                 {
+                    if (specName == "")
+                    {
+                        specName = "En-gb";
+                    }
                     //first time i've used 'finally' in 5 years
+                   
                     text = HttpUtility.UrlEncode(text);
                     var f =
                         "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q="

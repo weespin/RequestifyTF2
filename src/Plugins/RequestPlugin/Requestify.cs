@@ -232,12 +232,6 @@ namespace RequestPlugin
                                 var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
                                 if (urls.http_mp3_128_url != null)
                                 {
-                                    if (!Instance.IsMuted)
-                                    {
-                                        ConsoleSender.SendCommand(
-                                            $"{b.title} was added to the queue",
-                                            ConsoleSender.Command.Chat);
-                                    }
 
                                     Instance.BackgroundEnqueue(Instance.SongType.MP3, urls.http_mp3_128_url,
                                         executor.Name, b.title);
@@ -262,13 +256,25 @@ namespace RequestPlugin
                     var client = new YoutubeClient();
                     var streamInfoSet = client.GetVideoMediaStreamInfosAsync(id);
                     var streamInfo =
-                        streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
+                        streamInfoSet.Result;
                     if (streamInfo == null)
                     {
                         return;
                     }
 
-                    var ext = streamInfo.Url;
+                    var ext = "";
+                    foreach (var ad in streamInfo.Audio)
+                    {
+                        if (Enum.GetName(typeof(AudioEncoding),ad.AudioEncoding)=="Aac") //Msbuild fuck upped this moment. I cant compare different enums. MSBUILD 16 VS19 RC3
+                        {
+                            ext = ad.Url;
+                            break;
+                        }
+                    }
+                    if (ext == string.Empty)
+                    {
+                        return;
+                    }
                     var title = client.GetVideoAsync(id).Result.Title;
                     ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
 
