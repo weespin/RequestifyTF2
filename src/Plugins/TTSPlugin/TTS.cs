@@ -172,7 +172,7 @@ namespace TTSPlugin
                 }
                 catch
                 {
-                    specName = "En-gb";
+                    specName = "En-gb"; 
                 }
                 finally
                 {
