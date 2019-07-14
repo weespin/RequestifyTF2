@@ -51,16 +51,18 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AngleSharp.0.9.11\lib\net45\AngleSharp.dll</HintPath>
-    </Reference>
     <Reference Include="CSCore">
       <HintPath>..\..\packages\CSCore.1.2.1.2\lib\net35-client\CSCore.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="LtGt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LtGt.1.0.0\lib\net45\LtGt.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Sprache, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sprache.2.2.0\lib\net45\Sprache.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,8 +72,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="YoutubeExplode, Version=4.6.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\YoutubeExplode.4.6.8\lib\net45\YoutubeExplode.dll</HintPath>
+    <Reference Include="YoutubeExplode, Version=4.7.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YoutubeExplode.4.7.6\lib\net45\YoutubeExplode.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
