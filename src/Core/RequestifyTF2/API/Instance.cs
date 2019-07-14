@@ -74,7 +74,7 @@ namespace RequestifyTF2.API
                     : new AacDecoder(Link);
 
                 var lenght = source.GetLength().TotalMinutes;
-                if (source.GetLength().TotalMinutes < Config.MaximumBackgroundInMin || Config.Admin == RequestedBy)
+                if ((source.GetLength().TotalMinutes < Config.MaximumBackgroundInMin|| Config.MaximumBackgroundInMin==0) || Config.Admin == RequestedBy)
                 {
                     ConsoleSender.SendCommand($"{title} was added to the queue",
                         ConsoleSender.Command.Chat);

@@ -61,16 +61,20 @@ namespace RequestifyTF2GUI
                     });
                 }
             }
-
+            Instance.Config.Admin = CurrentConfig.Admin;
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            Instance.Config.MaximumParsesPerMin = CurrentConfig.AntiSpamThredshold;
+            Instance.Config.MaximumBackgroundInMin = CurrentConfig.MaximumBackgroundInMin;
             AppConfig.Save();
         }
 
         public static void Save()
-        {
+        {  
+            Instance.Config.Admin = CurrentConfig.Admin;
             Instance.Config.GameDir = CurrentConfig.GameDirectory;
+            Instance.Config.MaximumParsesPerMin = CurrentConfig.AntiSpamThredshold;
+            Instance.Config.MaximumBackgroundInMin = CurrentConfig.MaximumBackgroundInMin;
             var currentconfig = JsonConvert.SerializeObject(CurrentConfig);
-            CurrentConfig.Admin = Instance.Config.Admin;
             File.WriteAllText(Path.GetDirectoryName(Application.ExecutablePath) + "/config/config.json", currentconfig);
         }
 
@@ -80,7 +84,8 @@ namespace RequestifyTF2GUI
             [JsonProperty("Admin")] public string Admin { get; set; }
             [JsonProperty("GameDirectory")] public string GameDirectory { get; set; }
             [JsonProperty("CoreLang")] public string CoreLang { get; set; }
-
+            [JsonProperty("BackGroundMusicLenght")] public int MaximumBackgroundInMin { get; set; }
+            [JsonProperty("AntiSpamThredshold")] public int AntiSpamThredshold { get; set; }
             [JsonProperty("ButtonBinds")]
             public Buttons Buttons { get; set; }
 

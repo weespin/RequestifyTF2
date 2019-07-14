@@ -35,6 +35,8 @@ namespace RequestifyTF2GUI
             new Thread(StatsMonitor).Start();
             SettingsTab.instance.GamePath.Text= AppConfig.CurrentConfig.GameDirectory;
             SettingsTab.instance.AdminBox.Text = AppConfig.CurrentConfig.Admin;
+            SettingsTab.instance.txtNum2.Text = AppConfig.CurrentConfig.AntiSpamThredshold.ToString();
+            SettingsTab.instance.txtNum.Text = AppConfig.CurrentConfig.MaximumBackgroundInMin.ToString();
             App.LanguageChanged += LanguageChanged;
             instance = this;
          

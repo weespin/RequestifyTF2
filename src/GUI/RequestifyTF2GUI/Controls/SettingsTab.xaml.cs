@@ -25,40 +25,90 @@ namespace RequestifyTF2GUI.Controls
             var a = new Games { DataContext = this };
             a.Show();
         }
-        private int _numValue = 0;
-
-        public int NumValue
+        public int BackGroundMusicLenght
         {
-            get { return _numValue; }
+            get { return AppConfig.CurrentConfig.MaximumBackgroundInMin; }
             set
             {
-                _numValue = value;
+                AppConfig.CurrentConfig.MaximumBackgroundInMin = value;
                 txtNum.Text = value.ToString();
+                AppConfig.Save();
+            }
+        } 
+        public int AntiSpamThredshold
+        {
+            get { return AppConfig.CurrentConfig.AntiSpamThredshold; }
+            set
+            {
+                AppConfig.CurrentConfig.AntiSpamThredshold = value;
+                txtNum2.Text = value.ToString();
+                AppConfig.Save();
             }
         }
-
      
+            private void cmdUp2_Click(object sender, RoutedEventArgs e)
+        {
+            AntiSpamThredshold++;
+        }
 
+        private void cmdDown2_Click(object sender, RoutedEventArgs e)
+        {
+            if(AntiSpamThredshold>0)
+            { 
+             AntiSpamThredshold--;
+            }
+        }
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
-            NumValue++;
+            BackGroundMusicLenght++;
         }
 
         private void cmdDown_Click(object sender, RoutedEventArgs e)
         {
-            NumValue--;
+            if(BackGroundMusicLenght>0)
+            { 
+             BackGroundMusicLenght--;
+            }
         }
-
-        private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
-        {
+       
+         private void musiclenght_changed(object sender, TextChangedEventArgs e)
+         {
             if (txtNum == null)
             {
                 return;
             }
+            var _numValue = 0;
 
             if (!int.TryParse(txtNum.Text, out _numValue))
+            { 
+                 if(_numValue<0)
+                {
+                    _numValue = 0;
+                }
+                AppConfig.CurrentConfig.MaximumBackgroundInMin = _numValue;
+                AppConfig.Save();
                 txtNum.Text = _numValue.ToString();
-        }
+            } 
+         }
+         private void antispamthreshold_changed(object sender, TextChangedEventArgs e)
+        {
+            if (txtNum2 == null)
+            {
+                return;
+            }
+
+            int _numValue;
+            if (!int.TryParse(txtNum2.Text, out _numValue))
+            { 
+                if(_numValue<0)
+                {
+                    _numValue = 0;
+                }
+                AppConfig.CurrentConfig.AntiSpamThredshold = _numValue;
+                AppConfig.Save();
+                txtNum2.Text = _numValue.ToString();
+        } 
+            }
         private void Sample1_DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
         {
             if (!Equals(eventArgs.Parameter, true)) return;
@@ -131,6 +181,13 @@ namespace RequestifyTF2GUI.Controls
                     }
                 }
             }
+        }
+
+        private void AdminBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            AppConfig.CurrentConfig.Admin =AdminBox.Text;
+            Instance.Config.Admin = AdminBox.Text;
+            AppConfig.Save();
         }
     }
 }

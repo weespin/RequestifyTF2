@@ -10,7 +10,6 @@ namespace RequesifyCLI
 {
     internal class Program
     {
-        private static bool started;
 
         public static List<PluginManager.Plugin> GetAllPlugins()
         {
@@ -195,7 +194,7 @@ namespace RequesifyCLI
                         return;
                     }
                     Runner.Start();
-                    started = true;
+                   
 
                   
                 }

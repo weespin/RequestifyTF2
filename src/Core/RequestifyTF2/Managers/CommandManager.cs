@@ -137,7 +137,7 @@ namespace RequestifyTF2.Managers
 
             public void Execute(User executor, List<string> arguments)
             {
-                SpammerList.Messaged(executor.Name);
+                //SpammerList.Messaged(executor.Name);
                 ICommand.Execute(executor, arguments);
             }
 
