@@ -73,12 +73,21 @@ namespace RequestifyTF2.Utils
             {
                 File.Create(cfgfile);
             }
-            var lines = File.ReadAllLines(cfgfile);
-            if (!lines.Contains(str))
+
+            try
             {
-                File.AppendAllText(
-                cfgfile,Environment.NewLine+
-                   str);
+                var lines = File.ReadAllLines(cfgfile);
+                
+                if (!lines.Contains(str))
+                {
+                    File.AppendAllText(
+                        cfgfile, Environment.NewLine +
+                                 str);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Write(Logger.Status.Error,e.ToString());
             }
         } 
     }

@@ -56,13 +56,15 @@ namespace RequestifyTF2
 
             Thread.Sleep(30);
 
+            try
+            {
+                var fs = new FileStream(
+                    Instance.Config.GameDir + "/console.log",
+                    FileMode.Open,
+                    FileAccess.Read,
+                    FileShare.ReadWrite);
+          
 
-            var fs = new FileStream(
-                Instance.Config.GameDir + "/console.log",
-                FileMode.Open,
-                FileAccess.Read,
-                FileShare.ReadWrite);
-           
             using (var sr = new StreamReader(fs, Encoding.GetEncoding("UTF-8")))
             {
                 sr.ReadToEnd();
@@ -79,6 +81,11 @@ namespace RequestifyTF2
                         wh.WaitOne(25);
                     }
                 }
+            }
+            }
+            catch(Exception e)
+            {
+                Logger.Write(Logger.Status.Error,e.ToString());
             }
            
         }
