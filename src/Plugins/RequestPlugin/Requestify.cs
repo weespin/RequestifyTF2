@@ -107,34 +107,26 @@ namespace RequestPlugin
                 
             }
         }
-
+        static WebClient web = new WebClient();
         public void OnLoad()
         {
-            using (var web = new WebClient())
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls |
-                                                       SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                // I want to check libs
-                if (!File.Exists("./lib/YoutubeExplode.dll"))
-                {
-                    web.DownloadFile(
-                        "https://github.com/weespin/reqdeps/blob/master/YoutubeExplode.dll?raw=true",
-                        "./lib/YoutubeExplode.dll");
-                    Libraries.LoadFile("./lib/YoutubeExplode.dll");
-                }
-
-                if (!File.Exists("./lib/AngleSharp.dll"))
-                {
-                    web.DownloadFile(
-                        "https://github.com/weespin/reqdeps/blob/master/AngleSharp.dll?raw=true",
-                        "./lib/AngleSharp.dll");
-                    Libraries.LoadFile("./lib/AngleSharp.dll");
-                }
-            }
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            LoadLibrary("YoutubeExplode");
+            LoadLibrary("LtGt");
+            LoadLibrary("Sprache");
 
             Events.UndefinedMessage.OnUndefinedMessage += OnUndef;
         }
-
+        private void LoadLibrary(string libname)
+        {
+            if (!File.Exists($"./lib/{libname}.dll"))
+            {
+                web.DownloadFile(
+                    $"https://github.com/weespin/reqdeps/blob/master/{libname}.dll?raw=true",
+                    $"./lib/{libname}.dll");
+                Libraries.LoadFile($"./lib/{libname}.dll");
+            }
+        }
         private void OnUndef(Events.UndefinedMessageArgs e)
         {
             var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
