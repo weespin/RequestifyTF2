@@ -13,7 +13,6 @@ using CSCore.SoundOut;
 using RequestifyTF2.API;
 using RequestifyTF2.Utils;
 using RequestifyTF2GUI.Controls;
-using AudioEncoding = YoutubeExplode.Models.MediaStreams.AudioEncoding;
 
 namespace RequestifyTF2GUI
 {
@@ -339,18 +338,25 @@ namespace RequestifyTF2GUI
                     var b = AppConfig.CurrentConfig.Buttons.buttons[id];
                     if (b.BindType == "YoutubeMusic"&&b.Link!=null)
                     {
-                        var cl = new YoutubeExplode.YoutubeClient();
-                        var vid = YoutubeExplode.YoutubeClient.ParseVideoId(b.Link);
-                        var streamInfoSet = cl.GetVideoMediaStreamInfosAsync(vid);
-                        if (streamInfoSet == null)
+                        var client = new YoutubeExplode.YoutubeClient();
+                        var video = client.Videos.GetAsync(b.Link).Result;
+                        var streamManifest  = client.Videos.Streams.GetManifestAsync(video.Id).Result;
+                        if (streamManifest.Streams.Count == 0)
                         {
-                            return;
+	                        return;
                         }
-                        var streamInfo =
-                            streamInfoSet.Result.Audio.FirstOrDefault(n => n.AudioEncoding == AudioEncoding.Aac);
+
+                        var streamInfo = streamManifest.GetAudioOnly().Where(n=>n.AudioCodec.Contains("mp4")).FirstOrDefault();
+
                         if (streamInfo == null)
                         {
-                            return;
+	                        return;
+                        }
+
+                        var ext =  streamInfo.Url;
+                        if (ext == string.Empty)
+                        {
+	                        return;
                         }
                         if (Instance.SoundOutExtra.PlaybackState == PlaybackState.Paused ||
                             Instance.SoundOutExtra.PlaybackState == PlaybackState.Playing)

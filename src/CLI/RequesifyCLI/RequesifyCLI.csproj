@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>RequesifyCLI</RootNamespace>
     <AssemblyName>RequesifyCLI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />

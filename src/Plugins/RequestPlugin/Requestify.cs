@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using CSCore;
 using CSCore.Codecs.AAC;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
@@ -13,7 +14,7 @@ using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.PluginLoader;
 using YoutubeExplode;
-using AudioEncoding = YoutubeExplode.Models.MediaStreams.AudioEncoding;
+using YoutubeExplode.Videos.Streams;
 
 namespace RequestPlugin
 {
@@ -198,120 +199,121 @@ namespace RequestPlugin
 
             public void Execute(User executor, List<string> arguments)
             {
-                if (arguments.Count <= 0)
-                {
-                    return;
-                }
+	            if (arguments.Count <= 0)
+	            {
+		            return;
+	            }
 
-                var url = arguments[0];
+	            var url = arguments[0];
 
-                var soundcloudregex = new Regex(@"^(https?:\/\/)?(www.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$");
-                if (soundcloudregex.Match(url).Success)
-                {
-                    try
-                    {
-                        using (var web = new WebClient())
-                        {
-                            var info = web.DownloadString(
-                                "http://api.soundcloud.com/resolve.json?url=" + url + "&client_id=" + clientID
-                                + "&app_version=" + AppID);
-                            var b = JsonConvert.DeserializeObject<Track>(info);
-                            if (b.streamable && b.kind == "track")
-                            {
-                                var durl = web.DownloadString(
-                                    "https://api.soundcloud.com/tracks/" + b.id + "/streams?client_id=" + clientID
-                                    + "&app_version=" + AppID);
-                                var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
-                                if (urls.http_mp3_128_url != null)
-                                {
+	            var soundcloudregex = new Regex(@"^(https?:\/\/)?(www.)?soundcloud\.com\/[\w\-\.]+(\/)+[\w\-\.]+/?$");
+	            if (soundcloudregex.Match(url).Success)
+	            {
+		            try
+		            {
+			            using (var web = new WebClient())
+			            {
+				            var info = web.DownloadString(
+					            "http://api.soundcloud.com/resolve.json?url=" + url + "&client_id=" + clientID
+					            + "&app_version=" + AppID);
+				            var b = JsonConvert.DeserializeObject<Track>(info);
+				            if (b.streamable && b.kind == "track")
+				            {
+					            var durl = web.DownloadString(
+						            "https://api.soundcloud.com/tracks/" + b.id + "/streams?client_id=" + clientID
+						            + "&app_version=" + AppID);
+					            var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
+					            if (urls.http_mp3_128_url != null)
+					            {
 
-                                    Instance.BackgroundEnqueue(Instance.SongType.MP3, urls.http_mp3_128_url,
-                                        executor.Name, b.title);
-                                   
+						            Instance.BackgroundEnqueue(Instance.SongType.MP3, urls.http_mp3_128_url,
+							            executor.Name, b.title);
 
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
-                }
 
-                var youtube = new Regex(@"youtube\..+?/watch.*?v=(.*?)(?:&|/|$)");
-                var shortregex = new Regex(@"youtu\.be/(.*?)(?:\?|&|/|$)");
-                if (youtube.Match(url).Success || shortregex.Match(url).Success)
-                {
-                    var id = YoutubeClient.ParseVideoId(url);
-                    var client = new YoutubeClient();
-                    var streamInfoSet = client.GetVideoMediaStreamInfosAsync(id);
-                    var streamInfo =
-                        streamInfoSet.Result;
-                    if (streamInfo == null)
-                    {
-                        return;
-                    }
+						            return;
+					            }
+				            }
+			            }
+		            }
+		            catch (Exception)
+		            {
+			            return;
+		            }
+	            }
 
-                    var ext = "";
-                    foreach (var ad in streamInfo.Audio)
-                    {
-                        if (Enum.GetName(typeof(AudioEncoding),ad.AudioEncoding)=="Aac") //Msbuild fuck upped this moment. I cant compare different enums. MSBUILD 16 VS19 RC3
-                        {
-                            ext = ad.Url;
-                            break;
-                        }
-                    }
-                    if (ext == string.Empty)
-                    {
-                        return;
-                    }
-                    var title = client.GetVideoAsync(id).Result.Title;
-                    ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+	            var youtube = new Regex(@"youtube\..+?/watch.*?v=(.*?)(?:&|/|$)");
+	            var shortregex = new Regex(@"youtu\.be/(.*?)(?:\?|&|/|$)");
+	            if (youtube.Match(url).Success || shortregex.Match(url).Success)
+	            {
+		            var client = new YoutubeClient();
+		            var video = client.Videos.GetAsync(url).Result;
+		            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Id).Result;
+		            if (streamManifest.Streams.Count == 0)
+		            {
+			            return;
+		            }
 
-                    Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
-                        executor.Name, title);
-                    
-                }
-                else
-                {
-                    var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
-                    var client = new YoutubeClient();
-                    var vids = client.SearchVideosAsync(text, 1).Result;
-                    if (vids.Count > 0)
-                    {
-                        for (int i = 0; i < vids.Count; i++)
-                        {
-                            var streamInfoSet = client.GetVideoMediaStreamInfosAsync(vids[i].Id).ConfigureAwait(false).GetAwaiter().GetResult();
-                            var ext = "";
-                           
-                            foreach (var ad in streamInfoSet.Audio)
-                            {
-                                if (Enum.GetName(typeof(AudioEncoding),ad.AudioEncoding)=="Aac") //Msbuild fuck upped this moment. I cant compare different enums. MSBUILD 16 VS19 RC3
-                                {
-                                    ext = ad.Url;
-                                    break;
-                                }
-                            }
-                            if (ext == string.Empty)
-                            {
-                                continue;
-                            }
-                            
-                         
-                            var title = client.GetVideoAsync(vids[i].Id).Result.Title;
-                            
-                         
-                                Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
-                                    executor.Name, title);
-                                break;
-                        }
-                       
+		            var streamInfo = streamManifest.GetAudioOnly().Where(n => n.AudioCodec.Contains("mp4"))
+			            .FirstOrDefault();
 
-                    }
+		            if (streamInfo == null)
+		            {
+			            return;
+		            }
 
-                }
+		            var ext = streamInfo.Url;
+		            if (ext == string.Empty)
+		            {
+			            return;
+		            }
+
+		            var title = video.Title;
+		            ConsoleSender.SendCommand($"{title} was added to the queue", ConsoleSender.Command.Chat);
+
+		            Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
+			            executor.Name, title);
+
+	            }
+	            else
+	            {
+		            var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
+		            var client = new YoutubeClient();
+		            var vids = client.Search.GetVideosAsync(text).BufferAsync(5).Result;
+
+		            if (vids.Count > 0)
+		            {
+			            for (int i = 0; i < vids.Count; i++)
+			            {
+				            var streamManifest = client.Videos.Streams.GetManifestAsync(vids[i].Id).Result;
+				            if (streamManifest.Streams.Count == 0)
+				            {
+					            return;
+				            }
+
+				            var streamInfo = streamManifest.GetAudioOnly().Where(n => n.AudioCodec.Contains("mp4"))
+					            .FirstOrDefault();
+
+				            if (streamInfo == null)
+				            {
+					            return;
+				            }
+
+				            var ext = streamInfo.Url;
+				            if (ext == string.Empty)
+				            {
+					            return;
+				            }
+
+				            var title = client.Videos.GetAsync(vids[i].Id).Result.Title;
+				            Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
+					            executor.Name, title);
+				            break;
+			            }
+
+
+		            }
+
+	            }
             }
 
 

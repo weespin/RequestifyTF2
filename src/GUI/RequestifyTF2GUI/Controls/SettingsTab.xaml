@@ -178,7 +178,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Maximum background music lenght (min)" />
+                    <Label Grid.Row="0" Content="Maximum background music length (min)" />
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,23,0" Height="50" VerticalAlignment="Center">
                        <TextBox x:Name="txtNum" x:FieldModifier="public" Margin="5,5,0,5" Width="50" Height="30" Text="0" TextChanged="musiclenght_changed" />
                      <Button  Margin="5,5,0,5" Content="˄" Padding="10,0,10,0" Click="cmdUp_Click" />
