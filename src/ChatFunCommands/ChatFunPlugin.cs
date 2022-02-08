@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CSCore.Codecs.MP3;
 using CSCore.SoundOut;
-using RequestifyTF2;
 using RequestifyTF2.API;
 
 namespace ChatFunCommands

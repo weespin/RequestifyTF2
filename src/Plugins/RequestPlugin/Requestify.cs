@@ -4,44 +4,103 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
-using CSCore;
-using CSCore.Codecs.AAC;
-using CSCore.Codecs.MP3;
+using System.Threading.Tasks;
 using CSCore.SoundOut;
 using Newtonsoft.Json;
 using RequestifyTF2.API;
 using RequestifyTF2.PluginLoader;
 using YoutubeExplode;
-using YoutubeExplode.Videos.Streams;
+using YoutubeExplode.Search;
 
 namespace RequestPlugin
 {
+
     public class RequestPlugin : IRequestifyPlugin
     {
-       
+        public void OnLoad()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            LoadLibrary("YoutubeExplode");
+            LoadLibrary("LtGt");
+            LoadLibrary("Sprache");
+            Events.UndefinedMessage.OnUndefinedMessage += OnUndef;
+        }
+        static WebClient web = new WebClient();
+
         public static RequestPlugin instance;
         public string Author => "Weespin";
         public string Name => "Requestify";
         public string Desc => "!request \"link\"";
-        
 
+        
+        private void OnUndef(Events.UndefinedMessageArgs e)
+        {
+	        var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
+	        if (reg.Success)
+	        {
+		        Data.PlayersCount = int.Parse(reg.Groups[1].Value);
+	        }
+        }
+        private bool LoadLibrary(string libname)
+        {
+	        if (!File.Exists($"./lib/{libname}.dll"))
+	        {
+		        web.DownloadFile(
+			        $"https://github.com/weespin/reqdeps/blob/master/{libname}.dll?raw=true",
+			        $"./lib/{libname}.dll");
+                if (Libraries.LoadFile($"./lib/{libname}.dll") == false)
+                {
+                    Logger.Write(Logger.Status.Error, $"Failed to load {libname}.dll");
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return true;
+        }
+    }
+    public class AsyncEnumerableExtensions
+    {
+	    public static async Task<List<T>> ToListAsync<T>( IAsyncEnumerable<T> items,
+		    CancellationToken cancellationToken = default)
+	    {
+		    var results = new List<T>();
+            await foreach (var item in items.WithCancellation(cancellationToken).ConfigureAwait(false))
+            {
+                if (results.Count > 12)
+                {
+                    break;
+                }
+                results.Add(item);
+                
+            }
+
+            return results;
+	    }
     }
 
+
+    static class Data
+    {
+	    public static int PlayersCount = 0;
+
+    }
     public class VoteCommand : IRequestifyCommand
     {
 
-      
         public string Help => "Vote for skip!";
         public string Name => "voteskip";
-        public  static int PlayersCount = 0;
         public readonly List<string> VoteUsers = new List<string>();
         public  static long MusicId;
 
         public bool OnlyAdmin => false;
         public List<string> Alias => new List<string>();
-
+        [MethodImpl(MethodImplOptions.NoOptimization | MethodImplOptions.NoInlining)]
+     
         public void Execute(User executor, List<string> arguments)
         {
             ConsoleSender.SendCommand("status", ConsoleSender.Command.Raw);
@@ -54,13 +113,13 @@ namespace RequestPlugin
                     MusicId = Instance.SoundOutBackground.WaveSource.Length;
                     VoteUsers.Add(executor.Name);
 
-                    var pl = PlayersCount < 4 ?  1 : PlayersCount / 2 ;
+                    var pl = Data.PlayersCount < 4 ?  1 : Data.PlayersCount / 2 ;
                     ConsoleSender.SendCommand(
                             $"{executor.Name} voted to skip this song. { VoteUsers.Count}/{pl}",
                             ConsoleSender.Command.Chat);
                     
 
-                    if (VoteUsers.Count >= PlayersCount / 4)
+                    if (VoteUsers.Count >= Data.PlayersCount / 4)
                     {
                         Instance.SoundOutBackground.Stop();
                        
@@ -70,7 +129,7 @@ namespace RequestPlugin
                 }
                 else
                 {
-                    if (VoteUsers.Count >= PlayersCount / 4)
+                    if (VoteUsers.Count >= Data.PlayersCount / 4)
                     {
                         Instance.SoundOutBackground.Stop();
                        
@@ -82,16 +141,16 @@ namespace RequestPlugin
                     {
                         
                             ConsoleSender.SendCommand(
-                                $"{executor.Name} already voted to skip this song. { VoteUsers.Count}/{PlayersCount}",
+                                $"{executor.Name} already voted to skip this song. { VoteUsers.Count}/{Data.PlayersCount}",
                                 ConsoleSender.Command.Chat);
                         
                     }
                     else
                     {
                         ConsoleSender.SendCommand(
-                            $"{executor.Name} voted to skip this song. {VoteUsers.Count}/{PlayersCount}",
+                            $"{executor.Name} voted to skip this song. {VoteUsers.Count}/{Data.PlayersCount}",
                             ConsoleSender.Command.Chat);
-                        if (VoteUsers.Count >= PlayersCount)
+                        if (VoteUsers.Count >= Data.PlayersCount)
                         {
                             Instance.SoundOutBackground.Stop();
                             
@@ -108,34 +167,9 @@ namespace RequestPlugin
                 
             }
         }
-        static WebClient web = new WebClient();
-        public void OnLoad()
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            LoadLibrary("YoutubeExplode");
-            LoadLibrary("LtGt");
-            LoadLibrary("Sprache");
-
-            Events.UndefinedMessage.OnUndefinedMessage += OnUndef;
-        }
-        private void LoadLibrary(string libname)
-        {
-            if (!File.Exists($"./lib/{libname}.dll"))
-            {
-                web.DownloadFile(
-                    $"https://github.com/weespin/reqdeps/blob/master/{libname}.dll?raw=true",
-                    $"./lib/{libname}.dll");
-                Libraries.LoadFile($"./lib/{libname}.dll");
-            }
-        }
-        private void OnUndef(Events.UndefinedMessageArgs e)
-        {
-            var reg = new Regex(@"players : (\d+) humans, (\d+) bots \((\d+) max\)").Match(e.Message);
-            if (reg.Success)
-            {
-               PlayersCount = int.Parse(reg.Groups[1].Value);
-            }
-        }
+     
+      
+      
 
         public class StopCommand : IRequestifyCommand
         {
@@ -188,15 +222,36 @@ namespace RequestPlugin
             private static readonly int AppID = 1553518929;
 
             private static readonly string clientID = "NxDq1GKZ5tLDRohQGfJ7lYVKiephsF3G";
-
-
+            private static string soundCloudResolveEndpoint { get; } = "https://api-v2.SoundCloud.com/resolve";
             public string Help => "Play music. Supports soundcloud and youtube!";
 
             public string Name => "request";
             public List<string> Alias => new List<string>();
 
             public bool OnlyAdmin => false;
+            public class TrackInfo
+            {
+                public string title { get; set; }
+                public Media media { get; set; }
+            }
 
+            public class Transcoding
+            {
+                public string url { get; set; }
+                public string preset { get; set; }
+                public int duration { get; set; }
+                public bool snipped { get; set; }
+                public string quality { get; set; }
+            }
+
+            public class Media
+            {
+                public List<Transcoding> transcodings { get; set; }
+            }
+            public class TrackMediaData
+            {
+                public string url { get; set; }
+            }
             public void Execute(User executor, List<string> arguments)
             {
 	            if (arguments.Count <= 0)
@@ -212,28 +267,54 @@ namespace RequestPlugin
 		            try
 		            {
 			            using (var web = new WebClient())
-			            {
-				            var info = web.DownloadString(
-					            "http://api.soundcloud.com/resolve.json?url=" + url + "&client_id=" + clientID
-					            + "&app_version=" + AppID);
-				            var b = JsonConvert.DeserializeObject<Track>(info);
-				            if (b.streamable && b.kind == "track")
-				            {
-					            var durl = web.DownloadString(
-						            "https://api.soundcloud.com/tracks/" + b.id + "/streams?client_id=" + clientID
-						            + "&app_version=" + AppID);
-					            var urls = JsonConvert.DeserializeObject<DownloadURL>(durl);
-					            if (urls.http_mp3_128_url != null)
-					            {
+                        {
+                            string clientId = "";
+                            var HTMLFile = web.DownloadString(url);
+                            var JSRegex = new Regex("<script(?:.*)src=\"(https\\:\\/\\/a-v2.*)\"");
+                            var JSMatches = JSRegex.Matches(HTMLFile);
+                            for (int i = JSMatches.Count - 1; i >= 0; i--)
+                            {
+                                var JSFile = web.DownloadString(JSMatches[i].Groups[1].Value);
+                                var clientregex = new Regex("client_id:\"(.*?)\",").Match(JSFile);
+                                if (clientregex.Success)
+                                {
+                                    clientId = clientregex.Groups[1].Value;
+                                    break;
+                                }
+                            }
 
-						            Instance.BackgroundEnqueue(Instance.SongType.MP3, urls.http_mp3_128_url,
-							            executor.Name, b.title);
-
-
-						            return;
-					            }
-				            }
-			            }
+                            var TrackInfoURL = soundCloudResolveEndpoint + $"?url={url}&client_id={clientId}";
+                            var TrachInfoHTML = web.DownloadString(TrackInfoURL);
+                            var TrackInfoData = JsonConvert.DeserializeObject<TrackInfo>(TrachInfoHTML);
+                            var TrackMediaURL = "";
+                            foreach (var transcoding in TrackInfoData.media.transcodings)
+                            {
+                                if (transcoding.preset.Contains("mp3"))
+                                {
+                                    var TrackMediaDataString = web.DownloadString(transcoding.url + $"?client_id={clientId}");
+                                    TrackMediaURL = JsonConvert.DeserializeObject<TrackMediaData>(TrackMediaDataString).url;
+                                    break;
+                                }
+                            }
+                            var TrackPlayList = web.DownloadString(TrackMediaURL);
+                            var TrackPlayListSplitted = TrackPlayList.Split('\n');
+                            var MP3TrackURL = TrackPlayListSplitted[TrackPlayListSplitted.Length - 2];
+                            var MP3TrackURLSplitted = MP3TrackURL.Split('/');
+                            var FinalURLTrack = "";
+                            for (var index = 0; index < MP3TrackURLSplitted.Length; index++)
+                            {
+                                var a = MP3TrackURLSplitted[index];
+                                if (a == "media")
+                                {
+                                    MP3TrackURLSplitted[index + 1] = "0";
+                                    FinalURLTrack = string.Join("/", MP3TrackURLSplitted);
+                                    break;
+                                }
+                            }
+                            Instance.BackgroundEnqueue(Instance.SongType.MP3, FinalURLTrack,
+                                executor.Name, TrackInfoData.title);
+                            return;
+                        }
 		            }
 		            catch (Exception)
 		            {
@@ -253,7 +334,7 @@ namespace RequestPlugin
 			            return;
 		            }
 
-		            var streamInfo = streamManifest.GetAudioOnly().Where(n => n.AudioCodec.Contains("mp4"))
+		            var streamInfo = streamManifest.GetAudioStreams().Where(n => n.AudioCodec.Contains("mp4"))
 			            .FirstOrDefault();
 
 		            if (streamInfo == null)
@@ -278,19 +359,18 @@ namespace RequestPlugin
 	            {
 		            var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 		            var client = new YoutubeClient();
-		            var vids = client.Search.GetVideosAsync(text).BufferAsync(5).Result;
+		            var vids = AsyncEnumerableExtensions.ToListAsync<ISearchResult>(client.Search.GetVideosAsync(text)).Result;
 
 		            if (vids.Count > 0)
 		            {
 			            for (int i = 0; i < vids.Count; i++)
-			            {
-				            var streamManifest = client.Videos.Streams.GetManifestAsync(vids[i].Id).Result;
+			            { var streamManifest = client.Videos.Streams.GetManifestAsync(vids[i].Url).Result;
 				            if (streamManifest.Streams.Count == 0)
 				            {
 					            return;
 				            }
 
-				            var streamInfo = streamManifest.GetAudioOnly().Where(n => n.AudioCodec.Contains("mp4"))
+				            var streamInfo = streamManifest.GetAudioStreams().Where(n => n.Container.Name.Contains("mp4"))
 					            .FirstOrDefault();
 
 				            if (streamInfo == null)
@@ -304,7 +384,7 @@ namespace RequestPlugin
 					            return;
 				            }
 
-				            var title = client.Videos.GetAsync(vids[i].Id).Result.Title;
+				            var title = client.Videos.GetAsync(vids[i].Url).Result.Title;
 				            Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
 					            executor.Name, title);
 				            break;

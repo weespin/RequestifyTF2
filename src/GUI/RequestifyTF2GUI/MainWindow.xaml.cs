@@ -345,8 +345,7 @@ namespace RequestifyTF2GUI
                         {
 	                        return;
                         }
-
-                        var streamInfo = streamManifest.GetAudioOnly().Where(n=>n.AudioCodec.Contains("mp4")).FirstOrDefault();
+                        var streamInfo = streamManifest.GetAudioOnlyStreams().Where(n=>n.AudioCodec.Contains("mp4")).FirstOrDefault();
 
                         if (streamInfo == null)
                         {

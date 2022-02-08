@@ -13,7 +13,7 @@ namespace RequestifyTF2GUI
 
         public static void Load()
         {
-            Instance.Config = new Instance.config();
+         
             var emptyjson = JsonConvert.SerializeObject(
                 new ConfigJsonData {GameDirectory = string.Empty, Admin = string.Empty});
             if (Directory.Exists(Path.GetDirectoryName(Application.ExecutablePath) + "/config/"))

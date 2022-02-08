@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace RequestifyTF2.PluginLoader
 {
@@ -31,18 +33,21 @@ namespace RequestifyTF2.PluginLoader
             }
         }
 
-        public static void LoadFile(string path)
+        public static bool LoadFile(string path)
         {
             try
             {
                 var pd = new Proxy();
-                var assemblyz = pd.GetAssembly(path);
-                Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assemblyz.GetName()));
+                var assembly = pd.GetAssembly(path);
+                Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_LOADED_PLUGIN, assembly.GetName()));
+                return true;
             }
             catch (Exception e)
             {
                 Logger.Write(Logger.Status.Error, e.ToString());
             }
+
+            return false;
         }
 
         public class Proxy : MarshalByRefObject
@@ -51,9 +56,9 @@ namespace RequestifyTF2.PluginLoader
             {
                 try
                 {
-                    return Assembly.LoadFile(assemblyPath);
+	                return Assembly.LoadFrom(assemblyPath);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     return null;
                 }

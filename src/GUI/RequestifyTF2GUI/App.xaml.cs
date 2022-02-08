@@ -20,7 +20,6 @@ namespace RequestifyTF2GUI
                 return m_Languages;
             }
         }
-
         public App()
         {
         

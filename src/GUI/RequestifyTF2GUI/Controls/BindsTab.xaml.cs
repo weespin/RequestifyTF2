@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
+using RequestifyTF2.API;
 
 namespace RequestifyTF2GUI.Controls
 {

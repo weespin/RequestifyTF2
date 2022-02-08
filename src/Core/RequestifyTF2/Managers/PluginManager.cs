@@ -73,7 +73,7 @@ namespace RequestifyTF2.Managers
                         Console.WriteLine(Localization.Localization.CORE_PLUGIN_LOADING_FROM, assembly.GetName().Name, assembly.Location);
                         assemblies.Add(assembly);
                     
-                        Plugins.Add(new Plugin(Activator.CreateInstance(types[0]) as IRequestifyPlugin,
+                        Plugins.Add(new Plugin(Activator.CreateInstance(types.First()) as IRequestifyPlugin,
                             Status.Enabled));
                         
                         Events.PluginLoaded.Invoke(GetPlugin(assembly).plugin);
@@ -163,23 +163,36 @@ namespace RequestifyTF2.Managers
             foreach (var Assembly in PluginAssemblies)
             {
                 var types = Assembly.GetTypes();
-                foreach (var type in types)
+                for (var index = 0; index < types.Length; index++)
                 {
-                    var m = type.GetMethod("OnLoad");
+                    var type = types[index];
+                    //Abstract type|types with generic params cannot be created. Skip. 
+                    if (type.IsAbstract || type.ContainsGenericParameters)
+                    {
+                        continue;
+                    }
                     var plugin = Activator.CreateInstance(type);
+
+                    var m = type.GetMethod("OnLoad");
+
                     if (m != null)
                     {
-                         try
-                         {
-                             m.Invoke(plugin, new object[]{});
-                         }
-                         catch (Exception e)
-                         {
-                             Logger.Write(Logger.Status.Error, e.ToString());
-                         }
-                         Logger.Write(Logger.Status.Info, string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD, type.Assembly.FullName));
+                        try
+                        {
+                            m.Invoke(plugin, new object[] { });
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Write(Logger.Status.Error, e.ToString());
+                        }
+
+                        Logger.Write(Logger.Status.Info,
+                            string.Format(Localization.Localization.CORE_INVOKED_ONLOAD_METHOD,
+                                type.Assembly.FullName));
                     }
                 }
+
+                Logger.Write(Logger.Status.Info,$"Finished invoking all types in {Assembly.ManifestModule.FullyQualifiedName}");
             }
             
         }
