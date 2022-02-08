@@ -21,7 +21,7 @@ namespace RequestifyTF2.API
         /// </summary>
         public static bool IsMuted { get; set; } 
 
-        public static config Config { get; set; } = new config();
+        public static config Config  = new config();
         public static ConcurrentQueue<IWaveSource> QueueForeGround { get; set; } = new ConcurrentQueue<IWaveSource>();
         /// <summary>
         ///     Background channel. Good for long sounds and music.
