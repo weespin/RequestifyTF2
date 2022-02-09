@@ -23,7 +23,7 @@
                VerticalAlignment="Center"
                Grid.Row="0" Grid.Column="1"
              />
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,100" Grid.Row="1" Grid.Column="0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
             <ItemsControl
             ItemsSource="{Binding Commands}"  Width="350">
                 <ItemsControl.ItemTemplate>
@@ -67,7 +67,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,100" Grid.Row="1" Grid.Column="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" Grid.Row="1" Grid.Column="1">
             <ItemsControl
             ItemsSource="{Binding Plugins}" Width="360">
                 <ItemsControl.ItemTemplate>
@@ -94,6 +94,7 @@
                                     <TextBlock
                                         TextWrapping="Wrap"
                                     Text="{Binding Description}" />
+
                                 </StackPanel>
                             </Grid>
                         </Border>

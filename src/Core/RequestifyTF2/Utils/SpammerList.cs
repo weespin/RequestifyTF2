@@ -106,13 +106,13 @@ namespace RequestifyTF2.Utils
 
             if (time > 60)
             {
-                var koef = time / 60;
-                if (koef == 0)
+                var coefficient = time / 60;
+                if (coefficient == 0)
                 {
                     return false;
                 }
 
-                num = Count / (int) koef;
+                num = Count / (int) coefficient;
             }
             else
             {

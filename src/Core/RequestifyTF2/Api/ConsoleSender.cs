@@ -29,7 +29,6 @@ namespace RequestifyTF2.API
                         Task.Run(
                             () =>
                             {
-
                                 keybd_event(0x2E, 0x53, 0, 0);
                                 Thread.Sleep(30);
                                 keybd_event(0x2E, 0x53, 0x2, 0);
@@ -43,14 +42,11 @@ namespace RequestifyTF2.API
             }
         }
 
-     
-      
+        
         public enum Command
         {
             Chat,
-
             Echo,
-
             Raw
         }
 

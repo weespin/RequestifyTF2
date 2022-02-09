@@ -50,8 +50,8 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Label Content="RequestifyTF2" HorizontalAlignment="Left" Grid.Column="0" 
-                       VerticalAlignment="Center"  Height="35" Width="242" Background="{x:Null}" FontSize="16" Margin="0,3,0,0" />
+                <Label Foreground="AliceBlue" Content="RequestifyTF2" HorizontalAlignment="Left" Grid.Column="0" 
+                       VerticalAlignment="Center"   Height="35" Width="242" Background="{x:Null}" FontSize="16" Margin="0,3,0,0" />
                 </Grid>
                 <dockablz:Layout Grid.Row="1" AllowDrop="False" IsFloatDropZoneEnabled="False">
                 <dragablz:TabablzControl dragablz:TabablzControl.AllowDrop="False"   Grid.Row="1" Margin="0,-1,0,0">

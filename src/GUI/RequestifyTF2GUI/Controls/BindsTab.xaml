@@ -23,7 +23,6 @@
                     ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                     EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
                     <DataGridCheckBoxColumn.Header>
-                     
                         Enabled
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
@@ -38,8 +37,8 @@
                 <materialDesign:MaterialDataGridComboBoxColumn Header="Type" 
                                                                SelectedValueBinding="{Binding BindType, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                                ItemsSourceBinding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, Path=DataContext.BindType}" />
-            
-                <materialDesign:MaterialDataGridTextColumn  Binding="{Binding Link}" Header="Link" IsReadOnly ="True" >
+
+                <materialDesign:MaterialDataGridTextColumn Width="*" Binding="{Binding Link}" Header="Link" IsReadOnly ="True" >
                     <DataGridTextColumn.CellStyle>
 
                         <Style TargetType="DataGridCell" BasedOn="{StaticResource {x:Type DataGridCell}}">

@@ -118,7 +118,8 @@ namespace RequestifyTF2GUI.Controls
 
         public enum MType
         {
-            Plugin,Command
+            Plugin,
+            Command
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -130,7 +131,7 @@ namespace RequestifyTF2GUI.Controls
                 {
                     if (!IsSelected)
                     {
-                        //PLUGIN GOING TO DISABLE
+                        //PLUGIN IS GOING TO DISABLE
                         if (Instance.Plugins.GetPlugin(this.Name) != null)
                         {
                             Instance.Plugins.DisablePlugin(Instance.Plugins.GetPlugin(this.Name));
@@ -148,7 +149,7 @@ namespace RequestifyTF2GUI.Controls
                 {
                     if (!IsSelected)
                     {
-                        //PLUGIN GOING TO DISABLE
+                        //PLUGIN IS GOING TO DISABLE
                         if (Instance.Commands.GetCommand(this.Name) != null)
                         {
                             Instance.Commands.DisableCommand(Instance.Commands.GetCommand(this.Name));

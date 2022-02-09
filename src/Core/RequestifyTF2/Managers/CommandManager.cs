@@ -103,11 +103,11 @@ namespace RequestifyTF2.Managers
 
         public RequestifyCommand GetCommand(string name)
         {
-            foreach (var p in Commands)
+            foreach (var command in Commands)
             {
-                if (p.Name == name || p.Alias.Contains(name))
+                if (command.Name == name || command.Alias.Contains(name))
                 {
-                    return p;
+                    return command;
                 }
             }
 
@@ -121,7 +121,8 @@ namespace RequestifyTF2.Managers
 
         public class RequestifyCommand : IRequestifyCommand
         {
-            [JsonIgnore] public Assembly Father { get; set; }
+            [JsonIgnore] 
+            public Assembly Father { get; set; }
 
             [JsonIgnoreAttribute]
             public IRequestifyCommand ICommand { get; set; }

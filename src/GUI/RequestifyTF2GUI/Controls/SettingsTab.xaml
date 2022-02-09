@@ -95,10 +95,10 @@
             VerticalAlignment="Center" Margin="25,0,0,0" Grid.Column="1"  Width="250" Height="290" Grid.Row="0" Grid.RowSpan="4">
                 <materialDesign:DialogHost.DialogContent>
                     <StackPanel
-                    Margin="0">
-                        <TextBlock><Run Text="Add a new name."/></TextBlock>
+                    Margin="0,10,0,0">
+                        <TextBlock Margin="10,10,0,0"><Run Text="Add a new name."/></TextBlock>
                         <TextBox
-                        Margin="0 16 0 0"
+                        Margin="5,16 5 0"
                         HorizontalAlignment="Stretch"
                         x:Name="FruitTextBox" />
                         <StackPanel
@@ -107,7 +107,7 @@
                             <Button
                             Style="{StaticResource MaterialDesignFlatButton}"
                             IsDefault="True"
-                            Margin="0 16 16 0"
+                            Margin="0 16 0 0"
                             Command="materialDesign:DialogHost.CloseDialogCommand" Content="ACCEPT">
                                 <Button.CommandParameter>
                                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">True</system:Boolean>
@@ -116,7 +116,7 @@
                             <Button
                             Style="{StaticResource MaterialDesignFlatButton}"
                             IsCancel="True"
-                            Margin="0 16 16 0"
+                            Margin="16 16 16 0"
                             Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL">
                                 <Button.CommandParameter>
                                     <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">False</system:Boolean>

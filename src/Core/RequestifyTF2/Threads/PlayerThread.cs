@@ -51,7 +51,7 @@ namespace RequestifyTF2.Threads
                 {
                     if (Instance.SoundOutBackground.PlaybackState == PlaybackState.Stopped)
                     {
-                        Instance.Song s;
+                        Instance.Media s;
                         if (Instance.BackGroundQueue.PlayList.TryDequeue(out s))
                         {
                             Task.Run(

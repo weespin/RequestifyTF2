@@ -204,7 +204,7 @@ namespace RequestPlugin
 
                     if (arguments[0] == "que")
                     {
-                        Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                        Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Media>();
                         ConsoleSender.SendCommand("Done, now playlist is clear", ConsoleSender.Command.Chat);
                         return;
                     }
@@ -212,7 +212,7 @@ namespace RequestPlugin
                 }
 
                 Instance.SoundOutBackground.Stop();
-                Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Song>();
+                Instance.BackGroundQueue.PlayList = new ConcurrentQueue<Instance.Media>();
                 ConsoleSender.SendCommand("BackGroundQueue is now clear", ConsoleSender.Command.Chat);
             }
         }
@@ -239,9 +239,6 @@ namespace RequestPlugin
             {
                 public string url { get; set; }
                 public string preset { get; set; }
-                public int duration { get; set; }
-                public bool snipped { get; set; }
-                public string quality { get; set; }
             }
 
             public class Media
@@ -359,58 +356,40 @@ namespace RequestPlugin
 	            {
 		            var text = arguments.Aggregate(" ", (current, argument) => current + " " + argument);
 		            var client = new YoutubeClient();
-		            var vids = AsyncEnumerableExtensions.ToListAsync<ISearchResult>(client.Search.GetVideosAsync(text)).Result;
+		            var videos = AsyncEnumerableExtensions.ToListAsync<ISearchResult>(client.Search.GetVideosAsync(text)).Result;
 
-		            if (vids.Count > 0)
-		            {
-			            for (int i = 0; i < vids.Count; i++)
-			            { var streamManifest = client.Videos.Streams.GetManifestAsync(vids[i].Url).Result;
-				            if (streamManifest.Streams.Count == 0)
-				            {
-					            return;
-				            }
+		            if (videos.Count > 0)
+                    {
+                        foreach (var video in videos)
+                        {
+                            var streamManifest = client.Videos.Streams.GetManifestAsync(video.Url).Result;
+                            if (streamManifest.Streams.Count == 0)
+                            {
+                                return;
+                            }
 
-				            var streamInfo = streamManifest.GetAudioStreams().Where(n => n.Container.Name.Contains("mp4"))
-					            .FirstOrDefault();
+                            var streamInfo = streamManifest.GetAudioStreams().Where(n => n.Container.Name.Contains("mp4"))
+                                .FirstOrDefault();
 
-				            if (streamInfo == null)
-				            {
-					            return;
-				            }
+                            if (streamInfo == null)
+                            {
+                                return;
+                            }
 
-				            var ext = streamInfo.Url;
-				            if (ext == string.Empty)
-				            {
-					            return;
-				            }
+                            var ext = streamInfo.Url;
+                            if (ext == string.Empty)
+                            {
+                                return;
+                            }
 
-				            var title = client.Videos.GetAsync(vids[i].Url).Result.Title;
-				            Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
-					            executor.Name, title);
-				            break;
-			            }
-
-
-		            }
+                            var title = client.Videos.GetAsync(video.Url).Result.Title;
+                            Instance.BackgroundEnqueue(Instance.SongType.AAC, ext,
+                                executor.Name, title);
+                            break;
+                        }
+                    }
 
 	            }
-            }
-
-
-            public class DownloadURL
-            {
-                public string http_mp3_128_url { get; set; }
-            }
-
-            public class Track
-            {
-                public int id { get; set; }
-
-                public string kind { get; set; }
-
-                public bool streamable { get; set; }
-
-                public string title { get; set; }
             }
         }
     }
