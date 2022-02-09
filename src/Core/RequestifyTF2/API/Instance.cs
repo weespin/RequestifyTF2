@@ -53,8 +53,8 @@ namespace RequestifyTF2.API
 
             set
             {
-                _language = value;
-                System.Threading.Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
+                _language = value; 
+                Thread.CurrentThread.CurrentUICulture = LocalHelper.GetCoreLocalization();
             }
         }
 
@@ -78,14 +78,18 @@ namespace RequestifyTF2.API
                 {
                     ConsoleSender.SendCommand($"{title} was added to the queue",
                         ConsoleSender.Command.Chat);
-                    BackGroundQueue.PlayList.Enqueue(new Song(title, source, new User { Name = RequestedBy, Tag = 0 }));
+                    BackGroundQueue.PlayList.Enqueue(new Media(title, source, new User { Name = RequestedBy, Tag = 0 }));
                     return true;
                 }
                 else
                 {
                     Thread.Sleep(800);
-                    ConsoleSender.SendCommand("UwU sowwy butt its nyot possibwe to pway this swong", ConsoleSender.Command.Chat);
-                    ConsoleSender.SendCommand($"I can't handwe things that awe longer than {Instance.Config.MaximumBackgroundInMin} minyutes (inches) OwO", ConsoleSender.Command.Chat);
+                    //Well, i was pretty high while doing this. And i'm actually surprised that no-one mentioned this cringe below.
+
+                    //ConsoleSender.SendCommand("UwU sowwy butt its nyot possibwe to pway this swong", ConsoleSender.Command.Chat);
+                    //ConsoleSender.SendCommand($"I can't handwe things that awe longer than {Instance.Config.MaximumBackgroundInMin} minyutes (inches) OwO", ConsoleSender.Command.Chat);
+                    ConsoleSender.SendCommand("It's not possible to play this media", ConsoleSender.Command.Chat);
+                    ConsoleSender.SendCommand($"Host has restricted maximum media length to {Instance.Config.MaximumBackgroundInMin} minutes", ConsoleSender.Command.Chat);
                     return true;
                 }
 
@@ -115,15 +119,13 @@ namespace RequestifyTF2.API
                 {
                     foreach (var device in deviceoutCollection)
                     {
-                        if (device.FriendlyName.Contains("Cable") && device.FriendlyName.Contains("Virtual")
-                                                                  && device.FriendlyName.Contains("Audio"))
+                        if (device.FriendlyName.Contains("Cable") && device.FriendlyName.Contains("Virtual") && device.FriendlyName.Contains("Audio"))
                         {
                             GoodOutputDevices.Add(device);
                         }
                     }
 
-                    using (var deviceinpCollection =
-                        deviceEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
+                    using (var deviceinpCollection = deviceEnumerator.EnumAudioEndpoints(DataFlow.Capture, DeviceState.Active))
                     {
                         foreach (var device in deviceinpCollection)
                         {
@@ -134,8 +136,7 @@ namespace RequestifyTF2.API
 
                 if (GoodOutputDevices.Count == 0 || GoodInputDevices.Count == 0)
                 {
-                    Logger.Write(
-                        Logger.Status.Error,
+                    Logger.Write( Logger.Status.Error,
                         Localization.Localization.CORE_CANNOT_FIND_DEVICES,
                         ConsoleColor.Red);
                     return false;
@@ -246,14 +247,14 @@ namespace RequestifyTF2.API
 
         public static class BackGroundQueue
         {
-            public static ConcurrentQueue<Song> PlayList { get; set; } = new ConcurrentQueue<Song>();
+            public static ConcurrentQueue<Media> PlayList { get; set; } = new ConcurrentQueue<Media>();
 
-            public static void AddSong(Song song)
+            public static void AddSong(Media media)
             {
-                PlayList.Enqueue(song);
+                PlayList.Enqueue(media);
             }
 
-            public static Song GetFarSong()
+            public static Media GetLastSong()
             {
                 return PlayList.Last();
             }
@@ -262,9 +263,9 @@ namespace RequestifyTF2.API
             ///     Don't use it for playing music. It will show nearest songs only.
             /// </summary>
             /// <returns>
-            ///     Return Nearest in Queue song. <see cref="Song" />.
+            ///     Return Nearest in Queue media. <see cref="Media" />.
             /// </returns>
-            public static Song GetNearestSong()
+            public static Media GetNearestSong()
             {
                 return PlayList.First();
             }
@@ -293,7 +294,7 @@ namespace RequestifyTF2.API
             public int MaximumBackgroundInMin { get; set; } = 5;
         }
 
-        public class Song
+        public class Media
         {
             public bool Dequeued { get; set; }
 
@@ -303,7 +304,7 @@ namespace RequestifyTF2.API
 
             public string Title { get; set; }
 
-            public Song(string title, IWaveSource source, User executor)
+            public Media(string title, IWaveSource source, User executor)
             {
                 Title = title;
                 Source = source;
